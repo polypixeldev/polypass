@@ -24,7 +24,8 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
-      title: 'PolyPass'
+      title: 'PolyPass',
+      debugShowCheckedModeBanner: false
     );
   }
 }
