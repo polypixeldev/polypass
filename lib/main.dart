@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: polyPassAppBar,
+      appBar: createAppBar(context, DbStatus.none),
       body: SizedBox.expand(
         child: Container(
           color: const Color(0xFF4b4e53)
