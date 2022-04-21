@@ -4,6 +4,7 @@ enum DbStatus { none, locked, unlocked}
 
 AppBar createAppBar(BuildContext context, DbStatus status) {
   final IconButton appBarIcon;
+  final List<IconButton> appBarActions;
   
   switch (status) {
     case DbStatus.none:
@@ -18,6 +19,24 @@ AppBar createAppBar(BuildContext context, DbStatus status) {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       );
+
+      appBarActions = [
+        IconButton(
+          icon: const Icon(Icons.add),
+          tooltip: 'Create a database',
+          onPressed: () {
+            // TODO: Create a database
+          }
+        ),
+        IconButton(
+          icon: const Icon(Icons.file_open),
+          tooltip: "Open a database",
+          onPressed: () {
+            // TODO: Open a database
+          }
+        )
+      ];
+
       break;
     case DbStatus.locked:
       appBarIcon = IconButton(
@@ -27,6 +46,17 @@ AppBar createAppBar(BuildContext context, DbStatus status) {
           // TODO: Display unlock database prompt
         }
       );
+
+      appBarActions = [
+        IconButton(
+          icon: const Icon(Icons.close),
+          tooltip: 'Close database',
+          onPressed: () {
+            // TODO: Close a database
+          }
+        )
+      ];
+
       break;
     case DbStatus.unlocked:
       appBarIcon = IconButton(
@@ -36,6 +66,38 @@ AppBar createAppBar(BuildContext context, DbStatus status) {
           // TODO: Lock database
         }
       );
+
+      appBarActions = [
+        IconButton(
+          icon: const Icon(Icons.add),
+          tooltip: 'Create an item',
+          onPressed: () {
+            // TODO: Create a database item
+          }
+        ),
+        IconButton(
+          icon: const Icon(Icons.edit),
+          tooltip: 'Edit the selected item',
+          onPressed: () {
+            // TODO: Edit a database item
+          }
+        ),
+        IconButton(
+          icon: const Icon(Icons.delete),
+          tooltip: 'Delete the selected item',
+          onPressed: () {
+            // TODO: Delete a database item
+          }
+        ),
+        IconButton(
+          icon: const Icon(Icons.preview_outlined),
+          tooltip: 'View the selected item',
+          onPressed: () {
+            // TODO: View a database item
+          }
+        )
+      ];
+
       break;
   }
 
@@ -48,7 +110,8 @@ AppBar createAppBar(BuildContext context, DbStatus status) {
     ),
     centerTitle: true,
     backgroundColor: const Color(0xFF282c34),
-    leading: appBarIcon
+    leading: appBarIcon,
+    actions: appBarActions
   );
 
   return polyPassAppBar;
