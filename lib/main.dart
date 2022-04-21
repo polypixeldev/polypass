@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'appbar.dart';
+import 'appwrapper.dart';
 
 void main() {
   runApp(App());
@@ -34,13 +34,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: createAppBar(context, DbStatus.none),
-      body: SizedBox.expand(
-        child: Container(
-          color: const Color(0xFF4b4e53)
-        ),
-      )
+    return const AppWrapper(
+      child: Text('PolyPass')
     );
   }
 }
