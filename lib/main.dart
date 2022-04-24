@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'appwrapper.dart';
+import 'pages/home.dart';
 
 void main() {
   runApp(App());
@@ -26,17 +26,6 @@ class App extends StatelessWidget {
       routerDelegate: _router.routerDelegate,
       title: 'PolyPass',
       debugShowCheckedModeBanner: false
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const AppWrapper(
-      child: Text('PolyPass')
     );
   }
 }

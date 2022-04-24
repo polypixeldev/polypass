@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum DbStatus { none, locked, unlocked}
 
-AppBar createAppBar(BuildContext context, DbStatus status) {
+AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool icon) {
   final IconButton appBarIcon;
   final List<IconButton> appBarActions;
   
@@ -110,8 +110,8 @@ AppBar createAppBar(BuildContext context, DbStatus status) {
     ),
     centerTitle: true,
     backgroundColor: const Color(0xFF282c34),
-    leading: appBarIcon,
-    actions: appBarActions
+    leading: icon == true ? appBarIcon : null,
+    actions: actions == true ? appBarActions : null
   );
 
   return polyPassAppBar;
