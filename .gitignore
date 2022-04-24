@@ -17,3 +17,7 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+
+# Generated flutter files
+.flutter-plugins
+.flutter-plugins-dependencies

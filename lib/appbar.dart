@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 enum DbStatus { none, locked, unlocked}
 
@@ -25,7 +26,7 @@ AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool ic
           icon: const Icon(Icons.add),
           tooltip: 'Create a database',
           onPressed: () {
-            // TODO: Create a database
+            GoRouter.of(context).go('/create');
           }
         ),
         IconButton(

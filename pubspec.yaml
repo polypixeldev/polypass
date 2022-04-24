@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  file_picker: ^4.5.1
   flutter:
     sdk: flutter
   go_router: ^3.0.7

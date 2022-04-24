@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../appwrapper.dart';
 
@@ -42,7 +43,7 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.all(5)
                     ),
                     onPressed: () {
-                      // TODO: Create a database
+                      GoRouter.of(context).go('/create');
                     },
                   ),
                   const Padding(

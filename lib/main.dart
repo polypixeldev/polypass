@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'pages/home.dart';
+import 'pages/create.dart';
 
 void main() {
   runApp(App());
@@ -15,6 +16,10 @@ class App extends StatelessWidget {
       GoRoute(
         path: '/',
         builder: (context, state) => const Home()
+      ),
+      GoRoute(
+        path: '/create',
+        builder: (context, state) => const Create()
       )
     ]
   );
