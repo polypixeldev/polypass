@@ -31,7 +31,7 @@ AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool ic
         ),
         IconButton(
           icon: const Icon(Icons.file_open),
-          tooltip: "Open a database",
+          tooltip: 'Open a database',
           onPressed: () {
             // TODO: Open a database
           }

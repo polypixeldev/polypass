@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    "Welcome to PolyPass",
+                    'Welcome to PolyPass',
                     style: TextStyle( fontSize: 30, color: Colors.white )
                   ),
                   const Padding(
@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
                   ),
                   ElevatedButton(
                     child: const Padding(
-                      child: Text("Create a database", style: TextStyle( fontSize: 25 )),
+                      child: Text('Create a database', style: TextStyle( fontSize: 25 )),
                       padding: EdgeInsets.all(5)
                     ),
                     onPressed: () {
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
                   ),
                   ElevatedButton(
                     child: const Padding(
-                      child: Text("Open a database", style: TextStyle( fontSize: 25 )),
+                      child: Text('Open a database', style: TextStyle( fontSize: 25 )),
                       padding: EdgeInsets.all(5)
                     ),
                     onPressed: () {

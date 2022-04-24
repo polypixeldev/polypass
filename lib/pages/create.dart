@@ -29,7 +29,7 @@ class _CreateState extends State<Create> {
               borderRadius: BorderRadius.vertical(top: Radius.circular(10))
             ),
             child: const Text(
-              "Create a database",
+              'Create a database',
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white
@@ -54,7 +54,7 @@ class _CreateState extends State<Create> {
                     ),
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        labelText: "Name (required)",
+                        labelText: 'Name (required)',
                         contentPadding: EdgeInsets.all(10),
                         floatingLabelStyle: TextStyle( color: Colors.black ),
                         labelStyle: TextStyle( color: Colors.black ),
@@ -77,7 +77,7 @@ class _CreateState extends State<Create> {
                     ),
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        labelText: "Description",
+                        labelText: 'Description',
                         contentPadding: EdgeInsets.all(10),
                         floatingLabelStyle: TextStyle( color: Colors.black ),
                         labelStyle: TextStyle( color: Colors.black ),
@@ -102,7 +102,7 @@ class _CreateState extends State<Create> {
                   const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                   ElevatedButton(
                     child: const Text(
-                      "Set database file location",
+                      'Set database file location',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20
@@ -113,10 +113,10 @@ class _CreateState extends State<Create> {
                     ),
                     onPressed: () async {
                       final path = await FilePicker.platform.saveFile(
-                        dialogTitle: "Set database file location",
-                        fileName: _name == null ? "passwords.ppdb" : "$_name.ppdb",
+                        dialogTitle: 'Set database file location',
+                        fileName: _name == null ? 'passwords.ppdb' : '$_name.ppdb',
                         type: FileType.custom,
-                        allowedExtensions: ["ppdb"]
+                        allowedExtensions: ['ppdb']
                       );
 
                       setState(() {
@@ -129,7 +129,7 @@ class _CreateState extends State<Create> {
                     children: [
                       ElevatedButton(
                         child: const Text(
-                          "Back",
+                          'Back',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20
@@ -151,7 +151,7 @@ class _CreateState extends State<Create> {
                       const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
                       ElevatedButton(
                         child: const Text(
-                          "Submit",
+                          'Submit',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20
