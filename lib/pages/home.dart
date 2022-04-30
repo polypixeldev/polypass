@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../appwrapper.dart';
 
@@ -54,8 +55,16 @@ class Home extends StatelessWidget {
                       child: Text('Open a database', style: TextStyle( fontSize: 25 )),
                       padding: EdgeInsets.all(5)
                     ),
-                    onPressed: () {
-                      // TODO: Open a database
+                    onPressed: () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        dialogTitle: 'Open database',
+                        type: FileType.custom,
+                        allowedExtensions: ['ppdb']
+                      );
+                      
+                      if(result != null) {
+                        // TODO: Do stuff with the data
+                      }
                     },
                   )
                 ],
