@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum DbStatus { none, locked, unlocked}
+enum DatabaseStatus { none, locked, unlocked}
 
-AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool icon) {
+AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, bool icon) {
   final IconButton appBarIcon;
   final List<IconButton> appBarActions;
   
   switch (status) {
-    case DbStatus.none:
+    case DatabaseStatus.none:
       appBarIcon = IconButton(
         icon: const Icon(Icons.question_mark),
         tooltip: 'No database selected',
@@ -39,7 +39,7 @@ AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool ic
       ];
 
       break;
-    case DbStatus.locked:
+    case DatabaseStatus.locked:
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock),
         tooltip: 'Database locked',
@@ -59,7 +59,7 @@ AppBar createAppBar(BuildContext context, DbStatus status, bool actions, bool ic
       ];
 
       break;
-    case DbStatus.unlocked:
+    case DatabaseStatus.unlocked:
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
         tooltip: 'Database unlocked',

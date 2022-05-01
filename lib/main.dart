@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'blocs/db_bloc.dart';
 
 import 'pages/home.dart';
 import 'pages/create.dart';
@@ -26,11 +29,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
-      title: 'PolyPass',
-      debugShowCheckedModeBanner: false
+    return BlocProvider(
+      create: (context) => DatabaseBloc(),
+      child: MaterialApp.router(
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        title: 'PolyPass',
+        debugShowCheckedModeBanner: false
+      ),
     );
   }
 }

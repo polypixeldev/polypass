@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../appbar.dart';
+
 enum DatabaseComponent {
   category(List<DatabaseComponent>),
   item(ItemData);
@@ -18,17 +20,17 @@ class DatabaseBlocState extends Equatable {
     required this.name,
     required this.description,
     required this.path,
-    required this.initialized
+    required this.status
   });
 
   final List<DatabaseComponent> tree;
   final String name;
   final String description;
   final String path;
-  final bool initialized;
+  final DatabaseStatus status;
 
   @override
-  List<dynamic> get props => [tree, name, description, path, initialized];
+  List<dynamic> get props => [tree, name, description, path, status];
 }
 
 abstract class DatabaseBlocEvent extends Equatable {
@@ -55,13 +57,13 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseBlocState> {
     String description = '',
     String path = '',
     List<DatabaseComponent> tree = const [],
-    bool initialized = false
+    DatabaseStatus status = DatabaseStatus.none
   }) : super(DatabaseBlocState(
     name: name,
     description: description,
     path: path,
     tree: tree,
-    initialized: initialized
+    status: status 
   )) {
     on<DatabaseOpened>(_onDatabaseOpened);
   }
