@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/create_form_bloc.dart';
 
 import '../appwrapper.dart';
 
-class Create extends StatefulWidget {
+class Create extends StatelessWidget {
   const Create({Key? key}) : super(key: key);
 
   @override
-  State<Create> createState() => _CreateState();
-}
-
-class _CreateState extends State<Create> {
-  final _formKey = GlobalKey<_CreateState>();
-  String? _name;
-  String? _description;
-  String? _path;
-
-  @override
   Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+
     return AppWrapper(
       child: Column(
         children: [
@@ -36,144 +31,57 @@ class _CreateState extends State<Create> {
               )
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFF282c34),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-            padding: const EdgeInsets.all(15),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Container(
-                    width: 500,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Name (required)',
-                        contentPadding: EdgeInsets.all(10),
-                        floatingLabelStyle: TextStyle( color: Colors.black ),
-                        labelStyle: TextStyle( color: Colors.black ),
-                        border: InputBorder.none
-                      ),
-                      onChanged: (name) {
-                        setState(() {
-                          _name = name;
-                        });
-                      },
-                      cursorColor: Colors.black,
-                    )
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                  Container(
-                    width: 500,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Description',
-                        contentPadding: EdgeInsets.all(10),
-                        floatingLabelStyle: TextStyle( color: Colors.black ),
-                        labelStyle: TextStyle( color: Colors.black ),
-                        border: InputBorder.none
-                      ),
-                      onChanged: (description) {
-                        setState(() {
-                          _description = description;
-                        });
-                      },
-                      cursorColor: Colors.black,
-                    )
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                  Text(
-                    "Current path: ${_path ?? 'None'}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20
-                    )
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                  ElevatedButton(
-                    child: const Text(
-                      'Set database file location',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20
-                      )
-                    ),
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-                    ),
-                    onPressed: () async {
-                      final path = await FilePicker.platform.saveFile(
-                        dialogTitle: 'Set database file location',
-                        fileName: _name == null ? 'passwords.ppdb' : '$_name.ppdb',
-                        type: FileType.custom,
-                        allowedExtensions: ['ppdb']
-                      );
-
-                      setState(() {
-                        _path = path;
-                      });
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-                  Row(
+          BlocProvider(
+            create: (context) => CreateFormBloc(),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFF282c34),
+                borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              padding: const EdgeInsets.all(15),
+              child: BlocListener<CreateFormBloc, CreateFormState>(
+                listener:(context, state) {
+                  // TODO: Uncomment when /db/home is created
+                  // router.go('/db/home');
+                },
+                listenWhen: (previous, current) => current.submitted == true,
+                child: Form(
+                  child: Column(
                     children: [
-                      ElevatedButton(
-                        child: const Text(
-                          'Back',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                          )
-                        ),
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-                        ),
-                        onPressed: () {
-                        final router = GoRouter.of(context);
-
-                          try {
-                            router.pop();
-                          } catch (_e) {
-                            router.go('/');
-                          }
+                      const NameInput(),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      const DescriptionInput(),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      BlocBuilder<CreateFormBloc, CreateFormState>(
+                        builder: (context, state) {
+                          return Text(
+                            "Current path: ${state.path != '' ? state.path : 'None'}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                            )
+                          );
                         }
                       ),
-                      const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
-                      ElevatedButton(
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                          )
-                        ),
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-                        ),
-                        onPressed: () {
-                          // TODO: Create the database
-                        },
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      const PathInput(),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                      Row(
+                        children: [
+                          BackButton(router: router),
+                          const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
+                          const SubmitButton()
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min
+                    mainAxisSize: MainAxisSize.min,
                   )
-                  
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
+                ),
               )
-            )
+            ),
           )
         ],
         mainAxisAlignment: MainAxisAlignment.center,
@@ -181,6 +89,161 @@ class _CreateState extends State<Create> {
       ),
       actions: false,
       icon: false
+    );
+  }
+}
+
+class SubmitButton extends StatelessWidget {
+  const SubmitButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: const Text(
+        'Submit',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20
+        )
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+      ),
+      onPressed: () {
+        context.read<CreateFormBloc>().add(const FormSubmitted());
+      },
+    );
+  }
+}
+
+class BackButton extends StatelessWidget {
+  const BackButton({
+    Key? key,
+    required this.router,
+  }) : super(key: key);
+
+  final GoRouter router;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: const Text(
+        'Back',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20
+        )
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+      ),
+      onPressed: () { 
+        try {
+          router.pop();
+        } catch (_e) {
+          router.go('/');
+        }
+      }
+    );
+  }
+}
+
+class PathInput extends StatelessWidget {
+  const PathInput({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: const Text(
+        'Set database file location',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20
+        )
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+      ),
+      onPressed: () async {
+        final bloc = context.read<CreateFormBloc>();
+        
+        final path = await FilePicker.platform.saveFile(
+          dialogTitle: 'Set database file location',
+          fileName: bloc.state.name == '' ? 'passwords.ppdb' : '${bloc.state.name}.ppdb',
+          type: FileType.custom,
+          allowedExtensions: ['ppdb']
+        );
+
+        if (path == null) {
+          return;
+        }
+            
+        bloc.add(PathChanged(path: path));
+      },
+    );
+  }
+}
+
+class DescriptionInput extends StatelessWidget {
+  const DescriptionInput({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 500,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(5)
+      ),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Description',
+          contentPadding: EdgeInsets.all(10),
+          floatingLabelStyle: TextStyle( color: Colors.black ),
+          labelStyle: TextStyle( color: Colors.black ),
+          border: InputBorder.none
+        ),
+        onChanged: (description) {
+          context.read<CreateFormBloc>().add(DescriptionChanged(description: description));
+        },
+        cursorColor: Colors.black,
+      )
+    );
+  }
+}
+
+class NameInput extends StatelessWidget {
+  const NameInput({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 500,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(5)
+      ),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Name (required)',
+          contentPadding: EdgeInsets.all(10),
+          floatingLabelStyle: TextStyle( color: Colors.black ),
+          labelStyle: TextStyle( color: Colors.black ),
+          border: InputBorder.none
+        ),
+        onChanged: (name) {
+          context.read<CreateFormBloc>().add(NameChanged(name: name));
+        },
+        cursorColor: Colors.black,
+      )
     );
   }
 }
