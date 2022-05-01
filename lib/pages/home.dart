@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/db_bloc.dart';
 
 import '../appwrapper.dart';
 
@@ -61,9 +64,11 @@ class Home extends StatelessWidget {
                         type: FileType.custom,
                         allowedExtensions: ['ppdb']
                       );
+
+                      final path = result?.paths.first;
                       
-                      if(result != null) {
-                        // TODO: Do stuff with the data
+                      if(path != null) {
+                        context.read<DatabaseBloc>().add(DatabaseOpened(path: path));
                       }
                     },
                   )

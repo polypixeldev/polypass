@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'blocs/db_bloc.dart';
 
 import 'appbar.dart';
 
@@ -18,14 +21,17 @@ class _AppWrapperState extends State<AppWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: createAppBar(context, _status, widget.actions, widget.icon),
-      body: SizedBox.expand(
-        child: Container(
-          color: const Color(0xFF4b4e53),
-          child: widget.child
-        ),
-      )
+    return BlocProvider(
+      create: (context) => DatabaseBloc(),
+      child: Scaffold(
+        appBar: createAppBar(context, _status, widget.actions, widget.icon),
+        body: SizedBox.expand(
+          child: Container(
+            color: const Color(0xFF4b4e53),
+            child: widget.child
+          ),
+        )
+      ),
     );
   }
 }
