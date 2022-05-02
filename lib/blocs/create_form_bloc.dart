@@ -6,25 +6,29 @@ class CreateFormState extends Equatable {
     this.name = '',
     this.description = '',
     this.path = '',
-    this.submitted = false
+    this.submitted = false,
+    this.created = false
   });
 
   final String name;
   final String description;
   final String path;
   final bool submitted;
+  final bool created;
 
   CreateFormState copyWith({
     String? name,
     String? description,
     String? path,
-    bool? submitted
+    bool? submitted,
+    bool? created
   }) {
     return CreateFormState(
       name: name ?? this.name,
       description: description ?? this.description,
       path: path ?? this.path,
-      submitted: submitted ?? this.submitted
+      submitted: submitted ?? this.submitted,
+      created: created ?? this.created
     );
   }
 

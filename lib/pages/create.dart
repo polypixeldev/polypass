@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/create_form_bloc.dart';
+import '../blocs/db_bloc.dart';
 
 import '../appwrapper.dart';
 
@@ -33,18 +34,45 @@ class Create extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CreateFormBloc(),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFF282c34),
-                borderRadius: BorderRadius.all(Radius.circular(10))
-              ),
-              padding: const EdgeInsets.all(15),
-              child: BlocListener<CreateFormBloc, CreateFormState>(
-                listener:(context, state) {
-                  // TODO: Uncomment when /db/home is created
-                  // router.go('/db/home');
-                },
-                listenWhen: (previous, current) => current.submitted == true,
+            child: MultiBlocListener(
+              listeners: [
+                BlocListener<CreateFormBloc, CreateFormState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Creating database...'),
+                      duration: Duration( days: 365 )
+                    ));
+                  },
+                  listenWhen: (previous, current) => current.submitted == true,
+                ),
+                BlocListener<CreateFormBloc, CreateFormState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                    context.read<DatabaseBloc>().add(DatabaseOpened( path: state.path ));
+                    
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Opening database...'),
+                      duration: Duration( days: 365 )
+                    ));
+                  },
+                  listenWhen: (previous, current) => current.created == true
+                ),
+                BlocListener<DatabaseBloc, DatabaseBlocState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    // TODO: Uncomment when /db/home is created
+                    // router.go('/db/home');
+                  },
+                  listenWhen: (previous, current) => current.status == DatabaseStatus.unlocked
+                )
+              ],
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF282c34),
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                padding: const EdgeInsets.all(15),
                 child: Form(
                   child: Column(
                     children: [
@@ -79,8 +107,8 @@ class Create extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                   )
-                ),
-              )
+                )
+              ),
             ),
           )
         ],

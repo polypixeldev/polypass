@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../appbar.dart';
+enum DatabaseStatus { none, locked, unlocked}
 
 enum DatabaseComponent {
   category(List<DatabaseComponent>),
