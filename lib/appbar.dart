@@ -8,6 +8,7 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
   final List<IconButton> appBarActions;
   
   switch (status) {
+    case DatabaseStatus.opening:
     case DatabaseStatus.none:
       appBarIcon = IconButton(
         icon: const Icon(Icons.question_mark),

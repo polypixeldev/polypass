@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-enum DatabaseStatus { none, locked, unlocked}
+enum DatabaseStatus { none, locked, unlocked, opening}
 
 enum DatabaseComponent {
   category(List<DatabaseComponent>),
@@ -28,6 +28,22 @@ class DatabaseBlocState extends Equatable {
   final String description;
   final String path;
   final DatabaseStatus status;
+
+  DatabaseBlocState copyWith({
+    List<DatabaseComponent>? tree,
+    String? name,
+    String? description,
+    String? path,
+    DatabaseStatus? status
+  }) {
+    return DatabaseBlocState(
+      tree: tree ?? this.tree,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      path: path ?? this.path,
+      status: status ?? this.status
+    );
+  }
 
   @override
   List<dynamic> get props => [tree, name, description, path, status];
@@ -69,6 +85,9 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseBlocState> {
   }
 
   void _onDatabaseOpened(event, emit) {
+    emit(state.copyWith(
+      status: DatabaseStatus.opening
+    ));
     // TODO: Call repository function to fetch db data using event.path and emit new state
   }
 }

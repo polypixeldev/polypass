@@ -50,7 +50,7 @@ class Create extends StatelessWidget {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
                     context.read<DatabaseBloc>().add(DatabaseOpened( path: state.path ));
-                    
+
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Opening database...'),
                       duration: Duration( days: 365 )
@@ -128,20 +128,24 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text(
-        'Submit',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20
-        )
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-      ),
-      onPressed: () {
-        context.read<CreateFormBloc>().add(const FormSubmitted());
-      },
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          child: const Text(
+            'Submit',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20
+            )
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+          ),
+          onPressed: state.submitted ? null : () {
+            context.read<CreateFormBloc>().add(const FormSubmitted());
+          },
+        );
+      }
     );
   }
 }
@@ -156,28 +160,31 @@ class BackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text(
-        'Back',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20
-        )
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-      ),
-      onPressed: () { 
-        try {
-          router.pop();
-        } catch (_e) {
-          router.go('/');
-        }
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          child: const Text(
+            'Back',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20
+            )
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+          ),
+          onPressed: state.submitted ? null : () { 
+            try {
+              router.pop();
+            } catch (_e) {
+              router.go('/');
+            }
+          }
+        );
       }
     );
   }
 }
-
 class PathInput extends StatelessWidget {
   const PathInput({
     Key? key,
