@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DatabaseBloc, DatabaseBlocState>(
+    return BlocListener<DatabaseBloc, DatabaseState>(
       listener: (context, state) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         // TODO: Uncomment when /db/home is created
@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
                   color: Color(0xFF282c34),
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
-                child: BlocBuilder<DatabaseBloc, DatabaseBlocState>(
+                child: BlocBuilder<DatabaseBloc, DatabaseState>(
                   builder: ((context, state) {
                     return Column(
                       children: [

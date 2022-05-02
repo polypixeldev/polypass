@@ -58,7 +58,7 @@ class Create extends StatelessWidget {
                   },
                   listenWhen: (previous, current) => current.created == true
                 ),
-                BlocListener<DatabaseBloc, DatabaseBlocState>(
+                BlocListener<DatabaseBloc, DatabaseState>(
                   listener: (context, state) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     // TODO: Uncomment when /db/home is created

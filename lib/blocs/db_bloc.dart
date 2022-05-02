@@ -14,8 +14,8 @@ class ItemData {
   const ItemData();
 }
 
-class DatabaseBlocState extends Equatable {
-  const DatabaseBlocState({
+class DatabaseState extends Equatable {
+  const DatabaseState({
     required this.tree,
     required this.name,
     required this.description,
@@ -29,14 +29,14 @@ class DatabaseBlocState extends Equatable {
   final String path;
   final DatabaseStatus status;
 
-  DatabaseBlocState copyWith({
+  DatabaseState copyWith({
     List<DatabaseComponent>? tree,
     String? name,
     String? description,
     String? path,
     DatabaseStatus? status
   }) {
-    return DatabaseBlocState(
+    return DatabaseState(
       tree: tree ?? this.tree,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -67,14 +67,14 @@ class DatabaseOpened extends DatabaseBlocEvent {
   List<String> get props => [path];
 }
 
-class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseBlocState> {
+class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
   DatabaseBloc({
     String name = '',
     String description = '',
     String path = '',
     List<DatabaseComponent> tree = const [],
     DatabaseStatus status = DatabaseStatus.none
-  }) : super(DatabaseBlocState(
+  }) : super(DatabaseState(
     name: name,
     description: description,
     path: path,
