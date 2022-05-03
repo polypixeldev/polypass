@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/db_bloc.dart';
 
-import 'pages/home.dart';
-import 'pages/create.dart';
+import 'pages/home/home.dart';
+import 'pages/create/create.dart';
 
 void main() {
   runApp(App());

@@ -3,10 +3,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/create_form_bloc.dart';
-import '../blocs/db_bloc.dart';
+import 'blocs/create_form_bloc.dart';
+import '../../blocs/db_bloc.dart';
 
-import '../appwrapper.dart';
+import '../../components/appwrapper.dart';
 
 class Create extends StatelessWidget {
   const Create({Key? key}) : super(key: key);

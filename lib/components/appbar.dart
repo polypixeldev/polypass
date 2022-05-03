@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'blocs/db_bloc.dart';
+import '../blocs/db_bloc.dart';
 
 AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, bool icon) {
   final IconButton appBarIcon;

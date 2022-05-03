@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/db_bloc.dart';
+import '../../blocs/db_bloc.dart';
 
-import '../appwrapper.dart';
+import '../../components/appwrapper.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
