@@ -141,7 +141,7 @@ class SubmitButton extends StatelessWidget {
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
-          onPressed: state.submitted ? null : () {
+          onPressed: state.submitted || !state.isFormValid ? null : () {
             context.read<CreateFormBloc>().add(const FormSubmitted());
           },
         );

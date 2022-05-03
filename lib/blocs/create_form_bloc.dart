@@ -16,6 +16,8 @@ class CreateFormState extends Equatable {
   final bool submitted;
   final bool created;
 
+  bool get isFormValid => (name != '') && (description != '') && (path != '');
+
   CreateFormState copyWith({
     String? name,
     String? description,
