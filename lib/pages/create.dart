@@ -192,33 +192,37 @@ class PathInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text(
-        'Set database file location',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20
-        )
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-      ),
-      onPressed: () async {
-        final bloc = context.read<CreateFormBloc>();
-        
-        final path = await FilePicker.platform.saveFile(
-          dialogTitle: 'Set database file location',
-          fileName: bloc.state.name == '' ? 'passwords.ppdb' : '${bloc.state.name}.ppdb',
-          type: FileType.custom,
-          allowedExtensions: ['ppdb']
-        );
-
-        if (path == null) {
-          return;
-        }
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder:(context, state) {
+        return ElevatedButton(
+          child: const Text(
+            'Set database file location',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20
+            )
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+          ),
+          onPressed: state.submitted ? null : () async {
+            final bloc = context.read<CreateFormBloc>();
             
-        bloc.add(PathChanged(path: path));
-      },
+            final path = await FilePicker.platform.saveFile(
+              dialogTitle: 'Set database file location',
+              fileName: bloc.state.name == '' ? 'passwords.ppdb' : '${bloc.state.name}.ppdb',
+              type: FileType.custom,
+              allowedExtensions: ['ppdb']
+            );
+      
+            if (path == null) {
+              return;
+            }
+                
+            bloc.add(PathChanged(path: path));
+          },
+        );
+      }
     );
   }
 }
@@ -230,25 +234,30 @@ class DescriptionInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 500,
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5)
-      ),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Description',
-          contentPadding: EdgeInsets.all(10),
-          floatingLabelStyle: TextStyle( color: Colors.black ),
-          labelStyle: TextStyle( color: Colors.black ),
-          border: InputBorder.none
-        ),
-        onChanged: (description) {
-          context.read<CreateFormBloc>().add(DescriptionChanged(description: description));
-        },
-        cursorColor: Colors.black,
-      )
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder: ((context, state) {
+        return Container(
+          width: 500,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(5)
+          ),
+          child: TextFormField(
+            enabled: !state.submitted,
+            decoration: const InputDecoration(
+              labelText: 'Description',
+              contentPadding: EdgeInsets.all(10),
+              floatingLabelStyle: TextStyle( color: Colors.black ),
+              labelStyle: TextStyle( color: Colors.black ),
+              border: InputBorder.none
+            ),
+            onChanged: (description) {
+              context.read<CreateFormBloc>().add(DescriptionChanged(description: description));
+            },
+            cursorColor: Colors.black,
+          )
+        );
+      }),
     );
   }
 }
@@ -260,25 +269,30 @@ class NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 500,
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5)
-      ),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Name (required)',
-          contentPadding: EdgeInsets.all(10),
-          floatingLabelStyle: TextStyle( color: Colors.black ),
-          labelStyle: TextStyle( color: Colors.black ),
-          border: InputBorder.none
-        ),
-        onChanged: (name) {
-          context.read<CreateFormBloc>().add(NameChanged(name: name));
-        },
-        cursorColor: Colors.black,
-      )
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder: ((context, state) {
+        return Container(
+          width: 500,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(5)
+          ),
+          child: TextFormField(
+            enabled: !state.submitted,
+            decoration: const InputDecoration(
+              labelText: 'Name (required)',
+              contentPadding: EdgeInsets.all(10),
+              floatingLabelStyle: TextStyle( color: Colors.black ),
+              labelStyle: TextStyle( color: Colors.black ),
+              border: InputBorder.none
+            ),
+            onChanged: (name) {
+              context.read<CreateFormBloc>().add(NameChanged(name: name));
+            },
+            cursorColor: Colors.black,
+          )
+        );
+      })
     );
   }
 }
