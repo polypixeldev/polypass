@@ -12,11 +12,12 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+
     return BlocListener<DatabaseBloc, DatabaseState>(
       listener: (context, state) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        // TODO: Uncomment when /db/home is created
-        // router.go('/db/home');
+        router.go('/db/home');
       },
       listenWhen: (previous, current) => current.status == DatabaseStatus.unlocked,
       child: AppWrapper(
@@ -56,7 +57,7 @@ class Home extends StatelessWidget {
                             padding: EdgeInsets.all(5)
                           ),
                           onPressed: state.status == DatabaseStatus.opening ? null : () {
-                            GoRouter.of(context).go('/create');
+                            router.go('/create');
                           },
                         ),
                         const Padding(

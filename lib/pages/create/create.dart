@@ -61,8 +61,7 @@ class Create extends StatelessWidget {
                 BlocListener<DatabaseBloc, DatabaseState>(
                   listener: (context, state) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    // TODO: Uncomment when /db/home is created
-                    // router.go('/db/home');
+                    router.go('/db/home');
                   },
                   listenWhen: (previous, current) => current.status == DatabaseStatus.unlocked
                 )

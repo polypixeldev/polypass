@@ -89,5 +89,8 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
       status: DatabaseStatus.opening
     ));
     // TODO: Call repository function to fetch db data using event.path and emit new state
+    emit(state.copyWith(
+      status: DatabaseStatus.unlocked
+    ));
   }
 }

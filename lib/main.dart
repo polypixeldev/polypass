@@ -6,6 +6,7 @@ import 'blocs/db_bloc.dart';
 
 import 'pages/home/home.dart';
 import 'pages/create/create.dart';
+import 'pages/db/home/home.dart';
 
 void main() {
   runApp(App());
@@ -23,6 +24,10 @@ class App extends StatelessWidget {
       GoRoute(
         path: '/create',
         builder: (context, state) => const Create()
+      ),
+      GoRoute(
+        path: '/db/home',
+        builder: (context, state) => const DbHome()
       )
     ]
   );
