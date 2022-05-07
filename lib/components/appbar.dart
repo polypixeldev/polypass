@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/db_bloc.dart';
 
 AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, bool icon) {
+  final router = GoRouter.of(context);
+
   final IconButton appBarIcon;
   final List<IconButton> appBarActions;
   
@@ -27,7 +30,7 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
           icon: const Icon(Icons.add),
           tooltip: 'Create a database',
           onPressed: () {
-            GoRouter.of(context).go('/create');
+            router.go('/create');
           }
         ),
         IconButton(
@@ -65,7 +68,7 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
         icon: const Icon(Icons.lock_open),
         tooltip: 'Database unlocked',
         onPressed: () {
-          // TODO: Lock database
+          context.read<DatabaseBloc>().add(const DatabaseLocked());
         }
       );
 

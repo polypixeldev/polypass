@@ -7,6 +7,7 @@ import 'blocs/db_bloc.dart';
 import 'pages/home/home.dart';
 import 'pages/create/create.dart';
 import 'pages/db/home/home.dart';
+import 'package:polypass/pages/db/locked/locked.dart';
 
 void main() {
   runApp(App());
@@ -28,6 +29,10 @@ class App extends StatelessWidget {
       GoRoute(
         path: '/db/home',
         builder: (context, state) => const DbHome()
+      ),
+      GoRoute(
+        path: '/db/locked',
+        builder: (context, state) => const DbLocked()
       )
     ]
   );

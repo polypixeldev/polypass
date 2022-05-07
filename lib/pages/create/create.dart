@@ -57,13 +57,6 @@ class Create extends StatelessWidget {
                     ));
                   },
                   listenWhen: (previous, current) => current.created == true
-                ),
-                BlocListener<DatabaseBloc, DatabaseState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    router.go('/db/home');
-                  },
-                  listenWhen: (previous, current) => current.status == DatabaseStatus.unlocked
                 )
               ],
               child: Container(
