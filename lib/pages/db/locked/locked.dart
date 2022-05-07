@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/db_bloc.dart';
-import './blocs/unlock_form_bloc.dart';
+import 'unlock_form_bloc.dart';
 
 import '../../../components/appwrapper.dart';
 
