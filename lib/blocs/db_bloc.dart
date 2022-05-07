@@ -82,6 +82,13 @@ class DatabaseUnlocked extends DatabaseBlocEvent {
   List<String> get props => [masterKey];
 }
 
+class DatabaseClosed extends DatabaseBlocEvent {
+  const DatabaseClosed();
+
+  @override
+  List<String> get props => [];
+}
+
 class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
   DatabaseBloc({
     String name = '',
@@ -99,6 +106,7 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
     on<DatabaseOpened>(_onDatabaseOpened);
     on<DatabaseLocked>(_onDatabaseLocked);
     on<DatabaseUnlocked>(_onDatabaseUnlocked);
+    on<DatabaseClosed>(_onDatabaseClosed);
   }
 
   void _onDatabaseOpened(event, emit) {
@@ -122,6 +130,16 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
     // TODO: Decrypt database with event.masterKey
     emit(state.copyWith(
       status: DatabaseStatus.unlocked
+    ));
+  }
+
+  void _onDatabaseClosed(event, emit) {
+    emit(const DatabaseState(
+      name: '',
+      description: '',
+      path: '',
+      tree: const [],
+      status: DatabaseStatus.none
     ));
   }
 }

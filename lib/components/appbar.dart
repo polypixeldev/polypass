@@ -1,63 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../blocs/db_bloc.dart';
 
 AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, bool icon) {
-  final router = GoRouter.of(context);
+  final databaseBloc = context.read<DatabaseBloc>();
 
-  final IconButton appBarIcon;
-  final List<IconButton> appBarActions;
+  Widget? appBarIcon;
+  List<IconButton>? appBarActions;
   
-  switch (status) {
-    case DatabaseStatus.opening:
-    case DatabaseStatus.none:
-      appBarIcon = IconButton(
-        icon: const Icon(Icons.question_mark),
-        tooltip: 'No database selected',
-        onPressed: () {
-          const snackBar = SnackBar(
-            content: Text('Click the plus button to create a new password database!')
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      );
-
-      appBarActions = [
-        IconButton(
-          icon: const Icon(Icons.add),
-          tooltip: 'Create a database',
-          onPressed: () {
-            router.go('/create');
-          }
-        ),
-        IconButton(
-          icon: const Icon(Icons.file_open),
-          tooltip: 'Open a database',
-          onPressed: () {
-            // TODO: Open a database
-          }
-        )
-      ];
-
-      break;
+  switch (status) {  
     case DatabaseStatus.locked:
-      appBarIcon = IconButton(
-        icon: const Icon(Icons.lock),
-        tooltip: 'Database locked',
-        onPressed: () {
-          // TODO: Display unlock database prompt
-        }
-      );
+      appBarIcon = const Icon(Icons.lock);
 
       appBarActions = [
         IconButton(
           icon: const Icon(Icons.close),
           tooltip: 'Close database',
           onPressed: () {
-            // TODO: Close a database
+            databaseBloc.add(const DatabaseClosed());
           }
         )
       ];
@@ -68,7 +29,7 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
         icon: const Icon(Icons.lock_open),
         tooltip: 'Database unlocked',
         onPressed: () {
-          context.read<DatabaseBloc>().add(const DatabaseLocked());
+          databaseBloc.add(const DatabaseLocked());
         }
       );
 
@@ -104,6 +65,8 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
       ];
 
       break;
+    default:
+      break;
   }
 
   final polyPassAppBar = AppBar(
@@ -115,8 +78,8 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
     ),
     centerTitle: true,
     backgroundColor: const Color(0xFF282c34),
-    leading: icon == true ? appBarIcon : null,
-    actions: actions == true ? appBarActions : null
+    leading: icon == true && appBarIcon != null ? appBarIcon : null,
+    actions: actions == true && appBarActions != null ? appBarActions : null
   );
 
   return polyPassAppBar;

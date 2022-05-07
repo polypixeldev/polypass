@@ -25,7 +25,7 @@ class AppWrapper extends StatelessWidget {
         } else if (state.status == DatabaseStatus.unlocked) {
           router.go('/db/home');
         } else if (state.status == DatabaseStatus.none) {
-          router.go('/home');
+          router.go('/');
         }
       },
       child: Scaffold(
