@@ -9,6 +9,8 @@ import 'pages/create/create.dart';
 import 'pages/db/home/home.dart';
 import 'package:polypass/pages/db/locked/locked.dart';
 
+import 'theme.dart';
+
 void main() {
   runApp(App());
 }
@@ -45,7 +47,8 @@ class App extends StatelessWidget {
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         title: 'PolyPass',
-        debugShowCheckedModeBanner: false
+        debugShowCheckedModeBanner: false,
+        theme: appTheme
       ),
     );
   }

@@ -30,9 +30,9 @@ class Home extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(15),
-              decoration: const BoxDecoration(
-                color: Color(0xFF282c34),
-                borderRadius: BorderRadius.all(Radius.circular(10))
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               child: BlocBuilder<DatabaseBloc, DatabaseState>(
                 builder: ((context, state) {

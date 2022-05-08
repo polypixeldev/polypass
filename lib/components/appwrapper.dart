@@ -32,7 +32,7 @@ class AppWrapper extends StatelessWidget {
         appBar: createAppBar(context, context.read<DatabaseBloc>().state.status, actions, icon),
         body: SizedBox.expand(
           child: Container(
-            color: const Color(0xFF4b4e53),
+            color: Theme.of(context).backgroundColor,
             child: child
           ),
         )

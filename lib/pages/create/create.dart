@@ -14,22 +14,20 @@ class Create extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
+    final theme = Theme.of(context);
 
     return AppWrapper(
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Color(0xFF282c34),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10))
+            decoration:BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10))
             ),
-            child: const Text(
+            child: Text(
               'Create a database',
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white
-              )
+              style: theme.textTheme.titleMedium
             ),
           ),
           BlocProvider(
@@ -60,9 +58,9 @@ class Create extends StatelessWidget {
                 )
               ],
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF282c34),
-                  borderRadius: BorderRadius.all(Radius.circular(10))
+                decoration: BoxDecoration(
+                  color: theme.cardColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 padding: const EdgeInsets.all(15),
                 child: Form(
@@ -76,10 +74,7 @@ class Create extends StatelessWidget {
                         builder: (context, state) {
                           return Text(
                             "Current path: ${state.path != '' ? state.path : 'None'}",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20
-                            )
+                            style: theme.textTheme.bodyMedium
                           );
                         }
                       ),
@@ -123,12 +118,9 @@ class SubmitButton extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: (context, state) {
         return ElevatedButton(
-          child: const Text(
+          child: Text(
             'Submit',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20
-            )
+            style: Theme.of(context).textTheme.bodyMedium
           ),
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
@@ -155,12 +147,9 @@ class BackButton extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: (context, state) {
         return ElevatedButton(
-          child: const Text(
+          child: Text(
             'Back',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20
-            )
+            style: Theme.of(context).textTheme.bodyMedium
           ),
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
@@ -187,12 +176,9 @@ class PathInput extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder:(context, state) {
         return ElevatedButton(
-          child: const Text(
+          child: Text(
             'Set database file location',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20
-            )
+            style: Theme.of(context).textTheme.bodyMedium
           ),
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
@@ -226,23 +212,26 @@ class DescriptionInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: ((context, state) {
         return Container(
           width: 500,
           decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(5)
+            borderRadius: BorderRadius.circular(5),
+            color: theme.colorScheme.secondary
           ),
           child: TextFormField(
             enabled: !state.submitted,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Description',
-              contentPadding: EdgeInsets.all(10),
-              floatingLabelStyle: TextStyle( color: Colors.black ),
-              labelStyle: TextStyle( color: Colors.black ),
+              contentPadding: const EdgeInsets.all(10),
+              floatingLabelStyle: theme.textTheme.bodySmall,
+              labelStyle: theme.textTheme.bodySmall,
               border: InputBorder.none
             ),
+            style: theme.textTheme.bodySmall,
             onChanged: (description) {
               context.read<CreateFormBloc>().add(DescriptionChanged(description: description));
             },
@@ -261,23 +250,26 @@ class NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: ((context, state) {
         return Container(
           width: 500,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: theme.colorScheme.secondary,
             borderRadius: BorderRadius.circular(5)
           ),
           child: TextFormField(
             enabled: !state.submitted,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Name (required)',
-              contentPadding: EdgeInsets.all(10),
-              floatingLabelStyle: TextStyle( color: Colors.black ),
-              labelStyle: TextStyle( color: Colors.black ),
+              contentPadding: const EdgeInsets.all(10),
+              floatingLabelStyle: theme.textTheme.bodySmall,
+              labelStyle: theme.textTheme.bodySmall,
               border: InputBorder.none
             ),
+            style: theme.textTheme.bodySmall,
             onChanged: (name) {
               context.read<CreateFormBloc>().add(NameChanged(name: name));
             },

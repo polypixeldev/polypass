@@ -70,14 +70,8 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
   }
 
   final polyPassAppBar = AppBar(
-    title: const Text(
-        'PolyPass',
-        style: TextStyle(
-          color: Colors.white
-        )
-    ),
+    title: const Text('PolyPass'),
     centerTitle: true,
-    backgroundColor: const Color(0xFF282c34),
     leading: icon == true && appBarIcon != null ? appBarIcon : null,
     actions: actions == true && appBarActions != null ? appBarActions : null
   );
