@@ -41,20 +41,20 @@ class Create extends StatelessWidget {
                       duration: Duration( days: 365 )
                     ));
                   },
-                  listenWhen: (previous, current) => current.submitted == true,
+                  listenWhen: (previous, current) => previous.submitted != current.submitted,
                 ),
                 BlocListener<CreateFormBloc, CreateFormState>(
                   listener: (context, state) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-                    context.read<DatabaseBloc>().add(DatabaseOpened( path: state.path ));
-
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Opening database...'),
                       duration: Duration( days: 365 )
                     ));
+
+                    context.read<DatabaseBloc>().add(DatabaseOpened( path: state.path ));
                   },
-                  listenWhen: (previous, current) => current.created == true
+                  listenWhen: (previous, current) => previous.created != current.created
                 )
               ],
               child: Container(
@@ -69,6 +69,8 @@ class Create extends StatelessWidget {
                       const NameInput(),
                       const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                       const DescriptionInput(),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      const MasterPasswordInput(),
                       const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                       BlocBuilder<CreateFormBloc, CreateFormState>(
                         builder: (context, state) {
@@ -107,7 +109,6 @@ class Create extends StatelessWidget {
     );
   }
 }
-
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     Key? key,
@@ -201,6 +202,47 @@ class PathInput extends StatelessWidget {
           },
         );
       }
+    );
+  }
+}
+
+class MasterPasswordInput extends StatelessWidget {
+  const MasterPasswordInput({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return BlocBuilder<CreateFormBloc, CreateFormState>(
+      builder: ((context, state) {
+        return Container(
+          width: 500,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: theme.colorScheme.secondary
+          ),
+          child: TextFormField(
+            enabled: !state.submitted,
+            decoration: InputDecoration(
+              labelText: 'Master Password',
+              contentPadding: const EdgeInsets.all(10),
+              floatingLabelStyle: theme.textTheme.bodySmall,
+              labelStyle: theme.textTheme.bodySmall,
+              border: InputBorder.none
+            ),
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            style: theme.textTheme.bodySmall,
+            onChanged: (masterPassword) {
+              context.read<CreateFormBloc>().add(MasterPasswordChanged(masterPassword: masterPassword));
+            },
+            cursorColor: Colors.black,
+          )
+        );
+      }),
     );
   }
 }

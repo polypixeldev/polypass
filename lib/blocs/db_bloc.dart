@@ -109,11 +109,14 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
     on<DatabaseClosed>(_onDatabaseClosed);
   }
 
-  void _onDatabaseOpened(event, emit) {
+  Future<void> _onDatabaseOpened(event, emit) async {
     emit(state.copyWith(
       status: DatabaseStatus.opening
     ));
     // TODO: Call repository function to fetch db data using event.path
+    await Future.delayed(const Duration( seconds: 2));
+
+
     emit(state.copyWith(
       status: DatabaseStatus.locked
     ));

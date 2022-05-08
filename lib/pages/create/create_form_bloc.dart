@@ -5,6 +5,7 @@ class CreateFormState extends Equatable {
   const CreateFormState({
     this.name = '',
     this.description = '',
+    this.masterPassword = '',
     this.path = '',
     this.submitted = false,
     this.created = false
@@ -12,15 +13,17 @@ class CreateFormState extends Equatable {
 
   final String name;
   final String description;
+  final String masterPassword;
   final String path;
   final bool submitted;
   final bool created;
 
-  bool get isFormValid => (name != '') && (description != '') && (path != '');
+  bool get isFormValid => (name != '') && (description != '') && (masterPassword != '') && (path != '');
 
   CreateFormState copyWith({
     String? name,
     String? description,
+    String? masterPassword,
     String? path,
     bool? submitted,
     bool? created
@@ -28,6 +31,7 @@ class CreateFormState extends Equatable {
     return CreateFormState(
       name: name ?? this.name,
       description: description ?? this.description,
+      masterPassword: masterPassword ?? this.masterPassword,
       path: path ?? this.path,
       submitted: submitted ?? this.submitted,
       created: created ?? this.created
@@ -35,7 +39,7 @@ class CreateFormState extends Equatable {
   }
 
   @override
-  List<dynamic> get props => [name, description, path, submitted];
+  List<dynamic> get props => [name, description, masterPassword, path, submitted, created];
 }
 
 abstract class CreateFormEvent extends Equatable {
@@ -63,6 +67,15 @@ class DescriptionChanged extends CreateFormEvent {
   List<String> get props => [description];
 }
 
+class MasterPasswordChanged extends CreateFormEvent {
+  const MasterPasswordChanged({ required this.masterPassword });
+
+  final String masterPassword;
+
+  @override
+  List<String> get props => [masterPassword];
+}
+
 class PathChanged extends CreateFormEvent {
   const PathChanged({ required this.path });
 
@@ -83,6 +96,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   CreateFormBloc() : super(const CreateFormState()) {
     on<NameChanged>(_onNameChanged);
     on<DescriptionChanged>(_onDescriptionChanged);
+    on<MasterPasswordChanged>(_onMasterPasswordChanged);
     on<PathChanged>(_onPathChanged);
     on<FormSubmitted>(_onFormSubmitted);
   }
@@ -99,15 +113,28 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
     ));
   }
 
+  void _onMasterPasswordChanged(event, emit) {
+    emit(state.copyWith(
+      masterPassword: event.masterPassword
+    ));
+  }
+
   void _onPathChanged(event, emit) {
     emit(state.copyWith(
       path: event.path
     ));
   }
 
-  void _onFormSubmitted(event, emit) {
+  Future<void> _onFormSubmitted(event, emit) async {
     emit(state.copyWith(
       submitted: true
+    ));
+
+    // TODO: Create database file
+    await Future.delayed(const Duration( seconds: 2 ));
+
+    emit(state.copyWith(
+      created: true
     ));
   }
 }
