@@ -4,10 +4,22 @@ import 'package:equatable/equatable.dart';
 enum DatabaseStatus { none, locked, unlocked, opening}
 
 enum DatabaseComponent {
-  category(List<DatabaseComponent>),
+  category(DatabaseCategory),
   item(ItemData);
 
   const DatabaseComponent(component);
+}
+
+class DatabaseCategory {
+  const DatabaseCategory({
+    required this.name,
+    this.icon,
+    this.components = const []
+  });
+
+  final String name;
+  final String? icon;
+  final List<DatabaseComponent> components;
 }
 
 class ItemData {
