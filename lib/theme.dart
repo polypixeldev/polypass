@@ -53,5 +53,12 @@ final appTheme = ThemeData(
       fontSize: 15,
       color: Colors.white
     )
+  ),
+  dividerTheme: const DividerThemeData(
+    thickness: 1,
+    space: 1,
+    indent: 5,
+    endIndent: 5,
+    color: Colors.grey
   )
 );

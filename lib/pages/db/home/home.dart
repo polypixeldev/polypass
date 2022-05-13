@@ -41,13 +41,7 @@ class PasswordsView extends StatelessWidget {
         child: Row(
           children: const [
             Tree(),
-            VerticalDivider(
-              width: 1,
-              thickness: 1,
-              indent: 5,
-              endIndent: 5,
-              color: Colors.grey
-            ),
+            VerticalDivider(),
             FolderList()
           ]
         )
