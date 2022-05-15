@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/db_bloc.dart';
-import 'db_home_bloc.dart';
+import '../../../blocs/vault_bloc.dart';
+import 'vault_home_bloc.dart';
 
 import '../../../components/appwrapper.dart';
 
-class DbHome extends StatelessWidget {
-  const DbHome({ Key? key }): super(key: key);
+class VaultHome extends StatelessWidget {
+  const VaultHome({ Key? key }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppWrapper(
       child: BlocProvider(
-        create: (context) => DatabaseHomeBloc(),
+        create: (context) => VaultHomeBloc(),
         child: Column(
           children: const [
             SearchBar(),
@@ -58,7 +58,7 @@ class Tree extends StatelessWidget {
     return SizedBox(
       width: (MediaQuery.of(context).size.width * .2) - 20,
       child: Column(
-        // TODO: Display categories from db bloc
+        // TODO: Display categories from vault bloc
         children: []
       ),
     );
@@ -68,13 +68,13 @@ class Tree extends StatelessWidget {
 class TreeCategory extends StatelessWidget {
   const TreeCategory({ Key? key, required this.category}): super(key: key);
 
-  final DatabaseCategory category;
+  final VaultCategory category;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // TODO: Update db home bloc focusedCategory on click
+    // TODO: Update vault home bloc focusedCategory on click
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Row(
@@ -120,7 +120,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final dbHomeBloc = context.read<DatabaseHomeBloc>();
+    final vaultHomeBloc = context.read<VaultHomeBloc>();
 
     return Container(
       decoration: BoxDecoration(
@@ -140,7 +140,7 @@ class SearchBar extends StatelessWidget {
             icon: IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                dbHomeBloc.add(const SearchSubmitted());
+                vaultHomeBloc.add(const SearchSubmitted());
               },
             ),
             label: const Text('Search passwords'),
@@ -151,10 +151,10 @@ class SearchBar extends StatelessWidget {
           ),
           style: theme.textTheme.bodySmall,
           onChanged: (query) {
-            dbHomeBloc.add(QueryChanged(query: query));
+            vaultHomeBloc.add(QueryChanged(query: query));
           },
           onSubmitted: (_query) {
-            dbHomeBloc.add(const SearchSubmitted());
+            vaultHomeBloc.add(const SearchSubmitted());
           },
         ),
       ),

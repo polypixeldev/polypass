@@ -130,7 +130,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
       submitted: true
     ));
 
-    // TODO: Create database file
+    // TODO: Create vault file
     await Future.delayed(const Duration( seconds: 2 ));
 
     emit(state.copyWith(

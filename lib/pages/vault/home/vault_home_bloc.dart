@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-class DatabaseHomeState extends Equatable {
-  const DatabaseHomeState({
+class VaultHomeState extends Equatable {
+  const VaultHomeState({
     this.query = '',
     this.submitted = false
   });
@@ -10,11 +10,11 @@ class DatabaseHomeState extends Equatable {
   final String query;
   final bool submitted;
 
-  DatabaseHomeState copyWith({
+  VaultHomeState copyWith({
     String? query,
     bool? submitted
   }) {
-    return DatabaseHomeState(
+    return VaultHomeState(
       query: query ?? this.query,
       submitted: submitted ?? this.submitted
     );
@@ -24,14 +24,14 @@ class DatabaseHomeState extends Equatable {
   List<dynamic> get props => [query, submitted];
 }
 
-abstract class DatabaseHomeEvent extends Equatable {
-  const DatabaseHomeEvent();
+abstract class VaultHomeEvent extends Equatable {
+  const VaultHomeEvent();
 
   @override
   List<dynamic> get props => [];
 }
 
-class QueryChanged extends DatabaseHomeEvent {
+class QueryChanged extends VaultHomeEvent {
   const QueryChanged({
     required this.query
   });
@@ -42,12 +42,12 @@ class QueryChanged extends DatabaseHomeEvent {
   List<String> get props => [query];
 }
 
-class SearchSubmitted extends DatabaseHomeEvent {
+class SearchSubmitted extends VaultHomeEvent {
   const SearchSubmitted();
 }
 
-class DatabaseHomeBloc extends Bloc<DatabaseHomeEvent, DatabaseHomeState> {
-  DatabaseHomeBloc() : super(const DatabaseHomeState()) {
+class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
+  VaultHomeBloc() : super(const VaultHomeState()) {
     on<QueryChanged>(_onQueryChanged);
     on<SearchSubmitted>(_onSearchSubmitted);
   }

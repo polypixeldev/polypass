@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import './db_providers.dart';
-import '../blocs/db_bloc.dart';
+import 'vault_providers.dart';
+import '../blocs/vault_bloc.dart';
 
-// Database file schema (.ppdb.json)
+// Vault file schema (.ppv.json)
 //
 // {
 //    header: {
@@ -13,22 +13,22 @@ import '../blocs/db_bloc.dart';
 //    contents: String
 // }
 
-class DatabaseFile {
-  DatabaseFile({
+class VaultFile {
+  VaultFile({
     required this.header,
     required this.contents,
     required this.path
   });
 
-  factory DatabaseFile.fromJson(String json, String path) {
+  factory VaultFile.fromJson(String json, String path) {
     final map = jsonDecode(json);
     final header = map['header'];
     final name = header['name'] as String;
     final description = header['description'] as String;
-    final contents = DatabaseContents.fromEncoded(map['contents'] as String);
+    final contents = VaultContents.fromEncoded(map['contents'] as String);
 
-    return DatabaseFile(
-      header: DatabaseHeader(
+    return VaultFile(
+      header: VaultHeader(
         description: description,
         name: name
       ),
@@ -37,8 +37,8 @@ class DatabaseFile {
     );
   }
 
-  DatabaseHeader header;
-  DatabaseContents contents;
+  VaultHeader header;
+  VaultContents contents;
   String path;
 
   String toJson() {
@@ -54,8 +54,8 @@ class DatabaseFile {
   }
 }
 
-class DatabaseHeader {
-  const DatabaseHeader({
+class VaultHeader {
+  const VaultHeader({
     required this.name,
     required this.description
   });
@@ -64,19 +64,19 @@ class DatabaseHeader {
   final String description;
 }
 
-class DatabaseContents {
-  const DatabaseContents({
+class VaultContents {
+  const VaultContents({
     required this.items
   });
 
-  factory DatabaseContents.fromEncoded(String encoded) {
+  factory VaultContents.fromEncoded(String encoded) {
     // TODO: Decrypt contents
-    return const DatabaseContents(
+    return const VaultContents(
       items: []
     );
   }
 
-  final List<DatabaseComponent> items;
+  final List<VaultComponent> items;
 
   String encrypt() {
     // TODO: Encrypt items
@@ -84,24 +84,24 @@ class DatabaseContents {
   }
 }
 
-class DatabaseRepository {
-  const DatabaseRepository();
+class VaultRepository {
+  const VaultRepository();
   final FileProvider fileProvider = const FileProvider();
 
-  Future<void> createFile(String path, DatabaseFile? file) async {
+  Future<void> createFile(String path, VaultFile? file) async {
     // TODO: Transform contents into raw string
     final raw = file?.toJson() ?? '';
     await fileProvider.updateFile(path, raw);
   }
 
-  Future<DatabaseFile> getFile(String path) async {
+  Future<VaultFile> getFile(String path) async {
     final raw = await fileProvider.readFile(path);
-    return DatabaseFile.fromJson(raw, path);
+    return VaultFile.fromJson(raw, path);
   }
 
-  Future<void> updateFile(String path, DatabaseFile contents) async {
-    final raw = contents.toJson();
-    await fileProvider.updateFile(path, raw);
+  Future<void> updateFile(VaultFile file) async {
+    final raw = file.toJson();
+    await fileProvider.updateFile(file.path, raw);
   }
 
   Future<void> deleteFile(String path) async {

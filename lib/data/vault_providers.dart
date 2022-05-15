@@ -1,7 +1,7 @@
 import 'dart:io';
 
-abstract class DatabaseProvider {
-  const DatabaseProvider();
+abstract class VaultProvider {
+  const VaultProvider();
 
   Future<String> readFile(String path);
 
@@ -10,7 +10,7 @@ abstract class DatabaseProvider {
   Future<void> deleteFile(String path);
 }
 
-class FileProvider extends DatabaseProvider {
+class FileProvider extends VaultProvider {
   const FileProvider();
 
   @override

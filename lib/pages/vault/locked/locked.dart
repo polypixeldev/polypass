@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/db_bloc.dart';
+import '../../../blocs/vault_bloc.dart';
 import 'unlock_form_bloc.dart';
 
 import '../../../components/appwrapper.dart';
 
-class DbLocked extends StatelessWidget {
-  const DbLocked({ Key? key }) : super(key: key);
+class VaultLocked extends StatelessWidget {
+  const VaultLocked({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class DbLocked extends StatelessWidget {
                   BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Unlocking database...'),
+                        content: Text('Unlocking vault...'),
                         duration: Duration( days: 365 )
                       ));
                     },
@@ -36,7 +36,7 @@ class DbLocked extends StatelessWidget {
                   ),
                   BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
-                      context.read<DatabaseBloc>().add(DatabaseUnlocked(masterKey: state.masterKey));
+                      context.read<VaultBloc>().add(VaultUnlocked(masterKey: state.masterKey));
                     },
                     listenWhen: (previous, current) => previous.unlocked != current.unlocked
                   )
@@ -44,7 +44,7 @@ class DbLocked extends StatelessWidget {
                 child: Column(
                   children: const [
                     Text(
-                      'Unlock Database',
+                      'Unlock Vault',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30

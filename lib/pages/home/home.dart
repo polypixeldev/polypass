@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/db_bloc.dart';
+import '../../blocs/vault_bloc.dart';
 
 import '../../components/appwrapper.dart';
 
@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
                 color: Theme.of(context).cardColor,
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
-              child: BlocBuilder<DatabaseBloc, DatabaseState>(
+              child: BlocBuilder<VaultBloc, VaultState>(
                 builder: ((context, state) {
                   return Column(
                     children: [
@@ -47,10 +47,10 @@ class Home extends StatelessWidget {
                       ),
                       ElevatedButton(
                         child: const Padding(
-                          child: Text('Create a database', style: TextStyle( fontSize: 25 )),
+                          child: Text('Create a vault', style: TextStyle( fontSize: 25 )),
                           padding: EdgeInsets.all(5)
                         ),
-                        onPressed: state.status == DatabaseStatus.opening ? null : () {
+                        onPressed: state.status == VaultStatus.opening ? null : () {
                           router.go('/create');
                         },
                       ),
@@ -59,23 +59,23 @@ class Home extends StatelessWidget {
                       ),
                       ElevatedButton(
                         child: const Padding(
-                          child: Text('Open a database', style: TextStyle( fontSize: 25 )),
+                          child: Text('Open a vault', style: TextStyle( fontSize: 25 )),
                           padding: EdgeInsets.all(5)
                         ),
-                        onPressed: state.status == DatabaseStatus.opening ? null : () async {
+                        onPressed: state.status == VaultStatus.opening ? null : () async {
                           final result = await FilePicker.platform.pickFiles(
-                            dialogTitle: 'Open database',
+                            dialogTitle: 'Open vault',
                             type: FileType.custom,
-                            allowedExtensions: ['ppdb.json']
+                            allowedExtensions: ['ppv.json']
                           );
                     
                           final path = result?.paths.first;
                           
                           if(path != null) {
-                            context.read<DatabaseBloc>().add(DatabaseOpened(path: path));
+                            context.read<VaultBloc>().add(VaultOpened(path: path));
                             
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text('Opening database...'),
+                              content: Text('Opening vault...'),
                               duration: Duration( days: 365 )
                             ));
                           }

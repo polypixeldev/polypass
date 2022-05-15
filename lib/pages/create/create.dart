@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'create_form_bloc.dart';
-import '../../blocs/db_bloc.dart';
+import '../../blocs/vault_bloc.dart';
 
 import '../../components/appwrapper.dart';
 
@@ -26,7 +26,7 @@ class Create extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(10))
             ),
             child: Text(
-              'Create a database',
+              'Create a vault',
               style: theme.textTheme.titleMedium
             ),
           ),
@@ -37,7 +37,7 @@ class Create extends StatelessWidget {
                 BlocListener<CreateFormBloc, CreateFormState>(
                   listener: (context, state) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Creating database...'),
+                      content: Text('Creating vault...'),
                       duration: Duration( days: 365 )
                     ));
                   },
@@ -48,11 +48,11 @@ class Create extends StatelessWidget {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Opening database...'),
+                      content: Text('Opening vault...'),
                       duration: Duration( days: 365 )
                     ));
 
-                    context.read<DatabaseBloc>().add(DatabaseOpened( path: state.path ));
+                    context.read<VaultBloc>().add(VaultOpened( path: state.path ));
                   },
                   listenWhen: (previous, current) => previous.created != current.created
                 )
@@ -178,7 +178,7 @@ class PathInput extends StatelessWidget {
       builder:(context, state) {
         return ElevatedButton(
           child: Text(
-            'Set database file location',
+            'Set vault file location',
             style: Theme.of(context).textTheme.bodyMedium
           ),
           style: ButtonStyle(
@@ -188,10 +188,10 @@ class PathInput extends StatelessWidget {
             final bloc = context.read<CreateFormBloc>();
             
             final path = await FilePicker.platform.saveFile(
-              dialogTitle: 'Set database file location',
-              fileName: bloc.state.name == '' ? 'passwords.ppdb.json' : '${bloc.state.name}.ppdb.json',
+              dialogTitle: 'Set vault file location',
+              fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
               type: FileType.custom,
-              allowedExtensions: ['ppdb.json']
+              allowedExtensions: ['ppv.json']
             );
       
             if (path == null) {
@@ -305,7 +305,7 @@ class NameInput extends StatelessWidget {
           child: TextFormField(
             enabled: !state.submitted,
             decoration: InputDecoration(
-              labelText: 'Name (required)',
+              labelText: 'Name',
               contentPadding: const EdgeInsets.all(10),
               floatingLabelStyle: theme.textTheme.bodySmall,
               labelStyle: theme.textTheme.bodySmall,

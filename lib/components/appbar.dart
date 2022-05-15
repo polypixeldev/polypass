@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/db_bloc.dart';
+import '../blocs/vault_bloc.dart';
 
-AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, bool icon) {
-  final databaseBloc = context.read<DatabaseBloc>();
+AppBar createAppBar(BuildContext context, VaultStatus status, bool actions, bool icon) {
+  final vaultBloc = context.read<VaultBloc>();
 
   Widget? appBarIcon;
   List<IconButton>? appBarActions;
   
   switch (status) {  
-    case DatabaseStatus.locked:
+    case VaultStatus.locked:
       appBarIcon = const Icon(Icons.lock);
 
       appBarActions = [
         IconButton(
           icon: const Icon(Icons.close),
-          tooltip: 'Close database',
+          tooltip: 'Close vault',
           onPressed: () {
-            databaseBloc.add(const DatabaseClosed());
+            vaultBloc.add(const VaultClosed());
           }
         )
       ];
 
       break;
-    case DatabaseStatus.unlocked:
+    case VaultStatus.unlocked:
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
-        tooltip: 'Database unlocked',
+        tooltip: 'Vault unlocked',
         onPressed: () {
-          databaseBloc.add(const DatabaseLocked());
+          vaultBloc.add(const VaultLocked());
         }
       );
 
@@ -38,28 +38,28 @@ AppBar createAppBar(BuildContext context, DatabaseStatus status, bool actions, b
           icon: const Icon(Icons.add),
           tooltip: 'Create an item',
           onPressed: () {
-            // TODO: Create a database item
+            // TODO: Create a vault item
           }
         ),
         IconButton(
           icon: const Icon(Icons.edit),
           tooltip: 'Edit the selected item',
           onPressed: () {
-            // TODO: Edit a database item
+            // TODO: Edit a vault item
           }
         ),
         IconButton(
           icon: const Icon(Icons.delete),
           tooltip: 'Delete the selected item',
           onPressed: () {
-            // TODO: Delete a database item
+            // TODO: Delete a vault item
           }
         ),
         IconButton(
           icon: const Icon(Icons.preview_outlined),
           tooltip: 'View the selected item',
           onPressed: () {
-            // TODO: View a database item
+            // TODO: View a vault item
           }
         )
       ];

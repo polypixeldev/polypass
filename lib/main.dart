@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/db_repository.dart';
-import 'blocs/db_bloc.dart';
+import 'data/vault_repository.dart';
+import 'blocs/vault_bloc.dart' hide VaultLocked;
 
 import 'pages/home/home.dart';
 import 'pages/create/create.dart';
-import 'pages/db/home/home.dart';
-import 'package:polypass/pages/db/locked/locked.dart';
+import 'pages/vault/home/home.dart';
+import 'pages/vault/locked/locked.dart';
 
 import 'theme.dart';
 
@@ -30,12 +30,12 @@ class App extends StatelessWidget {
         builder: (context, state) => const Create()
       ),
       GoRoute(
-        path: '/db/home',
-        builder: (context, state) => const DbHome()
+        path: '/vault/home',
+        builder: (context, state) => const VaultHome()
       ),
       GoRoute(
-        path: '/db/locked',
-        builder: (context, state) => const DbLocked()
+        path: '/vault/locked',
+        builder: (context, state) => const VaultLocked()
       )
     ]
   );
@@ -43,8 +43,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DatabaseBloc(
-        repository: const DatabaseRepository()
+      create: (context) => VaultBloc(
+        repository: const VaultRepository()
       ),
       child: MaterialApp.router(
         routeInformationParser: _router.routeInformationParser,

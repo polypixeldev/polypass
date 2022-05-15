@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/db_bloc.dart';
+import '../blocs/vault_bloc.dart';
 
 import 'appbar.dart';
 
@@ -15,21 +15,21 @@ class AppWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DatabaseBloc, DatabaseState>(
+    return BlocListener<VaultBloc, VaultState>(
       listener: (context, state) {
         final router = GoRouter.of(context);
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-        if (state.status == DatabaseStatus.locked) {
-          router.go('/db/locked');
-        } else if (state.status == DatabaseStatus.unlocked) {
-          router.go('/db/home');
-        } else if (state.status == DatabaseStatus.none) {
+        if (state.status == VaultStatus.locked) {
+          router.go('/vault/locked');
+        } else if (state.status == VaultStatus.unlocked) {
+          router.go('/vault/home');
+        } else if (state.status == VaultStatus.none) {
           router.go('/');
         }
       },
       child: Scaffold(
-        appBar: createAppBar(context, context.read<DatabaseBloc>().state.status, actions, icon),
+        appBar: createAppBar(context, context.read<VaultBloc>().state.status, actions, icon),
         body: SizedBox.expand(
           child: Container(
             color: Theme.of(context).backgroundColor,
