@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'data/db_repository.dart';
 import 'blocs/db_bloc.dart';
 
 import 'pages/home/home.dart';
@@ -42,7 +43,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DatabaseBloc(),
+      create: (context) => DatabaseBloc(
+        repository: const DatabaseRepository()
+      ),
       child: MaterialApp.router(
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,

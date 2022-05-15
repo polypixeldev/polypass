@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../data/db_repository.dart';
+
 enum DatabaseStatus { none, locked, unlocked, opening}
 
 enum DatabaseComponent {
@@ -103,6 +105,7 @@ class DatabaseClosed extends DatabaseBlocEvent {
 
 class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
   DatabaseBloc({
+    required this.repository,
     String name = '',
     String description = '',
     String path = '',
@@ -120,6 +123,8 @@ class DatabaseBloc extends Bloc<DatabaseBlocEvent, DatabaseState> {
     on<DatabaseUnlocked>(_onDatabaseUnlocked);
     on<DatabaseClosed>(_onDatabaseClosed);
   }
+
+  final DatabaseRepository repository;
 
   Future<void> _onDatabaseOpened(event, emit) async {
     emit(state.copyWith(
