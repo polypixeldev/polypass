@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/vault_bloc.dart';
 import 'vault_home_bloc.dart';
+import '../../../data/vault_file.dart';
 
 import '../../../components/appwrapper.dart';
 

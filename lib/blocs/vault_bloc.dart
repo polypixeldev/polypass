@@ -2,31 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../data/vault_repository.dart';
+import '../data/vault_file.dart';
 
 enum VaultStatus { none, locked, unlocked, opening }
-
-enum VaultComponent {
-  category(VaultCategory),
-  item(ItemData);
-
-  const VaultComponent(component);
-}
-
-class VaultCategory {
-  const VaultCategory({
-    required this.name,
-    this.icon,
-    this.components = const []
-  });
-
-  final String name;
-  final String? icon;
-  final List<VaultComponent> components;
-}
-
-class ItemData {
-  const ItemData();
-}
 
 class VaultState extends Equatable {
   const VaultState({
