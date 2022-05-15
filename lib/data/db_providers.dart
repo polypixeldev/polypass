@@ -1,7 +1,7 @@
+import 'dart:io';
+
 abstract class DatabaseProvider {
   const DatabaseProvider();
-
-  Future<void> createFile(String path, String? contents);
 
   Future<String> readFile(String path);
 
@@ -14,22 +14,34 @@ class FileProvider extends DatabaseProvider {
   const FileProvider();
 
   @override
-  Future<void> createFile(String path, String? contents) async {
-    // TODO: Create database file
-  }
-
-  @override
   Future<String> readFile(String path) async {
-    // TODO: Read database file
+    final file = File(path);
+    final exists = await file.exists();
+
+    if (!exists) {
+      throw Exception('NONEXISTENT_FILE');
+    }
+
+    final contents = await file.readAsString();
+
+    return contents;
   }
 
   @override
   Future<void> updateFile(String path, String contents) async {
-    // TODO: Update database file
+    final file = File(path);
+    await file.writeAsString(contents);
   }
 
   @override
   Future<void> deleteFile(String path) async {
-    // TODO: Delete database file
+    final file = File(path);
+    final exists = await file.exists();
+
+    if (!exists) {
+      throw Exception('NONEXISTENT_FILE');
+    }
+
+    await file.delete();
   }
 }
