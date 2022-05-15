@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'create_form_bloc.dart';
 import '../../blocs/vault_bloc.dart';
+import '../../data/vault_repository.dart';
 
 import '../../components/appwrapper.dart';
 
@@ -31,7 +32,9 @@ class Create extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => CreateFormBloc(),
+            create: (context) => CreateFormBloc(
+              vaultRepository: context.read<VaultRepository>()
+            ),
             child: MultiBlocListener(
               listeners: [
                 BlocListener<CreateFormBloc, CreateFormState>(

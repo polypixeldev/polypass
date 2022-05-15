@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../data/vault_repository.dart';
+
 class CreateFormState extends Equatable {
   const CreateFormState({
     this.name = '',
@@ -93,13 +95,17 @@ class FormSubmitted extends CreateFormEvent {
 }
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
-  CreateFormBloc() : super(const CreateFormState()) {
+  CreateFormBloc({
+    required this.vaultRepository
+  }) : super(const CreateFormState()) {
     on<NameChanged>(_onNameChanged);
     on<DescriptionChanged>(_onDescriptionChanged);
     on<MasterPasswordChanged>(_onMasterPasswordChanged);
     on<PathChanged>(_onPathChanged);
     on<FormSubmitted>(_onFormSubmitted);
   }
+
+  final VaultRepository vaultRepository;
 
   void _onNameChanged(event, emit) {
     emit(state.copyWith(
@@ -130,8 +136,16 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
       submitted: true
     ));
 
-    // TODO: Create vault file
-    await Future.delayed(const Duration( seconds: 2 ));
+    await vaultRepository.updateFile(VaultFile(
+      header: VaultHeader(
+        name: state.name,
+        description: state.description
+      ),
+      path: state.path,
+      contents: const VaultContents(
+        items: []
+      )
+    ));
 
     emit(state.copyWith(
       created: true

@@ -42,17 +42,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => VaultBloc(
-        repository: const VaultRepository()
-      ),
-      child: MaterialApp.router(
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
-        title: 'PolyPass',
-        debugShowCheckedModeBanner: false,
-        theme: appTheme
-      ),
+    return RepositoryProvider(
+      create: (context) => const VaultRepository(),
+        child: BlocProvider(
+          create: (context) => VaultBloc(
+            repository: context.read<VaultRepository>()
+          ),
+          child: MaterialApp.router(
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
+            title: 'PolyPass',
+            debugShowCheckedModeBanner: false,
+            theme: appTheme
+          ),
+        ),
     );
   }
 }

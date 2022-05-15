@@ -21,3 +21,6 @@ doc/api/
 # Generated flutter files
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Testing files
+*.ppv.json

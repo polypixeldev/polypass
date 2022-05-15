@@ -88,12 +88,6 @@ class VaultRepository {
   const VaultRepository();
   final FileProvider fileProvider = const FileProvider();
 
-  Future<void> createFile(String path, VaultFile? file) async {
-    // TODO: Transform contents into raw string
-    final raw = file?.toJson() ?? '';
-    await fileProvider.updateFile(path, raw);
-  }
-
   Future<VaultFile> getFile(String path) async {
     final raw = await fileProvider.readFile(path);
     return VaultFile.fromJson(raw, path);
