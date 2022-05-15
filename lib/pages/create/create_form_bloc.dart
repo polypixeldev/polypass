@@ -142,9 +142,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         description: state.description
       ),
       path: state.path,
-      contents: const VaultContents(
-        items: []
-      )
+      contents: const VaultContents.encrypted('')
     ));
 
     emit(state.copyWith(

@@ -25,7 +25,7 @@ class VaultFile {
     final header = map['header'];
     final name = header['name'] as String;
     final description = header['description'] as String;
-    final contents = VaultContents.fromEncoded(map['contents'] as String);
+    const contents = const VaultContents.encrypted(map['contents'] as String);
 
     return VaultFile(
       header: VaultHeader(
@@ -36,6 +36,15 @@ class VaultFile {
       path: path
     );
   }
+
+  static final VaultFile empty = VaultFile(
+    header: const VaultHeader(
+      name: '',
+      description: ''
+    ),
+    path: '',
+    contents: const VaultContents.encrypted('')
+  );
 
   VaultHeader header;
   VaultContents contents;
@@ -52,6 +61,18 @@ class VaultFile {
 
     return jsonEncode(map);
   }
+
+  VaultFile copyWith({
+    VaultHeader? header,
+    VaultContents? contents,
+    String? path
+  }) {
+    return VaultFile(
+      header: header ?? this.header,
+      contents: contents ?? this.contents,
+      path: path ?? this.path
+    );
+  }
 }
 
 class VaultHeader {
@@ -64,23 +85,19 @@ class VaultHeader {
   final String description;
 }
 
-class VaultContents {
-  const VaultContents({
-    required this.items
-  });
+enum VaultContents {
+  encrypted(String),
+  decrypted(List<VaultComponent>);
+  const VaultContents(contents);
 
-  factory VaultContents.fromEncoded(String encoded) {
+  VaultContents decrypt() {
     // TODO: Decrypt contents
-    return const VaultContents(
-      items: []
-    );
+    return const VaultContents.decrypted([]);
   }
 
-  final List<VaultComponent> items;
-
-  String encrypt() {
+  VaultContents encrypt() {
     // TODO: Encrypt items
-    return '';
+    return const VaultContents.encrypted('');
   }
 }
 

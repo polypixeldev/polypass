@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../data/vault_repository.dart';
 
-enum VaultStatus { none, locked, unlocked, opening}
+enum VaultStatus { none, locked, unlocked, opening }
 
 enum VaultComponent {
   category(VaultCategory),
@@ -30,37 +30,25 @@ class ItemData {
 
 class VaultState extends Equatable {
   const VaultState({
-    required this.tree,
-    required this.name,
-    required this.description,
-    required this.path,
+    required this.vault,
     required this.status
   });
 
-  final List<VaultComponent> tree;
-  final String name;
-  final String description;
-  final String path;
+  final VaultFile vault;
   final VaultStatus status;
 
   VaultState copyWith({
-    List<VaultComponent>? tree,
-    String? name,
-    String? description,
-    String? path,
+    VaultFile? vault,
     VaultStatus? status
   }) {
     return VaultState(
-      tree: tree ?? this.tree,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      path: path ?? this.path,
+      vault: vault ?? this.vault,
       status: status ?? this.status
     );
   }
 
   @override
-  List<dynamic> get props => [tree, name, description, path, status];
+  List<dynamic> get props => [vault, status];
 }
 
 abstract class VaultBlocEvent extends Equatable {
@@ -106,16 +94,10 @@ class VaultClosed extends VaultBlocEvent {
 class VaultBloc extends Bloc<VaultBlocEvent, VaultState> {
   VaultBloc({
     required this.repository,
-    String name = '',
-    String description = '',
-    String path = '',
-    List<VaultComponent> tree = const [],
+    VaultFile? vault,
     VaultStatus status = VaultStatus.none
   }) : super(VaultState(
-    name: name,
-    description: description,
-    path: path,
-    tree: tree,
+    vault: vault ?? VaultFile.empty,
     status: status 
   )) {
     on<VaultOpened>(_onVaultOpened);
@@ -130,35 +112,38 @@ class VaultBloc extends Bloc<VaultBlocEvent, VaultState> {
     emit(state.copyWith(
       status: VaultStatus.opening
     ));
-    // TODO: Call repository function to fetch vault data using event.path
-    await Future.delayed(const Duration( seconds: 2));
-
 
     emit(state.copyWith(
-      status: VaultStatus.locked
+      status: VaultStatus.locked,
+      vault: await repository.getFile(event.path)
     ));
   }
 
   void _onVaultLocked(event, emit) {
-    // TODO: Lock vault
+    final encryptedContents = state.vault.contents.encrypt();
+    
     emit(state.copyWith(
-      status: VaultStatus.locked
+      status: VaultStatus.locked,
+      vault: state.vault.copyWith(
+        contents: encryptedContents
+      )
     ));
   }
 
   void _onVaultUnlocked(event, emit) {
-    // TODO: Decrypt vault with event.masterKey
+    final decryptedContents = state.vault.contents.decrypt();
+
     emit(state.copyWith(
-      status: VaultStatus.unlocked
+      status: VaultStatus.unlocked,
+      vault: state.vault.copyWith(
+        contents: decryptedContents
+      )
     ));
   }
 
   void _onVaultClosed(event, emit) {
-    emit(const VaultState(
-      name: '',
-      description: '',
-      path: '',
-      tree: const [],
+    emit(VaultState(
+      vault: VaultFile.empty,
       status: VaultStatus.none
     ));
   }
