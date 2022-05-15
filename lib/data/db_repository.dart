@@ -3,7 +3,7 @@ import 'dart:convert';
 import './db_providers.dart';
 import '../blocs/db_bloc.dart';
 
-// Database file schema
+// Database file schema (.ppdb.json)
 //
 // {
 //    header: {

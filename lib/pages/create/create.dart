@@ -189,9 +189,9 @@ class PathInput extends StatelessWidget {
             
             final path = await FilePicker.platform.saveFile(
               dialogTitle: 'Set database file location',
-              fileName: bloc.state.name == '' ? 'passwords.ppdb' : '${bloc.state.name}.ppdb',
+              fileName: bloc.state.name == '' ? 'passwords.ppdb.json' : '${bloc.state.name}.ppdb.json',
               type: FileType.custom,
-              allowedExtensions: ['ppdb']
+              allowedExtensions: ['ppdb.json']
             );
       
             if (path == null) {

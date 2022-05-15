@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
                           final result = await FilePicker.platform.pickFiles(
                             dialogTitle: 'Open database',
                             type: FileType.custom,
-                            allowedExtensions: ['ppdb']
+                            allowedExtensions: ['ppdb.json']
                           );
                     
                           final path = result?.paths.first;
