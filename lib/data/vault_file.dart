@@ -22,6 +22,7 @@ class VaultFile {
     final header = map['header'];
     final name = header['name'] as String;
     final description = header['description'] as String;
+    // ignore: unnecessary_const
     const contents = const VaultContents.encrypted(map['contents'] as String);
 
     return VaultFile(

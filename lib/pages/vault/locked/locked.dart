@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/vault_bloc.dart';
-import 'unlock_form_bloc.dart';
+import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/pages/vault/locked/unlock_form_bloc.dart';
 
-import '../../../components/appwrapper.dart';
+import 'package:polypass/components/appwrapper.dart';
 
 class VaultLocked extends StatelessWidget {
   const VaultLocked({ Key? key }) : super(key: key);

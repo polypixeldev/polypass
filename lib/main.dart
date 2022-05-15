@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/vault_repository.dart';
-import 'blocs/vault_bloc.dart' hide VaultLocked;
+import 'package:polypass/data/vault_repository.dart';
+import 'package:polypass/blocs/vault_bloc.dart' hide VaultLocked;
 
-import 'pages/home/home.dart';
-import 'pages/create/create.dart';
-import 'pages/vault/home/home.dart';
-import 'pages/vault/locked/locked.dart';
+import 'package:polypass/pages/home/home.dart';
+import 'package:polypass/pages/create/create.dart';
+import 'package:polypass/pages/vault/home/home.dart';
+import 'package:polypass/pages/vault/locked/locked.dart';
 
-import 'theme.dart';
+import 'package:polypass/theme.dart';
 
 void main() {
   runApp(App());

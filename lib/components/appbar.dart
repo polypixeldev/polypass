@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/vault_bloc.dart';
+import 'package:polypass/blocs/vault_bloc.dart';
 
 AppBar createAppBar(BuildContext context, VaultStatus status, bool actions, bool icon) {
   final vaultBloc = context.read<VaultBloc>();

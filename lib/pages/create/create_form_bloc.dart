@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../data/vault_repository.dart';
-import '../../data/vault_file.dart';
+import 'package:polypass/data/vault_repository.dart';
+import 'package:polypass/data/vault_file.dart';
 
 class CreateFormState extends Equatable {
   const CreateFormState({

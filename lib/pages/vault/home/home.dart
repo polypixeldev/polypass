@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'vault_home_bloc.dart';
-import '../../../data/vault_file.dart';
+import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
+import 'package:polypass/data/vault_file.dart';
 
-import '../../../components/appwrapper.dart';
+import 'package:polypass/components/appwrapper.dart';
 
 class VaultHome extends StatelessWidget {
   const VaultHome({ Key? key }): super(key: key);
@@ -59,7 +59,7 @@ class Tree extends StatelessWidget {
       width: (MediaQuery.of(context).size.width * .2) - 20,
       child: Column(
         // TODO: Display categories from vault bloc
-        children: []
+        children: const []
       ),
     );
   }
@@ -108,7 +108,7 @@ class FolderList extends StatelessWidget {
       width: (MediaQuery.of(context).size.width * .8) - 21,
       child: Column(
         // TODO: Display category items from focusedCategory here
-        children: []
+        children: const []
       ),
     );
   }

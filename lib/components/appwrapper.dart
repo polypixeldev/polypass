@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/vault_bloc.dart';
+import 'package:polypass/blocs/vault_bloc.dart';
 
-import 'appbar.dart';
+import 'package:polypass/components/appbar.dart';
 
 class AppWrapper extends StatelessWidget {
   const AppWrapper({Key? key, required this.child, this.actions = true, this.icon = true}) : super(key: key);

@@ -1,5 +1,5 @@
-import 'vault_providers.dart';
-import 'vault_file.dart';
+import 'package:polypass/data/vault_providers.dart';
+import 'package:polypass/data/vault_file.dart';
 
 class VaultRepository {
   const VaultRepository();
