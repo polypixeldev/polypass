@@ -5,3 +5,7 @@ linter:
   rules:
     prefer_single_quotes: true
     always_use_package_imports: true
+
+analyzer:
+  errors:
+    invalid_annotation_target: false

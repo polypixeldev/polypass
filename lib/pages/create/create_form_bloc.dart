@@ -1,141 +1,86 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
 
-class CreateFormState extends Equatable {
-  const CreateFormState({
-    this.name = '',
-    this.description = '',
-    this.masterPassword = '',
-    this.path = '',
-    this.submitted = false,
-    this.created = false
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'create_form_bloc.freezed.dart';
 
-  final String name;
-  final String description;
-  final String masterPassword;
-  final String path;
-  final bool submitted;
-  final bool created;
+@freezed
+class CreateFormState with _$CreateFormState {
+  const CreateFormState._();
+  const factory CreateFormState(
+    String name,
+    String description,
+    String masterPassword,
+    String path,
+    bool submitted,
+    bool created
+  ) = _CreateFormState;
+
+  factory CreateFormState.empty() => const CreateFormState('', '', '', '', false, false);
 
   bool get isFormValid => (name != '') && (description != '') && (masterPassword != '') && (path != '');
-
-  CreateFormState copyWith({
-    String? name,
-    String? description,
-    String? masterPassword,
-    String? path,
-    bool? submitted,
-    bool? created
-  }) {
-    return CreateFormState(
-      name: name ?? this.name,
-      description: description ?? this.description,
-      masterPassword: masterPassword ?? this.masterPassword,
-      path: path ?? this.path,
-      submitted: submitted ?? this.submitted,
-      created: created ?? this.created
-    );
-  }
-
-  @override
-  List<dynamic> get props => [name, description, masterPassword, path, submitted, created];
 }
 
-abstract class CreateFormEvent extends Equatable {
-  const CreateFormEvent();
-
-  @override
-  List<String> get props => [];
-}
-
-class NameChanged extends CreateFormEvent {
-  const NameChanged({ required this.name });
-
-  final String name;
-
-  @override
-  List<String> get props => [name];
-}
-
-class DescriptionChanged extends CreateFormEvent {
-  const DescriptionChanged({ required this.description });
-
-  final String description;
-
-  @override
-  List<String> get props => [description];
-}
-
-class MasterPasswordChanged extends CreateFormEvent {
-  const MasterPasswordChanged({ required this.masterPassword });
-
-  final String masterPassword;
-
-  @override
-  List<String> get props => [masterPassword];
-}
-
-class PathChanged extends CreateFormEvent {
-  const PathChanged({ required this.path });
-
-  final String path;
-
-  @override
-  List<String> get props => [path];
-}
-
-class FormSubmitted extends CreateFormEvent {
-  const FormSubmitted();
-
-  @override
-  List<String> get props => [];
+@freezed
+class CreateFormEvent with _$CreateFormEvent {
+  const factory CreateFormEvent.nameChanged(String name) = NameChangedEvent;
+  const factory CreateFormEvent.descriptionChanged(String description) = DescriptionChangedEvent;
+  const factory CreateFormEvent.masterPasswordChanged(String masterPassword) = MasterPasswordChangedEvent;
+  const factory CreateFormEvent.pathChanged(String path) = PathChangedEvent;
+  const factory CreateFormEvent.formSubmitted() = FormSubmittedEvent;
 }
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   CreateFormBloc({
     required this.vaultRepository
-  }) : super(const CreateFormState()) {
-    on<NameChanged>(_onNameChanged);
-    on<DescriptionChanged>(_onDescriptionChanged);
-    on<MasterPasswordChanged>(_onMasterPasswordChanged);
-    on<PathChanged>(_onPathChanged);
-    on<FormSubmitted>(_onFormSubmitted);
+  }) : super(CreateFormState.empty()) {
+    on<CreateFormEvent>((event, emit) async {
+      await event.map(
+        nameChanged: (event) => _onNameChanged(event, emit),
+        descriptionChanged: (event) => _onDescriptionChanged(event, emit),
+        masterPasswordChanged: (event) => _onMasterPasswordChanged(event, emit),
+        pathChanged: (event) => _onPathChanged(event, emit),
+        formSubmitted: (event) => _onFormSubmitted(event, emit)
+      );
+    });
   }
 
   final VaultRepository vaultRepository;
 
-  void _onNameChanged(event, emit) {
+  Future<void> _onNameChanged(NameChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
       name: event.name
     ));
   }
 
-  void _onDescriptionChanged(event, emit) {
+  Future<void> _onDescriptionChanged(DescriptionChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
       description: event.description
     ));
   }
 
-  void _onMasterPasswordChanged(event, emit) {
+  Future<void> _onMasterPasswordChanged(MasterPasswordChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
       masterPassword: event.masterPassword
     ));
   }
 
-  void _onPathChanged(event, emit) {
+  Future<void> _onPathChanged(PathChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
       path: event.path
     ));
   }
 
-  Future<void> _onFormSubmitted(event, emit) async {
+  Future<void> _onFormSubmitted(FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
       submitted: true
     ));
+
+    // TODO: Derive masterKey from state.masterPassword
+    // ignore: prefer_const_declarations
+    final masterKey = '';
 
     await vaultRepository.updateFile(VaultFile(
       header: VaultHeader(
@@ -143,8 +88,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         description: state.description
       ),
       path: state.path,
-      contents: const VaultContents.encrypted('')
-    ));
+      contents: const EncryptedData<VaultContents>.decrypted(VaultContents(components: []))
+    ), masterKey);
 
     emit(state.copyWith(
       created: true

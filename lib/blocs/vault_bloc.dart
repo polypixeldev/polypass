@@ -1,128 +1,88 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
 
-enum VaultStatus { none, locked, unlocked, opening }
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'vault_bloc.freezed.dart';
 
-class VaultState extends Equatable {
-  const VaultState({
-    required this.vault,
-    required this.status
-  });
+enum VaultStatus { none, opening, unlocked, locked}
 
-  final VaultFile vault;
-  final VaultStatus status;
-
-  VaultState copyWith({
-    VaultFile? vault,
-    VaultStatus? status
-  }) {
-    return VaultState(
-      vault: vault ?? this.vault,
-      status: status ?? this.status
-    );
-  }
-
-  @override
-  List<dynamic> get props => [vault, status];
+@freezed
+class VaultState with _$VaultState {
+  const factory VaultState.none() = _None;
+  const factory VaultState.opening() = _Opening;
+  const factory VaultState.locked(VaultFile vault) = _Locked;
+  const factory VaultState.unlocked(VaultFile vault, String? masterKey) = _Unlocked;
 }
 
-abstract class VaultBlocEvent extends Equatable {
-  const VaultBlocEvent();
-
-  @override
-  List<dynamic> get props => [];
+@freezed
+class VaultEvent with _$VaultEvent {
+  const factory VaultEvent.opened(String path) = OpenedEvent;
+  const factory VaultEvent.unlocked(String masterKey) = UnlockedEvent;
+  const factory VaultEvent.locked() = LockedEvent;
+  const factory VaultEvent.closed() = ClosedEvent;
 }
 
-class VaultOpened extends VaultBlocEvent {
-  const VaultOpened({
-    required this.path
-  });
-
-  final String path;
-
-  @override
-  List<String> get props => [path];
-}
-
-class VaultLocked extends VaultBlocEvent {
-  const VaultLocked();
-}
-
-class VaultUnlocked extends VaultBlocEvent {
-  const VaultUnlocked({
-    required this.masterKey
-  });
-
-  final String masterKey;
-
-  @override
-  List<String> get props => [masterKey];
-}
-
-class VaultClosed extends VaultBlocEvent {
-  const VaultClosed();
-
-  @override
-  List<String> get props => [];
-}
-
-class VaultBloc extends Bloc<VaultBlocEvent, VaultState> {
+class VaultBloc extends Bloc<VaultEvent, VaultState> {
   VaultBloc({
     required this.repository,
     VaultFile? vault,
     VaultStatus status = VaultStatus.none
-  }) : super(VaultState(
-    vault: vault ?? VaultFile.empty,
-    status: status 
-  )) {
-    on<VaultOpened>(_onVaultOpened);
-    on<VaultLocked>(_onVaultLocked);
-    on<VaultUnlocked>(_onVaultUnlocked);
-    on<VaultClosed>(_onVaultClosed);
+  }) : super(const VaultState.none()) {
+    on<VaultEvent>((rawEvent, emit) async {
+      await rawEvent.map(
+        opened: (event) => _onVaultOpened(event, emit),
+        unlocked: (event) => _onVaultUnlocked(event, emit),
+        locked: (event) => _onVaultLocked(event, emit),
+        closed: (event) => _onVaultClosed(event, emit)
+      );
+    });
   }
 
   final VaultRepository repository;
 
-  Future<void> _onVaultOpened(event, emit) async {
-    emit(state.copyWith(
-      status: VaultStatus.opening
-    ));
+  Future<void> _onVaultOpened(OpenedEvent event, Emitter<VaultState> emit) async {
+    emit(const VaultState.opening());
 
-    emit(state.copyWith(
-      status: VaultStatus.locked,
-      vault: await repository.getFile(event.path)
-    ));
+    emit(VaultState.locked(await repository.getFile(event.path)));
   }
 
-  void _onVaultLocked(event, emit) {
-    final encryptedContents = state.vault.contents.encrypt();
+  Future<void> _onVaultLocked(LockedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState = state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    final encryptedFile = await repository.getFile(unlockedState.vault.path);
     
-    emit(state.copyWith(
-      status: VaultStatus.locked,
-      vault: state.vault.copyWith(
-        contents: encryptedContents
-      )
-    ));
+    emit(
+      VaultState.locked(unlockedState.vault.copyWith(
+        contents: encryptedFile.contents
+      ))
+    );
   }
 
-  void _onVaultUnlocked(event, emit) {
-    final decryptedContents = state.vault.contents.decrypt();
+  Future<void> _onVaultUnlocked(UnlockedEvent event, Emitter<VaultState> emit) async {
+    final lockedState = state.maybeMap(
+      locked: (state) => state,
+      orElse: () => throw Error()
+    );
 
-    emit(state.copyWith(
-      status: VaultStatus.unlocked,
-      vault: state.vault.copyWith(
-        contents: decryptedContents
+    final decryptedContents = lockedState.vault.contents.decrypt(event.masterKey);
+
+    // TODO: Allow user to choose whether or not to keep key in memory while open
+    emit(
+      VaultState.unlocked(
+        lockedState.vault.copyWith(
+          contents: decryptedContents
+        ),
+        event.masterKey
       )
-    ));
+    );
   }
 
-  void _onVaultClosed(event, emit) {
-    emit(VaultState(
-      vault: VaultFile.empty,
-      status: VaultStatus.none
-    ));
+  Future<void> _onVaultClosed(ClosedEvent event, Emitter<VaultState> emit) async {
+    emit(const VaultState.none());
   }
 }

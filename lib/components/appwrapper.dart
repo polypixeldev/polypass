@@ -20,16 +20,14 @@ class AppWrapper extends StatelessWidget {
         final router = GoRouter.of(context);
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-        if (state.status == VaultStatus.locked) {
-          router.go('/vault/locked');
-        } else if (state.status == VaultStatus.unlocked) {
-          router.go('/vault/home');
-        } else if (state.status == VaultStatus.none) {
-          router.go('/');
-        }
+        state.whenOrNull(
+          locked: (_vault) => router.go('/vault/locked'),
+          unlocked: (_vault, _masterKey) => router.go('/vault/home'),
+          none: () => router.go('/')
+        );
       },
       child: Scaffold(
-        appBar: createAppBar(context, context.read<VaultBloc>().state.status, actions, icon),
+        appBar: createAppBar(context, context.read<VaultBloc>().state, actions, icon),
         body: SizedBox.expand(
           child: Container(
             color: Theme.of(context).backgroundColor,

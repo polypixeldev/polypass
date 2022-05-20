@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
-import 'package:polypass/blocs/vault_bloc.dart' hide VaultLocked;
+import 'package:polypass/blocs/vault_bloc.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/create/create.dart';

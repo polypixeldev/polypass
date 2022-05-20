@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/blocs/vault_bloc.dart';
 
-AppBar createAppBar(BuildContext context, VaultStatus status, bool actions, bool icon) {
+AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool icon) {
   final vaultBloc = context.read<VaultBloc>();
 
   Widget? appBarIcon;
   List<IconButton>? appBarActions;
-  
-  switch (status) {  
-    case VaultStatus.locked:
+
+  state.whenOrNull(
+    locked: (_vault) {
       appBarIcon = const Icon(Icons.lock);
 
       appBarActions = [
@@ -18,18 +18,17 @@ AppBar createAppBar(BuildContext context, VaultStatus status, bool actions, bool
           icon: const Icon(Icons.close),
           tooltip: 'Close vault',
           onPressed: () {
-            vaultBloc.add(const VaultClosed());
+            vaultBloc.add(const VaultEvent.closed());
           }
         )
       ];
-
-      break;
-    case VaultStatus.unlocked:
+    },
+    unlocked: (_vault, _masterKey) {
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
-        tooltip: 'Vault unlocked',
+        tooltip: 'Lock vault',
         onPressed: () {
-          vaultBloc.add(const VaultLocked());
+          vaultBloc.add(const VaultEvent.locked());
         }
       );
 
@@ -63,11 +62,8 @@ AppBar createAppBar(BuildContext context, VaultStatus status, bool actions, bool
           }
         )
       ];
-
-      break;
-    default:
-      break;
-  }
+    }
+  );
 
   final polyPassAppBar = AppBar(
     title: const Text('PolyPass'),

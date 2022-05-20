@@ -50,9 +50,10 @@ class Home extends StatelessWidget {
                           child: Text('Create a vault', style: TextStyle( fontSize: 25 )),
                           padding: EdgeInsets.all(5)
                         ),
-                        onPressed: state.status == VaultStatus.opening ? null : () {
-                          router.go('/create');
-                        },
+                        onPressed: state.maybeWhen(
+                          opening: () => null,
+                          orElse: () => () => router.go('/create'),
+                        ),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 5)
@@ -62,24 +63,27 @@ class Home extends StatelessWidget {
                           child: Text('Open a vault', style: TextStyle( fontSize: 25 )),
                           padding: EdgeInsets.all(5)
                         ),
-                        onPressed: state.status == VaultStatus.opening ? null : () async {
-                          final result = await FilePicker.platform.pickFiles(
-                            dialogTitle: 'Open vault',
-                            type: FileType.custom,
-                            allowedExtensions: ['ppv.json']
-                          );
-                    
-                          final path = result?.paths.first;
-                          
-                          if(path != null) {
-                            context.read<VaultBloc>().add(VaultOpened(path: path));
+                        onPressed: state.maybeWhen(
+                          opening: () => null,
+                          orElse: () => () async {
+                            final result = await FilePicker.platform.pickFiles(
+                              dialogTitle: 'Open vault',
+                              type: FileType.custom,
+                              allowedExtensions: ['ppv.json']
+                            );
+                      
+                            final path = result?.paths.first;
                             
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text('Opening vault...'),
-                              duration: Duration( days: 365 )
-                            ));
+                            if(path != null) {
+                              context.read<VaultBloc>().add(VaultEvent.opened(path));
+                              
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                content: Text('Opening vault...'),
+                                duration: Duration( days: 365 )
+                              ));
+                            }
                           }
-                        },
+                        )
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,

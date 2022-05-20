@@ -55,7 +55,7 @@ class Create extends StatelessWidget {
                       duration: Duration( days: 365 )
                     ));
 
-                    context.read<VaultBloc>().add(VaultOpened( path: state.path ));
+                    context.read<VaultBloc>().add(VaultEvent.opened(state.path));
                   },
                   listenWhen: (previous, current) => previous.created != current.created
                 )
@@ -130,7 +130,7 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: state.submitted || !state.isFormValid ? null : () {
-            context.read<CreateFormBloc>().add(const FormSubmitted());
+            context.read<CreateFormBloc>().add(const CreateFormEvent.formSubmitted());
           },
         );
       }
@@ -201,7 +201,7 @@ class PathInput extends StatelessWidget {
               return;
             }
                 
-            bloc.add(PathChanged(path: path));
+            bloc.add(CreateFormEvent.pathChanged(path));
           },
         );
       }
@@ -240,7 +240,7 @@ class MasterPasswordInput extends StatelessWidget {
             autocorrect: false,
             style: theme.textTheme.bodySmall,
             onChanged: (masterPassword) {
-              context.read<CreateFormBloc>().add(MasterPasswordChanged(masterPassword: masterPassword));
+              context.read<CreateFormBloc>().add(CreateFormEvent.masterPasswordChanged(masterPassword));
             },
             cursorColor: Colors.black,
           )
@@ -278,7 +278,7 @@ class DescriptionInput extends StatelessWidget {
             ),
             style: theme.textTheme.bodySmall,
             onChanged: (description) {
-              context.read<CreateFormBloc>().add(DescriptionChanged(description: description));
+              context.read<CreateFormBloc>().add(CreateFormEvent.descriptionChanged(description));
             },
             cursorColor: Colors.black,
           )
@@ -316,7 +316,7 @@ class NameInput extends StatelessWidget {
             ),
             style: theme.textTheme.bodySmall,
             onChanged: (name) {
-              context.read<CreateFormBloc>().add(NameChanged(name: name));
+              context.read<CreateFormBloc>().add(CreateFormEvent.nameChanged(name));
             },
             cursorColor: Colors.black,
           )

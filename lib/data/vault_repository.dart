@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:polypass/data/vault_providers.dart';
 import 'package:polypass/data/vault_file.dart';
 
@@ -7,12 +9,13 @@ class VaultRepository {
 
   Future<VaultFile> getFile(String path) async {
     final raw = await fileProvider.readFile(path);
-    return VaultFile.fromJson(raw, path);
+    return VaultFile.fromJson(jsonDecode(raw));
   }
 
-  Future<void> updateFile(VaultFile file) async {
-    final raw = file.toJson();
-    await fileProvider.updateFile(file.path, raw);
+  Future<void> updateFile(VaultFile file, String key) async {
+    var encryptedContents = file.contents.encrypt(key);
+    final raw = file.copyWith(contents: encryptedContents).toJson();
+    await fileProvider.updateFile(file.path, jsonEncode(raw));
   }
 
   Future<void> deleteFile(String path) async {

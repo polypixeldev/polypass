@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/blocs/vault_bloc.dart';
-import 'package:polypass/pages/vault/locked/unlock_form_bloc.dart';
+import 'package:polypass/pages/vault/locked/locked_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
@@ -36,7 +36,7 @@ class VaultLocked extends StatelessWidget {
                   ),
                   BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
-                      context.read<VaultBloc>().add(VaultUnlocked(masterKey: state.masterKey));
+                      context.read<VaultBloc>().add(VaultEvent.unlocked(state.masterKey));
                     },
                     listenWhen: (previous, current) => previous.unlocked != current.unlocked
                   )
@@ -98,7 +98,7 @@ class MasterPasswordInput extends StatelessWidget {
             enableSuggestions: false,
             autocorrect: false,
             onChanged: (masterPassword) {
-              context.read<UnlockFormBloc>().add(MasterPasswordChanged( masterPassword: masterPassword));
+              context.read<UnlockFormBloc>().add(UnlockFormEvent.masterPasswordChanged(masterPassword));
             },
           )
         );
@@ -128,7 +128,7 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: state.submitted || !state.isFormValid ? null : () {
-            context.read<UnlockFormBloc>().add(const FormSubmitted());
+            context.read<UnlockFormBloc>().add(const UnlockFormEvent.formSubmitted());
           },
         );
       }
