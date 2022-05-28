@@ -112,6 +112,10 @@ class MasterPasswordInput extends StatelessWidget {
             onChanged: (masterPassword) {
               context.read<UnlockFormBloc>().add(UnlockFormEvent.masterPasswordChanged(masterPassword));
             },
+            onFieldSubmitted: (masterPassword) {
+              context.read<UnlockFormBloc>().add(const UnlockFormEvent.formSubmitted());
+            },
+            autofocus: true,
           )
         );
       },
