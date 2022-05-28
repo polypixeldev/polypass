@@ -6,13 +6,13 @@ import 'package:polypass/data/vault_file.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
 
-enum VaultStatus { none, opening, unlocked, locked}
-
 @freezed
 class VaultState with _$VaultState {
   const factory VaultState.none() = _None;
   const factory VaultState.opening() = _Opening;
   const factory VaultState.locked(VaultFile vault) = _Locked;
+  const factory VaultState.unlocking(VaultFile vault) = _Unlocking;
+  const factory VaultState.failed(VaultFile vault, String failedKey, int tries) = _Failed;
   const factory VaultState.unlocked(VaultFile vault, String? masterKey) = _Unlocked;
 }
 
@@ -28,9 +28,9 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
   VaultBloc({
     required this.repository,
     VaultFile? vault,
-    VaultStatus status = VaultStatus.none
   }) : super(const VaultState.none()) {
     on<VaultEvent>((rawEvent, emit) async {
+      print(rawEvent);
       await rawEvent.map(
         opened: (event) => _onVaultOpened(event, emit),
         unlocked: (event) => _onVaultUnlocked(event, emit),
@@ -64,17 +64,46 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
   }
 
   Future<void> _onVaultUnlocked(UnlockedEvent event, Emitter<VaultState> emit) async {
-    final lockedState = state.maybeMap(
-      locked: (state) => state,
+    final lockedVault = state.maybeWhen(
+      locked: (vault) => vault,
+      failed: (vault, failedKey, tries) {
+        if (failedKey == event.masterKey) {
+          emit(VaultState.failed(
+            vault,
+            failedKey,
+            tries + 1
+          ));
+          return null;
+        } else {
+          return vault;
+        }
+      },
       orElse: () => throw Error()
     );
 
-    final decryptedContents = lockedState.vault.contents.decrypt(event.masterKey);
+    if (lockedVault == null) {
+      return;
+    }
+
+    emit(VaultState.unlocking(lockedVault));
+
+    final EncryptedData<VaultContents> decryptedContents;
+    try {
+      decryptedContents = lockedVault.contents.decrypt(event.masterKey);
+    } catch (_e) {
+      return emit(
+        VaultState.failed(
+          lockedVault,
+          event.masterKey,
+          1
+        )
+      );
+    }
 
     // TODO: Allow user to choose whether or not to keep key in memory while open
     emit(
       VaultState.unlocked(
-        lockedState.vault.copyWith(
+        lockedVault.copyWith(
           contents: decryptedContents
         ),
         event.masterKey

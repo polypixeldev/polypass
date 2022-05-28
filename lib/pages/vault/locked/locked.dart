@@ -25,20 +25,32 @@ class VaultLocked extends StatelessWidget {
               create: (context) => UnlockFormBloc(),
               child: MultiBlocListener(
                 listeners: [
-                  BlocListener<UnlockFormBloc, UnlockFormState>(
+                  BlocListener<VaultBloc, VaultState>(
                     listener: (context, state) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Unlocking vault...'),
-                        duration: Duration( days: 365 )
+                        duration: Duration( seconds: 3 )
                       ));
                     },
-                    listenWhen: (previous, current) => previous.submitted != current.submitted
+                    listenWhen: (previous, current) => previous.maybeWhen(locked: (_vault) => true, failed: (_vault, _failedKey, _tries) => true, orElse: () => false) && current.maybeWhen(unlocking: (_vault) => true, orElse: () => false)
                   ),
                   BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
                       context.read<VaultBloc>().add(VaultEvent.unlocked(state.masterKey));
                     },
-                    listenWhen: (previous, current) => previous.unlocked != current.unlocked
+                    listenWhen: (previous, current) => previous.derived == false && current.derived == true
+                  ),
+                  BlocListener<VaultBloc, VaultState>(
+                    listener: (context, state) {
+                      context.read<UnlockFormBloc>().add(UnlockFormEvent.failed(state.whenOrNull(failed: (vault, failedKey, tries) => tries)));
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
+                        duration: Duration(seconds: 5)
+                      ));
+                    },
+                    listenWhen: (previous, current) => (previous.maybeWhen(unlocking: (_vault) => true, orElse: () => false) && current.maybeWhen(failed: (_vault, _failedKey, _tries) => true, orElse: () => false)) || previous.maybeWhen(failed:(vault, failedKey, tries) => tries, orElse: () => double.infinity) < current.maybeWhen(failed:(vault, failedKey, tries) => tries, orElse: () => 0)
                   )
                 ],
                 child: Column(
@@ -84,7 +96,7 @@ class MasterPasswordInput extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
           child: TextFormField(
-            enabled: !state.submitted,
+            enabled: context.read<VaultBloc>().state.maybeWhen(unlocking: (_vault) => false, orElse: () => true),
             decoration: const InputDecoration(
               labelText: 'Master Password',
               contentPadding: EdgeInsets.all(10),
@@ -127,7 +139,7 @@ class SubmitButton extends StatelessWidget {
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
-          onPressed: state.submitted || !state.isFormValid ? null : () {
+          onPressed: context.read<VaultBloc>().state.maybeWhen(unlocking: (_vault) => true, orElse: () => false) || !state.isFormValid ? null : () {
             context.read<UnlockFormBloc>().add(const UnlockFormEvent.formSubmitted());
           },
         );

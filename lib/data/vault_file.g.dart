@@ -8,15 +8,15 @@ part of 'vault_file.dart';
 
 _$_VaultFile _$$_VaultFileFromJson(Map<String, dynamic> json) => _$_VaultFile(
       header: VaultHeader.fromJson(json['header'] as Map<String, dynamic>),
-      contents:
-          const VaultContentsConverter().fromJson(json['contents'] as String),
+      contents: EncryptedData<VaultContents>.fromJson(
+          json['contents'] as Map<String, dynamic>),
       path: json['path'] as String,
     );
 
 Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
     <String, dynamic>{
       'header': instance.header,
-      'contents': const VaultContentsConverter().toJson(instance.contents),
+      'contents': instance.contents,
       'path': instance.path,
     };
 

@@ -21,6 +21,9 @@ mixin _$VaultState {
     required TResult Function() none,
     required TResult Function() opening,
     required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
     required TResult Function(VaultFile vault, String? masterKey) unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +32,8 @@ mixin _$VaultState {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +42,8 @@ mixin _$VaultState {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
     required TResult orElse(),
   }) =>
@@ -46,6 +53,8 @@ mixin _$VaultState {
     required TResult Function(_None value) none,
     required TResult Function(_Opening value) opening,
     required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
     required TResult Function(_Unlocked value) unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +63,8 @@ mixin _$VaultState {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +73,8 @@ mixin _$VaultState {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
     required TResult orElse(),
   }) =>
@@ -125,6 +138,9 @@ class _$_None implements _None {
     required TResult Function() none,
     required TResult Function() opening,
     required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
     required TResult Function(VaultFile vault, String? masterKey) unlocked,
   }) {
     return none();
@@ -136,6 +152,8 @@ class _$_None implements _None {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
   }) {
     return none?.call();
@@ -147,6 +165,8 @@ class _$_None implements _None {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
     required TResult orElse(),
   }) {
@@ -162,6 +182,8 @@ class _$_None implements _None {
     required TResult Function(_None value) none,
     required TResult Function(_Opening value) opening,
     required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
     required TResult Function(_Unlocked value) unlocked,
   }) {
     return none(this);
@@ -173,6 +195,8 @@ class _$_None implements _None {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
   }) {
     return none?.call(this);
@@ -184,6 +208,8 @@ class _$_None implements _None {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
     required TResult orElse(),
   }) {
@@ -240,6 +266,9 @@ class _$_Opening implements _Opening {
     required TResult Function() none,
     required TResult Function() opening,
     required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
     required TResult Function(VaultFile vault, String? masterKey) unlocked,
   }) {
     return opening();
@@ -251,6 +280,8 @@ class _$_Opening implements _Opening {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
   }) {
     return opening?.call();
@@ -262,6 +293,8 @@ class _$_Opening implements _Opening {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
     required TResult orElse(),
   }) {
@@ -277,6 +310,8 @@ class _$_Opening implements _Opening {
     required TResult Function(_None value) none,
     required TResult Function(_Opening value) opening,
     required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
     required TResult Function(_Unlocked value) unlocked,
   }) {
     return opening(this);
@@ -288,6 +323,8 @@ class _$_Opening implements _Opening {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
   }) {
     return opening?.call(this);
@@ -299,6 +336,8 @@ class _$_Opening implements _Opening {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
     required TResult orElse(),
   }) {
@@ -387,6 +426,9 @@ class _$_Locked implements _Locked {
     required TResult Function() none,
     required TResult Function() opening,
     required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
     required TResult Function(VaultFile vault, String? masterKey) unlocked,
   }) {
     return locked(vault);
@@ -398,6 +440,8 @@ class _$_Locked implements _Locked {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
   }) {
     return locked?.call(vault);
@@ -409,6 +453,8 @@ class _$_Locked implements _Locked {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
     required TResult orElse(),
   }) {
@@ -424,6 +470,8 @@ class _$_Locked implements _Locked {
     required TResult Function(_None value) none,
     required TResult Function(_Opening value) opening,
     required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
     required TResult Function(_Unlocked value) unlocked,
   }) {
     return locked(this);
@@ -435,6 +483,8 @@ class _$_Locked implements _Locked {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
   }) {
     return locked?.call(this);
@@ -446,6 +496,8 @@ class _$_Locked implements _Locked {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
     required TResult orElse(),
   }) {
@@ -462,6 +514,361 @@ abstract class _Locked implements VaultState {
   VaultFile get vault => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_LockedCopyWith<_$_Locked> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UnlockingCopyWith<$Res> {
+  factory _$$_UnlockingCopyWith(
+          _$_Unlocking value, $Res Function(_$_Unlocking) then) =
+      __$$_UnlockingCopyWithImpl<$Res>;
+  $Res call({VaultFile vault});
+
+  $VaultFileCopyWith<$Res> get vault;
+}
+
+/// @nodoc
+class __$$_UnlockingCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+    implements _$$_UnlockingCopyWith<$Res> {
+  __$$_UnlockingCopyWithImpl(
+      _$_Unlocking _value, $Res Function(_$_Unlocking) _then)
+      : super(_value, (v) => _then(v as _$_Unlocking));
+
+  @override
+  _$_Unlocking get _value => super._value as _$_Unlocking;
+
+  @override
+  $Res call({
+    Object? vault = freezed,
+  }) {
+    return _then(_$_Unlocking(
+      vault == freezed
+          ? _value.vault
+          : vault // ignore: cast_nullable_to_non_nullable
+              as VaultFile,
+    ));
+  }
+
+  @override
+  $VaultFileCopyWith<$Res> get vault {
+    return $VaultFileCopyWith<$Res>(_value.vault, (value) {
+      return _then(_value.copyWith(vault: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_Unlocking implements _Unlocking {
+  const _$_Unlocking(this.vault);
+
+  @override
+  final VaultFile vault;
+
+  @override
+  String toString() {
+    return 'VaultState.unlocking(vault: $vault)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Unlocking &&
+            const DeepCollectionEquality().equals(other.vault, vault));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(vault));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_UnlockingCopyWith<_$_Unlocking> get copyWith =>
+      __$$_UnlockingCopyWithImpl<_$_Unlocking>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() none,
+    required TResult Function() opening,
+    required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
+    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+  }) {
+    return unlocking(vault);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? none,
+    TResult Function()? opening,
+    TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
+    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+  }) {
+    return unlocking?.call(vault);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? none,
+    TResult Function()? opening,
+    TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
+    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    required TResult orElse(),
+  }) {
+    if (unlocking != null) {
+      return unlocking(vault);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_None value) none,
+    required TResult Function(_Opening value) opening,
+    required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
+    required TResult Function(_Unlocked value) unlocked,
+  }) {
+    return unlocking(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_None value)? none,
+    TResult Function(_Opening value)? opening,
+    TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Unlocked value)? unlocked,
+  }) {
+    return unlocking?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_None value)? none,
+    TResult Function(_Opening value)? opening,
+    TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Unlocked value)? unlocked,
+    required TResult orElse(),
+  }) {
+    if (unlocking != null) {
+      return unlocking(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Unlocking implements VaultState {
+  const factory _Unlocking(final VaultFile vault) = _$_Unlocking;
+
+  VaultFile get vault => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_UnlockingCopyWith<_$_Unlocking> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_FailedCopyWith<$Res> {
+  factory _$$_FailedCopyWith(_$_Failed value, $Res Function(_$_Failed) then) =
+      __$$_FailedCopyWithImpl<$Res>;
+  $Res call({VaultFile vault, String failedKey, int tries});
+
+  $VaultFileCopyWith<$Res> get vault;
+}
+
+/// @nodoc
+class __$$_FailedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+    implements _$$_FailedCopyWith<$Res> {
+  __$$_FailedCopyWithImpl(_$_Failed _value, $Res Function(_$_Failed) _then)
+      : super(_value, (v) => _then(v as _$_Failed));
+
+  @override
+  _$_Failed get _value => super._value as _$_Failed;
+
+  @override
+  $Res call({
+    Object? vault = freezed,
+    Object? failedKey = freezed,
+    Object? tries = freezed,
+  }) {
+    return _then(_$_Failed(
+      vault == freezed
+          ? _value.vault
+          : vault // ignore: cast_nullable_to_non_nullable
+              as VaultFile,
+      failedKey == freezed
+          ? _value.failedKey
+          : failedKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      tries == freezed
+          ? _value.tries
+          : tries // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  @override
+  $VaultFileCopyWith<$Res> get vault {
+    return $VaultFileCopyWith<$Res>(_value.vault, (value) {
+      return _then(_value.copyWith(vault: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_Failed implements _Failed {
+  const _$_Failed(this.vault, this.failedKey, this.tries);
+
+  @override
+  final VaultFile vault;
+  @override
+  final String failedKey;
+  @override
+  final int tries;
+
+  @override
+  String toString() {
+    return 'VaultState.failed(vault: $vault, failedKey: $failedKey, tries: $tries)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Failed &&
+            const DeepCollectionEquality().equals(other.vault, vault) &&
+            const DeepCollectionEquality().equals(other.failedKey, failedKey) &&
+            const DeepCollectionEquality().equals(other.tries, tries));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(vault),
+      const DeepCollectionEquality().hash(failedKey),
+      const DeepCollectionEquality().hash(tries));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_FailedCopyWith<_$_Failed> get copyWith =>
+      __$$_FailedCopyWithImpl<_$_Failed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() none,
+    required TResult Function() opening,
+    required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
+    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+  }) {
+    return failed(vault, failedKey, tries);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? none,
+    TResult Function()? opening,
+    TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
+    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+  }) {
+    return failed?.call(vault, failedKey, tries);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? none,
+    TResult Function()? opening,
+    TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
+    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(vault, failedKey, tries);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_None value) none,
+    required TResult Function(_Opening value) opening,
+    required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
+    required TResult Function(_Unlocked value) unlocked,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_None value)? none,
+    TResult Function(_Opening value)? opening,
+    TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Unlocked value)? unlocked,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_None value)? none,
+    TResult Function(_Opening value)? opening,
+    TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Unlocked value)? unlocked,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements VaultState {
+  const factory _Failed(
+          final VaultFile vault, final String failedKey, final int tries) =
+      _$_Failed;
+
+  VaultFile get vault => throw _privateConstructorUsedError;
+  String get failedKey => throw _privateConstructorUsedError;
+  int get tries => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_FailedCopyWith<_$_Failed> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -551,6 +958,9 @@ class _$_Unlocked implements _Unlocked {
     required TResult Function() none,
     required TResult Function() opening,
     required TResult Function(VaultFile vault) locked,
+    required TResult Function(VaultFile vault) unlocking,
+    required TResult Function(VaultFile vault, String failedKey, int tries)
+        failed,
     required TResult Function(VaultFile vault, String? masterKey) unlocked,
   }) {
     return unlocked(vault, masterKey);
@@ -562,6 +972,8 @@ class _$_Unlocked implements _Unlocked {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
   }) {
     return unlocked?.call(vault, masterKey);
@@ -573,6 +985,8 @@ class _$_Unlocked implements _Unlocked {
     TResult Function()? none,
     TResult Function()? opening,
     TResult Function(VaultFile vault)? locked,
+    TResult Function(VaultFile vault)? unlocking,
+    TResult Function(VaultFile vault, String failedKey, int tries)? failed,
     TResult Function(VaultFile vault, String? masterKey)? unlocked,
     required TResult orElse(),
   }) {
@@ -588,6 +1002,8 @@ class _$_Unlocked implements _Unlocked {
     required TResult Function(_None value) none,
     required TResult Function(_Opening value) opening,
     required TResult Function(_Locked value) locked,
+    required TResult Function(_Unlocking value) unlocking,
+    required TResult Function(_Failed value) failed,
     required TResult Function(_Unlocked value) unlocked,
   }) {
     return unlocked(this);
@@ -599,6 +1015,8 @@ class _$_Unlocked implements _Unlocked {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
   }) {
     return unlocked?.call(this);
@@ -610,6 +1028,8 @@ class _$_Unlocked implements _Unlocked {
     TResult Function(_None value)? none,
     TResult Function(_Opening value)? opening,
     TResult Function(_Locked value)? locked,
+    TResult Function(_Unlocking value)? unlocking,
+    TResult Function(_Failed value)? failed,
     TResult Function(_Unlocked value)? unlocked,
     required TResult orElse(),
   }) {

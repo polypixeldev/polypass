@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:encrypt/encrypt.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_file.freezed.dart';
@@ -11,10 +12,14 @@ part 'vault_file.g.dart';
 //        name: String,
 //        description: String
 //    },
-//    contents: String,
+//    contents: {
+//        data: String,
+//        iv: String
+//    },
 // TODO: Remove the path field
 //    path: String
 // }
+
 
 abstract class ToJsonAble<T> {
   Map<String, dynamic> toJson();
@@ -23,32 +28,36 @@ abstract class ToJsonAble<T> {
 @freezed
 class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
   const EncryptedData._();
-  const factory EncryptedData.encrypted(String data) = Encrypted;
-  const factory EncryptedData.decrypted(@EncTypeConverter() T data) = Decrypted;
+  const factory EncryptedData.encrypted(String data, IV iv) = _Encrypted;
+  const factory EncryptedData.decrypted(@EncTypeConverter() T data, IV iv) = _Decrypted;
 
   static final Map<Type, dynamic Function(Map<String, dynamic>)> fromJsonRegistry = {
     VaultContents: VaultContents.fromJson
   };
 
-  EncryptedData<T> encrypt(String key) {
+  EncryptedData<T> encrypt(String rawKey) {
     var decryptedData = map(
-      decrypted: (data) => data.toJson(),
+      decrypted: (data) => jsonEncode(data.toJson()),
       encrypted: (data) => throw Error()
     );
 
-    // TODO: Encrypt data with key
-    
-    return EncryptedData<T>.encrypted(jsonEncode(decryptedData));
+    final key = Key.fromBase64(rawKey);
+    final encrypter = Encrypter(AES(key));
+    final encrypted = encrypter.encrypt(decryptedData, iv: iv);
+    return EncryptedData<T>.encrypted(encrypted.base64, iv);
   }
 
-  EncryptedData<T> decrypt(String key) {
+  EncryptedData<T> decrypt(String rawKey) {
     var encryptedData = when(
-      decrypted: (data) => throw Error(),
-      encrypted: (data) => EncryptedData<T>.fromJson(data).whenOrNull(encrypted: (data) => data)
+      decrypted: (data, iv) => throw Error(),
+      encrypted: (data, iv) => data
     );
 
-    // TODO: Decrypt data with key
-    var decryptedMap = jsonDecode(encryptedData!);
+    final key = Key.fromBase64(rawKey);
+    final encrypter = Encrypter(AES(key));
+    final rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(encryptedData), iv: iv);
+    
+    var decryptedMap = jsonDecode(rawDecrypted);
 
     if (!EncryptedData.fromJsonRegistry.containsKey(T)) {
       throw Exception('No fromJson for encrypted data type $T');
@@ -56,17 +65,17 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
 
     var decrypted = EncryptedData.fromJsonRegistry[T]!(decryptedMap);
 
-    return EncryptedData<T>.decrypted(decrypted);
+    return EncryptedData<T>.decrypted(decrypted, iv);
   }
 
-  factory EncryptedData.fromJson(String data) {
-    return EncryptedData<T>.encrypted(data);
+  factory EncryptedData.fromJson(Map<String, dynamic> map) {
+    return EncryptedData<T>.encrypted(map['data'], IV.fromBase64(map['iv']));
   }
 
   Map<String, dynamic> toJson() {
     return when(
-      decrypted: (data) => data.toJson(),
-      encrypted: (data) => { 'data': data }
+      decrypted: (data, iv) => data.toJson(),
+      encrypted: (data, iv) => { 'data': data, 'iv': iv.base64 }
     );
   }
 }
@@ -94,7 +103,7 @@ class VaultFile with _$VaultFile {
   
   factory VaultFile({
     required VaultHeader header,
-    @VaultContentsConverter() required EncryptedData<VaultContents> contents,
+    required EncryptedData<VaultContents> contents,
     required String path
   }) = _VaultFile;
 
@@ -149,24 +158,20 @@ class VaultContents extends ToJsonAble with _$VaultContents {
   factory VaultContents.fromJson(Map<String, dynamic> json) => _$VaultContentsFromJson(json);
 }
 
-class VaultContentsConverter implements JsonConverter<EncryptedData<VaultContents>, String> {
-  const VaultContentsConverter();
+// class VaultContentsConverter implements JsonConverter<EncryptedData<VaultContents>, String> {
+//   const VaultContentsConverter();
 
-  @override
-  EncryptedData<VaultContents> fromJson(String json) {
-    return EncryptedData<VaultContents>.encrypted(json);
-  }
+//   @override
+//   EncryptedData<VaultContents> fromJson(String json) {
+//     final map = jsonDecode(json);
+//     return EncryptedData<VaultContents>.encrypted(map['data'], map['iv']);
+//   }
 
-  @override
-  String toJson(EncryptedData<VaultContents> data) {
-    var contents =  data.when(
-      encrypted: (data) => data,
-      decrypted: (data) => jsonEncode(data.components)
-    );
-
-    return contents;
-  }
-}
+//   @override
+//   String toJson(EncryptedData<VaultContents> data) {
+//     return jsonEncode(data.toJson());
+//   }
+// }
 
 @freezed
 class VaultComponent with _$VaultComponent {

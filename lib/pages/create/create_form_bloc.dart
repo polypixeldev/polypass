@@ -1,4 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:hash/hash.dart';
+import 'dart:convert';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
@@ -78,9 +81,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
       submitted: true
     ));
 
-    // TODO: Derive masterKey from state.masterPassword
-    // ignore: prefer_const_declarations
-    final masterKey = '';
+    final masterKey = SHA256().update(utf8.encode(state.masterPassword)).digest();
 
     await vaultRepository.updateFile(VaultFile(
       header: VaultHeader(
@@ -88,8 +89,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         description: state.description
       ),
       path: state.path,
-      contents: const EncryptedData<VaultContents>.decrypted(VaultContents(components: []))
-    ), masterKey);
+      contents: EncryptedData<VaultContents>.decrypted(const VaultContents(components: []), IV.fromSecureRandom(16))
+    ), base64Encode(masterKey));
 
     emit(state.copyWith(
       created: true

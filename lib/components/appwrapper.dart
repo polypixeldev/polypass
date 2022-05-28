@@ -18,7 +18,7 @@ class AppWrapper extends StatelessWidget {
     return BlocListener<VaultBloc, VaultState>(
       listener: (context, state) {
         final router = GoRouter.of(context);
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).clearSnackBars();
 
         state.whenOrNull(
           locked: (_vault) => router.go('/vault/locked'),

@@ -16,43 +16,48 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
+  IV get iv => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data) encrypted,
-    required TResult Function(@EncTypeConverter() T data) decrypted,
+    required TResult Function(String data, IV iv) encrypted,
+    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Encrypted<T> value) encrypted,
-    required TResult Function(Decrypted<T> value) decrypted,
+    required TResult Function(_Encrypted<T> value) encrypted,
+    required TResult Function(_Decrypted<T> value) decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $EncryptedDataCopyWith<T, EncryptedData<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -61,6 +66,7 @@ abstract class $EncryptedDataCopyWith<T extends ToJsonAble<dynamic>, $Res> {
   factory $EncryptedDataCopyWith(
           EncryptedData<T> value, $Res Function(EncryptedData<T>) then) =
       _$EncryptedDataCopyWithImpl<T, $Res>;
+  $Res call({IV iv});
 }
 
 /// @nodoc
@@ -71,97 +77,121 @@ class _$EncryptedDataCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
   final EncryptedData<T> _value;
   // ignore: unused_field
   final $Res Function(EncryptedData<T>) _then;
-}
-
-/// @nodoc
-abstract class _$$EncryptedCopyWith<T extends ToJsonAble<dynamic>, $Res> {
-  factory _$$EncryptedCopyWith(
-          _$Encrypted<T> value, $Res Function(_$Encrypted<T>) then) =
-      __$$EncryptedCopyWithImpl<T, $Res>;
-  $Res call({String data});
-}
-
-/// @nodoc
-class __$$EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
-    extends _$EncryptedDataCopyWithImpl<T, $Res>
-    implements _$$EncryptedCopyWith<T, $Res> {
-  __$$EncryptedCopyWithImpl(
-      _$Encrypted<T> _value, $Res Function(_$Encrypted<T>) _then)
-      : super(_value, (v) => _then(v as _$Encrypted<T>));
 
   @override
-  _$Encrypted<T> get _value => super._value as _$Encrypted<T>;
+  $Res call({
+    Object? iv = freezed,
+  }) {
+    return _then(_value.copyWith(
+      iv: iv == freezed
+          ? _value.iv
+          : iv // ignore: cast_nullable_to_non_nullable
+              as IV,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_EncryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
+    implements $EncryptedDataCopyWith<T, $Res> {
+  factory _$$_EncryptedCopyWith(
+          _$_Encrypted<T> value, $Res Function(_$_Encrypted<T>) then) =
+      __$$_EncryptedCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String data, IV iv});
+}
+
+/// @nodoc
+class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
+    extends _$EncryptedDataCopyWithImpl<T, $Res>
+    implements _$$_EncryptedCopyWith<T, $Res> {
+  __$$_EncryptedCopyWithImpl(
+      _$_Encrypted<T> _value, $Res Function(_$_Encrypted<T>) _then)
+      : super(_value, (v) => _then(v as _$_Encrypted<T>));
+
+  @override
+  _$_Encrypted<T> get _value => super._value as _$_Encrypted<T>;
 
   @override
   $Res call({
     Object? data = freezed,
+    Object? iv = freezed,
   }) {
-    return _then(_$Encrypted<T>(
+    return _then(_$_Encrypted<T>(
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
+      iv == freezed
+          ? _value.iv
+          : iv // ignore: cast_nullable_to_non_nullable
+              as IV,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Encrypted<T extends ToJsonAble<dynamic>> extends Encrypted<T> {
-  const _$Encrypted(this.data) : super._();
+class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
+  const _$_Encrypted(this.data, this.iv) : super._();
 
   @override
   final String data;
+  @override
+  final IV iv;
 
   @override
   String toString() {
-    return 'EncryptedData<$T>.encrypted(data: $data)';
+    return 'EncryptedData<$T>.encrypted(data: $data, iv: $iv)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Encrypted<T> &&
-            const DeepCollectionEquality().equals(other.data, data));
+            other is _$_Encrypted<T> &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.iv, iv));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
-  _$$EncryptedCopyWith<T, _$Encrypted<T>> get copyWith =>
-      __$$EncryptedCopyWithImpl<T, _$Encrypted<T>>(this, _$identity);
+  _$$_EncryptedCopyWith<T, _$_Encrypted<T>> get copyWith =>
+      __$$_EncryptedCopyWithImpl<T, _$_Encrypted<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data) encrypted,
-    required TResult Function(@EncTypeConverter() T data) decrypted,
+    required TResult Function(String data, IV iv) encrypted,
+    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
   }) {
-    return encrypted(data);
+    return encrypted(data, iv);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
   }) {
-    return encrypted?.call(data);
+    return encrypted?.call(data, iv);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
     required TResult orElse(),
   }) {
     if (encrypted != null) {
-      return encrypted(data);
+      return encrypted(data, iv);
     }
     return orElse();
   }
@@ -169,8 +199,8 @@ class _$Encrypted<T extends ToJsonAble<dynamic>> extends Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Encrypted<T> value) encrypted,
-    required TResult Function(Decrypted<T> value) decrypted,
+    required TResult Function(_Encrypted<T> value) encrypted,
+    required TResult Function(_Decrypted<T> value) decrypted,
   }) {
     return encrypted(this);
   }
@@ -178,8 +208,8 @@ class _$Encrypted<T extends ToJsonAble<dynamic>> extends Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
   }) {
     return encrypted?.call(this);
   }
@@ -187,8 +217,8 @@ class _$Encrypted<T extends ToJsonAble<dynamic>> extends Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
     required TResult orElse(),
   }) {
     if (encrypted != null) {
@@ -198,107 +228,122 @@ class _$Encrypted<T extends ToJsonAble<dynamic>> extends Encrypted<T> {
   }
 }
 
-abstract class Encrypted<T extends ToJsonAble<dynamic>>
+abstract class _Encrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  const factory Encrypted(final String data) = _$Encrypted<T>;
-  const Encrypted._() : super._();
+  const factory _Encrypted(final String data, final IV iv) = _$_Encrypted<T>;
+  const _Encrypted._() : super._();
 
   String get data => throw _privateConstructorUsedError;
+  @override
+  IV get iv => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
-  _$$EncryptedCopyWith<T, _$Encrypted<T>> get copyWith =>
+  _$$_EncryptedCopyWith<T, _$_Encrypted<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DecryptedCopyWith<T extends ToJsonAble<dynamic>, $Res> {
-  factory _$$DecryptedCopyWith(
-          _$Decrypted<T> value, $Res Function(_$Decrypted<T>) then) =
-      __$$DecryptedCopyWithImpl<T, $Res>;
-  $Res call({@EncTypeConverter() T data});
+abstract class _$$_DecryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
+    implements $EncryptedDataCopyWith<T, $Res> {
+  factory _$$_DecryptedCopyWith(
+          _$_Decrypted<T> value, $Res Function(_$_Decrypted<T>) then) =
+      __$$_DecryptedCopyWithImpl<T, $Res>;
+  @override
+  $Res call({@EncTypeConverter() T data, IV iv});
 }
 
 /// @nodoc
-class __$$DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
+class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
     extends _$EncryptedDataCopyWithImpl<T, $Res>
-    implements _$$DecryptedCopyWith<T, $Res> {
-  __$$DecryptedCopyWithImpl(
-      _$Decrypted<T> _value, $Res Function(_$Decrypted<T>) _then)
-      : super(_value, (v) => _then(v as _$Decrypted<T>));
+    implements _$$_DecryptedCopyWith<T, $Res> {
+  __$$_DecryptedCopyWithImpl(
+      _$_Decrypted<T> _value, $Res Function(_$_Decrypted<T>) _then)
+      : super(_value, (v) => _then(v as _$_Decrypted<T>));
 
   @override
-  _$Decrypted<T> get _value => super._value as _$Decrypted<T>;
+  _$_Decrypted<T> get _value => super._value as _$_Decrypted<T>;
 
   @override
   $Res call({
     Object? data = freezed,
+    Object? iv = freezed,
   }) {
-    return _then(_$Decrypted<T>(
+    return _then(_$_Decrypted<T>(
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T,
+      iv == freezed
+          ? _value.iv
+          : iv // ignore: cast_nullable_to_non_nullable
+              as IV,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Decrypted<T extends ToJsonAble<dynamic>> extends Decrypted<T> {
-  const _$Decrypted(@EncTypeConverter() this.data) : super._();
+class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
+  const _$_Decrypted(@EncTypeConverter() this.data, this.iv) : super._();
 
   @override
   @EncTypeConverter()
   final T data;
+  @override
+  final IV iv;
 
   @override
   String toString() {
-    return 'EncryptedData<$T>.decrypted(data: $data)';
+    return 'EncryptedData<$T>.decrypted(data: $data, iv: $iv)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Decrypted<T> &&
-            const DeepCollectionEquality().equals(other.data, data));
+            other is _$_Decrypted<T> &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.iv, iv));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
-  _$$DecryptedCopyWith<T, _$Decrypted<T>> get copyWith =>
-      __$$DecryptedCopyWithImpl<T, _$Decrypted<T>>(this, _$identity);
+  _$$_DecryptedCopyWith<T, _$_Decrypted<T>> get copyWith =>
+      __$$_DecryptedCopyWithImpl<T, _$_Decrypted<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data) encrypted,
-    required TResult Function(@EncTypeConverter() T data) decrypted,
+    required TResult Function(String data, IV iv) encrypted,
+    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
   }) {
-    return decrypted(data);
+    return decrypted(data, iv);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
   }) {
-    return decrypted?.call(data);
+    return decrypted?.call(data, iv);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data)? encrypted,
-    TResult Function(@EncTypeConverter() T data)? decrypted,
+    TResult Function(String data, IV iv)? encrypted,
+    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
     required TResult orElse(),
   }) {
     if (decrypted != null) {
-      return decrypted(data);
+      return decrypted(data, iv);
     }
     return orElse();
   }
@@ -306,8 +351,8 @@ class _$Decrypted<T extends ToJsonAble<dynamic>> extends Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Encrypted<T> value) encrypted,
-    required TResult Function(Decrypted<T> value) decrypted,
+    required TResult Function(_Encrypted<T> value) encrypted,
+    required TResult Function(_Decrypted<T> value) decrypted,
   }) {
     return decrypted(this);
   }
@@ -315,8 +360,8 @@ class _$Decrypted<T extends ToJsonAble<dynamic>> extends Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
   }) {
     return decrypted?.call(this);
   }
@@ -324,8 +369,8 @@ class _$Decrypted<T extends ToJsonAble<dynamic>> extends Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Encrypted<T> value)? encrypted,
-    TResult Function(Decrypted<T> value)? decrypted,
+    TResult Function(_Encrypted<T> value)? encrypted,
+    TResult Function(_Decrypted<T> value)? decrypted,
     required TResult orElse(),
   }) {
     if (decrypted != null) {
@@ -335,15 +380,19 @@ class _$Decrypted<T extends ToJsonAble<dynamic>> extends Decrypted<T> {
   }
 }
 
-abstract class Decrypted<T extends ToJsonAble<dynamic>>
+abstract class _Decrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  const factory Decrypted(@EncTypeConverter() final T data) = _$Decrypted<T>;
-  const Decrypted._() : super._();
+  const factory _Decrypted(@EncTypeConverter() final T data, final IV iv) =
+      _$_Decrypted<T>;
+  const _Decrypted._() : super._();
 
   @EncTypeConverter()
   T get data => throw _privateConstructorUsedError;
+  @override
+  IV get iv => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
-  _$$DecryptedCopyWith<T, _$Decrypted<T>> get copyWith =>
+  _$$_DecryptedCopyWith<T, _$_Decrypted<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -355,10 +404,8 @@ VaultFile _$VaultFileFromJson(Map<String, dynamic> json) {
 mixin _$VaultFile {
   VaultHeader get header => throw _privateConstructorUsedError;
   set header(VaultHeader value) => throw _privateConstructorUsedError;
-  @VaultContentsConverter()
   EncryptedData<VaultContents> get contents =>
       throw _privateConstructorUsedError;
-  @VaultContentsConverter()
   set contents(EncryptedData<VaultContents> value) =>
       throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
@@ -375,9 +422,7 @@ abstract class $VaultFileCopyWith<$Res> {
   factory $VaultFileCopyWith(VaultFile value, $Res Function(VaultFile) then) =
       _$VaultFileCopyWithImpl<$Res>;
   $Res call(
-      {VaultHeader header,
-      @VaultContentsConverter() EncryptedData<VaultContents> contents,
-      String path});
+      {VaultHeader header, EncryptedData<VaultContents> contents, String path});
 
   $VaultHeaderCopyWith<$Res> get header;
   $EncryptedDataCopyWith<VaultContents, $Res> get contents;
@@ -436,9 +481,7 @@ abstract class _$$_VaultFileCopyWith<$Res> implements $VaultFileCopyWith<$Res> {
       __$$_VaultFileCopyWithImpl<$Res>;
   @override
   $Res call(
-      {VaultHeader header,
-      @VaultContentsConverter() EncryptedData<VaultContents> contents,
-      String path});
+      {VaultHeader header, EncryptedData<VaultContents> contents, String path});
 
   @override
   $VaultHeaderCopyWith<$Res> get header;
@@ -483,9 +526,7 @@ class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VaultFile extends _VaultFile {
   _$_VaultFile(
-      {required this.header,
-      @VaultContentsConverter() required this.contents,
-      required this.path})
+      {required this.header, required this.contents, required this.path})
       : super._();
 
   factory _$_VaultFile.fromJson(Map<String, dynamic> json) =>
@@ -494,7 +535,6 @@ class _$_VaultFile extends _VaultFile {
   @override
   VaultHeader header;
   @override
-  @VaultContentsConverter()
   EncryptedData<VaultContents> contents;
   @override
   String path;
@@ -518,7 +558,7 @@ class _$_VaultFile extends _VaultFile {
 abstract class _VaultFile extends VaultFile {
   factory _VaultFile(
       {required VaultHeader header,
-      @VaultContentsConverter() required EncryptedData<VaultContents> contents,
+      required EncryptedData<VaultContents> contents,
       required String path}) = _$_VaultFile;
   _VaultFile._() : super._();
 
@@ -528,7 +568,6 @@ abstract class _VaultFile extends VaultFile {
   @override
   VaultHeader get header => throw _privateConstructorUsedError;
   @override
-  @VaultContentsConverter()
   EncryptedData<VaultContents> get contents =>
       throw _privateConstructorUsedError;
   @override
