@@ -9,6 +9,7 @@ import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/create/create.dart';
 import 'package:polypass/pages/vault/home/home.dart';
 import 'package:polypass/pages/vault/locked/locked.dart';
+import 'package:polypass/pages/vault/new/new.dart';
 
 import 'package:polypass/theme.dart';
 
@@ -36,6 +37,10 @@ class App extends StatelessWidget {
       GoRoute(
         path: '/vault/locked',
         builder: (context, state) => const VaultLocked()
+      ),
+      GoRoute(
+        path: '/vault/new',
+        builder: (context, state) => const NewItem()
       )
     ]
   );

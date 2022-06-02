@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/blocs/vault_bloc.dart';
 
 AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool icon) {
   final vaultBloc = context.read<VaultBloc>();
+  final router = GoRouter.of(context);
 
   Widget? appBarIcon;
   List<IconButton>? appBarActions;
@@ -37,7 +39,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           icon: const Icon(Icons.add),
           tooltip: 'Create an item',
           onPressed: () {
-            // TODO: Create a vault item
+            router.go('/vault/new');
           }
         ),
         IconButton(
