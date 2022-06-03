@@ -32,7 +32,8 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
   const factory EncryptedData.decrypted(@EncTypeConverter() T data, IV iv) = _Decrypted;
 
   static final Map<Type, dynamic Function(Map<String, dynamic>)> fromJsonRegistry = {
-    VaultContents: VaultContents.fromJson
+    VaultContents: VaultContents.fromJson,
+    VaultPassword: VaultPassword.fromJson
   };
 
   EncryptedData<T> encrypt(String rawKey) {
@@ -194,7 +195,19 @@ class VaultCategory with _$VaultCategory {
 
 @freezed
 class VaultItem with _$VaultItem {
-  const factory VaultItem() = _VaultItem;
+  const factory VaultItem({
+    required String name,
+    required String username,
+    required EncryptedData<VaultPassword> password,
+    required String notes
+  }) = _VaultItem;
 
   factory VaultItem.fromJson(Map<String, dynamic> json) => _$VaultItemFromJson(json);
+}
+
+@freezed
+class VaultPassword extends ToJsonAble with _$VaultPassword {
+  const factory VaultPassword(String password) = _VaultPassword;
+
+  factory VaultPassword.fromJson(Map<String, dynamic> json) => _$VaultPasswordFromJson(json);
 }

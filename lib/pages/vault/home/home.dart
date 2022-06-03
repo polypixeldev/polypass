@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/blocs/vault_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
@@ -11,6 +12,7 @@ class VaultHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.read<VaultBloc>().state.whenOrNull(unlocked: (vault, _masterKey) => vault.toJson()));
     return AppWrapper(
       child: BlocProvider(
         create: (context) => VaultHomeBloc(),

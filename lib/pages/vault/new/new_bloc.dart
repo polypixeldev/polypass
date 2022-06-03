@@ -1,4 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:encrypt/encrypt.dart';
+
+import 'package:polypass/data/vault_file.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'new_bloc.freezed.dart';
@@ -12,7 +15,8 @@ class NewFormState with _$NewFormState {
     required String password,
     required String notes,
     required bool submitted,
-    required bool created
+    required VaultItem? createdItem,
+    required String masterKey
   }) = _NewFormState;
 
   factory NewFormState.empty() => const NewFormState(
@@ -21,7 +25,8 @@ class NewFormState with _$NewFormState {
     password: '',
     notes: '',
     submitted: false,
-    created: false
+    createdItem: null,
+    masterKey: ''
   );
 
   bool get isFormValid => (name != '') && (username != '') && (password != '') && (notes != '');
@@ -29,11 +34,11 @@ class NewFormState with _$NewFormState {
 
 @freezed
 class NewFormEvent with _$NewFormEvent {
-  const factory NewFormEvent.nameChanged(String name) = _NameChanged;
-  const factory NewFormEvent.usernameChanged(String username) = _UsernameChanged;
-  const factory NewFormEvent.passwordChanged(String password) = _PasswordChanged;
-  const factory NewFormEvent.notesChanged(String notes) = _NotesChanged;
-  const factory NewFormEvent.formSubmitted() = _FormSubmitted;
+  const factory NewFormEvent.nameChanged(String name) = NameChangedEvent;
+  const factory NewFormEvent.usernameChanged(String username) = UsernameChangedEvent;
+  const factory NewFormEvent.passwordChanged(String password) = PasswordChangedEvent;
+  const factory NewFormEvent.notesChanged(String notes) = NotesChangedEvent;
+  const factory NewFormEvent.formSubmitted(String masterKey) = FormSubmittedEvent;
 }
 
 class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
@@ -49,60 +54,43 @@ class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
     });
   }
 
-  Future<void> _onNameChanged(NewFormEvent event, Emitter<NewFormState> emit) async {
-    final newName = event.maybeWhen(
-      nameChanged: (name) => name,
-      orElse: () => throw Error()
-    );
-
+  Future<void> _onNameChanged(NameChangedEvent event, Emitter<NewFormState> emit) async {
     emit(state.copyWith(
-      name: newName
+      name: event.name
     ));
   }
 
-  Future<void> _onUsernameChanged(NewFormEvent event, Emitter<NewFormState> emit) async {
-    final newUsername = event.maybeWhen(
-      usernameChanged: (username) => username,
-      orElse: () => throw Error()
-    );
-
+  Future<void> _onUsernameChanged(UsernameChangedEvent event, Emitter<NewFormState> emit) async {
     emit(state.copyWith(
-      username: newUsername
+      username: event.username
     ));
   }
 
-  Future<void> _onPasswordChanged(NewFormEvent event, Emitter<NewFormState> emit) async {
-    final newPassword = event.maybeWhen(
-      passwordChanged: (password) => password,
-      orElse: () => throw Error()
-    );
-
+  Future<void> _onPasswordChanged(PasswordChangedEvent event, Emitter<NewFormState> emit) async {
     emit(state.copyWith(
-      password: newPassword
+      password: event.password
     ));
   }
 
-  Future<void> _onNotesChanged(NewFormEvent event, Emitter<NewFormState> emit) async {
-    final newNotes = event.maybeWhen(
-      notesChanged: (notes) => notes,
-      orElse: () => throw Error()
-    );
-
+  Future<void> _onNotesChanged(NotesChangedEvent event, Emitter<NewFormState> emit) async {
     emit(state.copyWith(
-      notes: newNotes
+      notes: event.notes
     ));
   }
 
-  Future<void> _onFormSubmitted(NewFormEvent event, Emitter<NewFormState> emit) async {
+  Future<void> _onFormSubmitted(FormSubmittedEvent event, Emitter<NewFormState> emit) async {
     emit(state.copyWith(
-      submitted: true
+      submitted: true,
+      masterKey: event.masterKey
     ));
 
-    // TODO: Create new item
-    await Future.delayed(const Duration(seconds: 2));
-
     emit(state.copyWith(
-      created: true
+      createdItem: VaultItem(
+        name: state.name,
+        username: state.username,
+        password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(state.masterKey),
+        notes: state.notes
+      )
     ));
   }
 }

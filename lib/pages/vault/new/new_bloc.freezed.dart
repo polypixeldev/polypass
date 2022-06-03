@@ -21,7 +21,8 @@ mixin _$NewFormState {
   String get password => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
-  bool get created => throw _privateConstructorUsedError;
+  VaultItem? get createdItem => throw _privateConstructorUsedError;
+  String get masterKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewFormStateCopyWith<NewFormState> get copyWith =>
@@ -39,7 +40,10 @@ abstract class $NewFormStateCopyWith<$Res> {
       String password,
       String notes,
       bool submitted,
-      bool created});
+      VaultItem? createdItem,
+      String masterKey});
+
+  $VaultItemCopyWith<$Res>? get createdItem;
 }
 
 /// @nodoc
@@ -57,7 +61,8 @@ class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
     Object? password = freezed,
     Object? notes = freezed,
     Object? submitted = freezed,
-    Object? created = freezed,
+    Object? createdItem = freezed,
+    Object? masterKey = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -80,11 +85,26 @@ class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      created: created == freezed
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as bool,
+      createdItem: createdItem == freezed
+          ? _value.createdItem
+          : createdItem // ignore: cast_nullable_to_non_nullable
+              as VaultItem?,
+      masterKey: masterKey == freezed
+          ? _value.masterKey
+          : masterKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
+  }
+
+  @override
+  $VaultItemCopyWith<$Res>? get createdItem {
+    if (_value.createdItem == null) {
+      return null;
+    }
+
+    return $VaultItemCopyWith<$Res>(_value.createdItem!, (value) {
+      return _then(_value.copyWith(createdItem: value));
+    });
   }
 }
 
@@ -101,7 +121,11 @@ abstract class _$$_NewFormStateCopyWith<$Res>
       String password,
       String notes,
       bool submitted,
-      bool created});
+      VaultItem? createdItem,
+      String masterKey});
+
+  @override
+  $VaultItemCopyWith<$Res>? get createdItem;
 }
 
 /// @nodoc
@@ -122,7 +146,8 @@ class __$$_NewFormStateCopyWithImpl<$Res>
     Object? password = freezed,
     Object? notes = freezed,
     Object? submitted = freezed,
-    Object? created = freezed,
+    Object? createdItem = freezed,
+    Object? masterKey = freezed,
   }) {
     return _then(_$_NewFormState(
       name: name == freezed
@@ -145,10 +170,14 @@ class __$$_NewFormStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      created: created == freezed
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as bool,
+      createdItem: createdItem == freezed
+          ? _value.createdItem
+          : createdItem // ignore: cast_nullable_to_non_nullable
+              as VaultItem?,
+      masterKey: masterKey == freezed
+          ? _value.masterKey
+          : masterKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -162,7 +191,8 @@ class _$_NewFormState extends _NewFormState {
       required this.password,
       required this.notes,
       required this.submitted,
-      required this.created})
+      required this.createdItem,
+      required this.masterKey})
       : super._();
 
   @override
@@ -176,11 +206,13 @@ class _$_NewFormState extends _NewFormState {
   @override
   final bool submitted;
   @override
-  final bool created;
+  final VaultItem? createdItem;
+  @override
+  final String masterKey;
 
   @override
   String toString() {
-    return 'NewFormState(name: $name, username: $username, password: $password, notes: $notes, submitted: $submitted, created: $created)';
+    return 'NewFormState(name: $name, username: $username, password: $password, notes: $notes, submitted: $submitted, createdItem: $createdItem, masterKey: $masterKey)';
   }
 
   @override
@@ -193,7 +225,9 @@ class _$_NewFormState extends _NewFormState {
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality().equals(other.notes, notes) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
-            const DeepCollectionEquality().equals(other.created, created));
+            const DeepCollectionEquality()
+                .equals(other.createdItem, createdItem) &&
+            const DeepCollectionEquality().equals(other.masterKey, masterKey));
   }
 
   @override
@@ -204,7 +238,8 @@ class _$_NewFormState extends _NewFormState {
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(notes),
       const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(created));
+      const DeepCollectionEquality().hash(createdItem),
+      const DeepCollectionEquality().hash(masterKey));
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +254,8 @@ abstract class _NewFormState extends NewFormState {
       required final String password,
       required final String notes,
       required final bool submitted,
-      required final bool created}) = _$_NewFormState;
+      required final VaultItem? createdItem,
+      required final String masterKey}) = _$_NewFormState;
   const _NewFormState._() : super._();
 
   @override
@@ -233,7 +269,9 @@ abstract class _NewFormState extends NewFormState {
   @override
   bool get submitted => throw _privateConstructorUsedError;
   @override
-  bool get created => throw _privateConstructorUsedError;
+  VaultItem? get createdItem => throw _privateConstructorUsedError;
+  @override
+  String get masterKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_NewFormStateCopyWith<_$_NewFormState> get copyWith =>
@@ -248,7 +286,7 @@ mixin _$NewFormEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -257,7 +295,7 @@ mixin _$NewFormEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -266,35 +304,35 @@ mixin _$NewFormEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -317,29 +355,29 @@ class _$NewFormEventCopyWithImpl<$Res> implements $NewFormEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_NameChangedCopyWith<$Res> {
-  factory _$$_NameChangedCopyWith(
-          _$_NameChanged value, $Res Function(_$_NameChanged) then) =
-      __$$_NameChangedCopyWithImpl<$Res>;
+abstract class _$$NameChangedEventCopyWith<$Res> {
+  factory _$$NameChangedEventCopyWith(
+          _$NameChangedEvent value, $Res Function(_$NameChangedEvent) then) =
+      __$$NameChangedEventCopyWithImpl<$Res>;
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$_NameChangedCopyWithImpl<$Res>
+class __$$NameChangedEventCopyWithImpl<$Res>
     extends _$NewFormEventCopyWithImpl<$Res>
-    implements _$$_NameChangedCopyWith<$Res> {
-  __$$_NameChangedCopyWithImpl(
-      _$_NameChanged _value, $Res Function(_$_NameChanged) _then)
-      : super(_value, (v) => _then(v as _$_NameChanged));
+    implements _$$NameChangedEventCopyWith<$Res> {
+  __$$NameChangedEventCopyWithImpl(
+      _$NameChangedEvent _value, $Res Function(_$NameChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$NameChangedEvent));
 
   @override
-  _$_NameChanged get _value => super._value as _$_NameChanged;
+  _$NameChangedEvent get _value => super._value as _$NameChangedEvent;
 
   @override
   $Res call({
     Object? name = freezed,
   }) {
-    return _then(_$_NameChanged(
+    return _then(_$NameChangedEvent(
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -350,8 +388,8 @@ class __$$_NameChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NameChanged implements _NameChanged {
-  const _$_NameChanged(this.name);
+class _$NameChangedEvent implements NameChangedEvent {
+  const _$NameChangedEvent(this.name);
 
   @override
   final String name;
@@ -365,7 +403,7 @@ class _$_NameChanged implements _NameChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NameChanged &&
+            other is _$NameChangedEvent &&
             const DeepCollectionEquality().equals(other.name, name));
   }
 
@@ -375,8 +413,8 @@ class _$_NameChanged implements _NameChanged {
 
   @JsonKey(ignore: true)
   @override
-  _$$_NameChangedCopyWith<_$_NameChanged> get copyWith =>
-      __$$_NameChangedCopyWithImpl<_$_NameChanged>(this, _$identity);
+  _$$NameChangedEventCopyWith<_$NameChangedEvent> get copyWith =>
+      __$$NameChangedEventCopyWithImpl<_$NameChangedEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -385,7 +423,7 @@ class _$_NameChanged implements _NameChanged {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) {
     return nameChanged(name);
   }
@@ -397,7 +435,7 @@ class _$_NameChanged implements _NameChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) {
     return nameChanged?.call(name);
   }
@@ -409,7 +447,7 @@ class _$_NameChanged implements _NameChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) {
     if (nameChanged != null) {
@@ -421,11 +459,11 @@ class _$_NameChanged implements _NameChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) {
     return nameChanged(this);
   }
@@ -433,11 +471,11 @@ class _$_NameChanged implements _NameChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return nameChanged?.call(this);
   }
@@ -445,11 +483,11 @@ class _$_NameChanged implements _NameChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) {
     if (nameChanged != null) {
@@ -459,39 +497,39 @@ class _$_NameChanged implements _NameChanged {
   }
 }
 
-abstract class _NameChanged implements NewFormEvent {
-  const factory _NameChanged(final String name) = _$_NameChanged;
+abstract class NameChangedEvent implements NewFormEvent {
+  const factory NameChangedEvent(final String name) = _$NameChangedEvent;
 
   String get name => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_NameChangedCopyWith<_$_NameChanged> get copyWith =>
+  _$$NameChangedEventCopyWith<_$NameChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UsernameChangedCopyWith<$Res> {
-  factory _$$_UsernameChangedCopyWith(
-          _$_UsernameChanged value, $Res Function(_$_UsernameChanged) then) =
-      __$$_UsernameChangedCopyWithImpl<$Res>;
+abstract class _$$UsernameChangedEventCopyWith<$Res> {
+  factory _$$UsernameChangedEventCopyWith(_$UsernameChangedEvent value,
+          $Res Function(_$UsernameChangedEvent) then) =
+      __$$UsernameChangedEventCopyWithImpl<$Res>;
   $Res call({String username});
 }
 
 /// @nodoc
-class __$$_UsernameChangedCopyWithImpl<$Res>
+class __$$UsernameChangedEventCopyWithImpl<$Res>
     extends _$NewFormEventCopyWithImpl<$Res>
-    implements _$$_UsernameChangedCopyWith<$Res> {
-  __$$_UsernameChangedCopyWithImpl(
-      _$_UsernameChanged _value, $Res Function(_$_UsernameChanged) _then)
-      : super(_value, (v) => _then(v as _$_UsernameChanged));
+    implements _$$UsernameChangedEventCopyWith<$Res> {
+  __$$UsernameChangedEventCopyWithImpl(_$UsernameChangedEvent _value,
+      $Res Function(_$UsernameChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$UsernameChangedEvent));
 
   @override
-  _$_UsernameChanged get _value => super._value as _$_UsernameChanged;
+  _$UsernameChangedEvent get _value => super._value as _$UsernameChangedEvent;
 
   @override
   $Res call({
     Object? username = freezed,
   }) {
-    return _then(_$_UsernameChanged(
+    return _then(_$UsernameChangedEvent(
       username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -502,8 +540,8 @@ class __$$_UsernameChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UsernameChanged implements _UsernameChanged {
-  const _$_UsernameChanged(this.username);
+class _$UsernameChangedEvent implements UsernameChangedEvent {
+  const _$UsernameChangedEvent(this.username);
 
   @override
   final String username;
@@ -517,7 +555,7 @@ class _$_UsernameChanged implements _UsernameChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UsernameChanged &&
+            other is _$UsernameChangedEvent &&
             const DeepCollectionEquality().equals(other.username, username));
   }
 
@@ -527,8 +565,9 @@ class _$_UsernameChanged implements _UsernameChanged {
 
   @JsonKey(ignore: true)
   @override
-  _$$_UsernameChangedCopyWith<_$_UsernameChanged> get copyWith =>
-      __$$_UsernameChangedCopyWithImpl<_$_UsernameChanged>(this, _$identity);
+  _$$UsernameChangedEventCopyWith<_$UsernameChangedEvent> get copyWith =>
+      __$$UsernameChangedEventCopyWithImpl<_$UsernameChangedEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -537,7 +576,7 @@ class _$_UsernameChanged implements _UsernameChanged {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) {
     return usernameChanged(username);
   }
@@ -549,7 +588,7 @@ class _$_UsernameChanged implements _UsernameChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) {
     return usernameChanged?.call(username);
   }
@@ -561,7 +600,7 @@ class _$_UsernameChanged implements _UsernameChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) {
     if (usernameChanged != null) {
@@ -573,11 +612,11 @@ class _$_UsernameChanged implements _UsernameChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) {
     return usernameChanged(this);
   }
@@ -585,11 +624,11 @@ class _$_UsernameChanged implements _UsernameChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return usernameChanged?.call(this);
   }
@@ -597,11 +636,11 @@ class _$_UsernameChanged implements _UsernameChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) {
     if (usernameChanged != null) {
@@ -611,39 +650,40 @@ class _$_UsernameChanged implements _UsernameChanged {
   }
 }
 
-abstract class _UsernameChanged implements NewFormEvent {
-  const factory _UsernameChanged(final String username) = _$_UsernameChanged;
+abstract class UsernameChangedEvent implements NewFormEvent {
+  const factory UsernameChangedEvent(final String username) =
+      _$UsernameChangedEvent;
 
   String get username => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_UsernameChangedCopyWith<_$_UsernameChanged> get copyWith =>
+  _$$UsernameChangedEventCopyWith<_$UsernameChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PasswordChangedCopyWith<$Res> {
-  factory _$$_PasswordChangedCopyWith(
-          _$_PasswordChanged value, $Res Function(_$_PasswordChanged) then) =
-      __$$_PasswordChangedCopyWithImpl<$Res>;
+abstract class _$$PasswordChangedEventCopyWith<$Res> {
+  factory _$$PasswordChangedEventCopyWith(_$PasswordChangedEvent value,
+          $Res Function(_$PasswordChangedEvent) then) =
+      __$$PasswordChangedEventCopyWithImpl<$Res>;
   $Res call({String password});
 }
 
 /// @nodoc
-class __$$_PasswordChangedCopyWithImpl<$Res>
+class __$$PasswordChangedEventCopyWithImpl<$Res>
     extends _$NewFormEventCopyWithImpl<$Res>
-    implements _$$_PasswordChangedCopyWith<$Res> {
-  __$$_PasswordChangedCopyWithImpl(
-      _$_PasswordChanged _value, $Res Function(_$_PasswordChanged) _then)
-      : super(_value, (v) => _then(v as _$_PasswordChanged));
+    implements _$$PasswordChangedEventCopyWith<$Res> {
+  __$$PasswordChangedEventCopyWithImpl(_$PasswordChangedEvent _value,
+      $Res Function(_$PasswordChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$PasswordChangedEvent));
 
   @override
-  _$_PasswordChanged get _value => super._value as _$_PasswordChanged;
+  _$PasswordChangedEvent get _value => super._value as _$PasswordChangedEvent;
 
   @override
   $Res call({
     Object? password = freezed,
   }) {
-    return _then(_$_PasswordChanged(
+    return _then(_$PasswordChangedEvent(
       password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -654,8 +694,8 @@ class __$$_PasswordChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PasswordChanged implements _PasswordChanged {
-  const _$_PasswordChanged(this.password);
+class _$PasswordChangedEvent implements PasswordChangedEvent {
+  const _$PasswordChangedEvent(this.password);
 
   @override
   final String password;
@@ -669,7 +709,7 @@ class _$_PasswordChanged implements _PasswordChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PasswordChanged &&
+            other is _$PasswordChangedEvent &&
             const DeepCollectionEquality().equals(other.password, password));
   }
 
@@ -679,8 +719,9 @@ class _$_PasswordChanged implements _PasswordChanged {
 
   @JsonKey(ignore: true)
   @override
-  _$$_PasswordChangedCopyWith<_$_PasswordChanged> get copyWith =>
-      __$$_PasswordChangedCopyWithImpl<_$_PasswordChanged>(this, _$identity);
+  _$$PasswordChangedEventCopyWith<_$PasswordChangedEvent> get copyWith =>
+      __$$PasswordChangedEventCopyWithImpl<_$PasswordChangedEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -689,7 +730,7 @@ class _$_PasswordChanged implements _PasswordChanged {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) {
     return passwordChanged(password);
   }
@@ -701,7 +742,7 @@ class _$_PasswordChanged implements _PasswordChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) {
     return passwordChanged?.call(password);
   }
@@ -713,7 +754,7 @@ class _$_PasswordChanged implements _PasswordChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -725,11 +766,11 @@ class _$_PasswordChanged implements _PasswordChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) {
     return passwordChanged(this);
   }
@@ -737,11 +778,11 @@ class _$_PasswordChanged implements _PasswordChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return passwordChanged?.call(this);
   }
@@ -749,11 +790,11 @@ class _$_PasswordChanged implements _PasswordChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -763,39 +804,40 @@ class _$_PasswordChanged implements _PasswordChanged {
   }
 }
 
-abstract class _PasswordChanged implements NewFormEvent {
-  const factory _PasswordChanged(final String password) = _$_PasswordChanged;
+abstract class PasswordChangedEvent implements NewFormEvent {
+  const factory PasswordChangedEvent(final String password) =
+      _$PasswordChangedEvent;
 
   String get password => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_PasswordChangedCopyWith<_$_PasswordChanged> get copyWith =>
+  _$$PasswordChangedEventCopyWith<_$PasswordChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_NotesChangedCopyWith<$Res> {
-  factory _$$_NotesChangedCopyWith(
-          _$_NotesChanged value, $Res Function(_$_NotesChanged) then) =
-      __$$_NotesChangedCopyWithImpl<$Res>;
+abstract class _$$NotesChangedEventCopyWith<$Res> {
+  factory _$$NotesChangedEventCopyWith(
+          _$NotesChangedEvent value, $Res Function(_$NotesChangedEvent) then) =
+      __$$NotesChangedEventCopyWithImpl<$Res>;
   $Res call({String notes});
 }
 
 /// @nodoc
-class __$$_NotesChangedCopyWithImpl<$Res>
+class __$$NotesChangedEventCopyWithImpl<$Res>
     extends _$NewFormEventCopyWithImpl<$Res>
-    implements _$$_NotesChangedCopyWith<$Res> {
-  __$$_NotesChangedCopyWithImpl(
-      _$_NotesChanged _value, $Res Function(_$_NotesChanged) _then)
-      : super(_value, (v) => _then(v as _$_NotesChanged));
+    implements _$$NotesChangedEventCopyWith<$Res> {
+  __$$NotesChangedEventCopyWithImpl(
+      _$NotesChangedEvent _value, $Res Function(_$NotesChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$NotesChangedEvent));
 
   @override
-  _$_NotesChanged get _value => super._value as _$_NotesChanged;
+  _$NotesChangedEvent get _value => super._value as _$NotesChangedEvent;
 
   @override
   $Res call({
     Object? notes = freezed,
   }) {
-    return _then(_$_NotesChanged(
+    return _then(_$NotesChangedEvent(
       notes == freezed
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -806,8 +848,8 @@ class __$$_NotesChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NotesChanged implements _NotesChanged {
-  const _$_NotesChanged(this.notes);
+class _$NotesChangedEvent implements NotesChangedEvent {
+  const _$NotesChangedEvent(this.notes);
 
   @override
   final String notes;
@@ -821,7 +863,7 @@ class _$_NotesChanged implements _NotesChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NotesChanged &&
+            other is _$NotesChangedEvent &&
             const DeepCollectionEquality().equals(other.notes, notes));
   }
 
@@ -831,8 +873,8 @@ class _$_NotesChanged implements _NotesChanged {
 
   @JsonKey(ignore: true)
   @override
-  _$$_NotesChangedCopyWith<_$_NotesChanged> get copyWith =>
-      __$$_NotesChangedCopyWithImpl<_$_NotesChanged>(this, _$identity);
+  _$$NotesChangedEventCopyWith<_$NotesChangedEvent> get copyWith =>
+      __$$NotesChangedEventCopyWithImpl<_$NotesChangedEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -841,7 +883,7 @@ class _$_NotesChanged implements _NotesChanged {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) {
     return notesChanged(notes);
   }
@@ -853,7 +895,7 @@ class _$_NotesChanged implements _NotesChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) {
     return notesChanged?.call(notes);
   }
@@ -865,7 +907,7 @@ class _$_NotesChanged implements _NotesChanged {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) {
     if (notesChanged != null) {
@@ -877,11 +919,11 @@ class _$_NotesChanged implements _NotesChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) {
     return notesChanged(this);
   }
@@ -889,11 +931,11 @@ class _$_NotesChanged implements _NotesChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return notesChanged?.call(this);
   }
@@ -901,11 +943,11 @@ class _$_NotesChanged implements _NotesChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) {
     if (notesChanged != null) {
@@ -915,52 +957,77 @@ class _$_NotesChanged implements _NotesChanged {
   }
 }
 
-abstract class _NotesChanged implements NewFormEvent {
-  const factory _NotesChanged(final String notes) = _$_NotesChanged;
+abstract class NotesChangedEvent implements NewFormEvent {
+  const factory NotesChangedEvent(final String notes) = _$NotesChangedEvent;
 
   String get notes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_NotesChangedCopyWith<_$_NotesChanged> get copyWith =>
+  _$$NotesChangedEventCopyWith<_$NotesChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FormSubmittedCopyWith<$Res> {
-  factory _$$_FormSubmittedCopyWith(
-          _$_FormSubmitted value, $Res Function(_$_FormSubmitted) then) =
-      __$$_FormSubmittedCopyWithImpl<$Res>;
+abstract class _$$FormSubmittedEventCopyWith<$Res> {
+  factory _$$FormSubmittedEventCopyWith(_$FormSubmittedEvent value,
+          $Res Function(_$FormSubmittedEvent) then) =
+      __$$FormSubmittedEventCopyWithImpl<$Res>;
+  $Res call({String masterKey});
 }
 
 /// @nodoc
-class __$$_FormSubmittedCopyWithImpl<$Res>
+class __$$FormSubmittedEventCopyWithImpl<$Res>
     extends _$NewFormEventCopyWithImpl<$Res>
-    implements _$$_FormSubmittedCopyWith<$Res> {
-  __$$_FormSubmittedCopyWithImpl(
-      _$_FormSubmitted _value, $Res Function(_$_FormSubmitted) _then)
-      : super(_value, (v) => _then(v as _$_FormSubmitted));
+    implements _$$FormSubmittedEventCopyWith<$Res> {
+  __$$FormSubmittedEventCopyWithImpl(
+      _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
+      : super(_value, (v) => _then(v as _$FormSubmittedEvent));
 
   @override
-  _$_FormSubmitted get _value => super._value as _$_FormSubmitted;
+  _$FormSubmittedEvent get _value => super._value as _$FormSubmittedEvent;
+
+  @override
+  $Res call({
+    Object? masterKey = freezed,
+  }) {
+    return _then(_$FormSubmittedEvent(
+      masterKey == freezed
+          ? _value.masterKey
+          : masterKey // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_FormSubmitted implements _FormSubmitted {
-  const _$_FormSubmitted();
+class _$FormSubmittedEvent implements FormSubmittedEvent {
+  const _$FormSubmittedEvent(this.masterKey);
+
+  @override
+  final String masterKey;
 
   @override
   String toString() {
-    return 'NewFormEvent.formSubmitted()';
+    return 'NewFormEvent.formSubmitted(masterKey: $masterKey)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_FormSubmitted);
+        (other.runtimeType == runtimeType &&
+            other is _$FormSubmittedEvent &&
+            const DeepCollectionEquality().equals(other.masterKey, masterKey));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
+      __$$FormSubmittedEventCopyWithImpl<_$FormSubmittedEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -969,9 +1036,9 @@ class _$_FormSubmitted implements _FormSubmitted {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(String masterKey) formSubmitted,
   }) {
-    return formSubmitted();
+    return formSubmitted(masterKey);
   }
 
   @override
@@ -981,9 +1048,9 @@ class _$_FormSubmitted implements _FormSubmitted {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
   }) {
-    return formSubmitted?.call();
+    return formSubmitted?.call(masterKey);
   }
 
   @override
@@ -993,11 +1060,11 @@ class _$_FormSubmitted implements _FormSubmitted {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(String masterKey)? formSubmitted,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
-      return formSubmitted();
+      return formSubmitted(masterKey);
     }
     return orElse();
   }
@@ -1005,11 +1072,11 @@ class _$_FormSubmitted implements _FormSubmitted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NameChanged value) nameChanged,
-    required TResult Function(_UsernameChanged value) usernameChanged,
-    required TResult Function(_PasswordChanged value) passwordChanged,
-    required TResult Function(_NotesChanged value) notesChanged,
-    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(UsernameChangedEvent value) usernameChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(NotesChangedEvent value) notesChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
   }) {
     return formSubmitted(this);
   }
@@ -1017,11 +1084,11 @@ class _$_FormSubmitted implements _FormSubmitted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return formSubmitted?.call(this);
   }
@@ -1029,11 +1096,11 @@ class _$_FormSubmitted implements _FormSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NameChanged value)? nameChanged,
-    TResult Function(_UsernameChanged value)? usernameChanged,
-    TResult Function(_PasswordChanged value)? passwordChanged,
-    TResult Function(_NotesChanged value)? notesChanged,
-    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(UsernameChangedEvent value)? usernameChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(NotesChangedEvent value)? notesChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -1043,6 +1110,12 @@ class _$_FormSubmitted implements _FormSubmitted {
   }
 }
 
-abstract class _FormSubmitted implements NewFormEvent {
-  const factory _FormSubmitted() = _$_FormSubmitted;
+abstract class FormSubmittedEvent implements NewFormEvent {
+  const factory FormSubmittedEvent(final String masterKey) =
+      _$FormSubmittedEvent;
+
+  String get masterKey => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

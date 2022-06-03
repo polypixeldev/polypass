@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
 import 'package:polypass/pages/vault/new/new_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
@@ -36,10 +39,25 @@ class NewItem extends StatelessWidget {
                   ),
                   BlocListener<NewFormBloc, NewFormState>(
                     listener: (context, state) {
+                      final vaultBloc = context.read<VaultBloc>();
+                      final vaultFile = vaultBloc.state.maybeMap(
+                        unlocked: (state) => state.vault,
+                        orElse: () => throw Error()
+                      );
+                      final decryptedContents = vaultFile.contents.maybeMap(
+                        decrypted: (contents) => contents,
+                        orElse: () => throw Error()
+                      );
+
+                      vaultBloc.add(VaultEvent.updated(vaultFile.copyWith(
+                        contents: EncryptedData<VaultContents>.decrypted(decryptedContents.data.copyWith(
+                          components: [...decryptedContents.data.components, VaultComponent.item(state.createdItem!)]
+                        ), decryptedContents.iv)
+                      ), state.masterKey));
                       ScaffoldMessenger.of(context).clearSnackBars();
                       GoRouter.of(context).go('/vault/home');
                     },
-                    listenWhen: (previous, current) => previous.created == false && current.created == true,
+                    listenWhen: (previous, current) => previous.createdItem == null && current.createdItem != null,
                   )
                 ],
                 child: Column(
@@ -254,7 +272,8 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () {
-            context.read<NewFormBloc>().add(const NewFormEvent.formSubmitted());
+            // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
+            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, masterKey) => masterKey!, orElse: () => throw Error())));
           },
         );
       }

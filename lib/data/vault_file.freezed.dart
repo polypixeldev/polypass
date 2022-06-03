@@ -1435,13 +1435,29 @@ VaultItem _$VaultItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$VaultItem {
+  String get name => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
+  EncryptedData<VaultPassword> get password =>
+      throw _privateConstructorUsedError;
+  String get notes => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VaultItemCopyWith<VaultItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VaultItemCopyWith<$Res> {
   factory $VaultItemCopyWith(VaultItem value, $Res Function(VaultItem) then) =
       _$VaultItemCopyWithImpl<$Res>;
+  $Res call(
+      {String name,
+      String username,
+      EncryptedData<VaultPassword> password,
+      String notes});
+
+  $EncryptedDataCopyWith<VaultPassword, $Res> get password;
 }
 
 /// @nodoc
@@ -1451,13 +1467,57 @@ class _$VaultItemCopyWithImpl<$Res> implements $VaultItemCopyWith<$Res> {
   final VaultItem _value;
   // ignore: unused_field
   final $Res Function(VaultItem) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? username = freezed,
+    Object? password = freezed,
+    Object? notes = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as EncryptedData<VaultPassword>,
+      notes: notes == freezed
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+
+  @override
+  $EncryptedDataCopyWith<VaultPassword, $Res> get password {
+    return $EncryptedDataCopyWith<VaultPassword, $Res>(_value.password,
+        (value) {
+      return _then(_value.copyWith(password: value));
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$_VaultItemCopyWith<$Res> {
+abstract class _$$_VaultItemCopyWith<$Res> implements $VaultItemCopyWith<$Res> {
   factory _$$_VaultItemCopyWith(
           _$_VaultItem value, $Res Function(_$_VaultItem) then) =
       __$$_VaultItemCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String name,
+      String username,
+      EncryptedData<VaultPassword> password,
+      String notes});
+
+  @override
+  $EncryptedDataCopyWith<VaultPassword, $Res> get password;
 }
 
 /// @nodoc
@@ -1469,30 +1529,85 @@ class __$$_VaultItemCopyWithImpl<$Res> extends _$VaultItemCopyWithImpl<$Res>
 
   @override
   _$_VaultItem get _value => super._value as _$_VaultItem;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? username = freezed,
+    Object? password = freezed,
+    Object? notes = freezed,
+  }) {
+    return _then(_$_VaultItem(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as EncryptedData<VaultPassword>,
+      notes: notes == freezed
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_VaultItem implements _VaultItem {
-  const _$_VaultItem();
+  const _$_VaultItem(
+      {required this.name,
+      required this.username,
+      required this.password,
+      required this.notes});
 
   factory _$_VaultItem.fromJson(Map<String, dynamic> json) =>
       _$$_VaultItemFromJson(json);
 
   @override
+  final String name;
+  @override
+  final String username;
+  @override
+  final EncryptedData<VaultPassword> password;
+  @override
+  final String notes;
+
+  @override
   String toString() {
-    return 'VaultItem()';
+    return 'VaultItem(name: $name, username: $username, password: $password, notes: $notes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_VaultItem);
+        (other.runtimeType == runtimeType &&
+            other is _$_VaultItem &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality().equals(other.notes, notes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(notes));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_VaultItemCopyWith<_$_VaultItem> get copyWith =>
+      __$$_VaultItemCopyWithImpl<_$_VaultItem>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -1501,8 +1616,158 @@ class _$_VaultItem implements _VaultItem {
 }
 
 abstract class _VaultItem implements VaultItem {
-  const factory _VaultItem() = _$_VaultItem;
+  const factory _VaultItem(
+      {required final String name,
+      required final String username,
+      required final EncryptedData<VaultPassword> password,
+      required final String notes}) = _$_VaultItem;
 
   factory _VaultItem.fromJson(Map<String, dynamic> json) =
       _$_VaultItem.fromJson;
+
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  String get username => throw _privateConstructorUsedError;
+  @override
+  EncryptedData<VaultPassword> get password =>
+      throw _privateConstructorUsedError;
+  @override
+  String get notes => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_VaultItemCopyWith<_$_VaultItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VaultPassword _$VaultPasswordFromJson(Map<String, dynamic> json) {
+  return _VaultPassword.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VaultPassword {
+  String get password => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VaultPasswordCopyWith<VaultPassword> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VaultPasswordCopyWith<$Res> {
+  factory $VaultPasswordCopyWith(
+          VaultPassword value, $Res Function(VaultPassword) then) =
+      _$VaultPasswordCopyWithImpl<$Res>;
+  $Res call({String password});
+}
+
+/// @nodoc
+class _$VaultPasswordCopyWithImpl<$Res>
+    implements $VaultPasswordCopyWith<$Res> {
+  _$VaultPasswordCopyWithImpl(this._value, this._then);
+
+  final VaultPassword _value;
+  // ignore: unused_field
+  final $Res Function(VaultPassword) _then;
+
+  @override
+  $Res call({
+    Object? password = freezed,
+  }) {
+    return _then(_value.copyWith(
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_VaultPasswordCopyWith<$Res>
+    implements $VaultPasswordCopyWith<$Res> {
+  factory _$$_VaultPasswordCopyWith(
+          _$_VaultPassword value, $Res Function(_$_VaultPassword) then) =
+      __$$_VaultPasswordCopyWithImpl<$Res>;
+  @override
+  $Res call({String password});
+}
+
+/// @nodoc
+class __$$_VaultPasswordCopyWithImpl<$Res>
+    extends _$VaultPasswordCopyWithImpl<$Res>
+    implements _$$_VaultPasswordCopyWith<$Res> {
+  __$$_VaultPasswordCopyWithImpl(
+      _$_VaultPassword _value, $Res Function(_$_VaultPassword) _then)
+      : super(_value, (v) => _then(v as _$_VaultPassword));
+
+  @override
+  _$_VaultPassword get _value => super._value as _$_VaultPassword;
+
+  @override
+  $Res call({
+    Object? password = freezed,
+  }) {
+    return _then(_$_VaultPassword(
+      password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VaultPassword implements _VaultPassword {
+  const _$_VaultPassword(this.password);
+
+  factory _$_VaultPassword.fromJson(Map<String, dynamic> json) =>
+      _$$_VaultPasswordFromJson(json);
+
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'VaultPassword(password: $password)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_VaultPassword &&
+            const DeepCollectionEquality().equals(other.password, password));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(password));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_VaultPasswordCopyWith<_$_VaultPassword> get copyWith =>
+      __$$_VaultPasswordCopyWithImpl<_$_VaultPassword>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_VaultPasswordToJson(this);
+  }
+}
+
+abstract class _VaultPassword implements VaultPassword {
+  const factory _VaultPassword(final String password) = _$_VaultPassword;
+
+  factory _VaultPassword.fromJson(Map<String, dynamic> json) =
+      _$_VaultPassword.fromJson;
+
+  @override
+  String get password => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_VaultPasswordCopyWith<_$_VaultPassword> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -1057,6 +1057,7 @@ mixin _$VaultEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
   }) =>
@@ -1065,6 +1066,7 @@ mixin _$VaultEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
   }) =>
@@ -1073,6 +1075,7 @@ mixin _$VaultEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
     required TResult orElse(),
@@ -1082,6 +1085,7 @@ mixin _$VaultEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
   }) =>
@@ -1090,6 +1094,7 @@ mixin _$VaultEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
   }) =>
@@ -1098,6 +1103,7 @@ mixin _$VaultEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
     required TResult orElse(),
@@ -1187,6 +1193,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
   }) {
@@ -1198,6 +1205,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
   }) {
@@ -1209,6 +1217,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
     required TResult orElse(),
@@ -1224,6 +1233,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
   }) {
@@ -1235,6 +1245,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
   }) {
@@ -1246,6 +1257,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
     required TResult orElse(),
@@ -1332,6 +1344,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
   }) {
@@ -1343,6 +1356,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
   }) {
@@ -1354,6 +1368,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
     required TResult orElse(),
@@ -1369,6 +1384,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
   }) {
@@ -1380,6 +1396,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
   }) {
@@ -1391,6 +1408,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
     required TResult orElse(),
@@ -1408,6 +1426,178 @@ abstract class UnlockedEvent implements VaultEvent {
   String get masterKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$UnlockedEventCopyWith<_$UnlockedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdatedEventCopyWith<$Res> {
+  factory _$$UpdatedEventCopyWith(
+          _$UpdatedEvent value, $Res Function(_$UpdatedEvent) then) =
+      __$$UpdatedEventCopyWithImpl<$Res>;
+  $Res call({VaultFile newVault, String masterKey});
+
+  $VaultFileCopyWith<$Res> get newVault;
+}
+
+/// @nodoc
+class __$$UpdatedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+    implements _$$UpdatedEventCopyWith<$Res> {
+  __$$UpdatedEventCopyWithImpl(
+      _$UpdatedEvent _value, $Res Function(_$UpdatedEvent) _then)
+      : super(_value, (v) => _then(v as _$UpdatedEvent));
+
+  @override
+  _$UpdatedEvent get _value => super._value as _$UpdatedEvent;
+
+  @override
+  $Res call({
+    Object? newVault = freezed,
+    Object? masterKey = freezed,
+  }) {
+    return _then(_$UpdatedEvent(
+      newVault == freezed
+          ? _value.newVault
+          : newVault // ignore: cast_nullable_to_non_nullable
+              as VaultFile,
+      masterKey == freezed
+          ? _value.masterKey
+          : masterKey // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+
+  @override
+  $VaultFileCopyWith<$Res> get newVault {
+    return $VaultFileCopyWith<$Res>(_value.newVault, (value) {
+      return _then(_value.copyWith(newVault: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$UpdatedEvent implements UpdatedEvent {
+  const _$UpdatedEvent(this.newVault, this.masterKey);
+
+  @override
+  final VaultFile newVault;
+  @override
+  final String masterKey;
+
+  @override
+  String toString() {
+    return 'VaultEvent.updated(newVault: $newVault, masterKey: $masterKey)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatedEvent &&
+            const DeepCollectionEquality().equals(other.newVault, newVault) &&
+            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(newVault),
+      const DeepCollectionEquality().hash(masterKey));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$UpdatedEventCopyWith<_$UpdatedEvent> get copyWith =>
+      __$$UpdatedEventCopyWithImpl<_$UpdatedEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) opened,
+    required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
+    required TResult Function() locked,
+    required TResult Function() closed,
+  }) {
+    return updated(newVault, masterKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+  }) {
+    return updated?.call(newVault, masterKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+    required TResult orElse(),
+  }) {
+    if (updated != null) {
+      return updated(newVault, masterKey);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OpenedEvent value) opened,
+    required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
+    required TResult Function(LockedEvent value) locked,
+    required TResult Function(ClosedEvent value) closed,
+  }) {
+    return updated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+  }) {
+    return updated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+    required TResult orElse(),
+  }) {
+    if (updated != null) {
+      return updated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatedEvent implements VaultEvent {
+  const factory UpdatedEvent(final VaultFile newVault, final String masterKey) =
+      _$UpdatedEvent;
+
+  VaultFile get newVault => throw _privateConstructorUsedError;
+  String get masterKey => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$UpdatedEventCopyWith<_$UpdatedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1453,6 +1643,7 @@ class _$LockedEvent implements LockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
   }) {
@@ -1464,6 +1655,7 @@ class _$LockedEvent implements LockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
   }) {
@@ -1475,6 +1667,7 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
     required TResult orElse(),
@@ -1490,6 +1683,7 @@ class _$LockedEvent implements LockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
   }) {
@@ -1501,6 +1695,7 @@ class _$LockedEvent implements LockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
   }) {
@@ -1512,6 +1707,7 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
     required TResult orElse(),
@@ -1569,6 +1765,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
   }) {
@@ -1580,6 +1777,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
   }) {
@@ -1591,6 +1789,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
     required TResult orElse(),
@@ -1606,6 +1805,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
   }) {
@@ -1617,6 +1817,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
   }) {
@@ -1628,6 +1829,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
     required TResult orElse(),

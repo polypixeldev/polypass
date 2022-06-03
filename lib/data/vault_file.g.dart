@@ -82,7 +82,28 @@ Map<String, dynamic> _$$_VaultCategoryToJson(_$_VaultCategory instance) =>
       'components': instance.components,
     };
 
-_$_VaultItem _$$_VaultItemFromJson(Map<String, dynamic> json) => _$_VaultItem();
+_$_VaultItem _$$_VaultItemFromJson(Map<String, dynamic> json) => _$_VaultItem(
+      name: json['name'] as String,
+      username: json['username'] as String,
+      password: EncryptedData<VaultPassword>.fromJson(
+          json['password'] as Map<String, dynamic>),
+      notes: json['notes'] as String,
+    );
 
 Map<String, dynamic> _$$_VaultItemToJson(_$_VaultItem instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'name': instance.name,
+      'username': instance.username,
+      'password': instance.password,
+      'notes': instance.notes,
+    };
+
+_$_VaultPassword _$$_VaultPasswordFromJson(Map<String, dynamic> json) =>
+    _$_VaultPassword(
+      json['password'] as String,
+    );
+
+Map<String, dynamic> _$$_VaultPasswordToJson(_$_VaultPassword instance) =>
+    <String, dynamic>{
+      'password': instance.password,
+    };

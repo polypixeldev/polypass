@@ -20,6 +20,7 @@ class VaultState with _$VaultState {
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(String path) = OpenedEvent;
   const factory VaultEvent.unlocked(String masterKey) = UnlockedEvent;
+  const factory VaultEvent.updated(VaultFile newVault, String masterKey) = UpdatedEvent;
   const factory VaultEvent.locked() = LockedEvent;
   const factory VaultEvent.closed() = ClosedEvent;
 }
@@ -34,6 +35,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       await rawEvent.map(
         opened: (event) => _onVaultOpened(event, emit),
         unlocked: (event) => _onVaultUnlocked(event, emit),
+        updated: (event) => _onVaultUpdated(event, emit),
         locked: (event) => _onVaultLocked(event, emit),
         closed: (event) => _onVaultClosed(event, emit)
       );
@@ -46,21 +48,6 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     emit(const VaultState.opening());
 
     emit(VaultState.locked(await repository.getFile(event.path)));
-  }
-
-  Future<void> _onVaultLocked(LockedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
-
-    final encryptedFile = await repository.getFile(unlockedState.vault.path);
-    
-    emit(
-      VaultState.locked(unlockedState.vault.copyWith(
-        contents: encryptedFile.contents
-      ))
-    );
   }
 
   Future<void> _onVaultUnlocked(UnlockedEvent event, Emitter<VaultState> emit) async {
@@ -108,6 +95,34 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         ),
         event.masterKey
       )
+    );
+  }
+
+  Future<void> _onVaultUpdated(UpdatedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState = state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    emit(unlockedState.copyWith(
+      vault: event.newVault
+    ));
+
+    repository.updateFile(event.newVault, event.masterKey);
+  }
+
+  Future<void> _onVaultLocked(LockedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState = state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    final encryptedFile = await repository.getFile(unlockedState.vault.path);
+    
+    emit(
+      VaultState.locked(unlockedState.vault.copyWith(
+        contents: encryptedFile.contents
+      ))
     );
   }
 
