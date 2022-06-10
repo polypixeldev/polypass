@@ -21,7 +21,8 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           tooltip: 'Close vault',
           onPressed: () {
             vaultBloc.add(const VaultEvent.closed());
-          }
+          },
+          splashRadius: 20,
         )
       ];
     },
@@ -31,7 +32,8 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         tooltip: 'Lock vault',
         onPressed: () {
           vaultBloc.add(const VaultEvent.locked());
-        }
+        },
+        splashRadius: 20,
       );
 
       appBarActions = [
@@ -40,28 +42,32 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           tooltip: 'Create an item',
           onPressed: () {
             router.go('/vault/new');
-          }
+          },
+          splashRadius: 20,
         ),
         IconButton(
           icon: const Icon(Icons.edit),
           tooltip: 'Edit the selected item',
           onPressed: () {
             // TODO: Edit a vault item
-          }
+          },
+          splashRadius: 20,
         ),
         IconButton(
           icon: const Icon(Icons.delete),
           tooltip: 'Delete the selected item',
           onPressed: () {
             // TODO: Delete a vault item
-          }
+          },
+          splashRadius: 20,
         ),
         IconButton(
           icon: const Icon(Icons.preview_outlined),
           tooltip: 'View the selected item',
           onPressed: () {
             // TODO: View a vault item
-          }
+          },
+          splashRadius: 20,
         )
       ];
     }
