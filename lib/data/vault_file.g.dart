@@ -44,14 +44,13 @@ Map<String, dynamic> _$$_VaultContentsToJson(_$_VaultContents instance) =>
       'components': instance.components,
     };
 
-_$Category _$$CategoryFromJson(Map<String, dynamic> json) => _$Category(
-      VaultCategory.fromJson(json['category'] as Map<String, dynamic>),
+_$Group _$$GroupFromJson(Map<String, dynamic> json) => _$Group(
+      VaultGroup.fromJson(json['group'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$CategoryToJson(_$Category instance) =>
-    <String, dynamic>{
-      'category': instance.category,
+Map<String, dynamic> _$$GroupToJson(_$Group instance) => <String, dynamic>{
+      'group': instance.group,
       'runtimeType': instance.$type,
     };
 
@@ -65,8 +64,8 @@ Map<String, dynamic> _$$ItemToJson(_$Item instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$_VaultCategory _$$_VaultCategoryFromJson(Map<String, dynamic> json) =>
-    _$_VaultCategory(
+_$_VaultGroup _$$_VaultGroupFromJson(Map<String, dynamic> json) =>
+    _$_VaultGroup(
       name: json['name'] as String,
       icon: json['icon'] as String?,
       components: (json['components'] as List<dynamic>?)
@@ -75,7 +74,7 @@ _$_VaultCategory _$$_VaultCategoryFromJson(Map<String, dynamic> json) =>
           const [],
     );
 
-Map<String, dynamic> _$$_VaultCategoryToJson(_$_VaultCategory instance) =>
+Map<String, dynamic> _$$_VaultGroupToJson(_$_VaultGroup instance) =>
     <String, dynamic>{
       'name': instance.name,
       'icon': instance.icon,

@@ -12,7 +12,8 @@ final appTheme = ThemeData(
     background: Color(0xFF4b4e53),
     onBackground: Colors.white,
     surface: Color(0xFF282c34),
-    onSurface: Colors.white
+    onSurface: Colors.white,
+    primaryContainer: Color.fromARGB(255, 62, 64, 68)
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor:Color(0xFF282c34),
@@ -55,8 +56,8 @@ final appTheme = ThemeData(
     )
   ),
   dividerTheme: const DividerThemeData(
-    thickness: 1,
-    space: 1,
+    thickness: 3,
+    space: 10,
     indent: 5,
     endIndent: 5,
     color: Colors.grey

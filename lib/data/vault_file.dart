@@ -176,21 +176,21 @@ class VaultContents extends ToJsonAble with _$VaultContents {
 
 @freezed
 class VaultComponent with _$VaultComponent {
-  const factory VaultComponent.category(VaultCategory category) = Category;
+  const factory VaultComponent.group(VaultGroup group) = Group;
   const factory VaultComponent.item(VaultItem item) = Item;
 
   factory VaultComponent.fromJson(Map<String, dynamic> json) => _$VaultComponentFromJson(json);
 }
 
 @freezed
-class VaultCategory with _$VaultCategory {
-  const factory VaultCategory({
+class VaultGroup with _$VaultGroup {
+  const factory VaultGroup({
     required String name,
     String? icon,
     @Default([]) List<VaultComponent> components
-  }) = _VaultCategory;
+  }) = _VaultGroup;
 
-  factory VaultCategory.fromJson(Map<String, dynamic> json) => _$VaultCategoryFromJson(json);
+  factory VaultGroup.fromJson(Map<String, dynamic> json) => _$VaultGroupFromJson(json);
 }
 
 @freezed

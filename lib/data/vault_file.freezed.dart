@@ -870,8 +870,8 @@ abstract class _VaultContents implements VaultContents {
 
 VaultComponent _$VaultComponentFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
-    case 'category':
-      return Category.fromJson(json);
+    case 'group':
+      return Group.fromJson(json);
     case 'item':
       return Item.fromJson(json);
 
@@ -885,38 +885,38 @@ VaultComponent _$VaultComponentFromJson(Map<String, dynamic> json) {
 mixin _$VaultComponent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(VaultCategory category) category,
+    required TResult Function(VaultGroup group) group,
     required TResult Function(VaultItem item) item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Category value) category,
+    required TResult Function(Group value) group,
     required TResult Function(Item value) item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
     required TResult orElse(),
   }) =>
@@ -942,109 +942,106 @@ class _$VaultComponentCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$CategoryCopyWith<$Res> {
-  factory _$$CategoryCopyWith(
-          _$Category value, $Res Function(_$Category) then) =
-      __$$CategoryCopyWithImpl<$Res>;
-  $Res call({VaultCategory category});
+abstract class _$$GroupCopyWith<$Res> {
+  factory _$$GroupCopyWith(_$Group value, $Res Function(_$Group) then) =
+      __$$GroupCopyWithImpl<$Res>;
+  $Res call({VaultGroup group});
 
-  $VaultCategoryCopyWith<$Res> get category;
+  $VaultGroupCopyWith<$Res> get group;
 }
 
 /// @nodoc
-class __$$CategoryCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
-    implements _$$CategoryCopyWith<$Res> {
-  __$$CategoryCopyWithImpl(_$Category _value, $Res Function(_$Category) _then)
-      : super(_value, (v) => _then(v as _$Category));
+class __$$GroupCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
+    implements _$$GroupCopyWith<$Res> {
+  __$$GroupCopyWithImpl(_$Group _value, $Res Function(_$Group) _then)
+      : super(_value, (v) => _then(v as _$Group));
 
   @override
-  _$Category get _value => super._value as _$Category;
+  _$Group get _value => super._value as _$Group;
 
   @override
   $Res call({
-    Object? category = freezed,
+    Object? group = freezed,
   }) {
-    return _then(_$Category(
-      category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as VaultCategory,
+    return _then(_$Group(
+      group == freezed
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as VaultGroup,
     ));
   }
 
   @override
-  $VaultCategoryCopyWith<$Res> get category {
-    return $VaultCategoryCopyWith<$Res>(_value.category, (value) {
-      return _then(_value.copyWith(category: value));
+  $VaultGroupCopyWith<$Res> get group {
+    return $VaultGroupCopyWith<$Res>(_value.group, (value) {
+      return _then(_value.copyWith(group: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$Category implements Category {
-  const _$Category(this.category, {final String? $type})
-      : $type = $type ?? 'category';
+class _$Group implements Group {
+  const _$Group(this.group, {final String? $type}) : $type = $type ?? 'group';
 
-  factory _$Category.fromJson(Map<String, dynamic> json) =>
-      _$$CategoryFromJson(json);
+  factory _$Group.fromJson(Map<String, dynamic> json) => _$$GroupFromJson(json);
 
   @override
-  final VaultCategory category;
+  final VaultGroup group;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'VaultComponent.category(category: $category)';
+    return 'VaultComponent.group(group: $group)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Category &&
-            const DeepCollectionEquality().equals(other.category, category));
+            other is _$Group &&
+            const DeepCollectionEquality().equals(other.group, group));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(category));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(group));
 
   @JsonKey(ignore: true)
   @override
-  _$$CategoryCopyWith<_$Category> get copyWith =>
-      __$$CategoryCopyWithImpl<_$Category>(this, _$identity);
+  _$$GroupCopyWith<_$Group> get copyWith =>
+      __$$GroupCopyWithImpl<_$Group>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(VaultCategory category) category,
+    required TResult Function(VaultGroup group) group,
     required TResult Function(VaultItem item) item,
   }) {
-    return category(this.category);
+    return group(this.group);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
   }) {
-    return category?.call(this.category);
+    return group?.call(this.group);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
     required TResult orElse(),
   }) {
-    if (category != null) {
-      return category(this.category);
+    if (group != null) {
+      return group(this.group);
     }
     return orElse();
   }
@@ -1052,49 +1049,48 @@ class _$Category implements Category {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Category value) category,
+    required TResult Function(Group value) group,
     required TResult Function(Item value) item,
   }) {
-    return category(this);
+    return group(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
   }) {
-    return category?.call(this);
+    return group?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
     required TResult orElse(),
   }) {
-    if (category != null) {
-      return category(this);
+    if (group != null) {
+      return group(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CategoryToJson(this);
+    return _$$GroupToJson(this);
   }
 }
 
-abstract class Category implements VaultComponent {
-  const factory Category(final VaultCategory category) = _$Category;
+abstract class Group implements VaultComponent {
+  const factory Group(final VaultGroup group) = _$Group;
 
-  factory Category.fromJson(Map<String, dynamic> json) = _$Category.fromJson;
+  factory Group.fromJson(Map<String, dynamic> json) = _$Group.fromJson;
 
-  VaultCategory get category => throw _privateConstructorUsedError;
+  VaultGroup get group => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$CategoryCopyWith<_$Category> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$GroupCopyWith<_$Group> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1174,7 +1170,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(VaultCategory category) category,
+    required TResult Function(VaultGroup group) group,
     required TResult Function(VaultItem item) item,
   }) {
     return item(this.item);
@@ -1183,7 +1179,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
   }) {
     return item?.call(this.item);
@@ -1192,7 +1188,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VaultCategory category)? category,
+    TResult Function(VaultGroup group)? group,
     TResult Function(VaultItem item)? item,
     required TResult orElse(),
   }) {
@@ -1205,7 +1201,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Category value) category,
+    required TResult Function(Group value) group,
     required TResult Function(Item value) item,
   }) {
     return item(this);
@@ -1214,7 +1210,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
   }) {
     return item?.call(this);
@@ -1223,7 +1219,7 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Category value)? category,
+    TResult Function(Group value)? group,
     TResult Function(Item value)? item,
     required TResult orElse(),
   }) {
@@ -1249,38 +1245,37 @@ abstract class Item implements VaultComponent {
   _$$ItemCopyWith<_$Item> get copyWith => throw _privateConstructorUsedError;
 }
 
-VaultCategory _$VaultCategoryFromJson(Map<String, dynamic> json) {
-  return _VaultCategory.fromJson(json);
+VaultGroup _$VaultGroupFromJson(Map<String, dynamic> json) {
+  return _VaultGroup.fromJson(json);
 }
 
 /// @nodoc
-mixin _$VaultCategory {
+mixin _$VaultGroup {
   String get name => throw _privateConstructorUsedError;
   String? get icon => throw _privateConstructorUsedError;
   List<VaultComponent> get components => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $VaultCategoryCopyWith<VaultCategory> get copyWith =>
+  $VaultGroupCopyWith<VaultGroup> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $VaultCategoryCopyWith<$Res> {
-  factory $VaultCategoryCopyWith(
-          VaultCategory value, $Res Function(VaultCategory) then) =
-      _$VaultCategoryCopyWithImpl<$Res>;
+abstract class $VaultGroupCopyWith<$Res> {
+  factory $VaultGroupCopyWith(
+          VaultGroup value, $Res Function(VaultGroup) then) =
+      _$VaultGroupCopyWithImpl<$Res>;
   $Res call({String name, String? icon, List<VaultComponent> components});
 }
 
 /// @nodoc
-class _$VaultCategoryCopyWithImpl<$Res>
-    implements $VaultCategoryCopyWith<$Res> {
-  _$VaultCategoryCopyWithImpl(this._value, this._then);
+class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
+  _$VaultGroupCopyWithImpl(this._value, this._then);
 
-  final VaultCategory _value;
+  final VaultGroup _value;
   // ignore: unused_field
-  final $Res Function(VaultCategory) _then;
+  final $Res Function(VaultGroup) _then;
 
   @override
   $Res call({
@@ -1306,25 +1301,24 @@ class _$VaultCategoryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_VaultCategoryCopyWith<$Res>
-    implements $VaultCategoryCopyWith<$Res> {
-  factory _$$_VaultCategoryCopyWith(
-          _$_VaultCategory value, $Res Function(_$_VaultCategory) then) =
-      __$$_VaultCategoryCopyWithImpl<$Res>;
+abstract class _$$_VaultGroupCopyWith<$Res>
+    implements $VaultGroupCopyWith<$Res> {
+  factory _$$_VaultGroupCopyWith(
+          _$_VaultGroup value, $Res Function(_$_VaultGroup) then) =
+      __$$_VaultGroupCopyWithImpl<$Res>;
   @override
   $Res call({String name, String? icon, List<VaultComponent> components});
 }
 
 /// @nodoc
-class __$$_VaultCategoryCopyWithImpl<$Res>
-    extends _$VaultCategoryCopyWithImpl<$Res>
-    implements _$$_VaultCategoryCopyWith<$Res> {
-  __$$_VaultCategoryCopyWithImpl(
-      _$_VaultCategory _value, $Res Function(_$_VaultCategory) _then)
-      : super(_value, (v) => _then(v as _$_VaultCategory));
+class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
+    implements _$$_VaultGroupCopyWith<$Res> {
+  __$$_VaultGroupCopyWithImpl(
+      _$_VaultGroup _value, $Res Function(_$_VaultGroup) _then)
+      : super(_value, (v) => _then(v as _$_VaultGroup));
 
   @override
-  _$_VaultCategory get _value => super._value as _$_VaultCategory;
+  _$_VaultGroup get _value => super._value as _$_VaultGroup;
 
   @override
   $Res call({
@@ -1332,7 +1326,7 @@ class __$$_VaultCategoryCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? components = freezed,
   }) {
-    return _then(_$_VaultCategory(
+    return _then(_$_VaultGroup(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1351,15 +1345,15 @@ class __$$_VaultCategoryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_VaultCategory implements _VaultCategory {
-  const _$_VaultCategory(
+class _$_VaultGroup implements _VaultGroup {
+  const _$_VaultGroup(
       {required this.name,
       this.icon,
       final List<VaultComponent> components = const []})
       : _components = components;
 
-  factory _$_VaultCategory.fromJson(Map<String, dynamic> json) =>
-      _$$_VaultCategoryFromJson(json);
+  factory _$_VaultGroup.fromJson(Map<String, dynamic> json) =>
+      _$$_VaultGroupFromJson(json);
 
   @override
   final String name;
@@ -1375,14 +1369,14 @@ class _$_VaultCategory implements _VaultCategory {
 
   @override
   String toString() {
-    return 'VaultCategory(name: $name, icon: $icon, components: $components)';
+    return 'VaultGroup(name: $name, icon: $icon, components: $components)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VaultCategory &&
+            other is _$_VaultGroup &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.icon, icon) &&
             const DeepCollectionEquality()
@@ -1399,23 +1393,23 @@ class _$_VaultCategory implements _VaultCategory {
 
   @JsonKey(ignore: true)
   @override
-  _$$_VaultCategoryCopyWith<_$_VaultCategory> get copyWith =>
-      __$$_VaultCategoryCopyWithImpl<_$_VaultCategory>(this, _$identity);
+  _$$_VaultGroupCopyWith<_$_VaultGroup> get copyWith =>
+      __$$_VaultGroupCopyWithImpl<_$_VaultGroup>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultCategoryToJson(this);
+    return _$$_VaultGroupToJson(this);
   }
 }
 
-abstract class _VaultCategory implements VaultCategory {
-  const factory _VaultCategory(
+abstract class _VaultGroup implements VaultGroup {
+  const factory _VaultGroup(
       {required final String name,
       final String? icon,
-      final List<VaultComponent> components}) = _$_VaultCategory;
+      final List<VaultComponent> components}) = _$_VaultGroup;
 
-  factory _VaultCategory.fromJson(Map<String, dynamic> json) =
-      _$_VaultCategory.fromJson;
+  factory _VaultGroup.fromJson(Map<String, dynamic> json) =
+      _$_VaultGroup.fromJson;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -1425,7 +1419,7 @@ abstract class _VaultCategory implements VaultCategory {
   List<VaultComponent> get components => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_VaultCategoryCopyWith<_$_VaultCategory> get copyWith =>
+  _$$_VaultGroupCopyWith<_$_VaultGroup> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
