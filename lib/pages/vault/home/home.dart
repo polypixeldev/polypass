@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
-import 'package:polypass/pages/vault/home/list_item_bloc.dart';
+import 'package:polypass/pages/vault/home/component_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
@@ -14,7 +14,6 @@ class VaultHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(context.read<VaultBloc>().state.whenOrNull(unlocked: (vault, _masterKey) => vault.toJson()));
     return AppWrapper(
       child: BlocProvider(
         create: (context) => VaultHomeBloc(),
@@ -82,10 +81,12 @@ class Tree extends StatelessWidget {
 
           final groups = [...decryptedContents.data.components.whereType<Group>()];
 
-          return Column(
+          return ListView(
+            primary: false,
             children: [...groups.map((group) => 
               TreeGroup(
-                group: group.group
+                group: group.group,
+                path: [group.group.name]
               )
             )]
           );
@@ -96,34 +97,169 @@ class Tree extends StatelessWidget {
 }
 
 class TreeGroup extends StatelessWidget {
-  const TreeGroup({ Key? key, required this.group}): super(key: key);
+  const TreeGroup({ Key? key, required this.group, this.path = const [] }): super(key: key);
 
   final VaultGroup group;
+  final List<String> path;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     // TODO: Update vault home bloc focusedGroup on click
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Row(
-        children: [
-          Text(
-            group.icon ?? '🔑',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: theme.textTheme.bodySmall!.fontSize
-            )
-          ),
-          Text(
-            ' ${group.name}',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: theme.textTheme.bodySmall!.fontSize
-            )
-          )
-        ]
+    return SizedBox(
+      height: 50,
+      child: BlocProvider(
+        create: (_context) => ComponentBloc(),
+        child: BlocBuilder<ComponentBloc, ComponentState>(
+          builder: (context, componentState) {
+            return BlocBuilder<VaultHomeBloc, VaultHomeState>(
+              builder: (context, vaultHomeState) {
+                final Widget textWidget;
+                if (componentState.mode == ComponentMode.normal) {
+                  textWidget = Text(
+                    group.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: theme.textTheme.bodySmall!.fontSize
+                    )
+                  );
+                } else {
+                  textWidget = TextFormField(
+                    initialValue: group.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: theme.textTheme.bodySmall!.fontSize
+                    ),
+                    onFieldSubmitted: (newName) {
+                      if(newName.contains(RegExp('/'))) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Invalid character - "/" is not allowed in names')
+                        ));
+                        return;
+                      }
+
+                      final vaultBloc = context.read<VaultBloc>();
+                      final unlockedState = vaultBloc.state.maybeMap(
+                        unlocked: (state) => state,
+                        orElse: () => throw Error()
+                      );
+                      final decryptedContents = unlockedState.vault.contents.maybeMap(
+                        decrypted: (contents) => contents,
+                        orElse: () => throw Error()
+                      );
+                      final rootGroup = VaultComponent.group(VaultGroup(name: unlockedState.vault.header.name, components: decryptedContents.data.components)).maybeMap(group: (group) => group, orElse: () => throw Error()).group;
+                      final selectedPath = vaultHomeState.selectedGroup;
+                      var selectedGroup = rootGroup;
+
+                      if(selectedPath != null) {
+                        for(final pathPart in selectedPath) {
+                          selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
+                        }
+                      }
+
+                      if(selectedGroup.components.whereType<Group>().where((group) => group.group.name == newName).isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('A group with this name already exists in the selected group')
+                        ));
+                        return;
+                      }
+                      
+                      var currentGroup = rootGroup;
+                      int index = 0;
+                      for (var i = 0; i < path.length; i++) {
+                        final pathPart = path[i];
+                        if (i == path.length - 1) {
+                          index = currentGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == pathPart);
+                          break;
+                        }
+                        currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
+                      }
+                      final targetGroup = currentGroup.components[index].maybeMap(group: (group) => group, orElse: () => throw Error());
+                      currentGroup.components[index] = targetGroup.copyWith(
+                        group: targetGroup.group.copyWith(
+                          name: newName
+                        )
+                      );
+
+                      var updatedGroup = currentGroup.components[index].maybeMap(group: (group) => group, orElse: () => throw Error()).group;
+                      var depth = 1;
+                      var currentPathedGroup = rootGroup;
+
+                      while (path.length - depth >= 0) {
+                        final pathedIndex = path.length - depth == 0 ? index : currentPathedGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == updatedGroup.name);
+
+                        final pathedTargetGroup = currentPathedGroup.components[pathedIndex].maybeMap(group: (group) => group, orElse: () => throw Error());
+                        currentPathedGroup.components[pathedIndex] = pathedTargetGroup.copyWith(
+                          group: updatedGroup
+                        );
+                        updatedGroup = currentPathedGroup;
+
+                        for (var i = 0; i < path.length - depth; i++) {
+                          final pathPart = path[i];
+                          currentPathedGroup = currentPathedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
+                        }
+
+                        depth++;
+                      }
+
+                      final newState = unlockedState.copyWith(
+                        vault: unlockedState.vault.copyWith(
+                          contents: decryptedContents.copyWith(
+                            data: decryptedContents.data.copyWith(
+                              components: updatedGroup.components
+                            )
+                          )
+                        )
+                      );
+
+                      // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
+                      vaultBloc.add(VaultEvent.updated(newState.vault, newState.masterKey!));
+
+                      context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
+                    },
+                  );
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
+                    decoration: BoxDecoration(
+                      color: vaultHomeState.selectedGroup?.join() == path.join() ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: GestureDetector(
+                      child: MouseRegion(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                child: textWidget,
+                              ),
+                            )
+                          ]
+                        ),
+                        onEnter: (_event) {
+                          context.read<ComponentBloc>().add(const ComponentEvent.entered());
+                        },
+                        onExit: (_event) {
+                          context.read<ComponentBloc>().add(const ComponentEvent.exited());
+                        }
+                      ),
+                      onTap: () {
+                        context.read<VaultHomeBloc>().add(VaultHomeEvent.groupSelected(path));
+                      },
+                      onDoubleTap: () {
+                        context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
+                      },
+                    ),
+                  ),
+                );
+              }
+            );
+          },
+        ),
       ),
     );
   }
@@ -138,26 +274,37 @@ class FolderList extends StatelessWidget {
       width: (MediaQuery.of(context).size.width * .75) - 22,
       child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
         builder: (context, state) {
-          var components = state.focusedGroup?.components;
-          if (components == null) {
-            final unlockedState = context.read<VaultBloc>().state.maybeMap(
-              unlocked: (state) => state,
-              orElse: () => throw Error()
-            );
+          final List<VaultComponent> components;
+          final paths = state.selectedGroup;
 
-            final decryptedContents = unlockedState.vault.contents.maybeMap(
-              decrypted: (contents) => contents,
-              orElse: () => throw Error()
-            );
+          final unlockedState = context.read<VaultBloc>().state.maybeMap(
+            unlocked: (state) => state,
+            orElse: () => throw Error()
+          );
 
+          final decryptedContents = unlockedState.vault.contents.maybeMap(
+            decrypted: (contents) => contents,
+            orElse: () => throw Error()
+          );
+
+          if (paths == null) {
             components = decryptedContents.data.components;
+          } else {
+            var currentGroup = decryptedContents.data.components;
+            for (final path in paths) {
+              currentGroup = [...currentGroup.whereType<Group>().where((group) => group.group.name == path)][0].group.components;
+
+              // TODO: validate group names so that they are not same
+            }
+            components = currentGroup;
           }
 
           final items = components.whereType<Item>();
 
           return Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Column(
+            child: ListView(
+              primary: false,
               children: [
                 const ListHeader(),
                 ...items.map((item) => ListItem(
@@ -181,9 +328,9 @@ class BaseRow extends StatelessWidget {
     this.hoverEffect = true
   }) : super(key: key);
 
-  final Widget Function(ListItemState state) name;
-  final Widget Function(ListItemState state) username;
-  final Widget? Function(ListItemState state) actions;
+  final Widget Function(ComponentState state) name;
+  final Widget Function(ComponentState state) username;
+  final Widget? Function(ComponentState state) actions;
   final bool hoverEffect;
 
   @override
@@ -191,20 +338,20 @@ class BaseRow extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (_context) => ListItemBloc(),
-      child: BlocBuilder<ListItemBloc, ListItemState>(
+      create: (_context) => ComponentBloc(),
+      child: BlocBuilder<ComponentBloc, ComponentState>(
         builder: (context, state) {
-          final bloc = context.read<ListItemBloc>();
+          final bloc = context.read<ComponentBloc>();
           final rowWidth = (MediaQuery.of(context).size.width * .75) - 22 - 15 - 20 - 80;
 
           return Column(
             children: [
               MouseRegion(
                 onEnter: (_event) {
-                  bloc.add(const ListItemEvent.entered());
+                  bloc.add(const ComponentEvent.entered());
                 },
                 onExit: (_event) {
-                  bloc.add(const ListItemEvent.exited());
+                  bloc.add(const ComponentEvent.exited());
                 },
                 child: Container(
                   decoration: BoxDecoration(

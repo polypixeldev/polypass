@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$VaultHomeState {
   String get query => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
-  VaultGroup? get focusedGroup => throw _privateConstructorUsedError;
+  List<String>? get selectedGroup => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VaultHomeStateCopyWith<VaultHomeState> get copyWith =>
@@ -30,9 +30,7 @@ abstract class $VaultHomeStateCopyWith<$Res> {
   factory $VaultHomeStateCopyWith(
           VaultHomeState value, $Res Function(VaultHomeState) then) =
       _$VaultHomeStateCopyWithImpl<$Res>;
-  $Res call({String query, bool submitted, VaultGroup? focusedGroup});
-
-  $VaultGroupCopyWith<$Res>? get focusedGroup;
+  $Res call({String query, bool submitted, List<String>? selectedGroup});
 }
 
 /// @nodoc
@@ -48,7 +46,7 @@ class _$VaultHomeStateCopyWithImpl<$Res>
   $Res call({
     Object? query = freezed,
     Object? submitted = freezed,
-    Object? focusedGroup = freezed,
+    Object? selectedGroup = freezed,
   }) {
     return _then(_value.copyWith(
       query: query == freezed
@@ -59,22 +57,11 @@ class _$VaultHomeStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      focusedGroup: focusedGroup == freezed
-          ? _value.focusedGroup
-          : focusedGroup // ignore: cast_nullable_to_non_nullable
-              as VaultGroup?,
+      selectedGroup: selectedGroup == freezed
+          ? _value.selectedGroup
+          : selectedGroup // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
-  }
-
-  @override
-  $VaultGroupCopyWith<$Res>? get focusedGroup {
-    if (_value.focusedGroup == null) {
-      return null;
-    }
-
-    return $VaultGroupCopyWith<$Res>(_value.focusedGroup!, (value) {
-      return _then(_value.copyWith(focusedGroup: value));
-    });
   }
 }
 
@@ -85,10 +72,7 @@ abstract class _$$_VaultHomeStateCopyWith<$Res>
           _$_VaultHomeState value, $Res Function(_$_VaultHomeState) then) =
       __$$_VaultHomeStateCopyWithImpl<$Res>;
   @override
-  $Res call({String query, bool submitted, VaultGroup? focusedGroup});
-
-  @override
-  $VaultGroupCopyWith<$Res>? get focusedGroup;
+  $Res call({String query, bool submitted, List<String>? selectedGroup});
 }
 
 /// @nodoc
@@ -106,7 +90,7 @@ class __$$_VaultHomeStateCopyWithImpl<$Res>
   $Res call({
     Object? query = freezed,
     Object? submitted = freezed,
-    Object? focusedGroup = freezed,
+    Object? selectedGroup = freezed,
   }) {
     return _then(_$_VaultHomeState(
       query: query == freezed
@@ -117,10 +101,10 @@ class __$$_VaultHomeStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      focusedGroup: focusedGroup == freezed
-          ? _value.focusedGroup
-          : focusedGroup // ignore: cast_nullable_to_non_nullable
-              as VaultGroup?,
+      selectedGroup: selectedGroup == freezed
+          ? _value._selectedGroup
+          : selectedGroup // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -131,18 +115,25 @@ class _$_VaultHomeState implements _VaultHomeState {
   const _$_VaultHomeState(
       {required this.query,
       required this.submitted,
-      required this.focusedGroup});
+      required final List<String>? selectedGroup})
+      : _selectedGroup = selectedGroup;
 
   @override
   final String query;
   @override
   final bool submitted;
+  final List<String>? _selectedGroup;
   @override
-  final VaultGroup? focusedGroup;
+  List<String>? get selectedGroup {
+    final value = _selectedGroup;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'VaultHomeState(query: $query, submitted: $submitted, focusedGroup: $focusedGroup)';
+    return 'VaultHomeState(query: $query, submitted: $submitted, selectedGroup: $selectedGroup)';
   }
 
   @override
@@ -153,7 +144,7 @@ class _$_VaultHomeState implements _VaultHomeState {
             const DeepCollectionEquality().equals(other.query, query) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
             const DeepCollectionEquality()
-                .equals(other.focusedGroup, focusedGroup));
+                .equals(other._selectedGroup, _selectedGroup));
   }
 
   @override
@@ -161,7 +152,7 @@ class _$_VaultHomeState implements _VaultHomeState {
       runtimeType,
       const DeepCollectionEquality().hash(query),
       const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(focusedGroup));
+      const DeepCollectionEquality().hash(_selectedGroup));
 
   @JsonKey(ignore: true)
   @override
@@ -173,14 +164,14 @@ abstract class _VaultHomeState implements VaultHomeState {
   const factory _VaultHomeState(
       {required final String query,
       required final bool submitted,
-      required final VaultGroup? focusedGroup}) = _$_VaultHomeState;
+      required final List<String>? selectedGroup}) = _$_VaultHomeState;
 
   @override
   String get query => throw _privateConstructorUsedError;
   @override
   bool get submitted => throw _privateConstructorUsedError;
   @override
-  VaultGroup? get focusedGroup => throw _privateConstructorUsedError;
+  List<String>? get selectedGroup => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultHomeStateCopyWith<_$_VaultHomeState> get copyWith =>
@@ -193,18 +184,21 @@ mixin _$VaultHomeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) queryChanged,
     required TResult Function() searchSubmitted,
+    required TResult Function(List<String>? path) groupSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -212,18 +206,21 @@ mixin _$VaultHomeEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(QueryChangedEvent value) queryChanged,
     required TResult Function(SearchSubmittedEvent value) searchSubmitted,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -313,6 +310,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) queryChanged,
     required TResult Function() searchSubmitted,
+    required TResult Function(List<String>? path) groupSelected,
   }) {
     return queryChanged(query);
   }
@@ -322,6 +320,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
   }) {
     return queryChanged?.call(query);
   }
@@ -331,6 +330,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
     required TResult orElse(),
   }) {
     if (queryChanged != null) {
@@ -344,6 +344,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(QueryChangedEvent value) queryChanged,
     required TResult Function(SearchSubmittedEvent value) searchSubmitted,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
   }) {
     return queryChanged(this);
   }
@@ -353,6 +354,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
   }) {
     return queryChanged?.call(this);
   }
@@ -362,6 +364,7 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
     required TResult orElse(),
   }) {
     if (queryChanged != null) {
@@ -423,6 +426,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) queryChanged,
     required TResult Function() searchSubmitted,
+    required TResult Function(List<String>? path) groupSelected,
   }) {
     return searchSubmitted();
   }
@@ -432,6 +436,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
   }) {
     return searchSubmitted?.call();
   }
@@ -441,6 +446,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? queryChanged,
     TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
     required TResult orElse(),
   }) {
     if (searchSubmitted != null) {
@@ -454,6 +460,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(QueryChangedEvent value) queryChanged,
     required TResult Function(SearchSubmittedEvent value) searchSubmitted,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
   }) {
     return searchSubmitted(this);
   }
@@ -463,6 +470,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
   }) {
     return searchSubmitted?.call(this);
   }
@@ -472,6 +480,7 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QueryChangedEvent value)? queryChanged,
     TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
     required TResult orElse(),
   }) {
     if (searchSubmitted != null) {
@@ -483,4 +492,152 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
 
 abstract class SearchSubmittedEvent implements VaultHomeEvent {
   const factory SearchSubmittedEvent() = _$SearchSubmittedEvent;
+}
+
+/// @nodoc
+abstract class _$$GroupSelectedEventCopyWith<$Res> {
+  factory _$$GroupSelectedEventCopyWith(_$GroupSelectedEvent value,
+          $Res Function(_$GroupSelectedEvent) then) =
+      __$$GroupSelectedEventCopyWithImpl<$Res>;
+  $Res call({List<String>? path});
+}
+
+/// @nodoc
+class __$$GroupSelectedEventCopyWithImpl<$Res>
+    extends _$VaultHomeEventCopyWithImpl<$Res>
+    implements _$$GroupSelectedEventCopyWith<$Res> {
+  __$$GroupSelectedEventCopyWithImpl(
+      _$GroupSelectedEvent _value, $Res Function(_$GroupSelectedEvent) _then)
+      : super(_value, (v) => _then(v as _$GroupSelectedEvent));
+
+  @override
+  _$GroupSelectedEvent get _value => super._value as _$GroupSelectedEvent;
+
+  @override
+  $Res call({
+    Object? path = freezed,
+  }) {
+    return _then(_$GroupSelectedEvent(
+      path == freezed
+          ? _value._path
+          : path // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GroupSelectedEvent implements GroupSelectedEvent {
+  const _$GroupSelectedEvent(final List<String>? path) : _path = path;
+
+  final List<String>? _path;
+  @override
+  List<String>? get path {
+    final value = _path;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'VaultHomeEvent.groupSelected(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GroupSelectedEvent &&
+            const DeepCollectionEquality().equals(other._path, _path));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
+      __$$GroupSelectedEventCopyWithImpl<_$GroupSelectedEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String query) queryChanged,
+    required TResult Function() searchSubmitted,
+    required TResult Function(List<String>? path) groupSelected,
+  }) {
+    return groupSelected(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String query)? queryChanged,
+    TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
+  }) {
+    return groupSelected?.call(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String query)? queryChanged,
+    TResult Function()? searchSubmitted,
+    TResult Function(List<String>? path)? groupSelected,
+    required TResult orElse(),
+  }) {
+    if (groupSelected != null) {
+      return groupSelected(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QueryChangedEvent value) queryChanged,
+    required TResult Function(SearchSubmittedEvent value) searchSubmitted,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+  }) {
+    return groupSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(QueryChangedEvent value)? queryChanged,
+    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+  }) {
+    return groupSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QueryChangedEvent value)? queryChanged,
+    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    required TResult orElse(),
+  }) {
+    if (groupSelected != null) {
+      return groupSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GroupSelectedEvent implements VaultHomeEvent {
+  const factory GroupSelectedEvent(final List<String>? path) =
+      _$GroupSelectedEvent;
+
+  List<String>? get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

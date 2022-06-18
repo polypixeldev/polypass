@@ -5,3 +5,4 @@ targets:
         options:
           explicit_to_json: true
           generic_argument_factories: true
+          any_map: true

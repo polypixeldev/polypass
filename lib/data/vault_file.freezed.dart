@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
   IV get iv => throw _privateConstructorUsedError;
+  set iv(IV value) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String data, IV iv) encrypted,
@@ -133,32 +134,17 @@ class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
 /// @nodoc
 
 class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
-  const _$_Encrypted(this.data, this.iv) : super._();
+  _$_Encrypted(this.data, this.iv) : super._();
 
   @override
-  final String data;
+  String data;
   @override
-  final IV iv;
+  IV iv;
 
   @override
   String toString() {
     return 'EncryptedData<$T>.encrypted(data: $data, iv: $iv)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Encrypted<T> &&
-            const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality().equals(other.iv, iv));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
@@ -230,8 +216,8 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
 
 abstract class _Encrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  const factory _Encrypted(final String data, final IV iv) = _$_Encrypted<T>;
-  const _Encrypted._() : super._();
+  factory _Encrypted(String data, IV iv) = _$_Encrypted<T>;
+  _Encrypted._() : super._();
 
   String get data => throw _privateConstructorUsedError;
   @override
@@ -284,33 +270,18 @@ class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
 /// @nodoc
 
 class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
-  const _$_Decrypted(@EncTypeConverter() this.data, this.iv) : super._();
+  _$_Decrypted(@EncTypeConverter() this.data, this.iv) : super._();
 
   @override
   @EncTypeConverter()
-  final T data;
+  T data;
   @override
-  final IV iv;
+  IV iv;
 
   @override
   String toString() {
     return 'EncryptedData<$T>.decrypted(data: $data, iv: $iv)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Decrypted<T> &&
-            const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality().equals(other.iv, iv));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(iv));
 
   @JsonKey(ignore: true)
   @override
@@ -382,9 +353,8 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
 
 abstract class _Decrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  const factory _Decrypted(@EncTypeConverter() final T data, final IV iv) =
-      _$_Decrypted<T>;
-  const _Decrypted._() : super._();
+  factory _Decrypted(@EncTypeConverter() T data, IV iv) = _$_Decrypted<T>;
+  _Decrypted._() : super._();
 
   @EncTypeConverter()
   T get data => throw _privateConstructorUsedError;
@@ -585,7 +555,9 @@ VaultHeader _$VaultHeaderFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VaultHeader {
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  set description(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -667,38 +639,21 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_VaultHeader implements _VaultHeader {
-  const _$_VaultHeader({required this.name, required this.description});
+class _$_VaultHeader extends _VaultHeader {
+  _$_VaultHeader({required this.name, required this.description}) : super._();
 
   factory _$_VaultHeader.fromJson(Map<String, dynamic> json) =>
       _$$_VaultHeaderFromJson(json);
 
   @override
-  final String name;
+  String name;
   @override
-  final String description;
+  String description;
 
   @override
   String toString() {
     return 'VaultHeader(name: $name, description: $description)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_VaultHeader &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description));
 
   @JsonKey(ignore: true)
   @override
@@ -711,10 +666,10 @@ class _$_VaultHeader implements _VaultHeader {
   }
 }
 
-abstract class _VaultHeader implements VaultHeader {
-  const factory _VaultHeader(
-      {required final String name,
-      required final String description}) = _$_VaultHeader;
+abstract class _VaultHeader extends VaultHeader {
+  factory _VaultHeader({required String name, required String description}) =
+      _$_VaultHeader;
+  _VaultHeader._() : super._();
 
   factory _VaultHeader.fromJson(Map<String, dynamic> json) =
       _$_VaultHeader.fromJson;
@@ -736,6 +691,8 @@ VaultContents _$VaultContentsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VaultContents {
   List<VaultComponent> get components => throw _privateConstructorUsedError;
+  set components(List<VaultComponent> value) =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -800,7 +757,7 @@ class __$$_VaultContentsCopyWithImpl<$Res>
   }) {
     return _then(_$_VaultContents(
       components: components == freezed
-          ? _value._components
+          ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
     ));
@@ -810,37 +767,18 @@ class __$$_VaultContentsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultContents implements _VaultContents {
-  const _$_VaultContents({required final List<VaultComponent> components})
-      : _components = components;
+  _$_VaultContents({required this.components});
 
   factory _$_VaultContents.fromJson(Map<String, dynamic> json) =>
       _$$_VaultContentsFromJson(json);
 
-  final List<VaultComponent> _components;
   @override
-  List<VaultComponent> get components {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_components);
-  }
+  List<VaultComponent> components;
 
   @override
   String toString() {
     return 'VaultContents(components: $components)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_VaultContents &&
-            const DeepCollectionEquality()
-                .equals(other._components, _components));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_components));
 
   @JsonKey(ignore: true)
   @override
@@ -854,8 +792,8 @@ class _$_VaultContents implements _VaultContents {
 }
 
 abstract class _VaultContents implements VaultContents {
-  const factory _VaultContents(
-      {required final List<VaultComponent> components}) = _$_VaultContents;
+  factory _VaultContents({required List<VaultComponent> components}) =
+      _$_VaultContents;
 
   factory _VaultContents.fromJson(Map<String, dynamic> json) =
       _$_VaultContents.fromJson;
@@ -982,12 +920,12 @@ class __$$GroupCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Group implements Group {
-  const _$Group(this.group, {final String? $type}) : $type = $type ?? 'group';
+  _$Group(this.group, {final String? $type}) : $type = $type ?? 'group';
 
   factory _$Group.fromJson(Map<String, dynamic> json) => _$$GroupFromJson(json);
 
   @override
-  final VaultGroup group;
+  VaultGroup group;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -996,19 +934,6 @@ class _$Group implements Group {
   String toString() {
     return 'VaultComponent.group(group: $group)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Group &&
-            const DeepCollectionEquality().equals(other.group, group));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(group));
 
   @JsonKey(ignore: true)
   @override
@@ -1084,7 +1009,7 @@ class _$Group implements Group {
 }
 
 abstract class Group implements VaultComponent {
-  const factory Group(final VaultGroup group) = _$Group;
+  factory Group(VaultGroup group) = _$Group;
 
   factory Group.fromJson(Map<String, dynamic> json) = _$Group.fromJson;
 
@@ -1134,12 +1059,12 @@ class __$$ItemCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Item implements Item {
-  const _$Item(this.item, {final String? $type}) : $type = $type ?? 'item';
+  _$Item(this.item, {final String? $type}) : $type = $type ?? 'item';
 
   factory _$Item.fromJson(Map<String, dynamic> json) => _$$ItemFromJson(json);
 
   @override
-  final VaultItem item;
+  VaultItem item;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1148,19 +1073,6 @@ class _$Item implements Item {
   String toString() {
     return 'VaultComponent.item(item: $item)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Item &&
-            const DeepCollectionEquality().equals(other.item, item));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(item));
 
   @JsonKey(ignore: true)
   @override
@@ -1236,7 +1148,7 @@ class _$Item implements Item {
 }
 
 abstract class Item implements VaultComponent {
-  const factory Item(final VaultItem item) = _$Item;
+  factory Item(VaultItem item) = _$Item;
 
   factory Item.fromJson(Map<String, dynamic> json) = _$Item.fromJson;
 
@@ -1252,8 +1164,10 @@ VaultGroup _$VaultGroupFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VaultGroup {
   String get name => throw _privateConstructorUsedError;
-  String? get icon => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   List<VaultComponent> get components => throw _privateConstructorUsedError;
+  set components(List<VaultComponent> value) =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1266,7 +1180,7 @@ abstract class $VaultGroupCopyWith<$Res> {
   factory $VaultGroupCopyWith(
           VaultGroup value, $Res Function(VaultGroup) then) =
       _$VaultGroupCopyWithImpl<$Res>;
-  $Res call({String name, String? icon, List<VaultComponent> components});
+  $Res call({String name, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1280,7 +1194,6 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? icon = freezed,
     Object? components = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1288,10 +1201,6 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: icon == freezed
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
       components: components == freezed
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -1307,7 +1216,7 @@ abstract class _$$_VaultGroupCopyWith<$Res>
           _$_VaultGroup value, $Res Function(_$_VaultGroup) then) =
       __$$_VaultGroupCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String? icon, List<VaultComponent> components});
+  $Res call({String name, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1323,7 +1232,6 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? icon = freezed,
     Object? components = freezed,
   }) {
     return _then(_$_VaultGroup(
@@ -1331,12 +1239,8 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: icon == freezed
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
       components: components == freezed
-          ? _value._components
+          ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
     ));
@@ -1346,50 +1250,21 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultGroup implements _VaultGroup {
-  const _$_VaultGroup(
-      {required this.name,
-      this.icon,
-      final List<VaultComponent> components = const []})
-      : _components = components;
+  _$_VaultGroup({required this.name, this.components = const []});
 
   factory _$_VaultGroup.fromJson(Map<String, dynamic> json) =>
       _$$_VaultGroupFromJson(json);
 
   @override
-  final String name;
-  @override
-  final String? icon;
-  final List<VaultComponent> _components;
+  String name;
   @override
   @JsonKey()
-  List<VaultComponent> get components {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_components);
-  }
+  List<VaultComponent> components;
 
   @override
   String toString() {
-    return 'VaultGroup(name: $name, icon: $icon, components: $components)';
+    return 'VaultGroup(name: $name, components: $components)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_VaultGroup &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            const DeepCollectionEquality()
-                .equals(other._components, _components));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(icon),
-      const DeepCollectionEquality().hash(_components));
 
   @JsonKey(ignore: true)
   @override
@@ -1403,18 +1278,14 @@ class _$_VaultGroup implements _VaultGroup {
 }
 
 abstract class _VaultGroup implements VaultGroup {
-  const factory _VaultGroup(
-      {required final String name,
-      final String? icon,
-      final List<VaultComponent> components}) = _$_VaultGroup;
+  factory _VaultGroup({required String name, List<VaultComponent> components}) =
+      _$_VaultGroup;
 
   factory _VaultGroup.fromJson(Map<String, dynamic> json) =
       _$_VaultGroup.fromJson;
 
   @override
   String get name => throw _privateConstructorUsedError;
-  @override
-  String? get icon => throw _privateConstructorUsedError;
   @override
   List<VaultComponent> get components => throw _privateConstructorUsedError;
   @override
@@ -1430,10 +1301,15 @@ VaultItem _$VaultItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VaultItem {
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  set username(String value) => throw _privateConstructorUsedError;
   EncryptedData<VaultPassword> get password =>
       throw _privateConstructorUsedError;
+  set password(EncryptedData<VaultPassword> value) =>
+      throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
+  set notes(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1555,7 +1431,7 @@ class __$$_VaultItemCopyWithImpl<$Res> extends _$VaultItemCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultItem implements _VaultItem {
-  const _$_VaultItem(
+  _$_VaultItem(
       {required this.name,
       required this.username,
       required this.password,
@@ -1565,38 +1441,18 @@ class _$_VaultItem implements _VaultItem {
       _$$_VaultItemFromJson(json);
 
   @override
-  final String name;
+  String name;
   @override
-  final String username;
+  String username;
   @override
-  final EncryptedData<VaultPassword> password;
+  EncryptedData<VaultPassword> password;
   @override
-  final String notes;
+  String notes;
 
   @override
   String toString() {
     return 'VaultItem(name: $name, username: $username, password: $password, notes: $notes)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_VaultItem &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.notes, notes));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(notes));
 
   @JsonKey(ignore: true)
   @override
@@ -1610,11 +1466,11 @@ class _$_VaultItem implements _VaultItem {
 }
 
 abstract class _VaultItem implements VaultItem {
-  const factory _VaultItem(
-      {required final String name,
-      required final String username,
-      required final EncryptedData<VaultPassword> password,
-      required final String notes}) = _$_VaultItem;
+  factory _VaultItem(
+      {required String name,
+      required String username,
+      required EncryptedData<VaultPassword> password,
+      required String notes}) = _$_VaultItem;
 
   factory _VaultItem.fromJson(Map<String, dynamic> json) =
       _$_VaultItem.fromJson;
@@ -1641,6 +1497,7 @@ VaultPassword _$VaultPasswordFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VaultPassword {
   String get password => throw _privateConstructorUsedError;
+  set password(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1715,31 +1572,18 @@ class __$$_VaultPasswordCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultPassword implements _VaultPassword {
-  const _$_VaultPassword(this.password);
+  _$_VaultPassword(this.password);
 
   factory _$_VaultPassword.fromJson(Map<String, dynamic> json) =>
       _$$_VaultPasswordFromJson(json);
 
   @override
-  final String password;
+  String password;
 
   @override
   String toString() {
     return 'VaultPassword(password: $password)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_VaultPassword &&
-            const DeepCollectionEquality().equals(other.password, password));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(password));
 
   @JsonKey(ignore: true)
   @override
@@ -1753,7 +1597,7 @@ class _$_VaultPassword implements _VaultPassword {
 }
 
 abstract class _VaultPassword implements VaultPassword {
-  const factory _VaultPassword(final String password) = _$_VaultPassword;
+  factory _VaultPassword(String password) = _$_VaultPassword;
 
   factory _VaultPassword.fromJson(Map<String, dynamic> json) =
       _$_VaultPassword.fromJson;

@@ -31,7 +31,6 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     VaultFile? vault,
   }) : super(const VaultState.none()) {
     on<VaultEvent>((rawEvent, emit) async {
-      print(rawEvent);
       await rawEvent.map(
         opened: (event) => _onVaultOpened(event, emit),
         unlocked: (event) => _onVaultUnlocked(event, emit),

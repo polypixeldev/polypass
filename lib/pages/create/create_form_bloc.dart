@@ -89,7 +89,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         description: state.description
       ),
       path: state.path,
-      contents: EncryptedData<VaultContents>.decrypted(const VaultContents(components: []), IV.fromSecureRandom(16))
+      contents: EncryptedData<VaultContents>.decrypted(VaultContents(components: []), IV.fromSecureRandom(16))
     ), base64Encode(masterKey));
 
     emit(state.copyWith(

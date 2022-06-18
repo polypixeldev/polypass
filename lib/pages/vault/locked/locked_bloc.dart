@@ -32,7 +32,6 @@ class UnlockFormEvent with _$UnlockFormEvent {
 class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
   UnlockFormBloc() : super(UnlockFormState.empty()) {
     on<UnlockFormEvent>((event, emit) async {
-      print(event);
       await event.map(
         masterPasswordChanged: (event) => _onMasterPasswordChanged(event, emit),
         formSubmitted: (event) => _onFormSubmitted(event, emit),

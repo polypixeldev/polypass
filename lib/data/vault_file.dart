@@ -25,11 +25,11 @@ abstract class ToJsonAble<T> {
   Map<String, dynamic> toJson();
 }
 
-@freezed
+@unfreezed
 class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
-  const EncryptedData._();
-  const factory EncryptedData.encrypted(String data, IV iv) = _Encrypted;
-  const factory EncryptedData.decrypted(@EncTypeConverter() T data, IV iv) = _Decrypted;
+  EncryptedData._();
+  factory EncryptedData.encrypted(String data, IV iv) = _Encrypted;
+  factory EncryptedData.decrypted(@EncTypeConverter() T data, IV iv) = _Decrypted;
 
   static final Map<Type, dynamic Function(Map<String, dynamic>)> fromJsonRegistry = {
     VaultContents: VaultContents.fromJson,
@@ -100,7 +100,7 @@ class EncTypeConverter<T extends ToJsonAble> extends JsonConverter<T, Map<String
 
 @unfreezed
 class VaultFile with _$VaultFile {
-  const VaultFile._();
+  VaultFile._();
   
   factory VaultFile({
     required VaultHeader header,
@@ -108,41 +108,13 @@ class VaultFile with _$VaultFile {
     required String path
   }) = _VaultFile;
 
-  // factory VaultFile.fromJson(String json, String path) {
-  //   final map = jsonDecode(json);
-  //   final header = map['header'];
-  //   final name = header['name'] as String;
-  //   final description = header['description'] as String;
-  //   final contents = EncryptedData<VaultContents>.encrypted(map['contents'] as String);
-
-  //   return VaultFile(
-  //     header: VaultHeader(
-  //       description: description,
-  //       name: name
-  //     ),
-  //     contents: contents,
-  //     path: path
-  //   );
-  // }
-
   factory VaultFile.fromJson(Map<String, dynamic> json) => _$VaultFileFromJson(json);
-
-  // String toJson(String key) {
-  //   final map = {
-  //     'header': {
-  //       'name': header.name,
-  //       'description': header.description
-  //     },
-  //     'contents': contents.encrypt(key).whenOrNull(encrypted: (data, _serializer) => data)
-  //   };
-
-  //   return jsonEncode(map);
-  // }
 }
 
-@freezed
+@unfreezed
 class VaultHeader with _$VaultHeader {
-  const factory VaultHeader({
+  VaultHeader._();
+  factory VaultHeader({
     required String name,
     required String description
   }) = _VaultHeader;
@@ -150,52 +122,36 @@ class VaultHeader with _$VaultHeader {
   factory VaultHeader.fromJson(Map<String, dynamic> json) => _$VaultHeaderFromJson(json);
 }
 
-@freezed
+@unfreezed
 class VaultContents extends ToJsonAble with _$VaultContents {
-  const factory VaultContents({
+  factory VaultContents({
     required List<VaultComponent> components
   }) = _VaultContents;
 
   factory VaultContents.fromJson(Map<String, dynamic> json) => _$VaultContentsFromJson(json);
 }
 
-// class VaultContentsConverter implements JsonConverter<EncryptedData<VaultContents>, String> {
-//   const VaultContentsConverter();
-
-//   @override
-//   EncryptedData<VaultContents> fromJson(String json) {
-//     final map = jsonDecode(json);
-//     return EncryptedData<VaultContents>.encrypted(map['data'], map['iv']);
-//   }
-
-//   @override
-//   String toJson(EncryptedData<VaultContents> data) {
-//     return jsonEncode(data.toJson());
-//   }
-// }
-
-@freezed
+@unfreezed
 class VaultComponent with _$VaultComponent {
-  const factory VaultComponent.group(VaultGroup group) = Group;
-  const factory VaultComponent.item(VaultItem item) = Item;
+  factory VaultComponent.group(VaultGroup group) = Group;
+  factory VaultComponent.item(VaultItem item) = Item;
 
   factory VaultComponent.fromJson(Map<String, dynamic> json) => _$VaultComponentFromJson(json);
 }
 
-@freezed
+@unfreezed
 class VaultGroup with _$VaultGroup {
-  const factory VaultGroup({
+  factory VaultGroup({
     required String name,
-    String? icon,
     @Default([]) List<VaultComponent> components
   }) = _VaultGroup;
 
   factory VaultGroup.fromJson(Map<String, dynamic> json) => _$VaultGroupFromJson(json);
 }
 
-@freezed
+@unfreezed
 class VaultItem with _$VaultItem {
-  const factory VaultItem({
+  factory VaultItem({
     required String name,
     required String username,
     required EncryptedData<VaultPassword> password,
@@ -205,9 +161,9 @@ class VaultItem with _$VaultItem {
   factory VaultItem.fromJson(Map<String, dynamic> json) => _$VaultItemFromJson(json);
 }
 
-@freezed
+@unfreezed
 class VaultPassword extends ToJsonAble with _$VaultPassword {
-  const factory VaultPassword(String password) = _VaultPassword;
+  factory VaultPassword(String password) = _VaultPassword;
 
   factory VaultPassword.fromJson(Map<String, dynamic> json) => _$VaultPasswordFromJson(json);
 }
