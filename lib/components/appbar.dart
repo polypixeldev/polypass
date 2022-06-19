@@ -42,7 +42,6 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           icon: const Icon(Icons.create_new_folder_sharp),
           tooltip: 'Create a group',
           onPressed: () {
-            // TODO: Create new group in selected group
             final vaultBloc = context.read<VaultBloc>();
             final vaultState= vaultBloc.state.maybeMap(
               unlocked: (state) => state,
@@ -53,22 +52,28 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               orElse: () => throw Error()
             );
 
+            final selectedPath = vaultState.selectedGroup;
+
+            final selectedComponents = selectedPath != null ? vaultState.vault.getComponent(selectedPath, vaultState.vault.toGroup()).maybeWhen(group: (group) => group.components, orElse: () => throw Error()) : decryptedContents.data.components;
+
             var testName = 'New Group';
             var number = 2;
-            while(decryptedContents.data.components.whereType<Group>().where((group) => group.group.name == testName).toList().isNotEmpty) {
+            while(selectedComponents.whereType<Group>().where((group) => group.group.name == testName).toList().isNotEmpty) {
               testName = 'New Group $number';
               number++;
             }
 
-            vaultBloc.add(VaultEvent.updated(vaultState.vault.copyWith(
-              contents: EncryptedData<VaultContents>.decrypted(decryptedContents.data.copyWith(
-                components: [...decryptedContents.data.components, VaultComponent.group(VaultGroup(
+            final newVault = vaultState.vault.updateComponent(
+              path: selectedPath == null ? [testName] : [...selectedPath, testName],
+              component: VaultComponent.group(
+                VaultGroup(
                   name: testName,
                   components: [],
-                ))]
-              ), decryptedContents.iv)
-            // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-            ), vaultState.masterKey!));
+                )
+              )
+            );
+
+            vaultBloc.add(VaultEvent.updated(newVault, vaultState.masterKey!));
           },
           splashRadius: 20
         ),

@@ -151,6 +151,8 @@ class VaultFile with _$VaultFile {
     var currentPathedGroup = toGroup();
 
     while (path.length - depth >= 0) {
+      currentPathedGroup = toGroup();
+      
       for (var i = 0; i < path.length - depth; i++) {
         final pathPart = path[i];
         currentPathedGroup = currentPathedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;

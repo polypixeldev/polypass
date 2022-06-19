@@ -13,7 +13,6 @@ class NewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add back button
     return AppWrapper(
       child: Center(
         child: Container(

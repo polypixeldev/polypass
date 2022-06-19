@@ -106,89 +106,88 @@ class TreeGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // TODO: Update vault home bloc focusedGroup on click
-    return SizedBox(
-      height: 50,
-      child: BlocProvider(
-        create: (_context) => ComponentBloc(),
-        child: BlocBuilder<ComponentBloc, ComponentState>(
-          builder: (context, componentState) {
-            return BlocBuilder<VaultBloc, VaultState>(
-              builder: (context, vaultState) {
-                final unlockedState = vaultState.maybeMap(
-                  unlocked: (state) => state,
-                  orElse: () => throw Error()
+    return BlocProvider(
+      create: (_context) => ComponentBloc(),
+      child: BlocBuilder<ComponentBloc, ComponentState>(
+        builder: (context, componentState) {
+          return BlocBuilder<VaultBloc, VaultState>(
+            builder: (context, vaultState) {
+              final unlockedState = vaultState.maybeMap(
+                unlocked: (state) => state,
+                orElse: () => throw Error()
+              );
+              final Widget textWidget;
+              if (componentState.mode == ComponentMode.normal) {
+                textWidget = Text(
+                  group.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: theme.textTheme.bodySmall!.fontSize
+                  )
                 );
-                final Widget textWidget;
-                if (componentState.mode == ComponentMode.normal) {
-                  textWidget = Text(
-                    group.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: theme.textTheme.bodySmall!.fontSize
-                    )
-                  );
-                } else {
-                  textWidget = TextFormField(
-                    initialValue: group.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: theme.textTheme.bodySmall!.fontSize
-                    ),
-                    onFieldSubmitted: (newName) {
-                      if(newName.contains(RegExp('/'))) {
+              } else {
+                textWidget = TextFormField(
+                  initialValue: group.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: theme.textTheme.bodySmall!.fontSize
+                  ),
+                  onFieldSubmitted: (newName) {
+                    if(newName.contains(RegExp('/'))) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Invalid character - "/" is not allowed in names')
+                      ));
+                      return;
+                    }
+
+                    final vaultBloc = context.read<VaultBloc>();
+                    final decryptedContents = unlockedState.vault.contents.maybeMap(
+                      decrypted: (contents) => contents,
+                      orElse: () => throw Error()
+                    );
+                    final rootGroup = VaultComponent.group(VaultGroup(name: unlockedState.vault.header.name, components: decryptedContents.data.components)).maybeMap(group: (group) => group, orElse: () => throw Error()).group;
+                    var selectedPath = unlockedState.selectedGroup;
+                    var selectedGroup = rootGroup;
+
+                    if(selectedPath != null) {
+                      if (selectedPath.join('/') == path.join('/')) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Invalid character - "/" is not allowed in names')
+                          content: Text('You cannot rename the selected group')
                         ));
                         return;
-                      }
-
-                      final vaultBloc = context.read<VaultBloc>();
-                      final decryptedContents = unlockedState.vault.contents.maybeMap(
-                        decrypted: (contents) => contents,
-                        orElse: () => throw Error()
-                      );
-                      final rootGroup = VaultComponent.group(VaultGroup(name: unlockedState.vault.header.name, components: decryptedContents.data.components)).maybeMap(group: (group) => group, orElse: () => throw Error()).group;
-                      var selectedPath = unlockedState.selectedGroup;
-                      var selectedGroup = rootGroup;
-
-                      if(selectedPath != null) {
-                        if (selectedPath.join('/') == path.join('/')) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text('You cannot rename the selected group')
-                          ));
-                          return;
-                        } else {
-                          for(final pathPart in selectedPath) {
-                            selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
-                          }
+                      } else {
+                        for(final pathPart in selectedPath) {
+                          selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
                         }
                       }
+                    }
 
-                      if(selectedGroup.components.whereType<Group>().where((group) => group.group.name == newName).isNotEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('A group with this name already exists in the selected group')
-                        ));
-                        return;
-                      }
+                    if(selectedGroup.components.whereType<Group>().where((group) => group.group.name == newName).isNotEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('A group with this name already exists in the selected group')
+                      ));
+                      return;
+                    }
 
-                      final component = unlockedState.vault.getComponent(path, unlockedState.vault.toGroup()).maybeMap(group: (group) => group, orElse: () => throw Error());
-                      final updatedComponent = component.copyWith(
-                        group: component.group.copyWith(
-                          name: newName
-                        )
-                      );
-                      
-                      final newVault = unlockedState.vault.updateComponent(path: path, component: updatedComponent);
+                    final component = unlockedState.vault.getComponent(path, unlockedState.vault.toGroup()).maybeMap(group: (group) => group, orElse: () => throw Error());
+                    final updatedComponent = component.copyWith(
+                      group: component.group.copyWith(
+                        name: newName
+                      )
+                    );
+                    
+                    final newVault = unlockedState.vault.updateComponent(path: path, component: updatedComponent);
 
-                      // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-                      vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+                    // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
+                    vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
 
-                      context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
-                    },
-                  );
-                }
-                return Padding(
+                    context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
+                  },
+                );
+              }
+
+              var groups = <Widget>[
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
@@ -223,11 +222,29 @@ class TreeGroup extends StatelessWidget {
                       },
                     ),
                   ),
-                );
+                )
+              ];
+
+              final selectedPath = unlockedState.selectedGroup;
+
+              if (selectedPath?.join('/') == path.join('/') || path.length < (selectedPath?.length ?? -1)) {
+                for (final childGroup in group.components.whereType<Group>()) {
+                  groups.add(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: TreeGroup(
+                        group: childGroup.group,
+                        path: [...path, childGroup.group.name]
+                      ),
+                    )
+                  );
+                }
               }
-            );
-          },
-        ),
+
+              return Column(children: groups);
+            }
+          );
+        },
       ),
     );
   }
