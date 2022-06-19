@@ -296,7 +296,8 @@ class FolderList extends StatelessWidget {
               children: [
                 const ListHeader(),
                 ...items.map((item) => ListItem(
-                  item: item.item
+                  item: item.item,
+                  path: paths != null ? [...paths, item.item.name] : [item.item.name]
                 ))
               ]
             ),
@@ -313,13 +314,15 @@ class BaseRow extends StatelessWidget {
     required this.name,
     required this.username,
     required this.actions,
-    this.hoverEffect = true
+    this.hoverEffect = true,
+    this.path
   }) : super(key: key);
 
   final Widget Function(ComponentState state) name;
   final Widget Function(ComponentState state) username;
   final Widget? Function(ComponentState state) actions;
   final bool hoverEffect;
+  final List<String>? path;
 
   @override
   Widget build(BuildContext context) {
@@ -332,45 +335,56 @@ class BaseRow extends StatelessWidget {
           final bloc = context.read<ComponentBloc>();
           final rowWidth = (MediaQuery.of(context).size.width * .75) - 22 - 15 - 20 - 80;
 
+          final vaultBloc = context.read<VaultBloc>();
+          final unlockedState = vaultBloc.state.maybeMap(
+            unlocked: (state) => state,
+            orElse: () => throw Error()
+          );
+
           return Column(
             children: [
-              MouseRegion(
-                onEnter: (_event) {
-                  bloc.add(const ComponentEvent.entered());
-                },
-                onExit: (_event) {
-                  bloc.add(const ComponentEvent.exited());
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: state.inArea && hoverEffect ? theme.colorScheme.primaryContainer : theme.cardColor,
-                    borderRadius: BorderRadius.circular(5)
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: rowWidth * .35,
-                            child: name(state)
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                          SizedBox(
-                            width: rowWidth * .35,
-                            child: username(state)
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                          SizedBox(
-                            width: rowWidth * .3,
-                            child: actions(state)
-                          )
-                        ]
-                      ),
-                      const Spacer()
-                    ],
+              GestureDetector(
+                child: MouseRegion(
+                  onEnter: (_event) {
+                    bloc.add(const ComponentEvent.entered());
+                  },
+                  onExit: (_event) {
+                    bloc.add(const ComponentEvent.exited());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: path != null && path?.join('/') == unlockedState.selectedItem?.join('/') ? theme.colorScheme.tertiary : (state.inArea && hoverEffect) ? theme.colorScheme.primaryContainer : theme.cardColor,
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: rowWidth * .35,
+                              child: name(state)
+                            ),
+                            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                            SizedBox(
+                              width: rowWidth * .35,
+                              child: username(state)
+                            ),
+                            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                            SizedBox(
+                              width: rowWidth * .3,
+                              child: actions(state)
+                            )
+                          ]
+                        ),
+                        const Spacer()
+                      ],
+                    ),
                   ),
                 ),
+                onTap: path == null ? null : () {
+                  vaultBloc.add(VaultEvent.itemSelected(path, path?.join('/') == unlockedState.selectedItem?.join('/')));
+                }
               )
             ],
           );
@@ -381,15 +395,17 @@ class BaseRow extends StatelessWidget {
 }
 
 class ListItem extends StatelessWidget {
-  const ListItem({ Key? key, required this.item }) : super(key: key);
+  const ListItem({ Key? key, required this.item, required this.path }) : super(key: key);
 
   final VaultItem item;
+  final List<String> path;
 
   @override
   Widget build(BuildContext context) {  
     final theme = Theme.of(context);
 
     return BaseRow(
+      path: path,
       name: (state) {
         return Text(
           item.name,
