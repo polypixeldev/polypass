@@ -164,57 +164,18 @@ class TreeGroup extends StatelessWidget {
                         ));
                         return;
                       }
-                      
-                      var currentGroup = rootGroup;
-                      int index = 0;
-                      for (var i = 0; i < path.length; i++) {
-                        final pathPart = path[i];
-                        if (i == path.length - 1) {
-                          index = currentGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == pathPart);
-                          break;
-                        }
-                        currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
-                      }
-                      final targetGroup = currentGroup.components[index].maybeMap(group: (group) => group, orElse: () => throw Error());
-                      currentGroup.components[index] = targetGroup.copyWith(
-                        group: targetGroup.group.copyWith(
+
+                      final component = unlockedState.vault.getComponent(path, unlockedState.vault.toGroup()).maybeMap(group: (group) => group, orElse: () => throw Error());
+                      final updatedComponent = component.copyWith(
+                        group: component.group.copyWith(
                           name: newName
                         )
                       );
-
-                      var updatedGroup = currentGroup.components[index].maybeMap(group: (group) => group, orElse: () => throw Error()).group;
-                      var depth = 1;
-                      var currentPathedGroup = rootGroup;
-
-                      while (path.length - depth >= 0) {
-                        final pathedIndex = path.length - depth == 0 ? index : currentPathedGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == updatedGroup.name);
-
-                        final pathedTargetGroup = currentPathedGroup.components[pathedIndex].maybeMap(group: (group) => group, orElse: () => throw Error());
-                        currentPathedGroup.components[pathedIndex] = pathedTargetGroup.copyWith(
-                          group: updatedGroup
-                        );
-                        updatedGroup = currentPathedGroup;
-
-                        for (var i = 0; i < path.length - depth; i++) {
-                          final pathPart = path[i];
-                          currentPathedGroup = currentPathedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
-                        }
-
-                        depth++;
-                      }
-
-                      final newState = unlockedState.copyWith(
-                        vault: unlockedState.vault.copyWith(
-                          contents: decryptedContents.copyWith(
-                            data: decryptedContents.data.copyWith(
-                              components: updatedGroup.components
-                            )
-                          )
-                        )
-                      );
+                      
+                      final newVault = unlockedState.vault.updateComponent(path: path, component: updatedComponent);
 
                       // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-                      vaultBloc.add(VaultEvent.updated(newState.vault, newState.masterKey!));
+                      vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
 
                       context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
                     },
@@ -293,8 +254,6 @@ class FolderList extends StatelessWidget {
             var currentGroup = decryptedContents.data.components;
             for (final path in paths) {
               currentGroup = [...currentGroup.whereType<Group>().where((group) => group.group.name == path)][0].group.components;
-
-              // TODO: validate group names so that they are not same
             }
             components = currentGroup;
           }
