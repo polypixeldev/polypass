@@ -56,18 +56,25 @@ class NewItem extends StatelessWidget {
                   )
                 ],
                 child: Column(
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'New Item',
                       style: TextStyle(
                       color: Colors.white,
                       fontSize: 30
                     )),
-                    ItemNameInput(),
-                    ItemUsernameInput(),
-                    ItemPasswordInput(),
-                    ItemNotesInput(),
-                    SubmitButton()
+                    const ItemNameInput(),
+                    const ItemUsernameInput(),
+                    const ItemPasswordInput(),
+                    const ItemNotesInput(),
+                    Row(
+                      children: const [
+                        BackToHomeButton(),
+                        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                        SubmitButton()
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    )
                   ],
                   mainAxisSize: MainAxisSize.min,
                 ),
@@ -76,6 +83,33 @@ class NewItem extends StatelessWidget {
           )
         )
       )
+    );
+  }
+}
+
+class BackToHomeButton extends StatelessWidget {
+  const BackToHomeButton({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NewFormBloc, NewFormState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          child: const Text(
+            'Back',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20
+            )
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
+          ),
+          onPressed: state.submitted ? null : () {
+            GoRouter.of(context).go('/vault/home');
+          },
+        );
+      }
     );
   }
 }
