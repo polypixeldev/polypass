@@ -216,7 +216,7 @@ class TreeGroup extends StatelessWidget {
                         }
                       ),
                       onTap: () {
-                        context.read<VaultBloc>().add(VaultEvent.groupSelected(path));
+                        context.read<VaultBloc>().add(VaultEvent.groupSelected(path, unlockedState.selectedGroup?.join('/') == path.join('/')));
                       },
                       onDoubleTap: () {
                         context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());

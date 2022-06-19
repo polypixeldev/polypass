@@ -31,8 +31,8 @@ class VaultState with _$VaultState {
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(String path) = OpenedEvent;
   const factory VaultEvent.unlocked(String masterKey) = UnlockedEvent;
-  const factory VaultEvent.groupSelected(List<String>? path) = GroupSelectedEvent;
-  const factory VaultEvent.itemSelected(List<String>? path) = ItemSelectedEvent;
+  const factory VaultEvent.groupSelected(List<String>? path, bool deselect) = GroupSelectedEvent;
+  const factory VaultEvent.itemSelected(List<String>? path, bool deselect) = ItemSelectedEvent;
   const factory VaultEvent.updated(VaultFile newVault, String masterKey) = UpdatedEvent;
   const factory VaultEvent.locked() = LockedEvent;
   const factory VaultEvent.closed() = ClosedEvent;
@@ -119,7 +119,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     );
 
     emit(unlockedState.copyWith(
-      selectedGroup: event.path
+      selectedGroup: event.deselect ? null : event.path
     ));
   }
 
@@ -130,7 +130,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     );
 
     emit(unlockedState.copyWith(
-      selectedItem: event.path
+      selectedItem: event.deselect ? null : event.path
     ));
   }
 
