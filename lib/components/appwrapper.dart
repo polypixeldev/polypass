@@ -22,7 +22,7 @@ class AppWrapper extends StatelessWidget {
 
         state.whenOrNull(
           locked: (_vault) => router.go('/vault/locked'),
-          unlocked: (_vault, _masterKey) => router.go('/vault/home'),
+          unlocked: (_vault, _selectedGroup, _selectedItem, _masterKey) => router.go('/vault/home'),
           none: () => router.go('/')
         );
       },

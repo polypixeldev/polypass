@@ -138,25 +138,32 @@ class VaultFile with _$VaultFile {
       currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
     }
 
-    currentGroup.components[index] = component;
 
-    var updatedGroup = currentGroup.components[index].maybeMap(group: (group) => group, orElse: () => throw Error()).group;
+    if(index == -1) {
+      currentGroup.components.add(component);
+      index = currentGroup.components.length - 1;
+    } else {
+      currentGroup.components[index] = component;
+    }
+
+    var updatedComponent = currentGroup.components[index];
     var depth = 1;
     var currentPathedGroup = toGroup();
 
     while (path.length - depth >= 0) {
-      final pathedIndex = path.length - depth == 0 ? index : currentPathedGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == updatedGroup.name);
-
-      final pathedTargetGroup = currentPathedGroup.components[pathedIndex].maybeMap(group: (group) => group, orElse: () => throw Error());
-      currentPathedGroup.components[pathedIndex] = pathedTargetGroup.copyWith(
-        group: updatedGroup
-      );
-      updatedGroup = currentPathedGroup;
-
       for (var i = 0; i < path.length - depth; i++) {
         final pathPart = path[i];
         currentPathedGroup = currentPathedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
       }
+
+      if (path.length - depth == 0) {
+        currentPathedGroup = toGroup();
+      }
+
+      final pathedIndex = currentPathedGroup.components.toList().indexWhere((component) => component.when(group: (group) => group.name, item: (item) => item.name) == updatedComponent.when(group: (group) => group.name, item: (item) => item.name));
+
+      currentPathedGroup.components[pathedIndex] = updatedComponent;
+      updatedComponent = VaultComponent.group(currentPathedGroup);
 
       depth++;
     }
@@ -164,7 +171,7 @@ class VaultFile with _$VaultFile {
     final newVault = copyWith(
       contents: decryptedContents.copyWith(
         data: decryptedContents.data.copyWith(
-          components: updatedGroup.components
+          components: updatedComponent.maybeWhen(group: (group) => group.components, orElse: () => throw Error())
         )
       )
     );

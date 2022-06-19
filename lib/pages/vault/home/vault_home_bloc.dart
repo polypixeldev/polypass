@@ -9,14 +9,12 @@ part 'vault_home_bloc.freezed.dart';
 class VaultHomeState with _$VaultHomeState {
   const factory VaultHomeState({
     required String query,
-    required bool submitted,
-    required List<String>? selectedGroup
+    required bool submitted
   }) = _VaultHomeState;
 
   factory VaultHomeState.empty() => const VaultHomeState(
     query: '',
-    submitted: false,
-    selectedGroup: null
+    submitted: false
   );
 }
 
@@ -24,7 +22,6 @@ class VaultHomeState with _$VaultHomeState {
 class VaultHomeEvent with _$VaultHomeEvent {
   const factory VaultHomeEvent.queryChanged(String query) = QueryChangedEvent;
   const factory VaultHomeEvent.searchSubmitted() = SearchSubmittedEvent;
-  const factory VaultHomeEvent.groupSelected(List<String>? path) = GroupSelectedEvent;
 }
 
 class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
@@ -32,8 +29,7 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
     on<VaultHomeEvent>((event, emit) async {
       await event.map(
         queryChanged: (event) => _onQueryChanged(event, emit),
-        searchSubmitted: (event) => _onSearchSubmitted(event, emit),
-        groupSelected: (event) => _onGroupSelected(event, emit)
+        searchSubmitted: (event) => _onSearchSubmitted(event, emit)
       );
     });
   }
@@ -50,11 +46,5 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
     ));
 
     // TODO: Handle search
-  }
-
-  Future<void> _onGroupSelected(GroupSelectedEvent event, Emitter<VaultHomeState> emit) async {
-    emit(state.copyWith(
-      selectedGroup: state.selectedGroup?.join() == event.path?.join() ? null : event.path
-    ));
   }
 }

@@ -113,8 +113,12 @@ class TreeGroup extends StatelessWidget {
         create: (_context) => ComponentBloc(),
         child: BlocBuilder<ComponentBloc, ComponentState>(
           builder: (context, componentState) {
-            return BlocBuilder<VaultHomeBloc, VaultHomeState>(
-              builder: (context, vaultHomeState) {
+            return BlocBuilder<VaultBloc, VaultState>(
+              builder: (context, vaultState) {
+                final unlockedState = vaultState.maybeMap(
+                  unlocked: (state) => state,
+                  orElse: () => throw Error()
+                );
                 final Widget textWidget;
                 if (componentState.mode == ComponentMode.normal) {
                   textWidget = Text(
@@ -140,21 +144,24 @@ class TreeGroup extends StatelessWidget {
                       }
 
                       final vaultBloc = context.read<VaultBloc>();
-                      final unlockedState = vaultBloc.state.maybeMap(
-                        unlocked: (state) => state,
-                        orElse: () => throw Error()
-                      );
                       final decryptedContents = unlockedState.vault.contents.maybeMap(
                         decrypted: (contents) => contents,
                         orElse: () => throw Error()
                       );
                       final rootGroup = VaultComponent.group(VaultGroup(name: unlockedState.vault.header.name, components: decryptedContents.data.components)).maybeMap(group: (group) => group, orElse: () => throw Error()).group;
-                      final selectedPath = vaultHomeState.selectedGroup;
+                      var selectedPath = unlockedState.selectedGroup;
                       var selectedGroup = rootGroup;
 
                       if(selectedPath != null) {
-                        for(final pathPart in selectedPath) {
-                          selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
+                        if (selectedPath.join('/') == path.join('/')) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('You cannot rename the selected group')
+                          ));
+                          return;
+                        } else {
+                          for(final pathPart in selectedPath) {
+                            selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
+                          }
                         }
                       }
 
@@ -186,7 +193,7 @@ class TreeGroup extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
                     decoration: BoxDecoration(
-                      color: vaultHomeState.selectedGroup?.join() == path.join() ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
+                      color: unlockedState.selectedGroup?.join('/') == path.join('/') ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: GestureDetector(
@@ -209,7 +216,7 @@ class TreeGroup extends StatelessWidget {
                         }
                       ),
                       onTap: () {
-                        context.read<VaultHomeBloc>().add(VaultHomeEvent.groupSelected(path));
+                        context.read<VaultBloc>().add(VaultEvent.groupSelected(path));
                       },
                       onDoubleTap: () {
                         context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
@@ -233,29 +240,34 @@ class FolderList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: (MediaQuery.of(context).size.width * .75) - 22,
-      child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
+      child: BlocBuilder<VaultBloc, VaultState>(
         builder: (context, state) {
-          final List<VaultComponent> components;
-          final paths = state.selectedGroup;
-
-          final unlockedState = context.read<VaultBloc>().state.maybeMap(
+          final unlockedState = state.maybeMap(
             unlocked: (state) => state,
-            orElse: () => throw Error()
+            orElse: () => null
           );
+
+          if (unlockedState == null) {
+            // TODO: Switch from throwing errors to peacefully returning
+            return Container();
+          }
 
           final decryptedContents = unlockedState.vault.contents.maybeMap(
             decrypted: (contents) => contents,
             orElse: () => throw Error()
           );
+          final List<VaultComponent> components;
+          final paths = unlockedState.selectedGroup;
 
           if (paths == null) {
             components = decryptedContents.data.components;
           } else {
-            var currentGroup = decryptedContents.data.components;
-            for (final path in paths) {
-              currentGroup = [...currentGroup.whereType<Group>().where((group) => group.group.name == path)][0].group.components;
-            }
-            components = currentGroup;
+            components = unlockedState.vault.getComponent(paths, unlockedState.vault.toGroup()).maybeWhen(group: (group) => group.components, orElse: () => throw Error());
+            // var currentGroup = decryptedContents.data.components;
+            // for (final path in paths) {
+            //   currentGroup = currentGroup.whereType<Group>().where((group) => group.group.name == path).toList()[0].group.components;
+            // }
+            // components = currentGroup;
           }
 
           final items = components.whereType<Item>();

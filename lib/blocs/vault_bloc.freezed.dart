@@ -24,7 +24,9 @@ mixin _$VaultState {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,7 +36,9 @@ mixin _$VaultState {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,7 +48,9 @@ mixin _$VaultState {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -141,7 +147,9 @@ class _$_None implements _None {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
     return none();
   }
@@ -154,7 +162,9 @@ class _$_None implements _None {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
     return none?.call();
   }
@@ -167,7 +177,9 @@ class _$_None implements _None {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (none != null) {
@@ -269,7 +281,9 @@ class _$_Opening implements _Opening {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
     return opening();
   }
@@ -282,7 +296,9 @@ class _$_Opening implements _Opening {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
     return opening?.call();
   }
@@ -295,7 +311,9 @@ class _$_Opening implements _Opening {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (opening != null) {
@@ -429,7 +447,9 @@ class _$_Locked implements _Locked {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
     return locked(vault);
   }
@@ -442,7 +462,9 @@ class _$_Locked implements _Locked {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
     return locked?.call(vault);
   }
@@ -455,7 +477,9 @@ class _$_Locked implements _Locked {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (locked != null) {
@@ -596,7 +620,9 @@ class _$_Unlocking implements _Unlocking {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
     return unlocking(vault);
   }
@@ -609,7 +635,9 @@ class _$_Unlocking implements _Unlocking {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
     return unlocking?.call(vault);
   }
@@ -622,7 +650,9 @@ class _$_Unlocking implements _Unlocking {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (unlocking != null) {
@@ -709,15 +739,15 @@ class __$$_FailedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
     Object? tries = freezed,
   }) {
     return _then(_$_Failed(
-      vault == freezed
+      vault: vault == freezed
           ? _value.vault
           : vault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
-      failedKey == freezed
+      failedKey: failedKey == freezed
           ? _value.failedKey
           : failedKey // ignore: cast_nullable_to_non_nullable
               as String,
-      tries == freezed
+      tries: tries == freezed
           ? _value.tries
           : tries // ignore: cast_nullable_to_non_nullable
               as int,
@@ -735,7 +765,8 @@ class __$$_FailedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Failed implements _Failed {
-  const _$_Failed(this.vault, this.failedKey, this.tries);
+  const _$_Failed(
+      {required this.vault, required this.failedKey, required this.tries});
 
   @override
   final VaultFile vault;
@@ -780,7 +811,9 @@ class _$_Failed implements _Failed {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
     return failed(vault, failedKey, tries);
   }
@@ -793,7 +826,9 @@ class _$_Failed implements _Failed {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
     return failed?.call(vault, failedKey, tries);
   }
@@ -806,7 +841,9 @@ class _$_Failed implements _Failed {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -861,8 +898,9 @@ class _$_Failed implements _Failed {
 
 abstract class _Failed implements VaultState {
   const factory _Failed(
-          final VaultFile vault, final String failedKey, final int tries) =
-      _$_Failed;
+      {required final VaultFile vault,
+      required final String failedKey,
+      required final int tries}) = _$_Failed;
 
   VaultFile get vault => throw _privateConstructorUsedError;
   String get failedKey => throw _privateConstructorUsedError;
@@ -877,7 +915,11 @@ abstract class _$$_UnlockedCopyWith<$Res> {
   factory _$$_UnlockedCopyWith(
           _$_Unlocked value, $Res Function(_$_Unlocked) then) =
       __$$_UnlockedCopyWithImpl<$Res>;
-  $Res call({VaultFile vault, String? masterKey});
+  $Res call(
+      {VaultFile vault,
+      List<String>? selectedGroup,
+      List<String>? selectedItem,
+      String? masterKey});
 
   $VaultFileCopyWith<$Res> get vault;
 }
@@ -895,14 +937,24 @@ class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? vault = freezed,
+    Object? selectedGroup = freezed,
+    Object? selectedItem = freezed,
     Object? masterKey = freezed,
   }) {
     return _then(_$_Unlocked(
-      vault == freezed
+      vault: vault == freezed
           ? _value.vault
           : vault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
-      masterKey == freezed
+      selectedGroup: selectedGroup == freezed
+          ? _value._selectedGroup
+          : selectedGroup // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      selectedItem: selectedItem == freezed
+          ? _value._selectedItem
+          : selectedItem // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -920,16 +972,40 @@ class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Unlocked implements _Unlocked {
-  const _$_Unlocked(this.vault, this.masterKey);
+  const _$_Unlocked(
+      {required this.vault,
+      final List<String>? selectedGroup,
+      final List<String>? selectedItem,
+      this.masterKey})
+      : _selectedGroup = selectedGroup,
+        _selectedItem = selectedItem;
 
   @override
   final VaultFile vault;
+  final List<String>? _selectedGroup;
+  @override
+  List<String>? get selectedGroup {
+    final value = _selectedGroup;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _selectedItem;
+  @override
+  List<String>? get selectedItem {
+    final value = _selectedItem;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? masterKey;
 
   @override
   String toString() {
-    return 'VaultState.unlocked(vault: $vault, masterKey: $masterKey)';
+    return 'VaultState.unlocked(vault: $vault, selectedGroup: $selectedGroup, selectedItem: $selectedItem, masterKey: $masterKey)';
   }
 
   @override
@@ -938,6 +1014,10 @@ class _$_Unlocked implements _Unlocked {
         (other.runtimeType == runtimeType &&
             other is _$_Unlocked &&
             const DeepCollectionEquality().equals(other.vault, vault) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedGroup, _selectedGroup) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedItem, _selectedItem) &&
             const DeepCollectionEquality().equals(other.masterKey, masterKey));
   }
 
@@ -945,6 +1025,8 @@ class _$_Unlocked implements _Unlocked {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(vault),
+      const DeepCollectionEquality().hash(_selectedGroup),
+      const DeepCollectionEquality().hash(_selectedItem),
       const DeepCollectionEquality().hash(masterKey));
 
   @JsonKey(ignore: true)
@@ -961,9 +1043,11 @@ class _$_Unlocked implements _Unlocked {
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(VaultFile vault, String failedKey, int tries)
         failed,
-    required TResult Function(VaultFile vault, String? masterKey) unlocked,
+    required TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)
+        unlocked,
   }) {
-    return unlocked(vault, masterKey);
+    return unlocked(vault, selectedGroup, selectedItem, masterKey);
   }
 
   @override
@@ -974,9 +1058,11 @@ class _$_Unlocked implements _Unlocked {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
   }) {
-    return unlocked?.call(vault, masterKey);
+    return unlocked?.call(vault, selectedGroup, selectedItem, masterKey);
   }
 
   @override
@@ -987,11 +1073,13 @@ class _$_Unlocked implements _Unlocked {
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(VaultFile vault, String failedKey, int tries)? failed,
-    TResult Function(VaultFile vault, String? masterKey)? unlocked,
+    TResult Function(VaultFile vault, List<String>? selectedGroup,
+            List<String>? selectedItem, String? masterKey)?
+        unlocked,
     required TResult orElse(),
   }) {
     if (unlocked != null) {
-      return unlocked(vault, masterKey);
+      return unlocked(vault, selectedGroup, selectedItem, masterKey);
     }
     return orElse();
   }
@@ -1041,10 +1129,15 @@ class _$_Unlocked implements _Unlocked {
 }
 
 abstract class _Unlocked implements VaultState {
-  const factory _Unlocked(final VaultFile vault, final String? masterKey) =
-      _$_Unlocked;
+  const factory _Unlocked(
+      {required final VaultFile vault,
+      final List<String>? selectedGroup,
+      final List<String>? selectedItem,
+      final String? masterKey}) = _$_Unlocked;
 
   VaultFile get vault => throw _privateConstructorUsedError;
+  List<String>? get selectedGroup => throw _privateConstructorUsedError;
+  List<String>? get selectedItem => throw _privateConstructorUsedError;
   String? get masterKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_UnlockedCopyWith<_$_Unlocked> get copyWith =>
@@ -1057,6 +1150,8 @@ mixin _$VaultEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1066,6 +1161,8 @@ mixin _$VaultEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1075,6 +1172,8 @@ mixin _$VaultEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1085,6 +1184,8 @@ mixin _$VaultEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1094,6 +1195,8 @@ mixin _$VaultEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1103,6 +1206,8 @@ mixin _$VaultEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1193,6 +1298,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1205,6 +1312,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1217,6 +1326,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1233,6 +1344,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1245,6 +1358,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1257,6 +1372,8 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1344,6 +1461,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1356,6 +1475,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1368,6 +1489,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1384,6 +1507,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1396,6 +1521,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1408,6 +1535,8 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1426,6 +1555,349 @@ abstract class UnlockedEvent implements VaultEvent {
   String get masterKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$UnlockedEventCopyWith<_$UnlockedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GroupSelectedEventCopyWith<$Res> {
+  factory _$$GroupSelectedEventCopyWith(_$GroupSelectedEvent value,
+          $Res Function(_$GroupSelectedEvent) then) =
+      __$$GroupSelectedEventCopyWithImpl<$Res>;
+  $Res call({List<String>? path});
+}
+
+/// @nodoc
+class __$$GroupSelectedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res>
+    implements _$$GroupSelectedEventCopyWith<$Res> {
+  __$$GroupSelectedEventCopyWithImpl(
+      _$GroupSelectedEvent _value, $Res Function(_$GroupSelectedEvent) _then)
+      : super(_value, (v) => _then(v as _$GroupSelectedEvent));
+
+  @override
+  _$GroupSelectedEvent get _value => super._value as _$GroupSelectedEvent;
+
+  @override
+  $Res call({
+    Object? path = freezed,
+  }) {
+    return _then(_$GroupSelectedEvent(
+      path == freezed
+          ? _value._path
+          : path // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GroupSelectedEvent implements GroupSelectedEvent {
+  const _$GroupSelectedEvent(final List<String>? path) : _path = path;
+
+  final List<String>? _path;
+  @override
+  List<String>? get path {
+    final value = _path;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'VaultEvent.groupSelected(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GroupSelectedEvent &&
+            const DeepCollectionEquality().equals(other._path, _path));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
+      __$$GroupSelectedEventCopyWithImpl<_$GroupSelectedEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) opened,
+    required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
+    required TResult Function() locked,
+    required TResult Function() closed,
+  }) {
+    return groupSelected(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+  }) {
+    return groupSelected?.call(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+    required TResult orElse(),
+  }) {
+    if (groupSelected != null) {
+      return groupSelected(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OpenedEvent value) opened,
+    required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
+    required TResult Function(UpdatedEvent value) updated,
+    required TResult Function(LockedEvent value) locked,
+    required TResult Function(ClosedEvent value) closed,
+  }) {
+    return groupSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+  }) {
+    return groupSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+    required TResult orElse(),
+  }) {
+    if (groupSelected != null) {
+      return groupSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GroupSelectedEvent implements VaultEvent {
+  const factory GroupSelectedEvent(final List<String>? path) =
+      _$GroupSelectedEvent;
+
+  List<String>? get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ItemSelectedEventCopyWith<$Res> {
+  factory _$$ItemSelectedEventCopyWith(
+          _$ItemSelectedEvent value, $Res Function(_$ItemSelectedEvent) then) =
+      __$$ItemSelectedEventCopyWithImpl<$Res>;
+  $Res call({List<String>? path});
+}
+
+/// @nodoc
+class __$$ItemSelectedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res>
+    implements _$$ItemSelectedEventCopyWith<$Res> {
+  __$$ItemSelectedEventCopyWithImpl(
+      _$ItemSelectedEvent _value, $Res Function(_$ItemSelectedEvent) _then)
+      : super(_value, (v) => _then(v as _$ItemSelectedEvent));
+
+  @override
+  _$ItemSelectedEvent get _value => super._value as _$ItemSelectedEvent;
+
+  @override
+  $Res call({
+    Object? path = freezed,
+  }) {
+    return _then(_$ItemSelectedEvent(
+      path == freezed
+          ? _value._path
+          : path // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ItemSelectedEvent implements ItemSelectedEvent {
+  const _$ItemSelectedEvent(final List<String>? path) : _path = path;
+
+  final List<String>? _path;
+  @override
+  List<String>? get path {
+    final value = _path;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'VaultEvent.itemSelected(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ItemSelectedEvent &&
+            const DeepCollectionEquality().equals(other._path, _path));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ItemSelectedEventCopyWith<_$ItemSelectedEvent> get copyWith =>
+      __$$ItemSelectedEventCopyWithImpl<_$ItemSelectedEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) opened,
+    required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
+    required TResult Function(VaultFile newVault, String masterKey) updated,
+    required TResult Function() locked,
+    required TResult Function() closed,
+  }) {
+    return itemSelected(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+  }) {
+    return itemSelected?.call(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
+    TResult Function(VaultFile newVault, String masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+    required TResult orElse(),
+  }) {
+    if (itemSelected != null) {
+      return itemSelected(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OpenedEvent value) opened,
+    required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
+    required TResult Function(UpdatedEvent value) updated,
+    required TResult Function(LockedEvent value) locked,
+    required TResult Function(ClosedEvent value) closed,
+  }) {
+    return itemSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+  }) {
+    return itemSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+    required TResult orElse(),
+  }) {
+    if (itemSelected != null) {
+      return itemSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ItemSelectedEvent implements VaultEvent {
+  const factory ItemSelectedEvent(final List<String>? path) =
+      _$ItemSelectedEvent;
+
+  List<String>? get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$ItemSelectedEventCopyWith<_$ItemSelectedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1514,6 +1986,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1526,6 +2000,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1538,6 +2014,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1554,6 +2032,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1566,6 +2046,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1578,6 +2060,8 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1643,6 +2127,8 @@ class _$LockedEvent implements LockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1655,6 +2141,8 @@ class _$LockedEvent implements LockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1667,6 +2155,8 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1683,6 +2173,8 @@ class _$LockedEvent implements LockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1695,6 +2187,8 @@ class _$LockedEvent implements LockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1707,6 +2201,8 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1765,6 +2261,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(String masterKey) unlocked,
+    required TResult Function(List<String>? path) groupSelected,
+    required TResult Function(List<String>? path) itemSelected,
     required TResult Function(VaultFile newVault, String masterKey) updated,
     required TResult Function() locked,
     required TResult Function() closed,
@@ -1777,6 +2275,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1789,6 +2289,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(String masterKey)? unlocked,
+    TResult Function(List<String>? path)? groupSelected,
+    TResult Function(List<String>? path)? itemSelected,
     TResult Function(VaultFile newVault, String masterKey)? updated,
     TResult Function()? locked,
     TResult Function()? closed,
@@ -1805,6 +2307,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(UpdatedEvent value) updated,
     required TResult Function(LockedEvent value) locked,
     required TResult Function(ClosedEvent value) closed,
@@ -1817,6 +2321,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,
@@ -1829,6 +2335,8 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(UpdatedEvent value)? updated,
     TResult Function(LockedEvent value)? locked,
     TResult Function(ClosedEvent value)? closed,

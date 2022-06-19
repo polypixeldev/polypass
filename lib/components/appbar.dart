@@ -27,7 +27,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         )
       ];
     },
-    unlocked: (_vault, _masterKey) {
+    unlocked: (_vault, _selectedGroup, _selectedItem, _masterKey) {
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
         tooltip: 'Lock vault',
