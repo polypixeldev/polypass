@@ -6,6 +6,7 @@ import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/pages/vault/home/component_bloc.dart';
+import 'package:polypass/pages/vault/home/list_item_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
@@ -314,13 +315,15 @@ class BaseRow extends StatelessWidget {
     required this.name,
     required this.username,
     required this.actions,
+    required this.extra,
     this.hoverEffect = true,
     this.path
   }) : super(key: key);
 
-  final Widget Function(ComponentState state) name;
-  final Widget Function(ComponentState state) username;
-  final Widget? Function(ComponentState state) actions;
+  final Widget Function(ComponentState state, bool isSelected, double columnWidth) name;
+  final Widget Function(ComponentState state, bool isSelected, double columnWidth) username;
+  final Widget? Function(ComponentState state, bool isSelected, double columnWidth) actions;
+  final List<Widget>? Function(ComponentState state, bool isSelected, double columnWidth) extra;
   final bool hoverEffect;
   final List<String>? path;
 
@@ -341,50 +344,63 @@ class BaseRow extends StatelessWidget {
             orElse: () => throw Error()
           );
 
+          final isSelected = path?.join('/') == unlockedState.selectedItem?.join('/');
+
+          var extras = extra(state, isSelected, rowWidth);
+          extras ??= [];
+
           return Column(
             children: [
-              GestureDetector(
-                child: MouseRegion(
-                  onEnter: (_event) {
-                    bloc.add(const ComponentEvent.entered());
-                  },
-                  onExit: (_event) {
-                    bloc.add(const ComponentEvent.exited());
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: path != null && path?.join('/') == unlockedState.selectedItem?.join('/') ? theme.colorScheme.tertiary : (state.inArea && hoverEffect) ? theme.colorScheme.primaryContainer : theme.cardColor,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: rowWidth * .35,
-                              child: name(state)
-                            ),
-                            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                            SizedBox(
-                              width: rowWidth * .35,
-                              child: username(state)
-                            ),
-                            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                            SizedBox(
-                              width: rowWidth * .3,
-                              child: actions(state)
-                            )
-                          ]
-                        ),
-                        const Spacer()
-                      ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: GestureDetector(
+                  child: MouseRegion(
+                    onEnter: (_event) {
+                      bloc.add(const ComponentEvent.entered());
+                    },
+                    onExit: (_event) {
+                      bloc.add(const ComponentEvent.exited());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: path != null && isSelected ? theme.colorScheme.tertiary : (state.inArea && hoverEffect) ? theme.colorScheme.primaryContainer : theme.cardColor,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: rowWidth * .35,
+                                    child: name(state, isSelected, rowWidth * .35)
+                                  ),
+                                  const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                                  SizedBox(
+                                    width: rowWidth * .35,
+                                    child: username(state, isSelected, rowWidth * .35)
+                                  ),
+                                  const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                                  SizedBox(
+                                    width: rowWidth * .3,
+                                    child: actions(state, isSelected, rowWidth * .3)
+                                  )
+                                ]
+                              ),
+                              const Spacer()
+                            ],
+                          ),
+                          ...extras
+                        ],
+                      ),
                     ),
                   ),
+                  onTap: path == null ? null : () {
+                    vaultBloc.add(VaultEvent.itemSelected(path, isSelected));
+                  }
                 ),
-                onTap: path == null ? null : () {
-                  vaultBloc.add(VaultEvent.itemSelected(path, path?.join('/') == unlockedState.selectedItem?.join('/')));
-                }
               )
             ],
           );
@@ -404,77 +420,154 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {  
     final theme = Theme.of(context);
 
-    return BaseRow(
-      path: path,
-      name: (state) {
-        return Text(
-          item.name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-            fontWeight: FontWeight.w300
-          )
-        );
-      },
-      username: (state) {
-        return Text(
-          item.username,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-            fontWeight: FontWeight.w300
-          ),
-        );
-      },
-      actions: (state) {
-        if (state.inArea) {
-          return Row(
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'View',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: theme.textTheme.bodySmall!.fontSize,
-                    decoration: TextDecoration.underline
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {
-                    // TODO: Handle view item
-                  }
+    return BlocProvider(
+      create: (_context) => ListItemBloc(),
+      child: BlocBuilder<ListItemBloc, ListItemState>(
+        builder: (context, state) {          
+          return BaseRow(
+            path: path,
+            extra: (componentState, isSelected, columnWidth) {
+              final extra = <Widget>[];
+
+              if (state.mode == ListItemMode.view) {
+                final unlockedState = context.read<VaultBloc>().state.maybeMap(
+                  unlocked: (state) => state,
+                  orElse: () => throw Error()
+                );
+
+
+                final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeWhen(decrypted: (data, _iv) => data, orElse: () => throw Error());
+
+                extra.add(Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: columnWidth * .35,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Password: ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                fontWeight: FontWeight.bold
+                              )
+                            ),
+                            Text(
+                              decryptedPassword.password,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                fontWeight: FontWeight.w300
+                              )
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                      SizedBox(
+                        width: columnWidth * .35,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Notes: ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                fontWeight: FontWeight.bold
+                              )
+                            ),
+                            Text(
+                              item.notes,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                fontWeight: FontWeight.w300
+                              )
+                            ),
+                          ],
+                        ),
+                      )
+                    ]
+                  )
+                ));
+              }
+
+              return extra;
+            },
+            name: (state, isSelected, columnWidth) {
+              return Text(
+                item.name,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
+                  fontWeight: FontWeight.w300
                 )
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              RichText(
-                text: TextSpan(
-                  text: 'Edit',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: theme.textTheme.bodySmall!.fontSize,
-                    decoration: TextDecoration.underline
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {
-                    // TODO: Handle edit item
-                  }
-                )
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              RichText(
-                text: TextSpan(
-                  text: 'Delete',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: theme.textTheme.bodySmall!.fontSize,
-                    decoration: TextDecoration.underline
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {
-                    // TODO: Handle delete item
-                  }
-                )
-              ),
-            ]
+              );
+            },
+            username: (state, isSelected, columnWidth) {
+              return Text(
+                item.username,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
+                  fontWeight: FontWeight.w300
+                ),
+              );
+            },
+            actions: (state, isSelected, columnWidth) {
+              if (state.inArea) {
+                return Row(
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: 'View',
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.lightBlue,
+                          fontSize: theme.textTheme.bodySmall!.fontSize,
+                          decoration: TextDecoration.underline
+                        ),
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
+                        }
+                      )
+                    ),
+                    const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Edit',
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.lightBlue,
+                          fontSize: theme.textTheme.bodySmall!.fontSize,
+                          decoration: TextDecoration.underline
+                        ),
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          // TODO: Handle edit item
+                        }
+                      )
+                    ),
+                    const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Delete',
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.lightBlue,
+                          fontSize: theme.textTheme.bodySmall!.fontSize,
+                          decoration: TextDecoration.underline
+                        ),
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          // TODO: Handle delete item
+                        }
+                      )
+                    ),
+                  ]
+                );
+              }
+            }
           );
         }
-      }
+      ),
     );
   }
 }
@@ -489,7 +582,7 @@ class ListHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: BaseRow(
-        name: (_state) {
+        name: (_state, _isSelected, _columnWidth) {
           return Text(
             'Item Name',
             style: TextStyle(
@@ -499,7 +592,7 @@ class ListHeader extends StatelessWidget {
             )
           );
         },
-        username: (_state) {
+        username: (_state, _isSelected, _columnWidth) {
           return Text(
             'Item Username',
             style: TextStyle(
@@ -509,9 +602,8 @@ class ListHeader extends StatelessWidget {
             )
           );
         },
-        actions: (_state) {
-          return null;
-        },
+        actions: (_state, _isSelected, _columnWidth) => null,
+        extra: (_state, _isSelected, _columnWidth) => null,
         hoverEffect: false
       ),
     );
