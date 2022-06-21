@@ -558,7 +558,14 @@ class ListItem extends StatelessWidget {
                           decoration: TextDecoration.underline
                         ),
                         recognizer: TapGestureRecognizer()..onTap = () {
-                          // TODO: Handle delete item
+                          final vaultBloc = context.read<VaultBloc>();
+                          final unlockedState = vaultBloc.state.maybeMap(
+                            unlocked: (state) => state,
+                            orElse: () => throw Error()
+                          );
+
+                          final newVault = unlockedState.vault.deleteComponent(path);
+                          vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
                         }
                       )
                     ),
