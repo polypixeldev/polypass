@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'new_bloc.dart';
+part of 'edit_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,44 +15,45 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$NewFormState {
+mixin _$EditFormState {
   String get name => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
-  VaultItem? get createdItem => throw _privateConstructorUsedError;
+  VaultItem? get editedItem => throw _privateConstructorUsedError;
   String get masterKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $NewFormStateCopyWith<NewFormState> get copyWith =>
+  $EditFormStateCopyWith<EditFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NewFormStateCopyWith<$Res> {
-  factory $NewFormStateCopyWith(
-          NewFormState value, $Res Function(NewFormState) then) =
-      _$NewFormStateCopyWithImpl<$Res>;
+abstract class $EditFormStateCopyWith<$Res> {
+  factory $EditFormStateCopyWith(
+          EditFormState value, $Res Function(EditFormState) then) =
+      _$EditFormStateCopyWithImpl<$Res>;
   $Res call(
       {String name,
       String username,
       String password,
       String notes,
       bool submitted,
-      VaultItem? createdItem,
+      VaultItem? editedItem,
       String masterKey});
 
-  $VaultItemCopyWith<$Res>? get createdItem;
+  $VaultItemCopyWith<$Res>? get editedItem;
 }
 
 /// @nodoc
-class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
-  _$NewFormStateCopyWithImpl(this._value, this._then);
+class _$EditFormStateCopyWithImpl<$Res>
+    implements $EditFormStateCopyWith<$Res> {
+  _$EditFormStateCopyWithImpl(this._value, this._then);
 
-  final NewFormState _value;
+  final EditFormState _value;
   // ignore: unused_field
-  final $Res Function(NewFormState) _then;
+  final $Res Function(EditFormState) _then;
 
   @override
   $Res call({
@@ -61,7 +62,7 @@ class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
     Object? password = freezed,
     Object? notes = freezed,
     Object? submitted = freezed,
-    Object? createdItem = freezed,
+    Object? editedItem = freezed,
     Object? masterKey = freezed,
   }) {
     return _then(_value.copyWith(
@@ -85,9 +86,9 @@ class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdItem: createdItem == freezed
-          ? _value.createdItem
-          : createdItem // ignore: cast_nullable_to_non_nullable
+      editedItem: editedItem == freezed
+          ? _value.editedItem
+          : editedItem // ignore: cast_nullable_to_non_nullable
               as VaultItem?,
       masterKey: masterKey == freezed
           ? _value.masterKey
@@ -97,23 +98,23 @@ class _$NewFormStateCopyWithImpl<$Res> implements $NewFormStateCopyWith<$Res> {
   }
 
   @override
-  $VaultItemCopyWith<$Res>? get createdItem {
-    if (_value.createdItem == null) {
+  $VaultItemCopyWith<$Res>? get editedItem {
+    if (_value.editedItem == null) {
       return null;
     }
 
-    return $VaultItemCopyWith<$Res>(_value.createdItem!, (value) {
-      return _then(_value.copyWith(createdItem: value));
+    return $VaultItemCopyWith<$Res>(_value.editedItem!, (value) {
+      return _then(_value.copyWith(editedItem: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_NewFormStateCopyWith<$Res>
-    implements $NewFormStateCopyWith<$Res> {
-  factory _$$_NewFormStateCopyWith(
-          _$_NewFormState value, $Res Function(_$_NewFormState) then) =
-      __$$_NewFormStateCopyWithImpl<$Res>;
+abstract class _$$_EditFormStateCopyWith<$Res>
+    implements $EditFormStateCopyWith<$Res> {
+  factory _$$_EditFormStateCopyWith(
+          _$_EditFormState value, $Res Function(_$_EditFormState) then) =
+      __$$_EditFormStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -121,23 +122,23 @@ abstract class _$$_NewFormStateCopyWith<$Res>
       String password,
       String notes,
       bool submitted,
-      VaultItem? createdItem,
+      VaultItem? editedItem,
       String masterKey});
 
   @override
-  $VaultItemCopyWith<$Res>? get createdItem;
+  $VaultItemCopyWith<$Res>? get editedItem;
 }
 
 /// @nodoc
-class __$$_NewFormStateCopyWithImpl<$Res>
-    extends _$NewFormStateCopyWithImpl<$Res>
-    implements _$$_NewFormStateCopyWith<$Res> {
-  __$$_NewFormStateCopyWithImpl(
-      _$_NewFormState _value, $Res Function(_$_NewFormState) _then)
-      : super(_value, (v) => _then(v as _$_NewFormState));
+class __$$_EditFormStateCopyWithImpl<$Res>
+    extends _$EditFormStateCopyWithImpl<$Res>
+    implements _$$_EditFormStateCopyWith<$Res> {
+  __$$_EditFormStateCopyWithImpl(
+      _$_EditFormState _value, $Res Function(_$_EditFormState) _then)
+      : super(_value, (v) => _then(v as _$_EditFormState));
 
   @override
-  _$_NewFormState get _value => super._value as _$_NewFormState;
+  _$_EditFormState get _value => super._value as _$_EditFormState;
 
   @override
   $Res call({
@@ -146,10 +147,10 @@ class __$$_NewFormStateCopyWithImpl<$Res>
     Object? password = freezed,
     Object? notes = freezed,
     Object? submitted = freezed,
-    Object? createdItem = freezed,
+    Object? editedItem = freezed,
     Object? masterKey = freezed,
   }) {
-    return _then(_$_NewFormState(
+    return _then(_$_EditFormState(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -170,9 +171,9 @@ class __$$_NewFormStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdItem: createdItem == freezed
-          ? _value.createdItem
-          : createdItem // ignore: cast_nullable_to_non_nullable
+      editedItem: editedItem == freezed
+          ? _value.editedItem
+          : editedItem // ignore: cast_nullable_to_non_nullable
               as VaultItem?,
       masterKey: masterKey == freezed
           ? _value.masterKey
@@ -184,14 +185,14 @@ class __$$_NewFormStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NewFormState extends _NewFormState {
-  const _$_NewFormState(
+class _$_EditFormState extends _EditFormState {
+  const _$_EditFormState(
       {required this.name,
       required this.username,
       required this.password,
       required this.notes,
       required this.submitted,
-      required this.createdItem,
+      required this.editedItem,
       required this.masterKey})
       : super._();
 
@@ -206,27 +207,27 @@ class _$_NewFormState extends _NewFormState {
   @override
   final bool submitted;
   @override
-  final VaultItem? createdItem;
+  final VaultItem? editedItem;
   @override
   final String masterKey;
 
   @override
   String toString() {
-    return 'NewFormState(name: $name, username: $username, password: $password, notes: $notes, submitted: $submitted, createdItem: $createdItem, masterKey: $masterKey)';
+    return 'EditFormState(name: $name, username: $username, password: $password, notes: $notes, submitted: $submitted, editedItem: $editedItem, masterKey: $masterKey)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NewFormState &&
+            other is _$_EditFormState &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality().equals(other.notes, notes) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
             const DeepCollectionEquality()
-                .equals(other.createdItem, createdItem) &&
+                .equals(other.editedItem, editedItem) &&
             const DeepCollectionEquality().equals(other.masterKey, masterKey));
   }
 
@@ -238,25 +239,25 @@ class _$_NewFormState extends _NewFormState {
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(notes),
       const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(createdItem),
+      const DeepCollectionEquality().hash(editedItem),
       const DeepCollectionEquality().hash(masterKey));
 
   @JsonKey(ignore: true)
   @override
-  _$$_NewFormStateCopyWith<_$_NewFormState> get copyWith =>
-      __$$_NewFormStateCopyWithImpl<_$_NewFormState>(this, _$identity);
+  _$$_EditFormStateCopyWith<_$_EditFormState> get copyWith =>
+      __$$_EditFormStateCopyWithImpl<_$_EditFormState>(this, _$identity);
 }
 
-abstract class _NewFormState extends NewFormState {
-  const factory _NewFormState(
+abstract class _EditFormState extends EditFormState {
+  const factory _EditFormState(
       {required final String name,
       required final String username,
       required final String password,
       required final String notes,
       required final bool submitted,
-      required final VaultItem? createdItem,
-      required final String masterKey}) = _$_NewFormState;
-  const _NewFormState._() : super._();
+      required final VaultItem? editedItem,
+      required final String masterKey}) = _$_EditFormState;
+  const _EditFormState._() : super._();
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -269,17 +270,17 @@ abstract class _NewFormState extends NewFormState {
   @override
   bool get submitted => throw _privateConstructorUsedError;
   @override
-  VaultItem? get createdItem => throw _privateConstructorUsedError;
+  VaultItem? get editedItem => throw _privateConstructorUsedError;
   @override
   String get masterKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_NewFormStateCopyWith<_$_NewFormState> get copyWith =>
+  _$$_EditFormStateCopyWith<_$_EditFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$NewFormEvent {
+mixin _$EditFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
@@ -345,19 +346,20 @@ mixin _$NewFormEvent {
 }
 
 /// @nodoc
-abstract class $NewFormEventCopyWith<$Res> {
-  factory $NewFormEventCopyWith(
-          NewFormEvent value, $Res Function(NewFormEvent) then) =
-      _$NewFormEventCopyWithImpl<$Res>;
+abstract class $EditFormEventCopyWith<$Res> {
+  factory $EditFormEventCopyWith(
+          EditFormEvent value, $Res Function(EditFormEvent) then) =
+      _$EditFormEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$NewFormEventCopyWithImpl<$Res> implements $NewFormEventCopyWith<$Res> {
-  _$NewFormEventCopyWithImpl(this._value, this._then);
+class _$EditFormEventCopyWithImpl<$Res>
+    implements $EditFormEventCopyWith<$Res> {
+  _$EditFormEventCopyWithImpl(this._value, this._then);
 
-  final NewFormEvent _value;
+  final EditFormEvent _value;
   // ignore: unused_field
-  final $Res Function(NewFormEvent) _then;
+  final $Res Function(EditFormEvent) _then;
 }
 
 /// @nodoc
@@ -370,7 +372,7 @@ abstract class _$$NameChangedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$NameChangedEventCopyWithImpl<$Res>
-    extends _$NewFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$NameChangedEventCopyWith<$Res> {
   __$$NameChangedEventCopyWithImpl(
       _$NameChangedEvent _value, $Res Function(_$NameChangedEvent) _then)
@@ -402,7 +404,7 @@ class _$NameChangedEvent implements NameChangedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.nameChanged(name: $name)';
+    return 'EditFormEvent.nameChanged(name: $name)';
   }
 
   @override
@@ -509,7 +511,7 @@ class _$NameChangedEvent implements NameChangedEvent {
   }
 }
 
-abstract class NameChangedEvent implements NewFormEvent {
+abstract class NameChangedEvent implements EditFormEvent {
   const factory NameChangedEvent(final String name) = _$NameChangedEvent;
 
   String get name => throw _privateConstructorUsedError;
@@ -528,7 +530,7 @@ abstract class _$$UsernameChangedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$UsernameChangedEventCopyWithImpl<$Res>
-    extends _$NewFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$UsernameChangedEventCopyWith<$Res> {
   __$$UsernameChangedEventCopyWithImpl(_$UsernameChangedEvent _value,
       $Res Function(_$UsernameChangedEvent) _then)
@@ -560,7 +562,7 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.usernameChanged(username: $username)';
+    return 'EditFormEvent.usernameChanged(username: $username)';
   }
 
   @override
@@ -668,7 +670,7 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
   }
 }
 
-abstract class UsernameChangedEvent implements NewFormEvent {
+abstract class UsernameChangedEvent implements EditFormEvent {
   const factory UsernameChangedEvent(final String username) =
       _$UsernameChangedEvent;
 
@@ -688,7 +690,7 @@ abstract class _$$PasswordChangedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$PasswordChangedEventCopyWithImpl<$Res>
-    extends _$NewFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$PasswordChangedEventCopyWith<$Res> {
   __$$PasswordChangedEventCopyWithImpl(_$PasswordChangedEvent _value,
       $Res Function(_$PasswordChangedEvent) _then)
@@ -720,7 +722,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.passwordChanged(password: $password)';
+    return 'EditFormEvent.passwordChanged(password: $password)';
   }
 
   @override
@@ -828,7 +830,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
   }
 }
 
-abstract class PasswordChangedEvent implements NewFormEvent {
+abstract class PasswordChangedEvent implements EditFormEvent {
   const factory PasswordChangedEvent(final String password) =
       _$PasswordChangedEvent;
 
@@ -848,7 +850,7 @@ abstract class _$$NotesChangedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$NotesChangedEventCopyWithImpl<$Res>
-    extends _$NewFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$NotesChangedEventCopyWith<$Res> {
   __$$NotesChangedEventCopyWithImpl(
       _$NotesChangedEvent _value, $Res Function(_$NotesChangedEvent) _then)
@@ -880,7 +882,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.notesChanged(notes: $notes)';
+    return 'EditFormEvent.notesChanged(notes: $notes)';
   }
 
   @override
@@ -987,7 +989,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
   }
 }
 
-abstract class NotesChangedEvent implements NewFormEvent {
+abstract class NotesChangedEvent implements EditFormEvent {
   const factory NotesChangedEvent(final String notes) = _$NotesChangedEvent;
 
   String get notes => throw _privateConstructorUsedError;
@@ -1006,7 +1008,7 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$FormSubmittedEventCopyWithImpl<$Res>
-    extends _$NewFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$FormSubmittedEventCopyWith<$Res> {
   __$$FormSubmittedEventCopyWithImpl(
       _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
@@ -1038,7 +1040,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.formSubmitted(masterKey: $masterKey)';
+    return 'EditFormEvent.formSubmitted(masterKey: $masterKey)';
   }
 
   @override
@@ -1146,7 +1148,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   }
 }
 
-abstract class FormSubmittedEvent implements NewFormEvent {
+abstract class FormSubmittedEvent implements EditFormEvent {
   const factory FormSubmittedEvent(final String masterKey) =
       _$FormSubmittedEvent;
 
@@ -1164,7 +1166,8 @@ abstract class _$$FailedEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$FailedEventCopyWithImpl<$Res> extends _$NewFormEventCopyWithImpl<$Res>
+class __$$FailedEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res>
     implements _$$FailedEventCopyWith<$Res> {
   __$$FailedEventCopyWithImpl(
       _$FailedEvent _value, $Res Function(_$FailedEvent) _then)
@@ -1181,7 +1184,7 @@ class _$FailedEvent implements FailedEvent {
 
   @override
   String toString() {
-    return 'NewFormEvent.failed()';
+    return 'EditFormEvent.failed()';
   }
 
   @override
@@ -1280,6 +1283,6 @@ class _$FailedEvent implements FailedEvent {
   }
 }
 
-abstract class FailedEvent implements NewFormEvent {
+abstract class FailedEvent implements EditFormEvent {
   const factory FailedEvent() = _$FailedEvent;
 }

@@ -4,15 +4,33 @@ import 'package:go_router/go_router.dart';
 
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
-import 'package:polypass/pages/vault/new/new_bloc.dart';
+import 'package:polypass/pages/vault/edit/edit_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
-class NewItem extends StatelessWidget {
-  const NewItem({ Key? key }) : super(key: key);
+class EditItem extends StatelessWidget {
+  const EditItem({ Key? key, required this.routerState }) : super(key: key);
+
+  final GoRouterState routerState;
 
   @override
   Widget build(BuildContext context) {
+    final path = routerState.params['path']!.split('.');
+    final unlockedState = context.read<VaultBloc>().state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+    final component = unlockedState.vault.getComponent(path);
+    final item = component.maybeWhen(
+      item: (item) => item,
+      orElse: () => throw Error()
+    );
+
+    final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeMap(
+      decrypted: (password) => password,
+      orElse: () => throw Error()
+    );
+
     return AppWrapper(
       child: Center(
         child: Container(
@@ -24,19 +42,24 @@ class NewItem extends StatelessWidget {
           width: 700,
           child: Form(
             child: BlocProvider(
-              create: (_context) => NewFormBloc(),
+              create: (_context) => EditFormBloc(
+                name: item.name,
+                username: item.username,
+                password: decryptedPassword.data.password,
+                notes: item.notes
+              ),
               child: MultiBlocListener(
                 listeners: [
-                  BlocListener<NewFormBloc, NewFormState>(
+                  BlocListener<EditFormBloc, EditFormState>(
                     listener: (context, state) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Creating item...'),
+                        content: Text('Updating item...'),
                         duration: Duration( days: 365 )
                       ));
                     },
                     listenWhen: (previous, current) => previous.submitted == false && current.submitted == true,
                   ),
-                  BlocListener<NewFormBloc, NewFormState>(
+                  BlocListener<EditFormBloc, EditFormState>(
                     listener: (context, state) {
                       final vaultBloc = context.read<VaultBloc>();
                       final unlockedState = vaultBloc.state.maybeMap(
@@ -44,41 +67,50 @@ class NewItem extends StatelessWidget {
                         orElse: () => throw Error()
                       );
 
-                      final selectedPath = unlockedState.selectedGroup;
-                      final selectedGroup = selectedPath != null? unlockedState.vault.getComponent(selectedPath).maybeWhen(group: (group) => group, orElse: () => throw Error()) : unlockedState.vault.toGroup();
-
-                      final exists = selectedGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == state.createdItem!.name);
+                      final parent = unlockedState.vault.getComponent(path.take(path.length - 1).toList()).maybeWhen(group: (group) => group, orElse: () => throw Error());
+                      final exists = parent.components.where((component) {
+                        final componentName = component.when(group: (group) => group.name, item: (item) => item.name);
+                        return componentName == state.editedItem!.name && componentName != item.name;
+                      });
 
                       if (exists.isNotEmpty) {
                         ScaffoldMessenger.of(context).clearSnackBars();
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('A group or item with that name already exists in the selected group')
+                          content: Text("A group or item with that name already exists in this item's group!")
                         ));
-                        context.read<NewFormBloc>().add(const NewFormEvent.failed());
+
+                        context.read<EditFormBloc>().add(const EditFormEvent.failed());
+
                         return;
                       }
 
-                      final newVault = unlockedState.vault.updateComponent(path: selectedPath != null ? [...selectedPath, state.createdItem!.name] : [state.createdItem!.name], component: VaultComponent.item(state.createdItem!));
+                      final newPath = [...path.take(path.length - 1), state.editedItem!.name];
+
+                      final newVault = unlockedState.vault.updateComponent(path: newPath, component: VaultComponent.item(state.editedItem!));
+
+                      if (newPath.join('.') != path.join('.')) {
+                        unlockedState.vault.deleteComponent(path);
+                      }
 
                       vaultBloc.add(VaultEvent.updated(newVault, state.masterKey));
                       ScaffoldMessenger.of(context).clearSnackBars();
                       GoRouter.of(context).go('/vault/home');
                     },
-                    listenWhen: (previous, current) => previous.createdItem == null && current.createdItem != null,
+                    listenWhen: (previous, current) => previous.editedItem == null && current.editedItem != null,
                   )
                 ],
                 child: Column(
                   children: [
                     const Text(
-                      'New Item',
+                      'Edit Item',
                       style: TextStyle(
                       color: Colors.white,
                       fontSize: 30
                     )),
-                    const ItemNameInput(),
-                    const ItemUsernameInput(),
-                    const ItemPasswordInput(),
-                    const ItemNotesInput(),
+                    ItemNameInput( item: item ),
+                    ItemUsernameInput( item: item ),
+                    ItemPasswordInput( item: item ),
+                    ItemNotesInput( item: item ),
                     Row(
                       children: const [
                         BackToHomeButton(),
@@ -104,7 +136,7 @@ class BackToHomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return ElevatedButton(
           child: const Text(
@@ -129,13 +161,16 @@ class BackToHomeButton extends StatelessWidget {
 class ItemNameInput extends StatelessWidget {
   const ItemNameInput({
     Key? key,
+    required this.item
   }) : super(key: key);
+
+  final VaultItem item;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
@@ -144,7 +179,8 @@ class ItemNameInput extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
           child: TextFormField(
-            enabled: !context.read<NewFormBloc>().state.submitted,
+            initialValue: state.name,
+            enabled: !context.read<EditFormBloc>().state.submitted,
             decoration: const InputDecoration(
               labelText: 'Item Name',
               contentPadding: EdgeInsets.all(10),
@@ -158,10 +194,10 @@ class ItemNameInput extends StatelessWidget {
             // enableSuggestions: false,
             // autocorrect: false,
             onChanged: (name) {
-              context.read<NewFormBloc>().add(NewFormEvent.nameChanged(name));
+              context.read<EditFormBloc>().add(EditFormEvent.nameChanged(name));
             }
             // onFieldSubmitted: (_name) {
-            //   context.read<NewFormBloc>().add(const UnlockFormEvent.formSubmitted());
+            //   context.read<EditFormBloc>().add(const UnlockFormEvent.formSubmitted());
             // },
           )
         );
@@ -173,13 +209,16 @@ class ItemNameInput extends StatelessWidget {
 class ItemUsernameInput extends StatelessWidget {
   const ItemUsernameInput({
     Key? key,
+    required this.item
   }) : super(key: key);
+
+  final VaultItem item;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
@@ -188,7 +227,8 @@ class ItemUsernameInput extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
           child: TextFormField(
-            enabled: !context.read<NewFormBloc>().state.submitted,
+            initialValue: state.username,
+            enabled: !context.read<EditFormBloc>().state.submitted,
             decoration: const InputDecoration(
               labelText: 'Item Username',
               contentPadding: EdgeInsets.all(10),
@@ -199,7 +239,7 @@ class ItemUsernameInput extends StatelessWidget {
             style: theme.textTheme.bodySmall,
             cursorColor: Colors.black,
             onChanged: (username) {
-              context.read<NewFormBloc>().add(NewFormEvent.usernameChanged(username));
+              context.read<EditFormBloc>().add(EditFormEvent.usernameChanged(username));
             }
           )
         );
@@ -211,13 +251,16 @@ class ItemUsernameInput extends StatelessWidget {
 class ItemPasswordInput extends StatelessWidget {
   const ItemPasswordInput({
     Key? key,
+    required this.item
   }) : super(key: key);
+
+  final VaultItem item;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
@@ -226,7 +269,8 @@ class ItemPasswordInput extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
           child: TextFormField(
-            enabled: !context.read<NewFormBloc>().state.submitted,
+            initialValue: state.password,
+            enabled: !context.read<EditFormBloc>().state.submitted,
             decoration: const InputDecoration(
               labelText: 'Item Password',
               contentPadding: EdgeInsets.all(10),
@@ -240,7 +284,7 @@ class ItemPasswordInput extends StatelessWidget {
             enableSuggestions: false,
             autocorrect: false,
             onChanged: (password) {
-              context.read<NewFormBloc>().add(NewFormEvent.passwordChanged(password));
+              context.read<EditFormBloc>().add(EditFormEvent.passwordChanged(password));
             }
           )
         );
@@ -252,13 +296,16 @@ class ItemPasswordInput extends StatelessWidget {
 class ItemNotesInput extends StatelessWidget {
   const ItemNotesInput({
     Key? key,
+    required this.item
   }) : super(key: key);
+
+  final VaultItem item;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
@@ -269,7 +316,8 @@ class ItemNotesInput extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxHeight: 200),
             child: TextFormField(
-            enabled: !context.read<NewFormBloc>().state.submitted,
+              initialValue: state.notes,
+              enabled: !context.read<EditFormBloc>().state.submitted,
               decoration: const InputDecoration(
                 labelText: 'Item Notes',
                 contentPadding: EdgeInsets.all(10),
@@ -282,7 +330,7 @@ class ItemNotesInput extends StatelessWidget {
               maxLines: null,
               cursorColor: Colors.black,
               onChanged: (notes) {
-                context.read<NewFormBloc>().add(NewFormEvent.notesChanged(notes));
+                context.read<EditFormBloc>().add(EditFormEvent.notesChanged(notes));
               }
             ),
           )
@@ -299,7 +347,7 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewFormBloc, NewFormState>(
+    return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
         return ElevatedButton(
           child: const Text(
@@ -314,7 +362,7 @@ class SubmitButton extends StatelessWidget {
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () {
             // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
+            context.read<EditFormBloc>().add(EditFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
           },
         );
       }

@@ -132,7 +132,7 @@ class VaultFile with _$VaultFile {
     for (var i = 0; i < path.length; i++) {
       final pathPart = path[i];
       if (i == path.length - 1) {
-        index = currentGroup.components.whereType<Group>().toList().indexWhere((group) => group.group.name == pathPart);
+        index = currentGroup.components.toList().indexWhere((component) => component.when(group: (group) => group.name, item: (item) => item.name) == pathPart);
         break;
       }
       currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
@@ -181,13 +181,25 @@ class VaultFile with _$VaultFile {
     return newVault;
   }
 
-  VaultComponent getComponent(List<String> path, VaultGroup root) {
-    var component = VaultComponent.group(root);
+  VaultFile deleteComponent(List<String> path) {
+    var currentGroup = toGroup();
+    for (var i = 0; i < path.length - 1; i++) {
+      currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == path[i]).toList()[0].group;
+    }
+
+    currentGroup.components.removeWhere((component) => component.when(group: (group) => group.name, item: (item) => item.name) == path.last);
+
+
+    return updateComponent(path: path.take(path.length - 1).toList(), component: VaultComponent.group(currentGroup));
+  }
+
+  VaultComponent getComponent(List<String> path) {
+    var component = VaultComponent.group(toGroup());
 
     for (final pathPart in path) {
       final result = component.map(
         group: (group) {
-          component = group.group.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0];
+          component = group.group.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == pathPart).toList()[0];
           return null;
         },
         item: (item) => item

@@ -39,46 +39,48 @@ class NewFormEvent with _$NewFormEvent {
   const factory NewFormEvent.passwordChanged(String password) = PasswordChangedEvent;
   const factory NewFormEvent.notesChanged(String notes) = NotesChangedEvent;
   const factory NewFormEvent.formSubmitted(String masterKey) = FormSubmittedEvent;
+  const factory NewFormEvent.failed() = FailedEvent;
 }
 
 class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
   NewFormBloc() : super(NewFormState.empty()) {
-    on<NewFormEvent>((event, emit) async {
-      await event.map(
+    on<NewFormEvent>((event, emit) {
+      event.map(
         nameChanged: (event) => _onNameChanged(event, emit),
         usernameChanged: (event) => _onUsernameChanged(event, emit), 
         passwordChanged: (event) => _onPasswordChanged(event, emit), 
         notesChanged: (event) => _onNotesChanged(event, emit), 
-        formSubmitted: (event) => _onFormSubmitted(event, emit), 
+        formSubmitted: (event) => _onFormSubmitted(event, emit),
+        failed: (event) => _onFailedEvent(event, emit)
       );
     });
   }
 
-  Future<void> _onNameChanged(NameChangedEvent event, Emitter<NewFormState> emit) async {
+  void _onNameChanged(NameChangedEvent event, Emitter<NewFormState> emit) {
     emit(state.copyWith(
       name: event.name
     ));
   }
 
-  Future<void> _onUsernameChanged(UsernameChangedEvent event, Emitter<NewFormState> emit) async {
+  void _onUsernameChanged(UsernameChangedEvent event, Emitter<NewFormState> emit) {
     emit(state.copyWith(
       username: event.username
     ));
   }
 
-  Future<void> _onPasswordChanged(PasswordChangedEvent event, Emitter<NewFormState> emit) async {
+  void _onPasswordChanged(PasswordChangedEvent event, Emitter<NewFormState> emit) {
     emit(state.copyWith(
       password: event.password
     ));
   }
 
-  Future<void> _onNotesChanged(NotesChangedEvent event, Emitter<NewFormState> emit) async {
+  void _onNotesChanged(NotesChangedEvent event, Emitter<NewFormState> emit) {
     emit(state.copyWith(
       notes: event.notes
     ));
   }
 
-  Future<void> _onFormSubmitted(FormSubmittedEvent event, Emitter<NewFormState> emit) async {
+  void _onFormSubmitted(FormSubmittedEvent event, Emitter<NewFormState> emit) {
     emit(state.copyWith(
       submitted: true,
       masterKey: event.masterKey
@@ -91,6 +93,13 @@ class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
         password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(state.masterKey),
         notes: state.notes
       )
+    ));
+  }
+
+  void _onFailedEvent(FailedEvent event, Emitter<NewFormState> emit) {
+    emit(state.copyWith(
+      submitted: false,
+      createdItem: null
     ));
   }
 }

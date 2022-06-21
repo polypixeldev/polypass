@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:polypass/pages/vault/home/vault_home_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
@@ -134,9 +135,9 @@ class TreeGroup extends StatelessWidget {
                     fontSize: theme.textTheme.bodySmall!.fontSize
                   ),
                   onFieldSubmitted: (newName) {
-                    if(newName.contains(RegExp('/'))) {
+                    if(newName.contains(RegExp(r'\.'))) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Invalid character - "/" is not allowed in names')
+                        content: Text('Invalid character - "." is not allowed in names')
                       ));
                       return;
                     }
@@ -151,7 +152,7 @@ class TreeGroup extends StatelessWidget {
                     var selectedGroup = rootGroup;
 
                     if(selectedPath != null) {
-                      if (selectedPath.join('/') == path.join('/')) {
+                      if (selectedPath.join('.') == path.join('.')) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('You cannot rename the selected group')
                         ));
@@ -163,14 +164,14 @@ class TreeGroup extends StatelessWidget {
                       }
                     }
 
-                    if(selectedGroup.components.whereType<Group>().where((group) => group.group.name == newName).isNotEmpty) {
+                    if(selectedGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == newName).isNotEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('A group with this name already exists in the selected group')
+                        content: Text('A group or item with this name already exists in the selected group')
                       ));
                       return;
                     }
 
-                    final component = unlockedState.vault.getComponent(path, unlockedState.vault.toGroup()).maybeMap(group: (group) => group, orElse: () => throw Error());
+                    final component = unlockedState.vault.getComponent(path).maybeMap(group: (group) => group, orElse: () => throw Error());
                     final updatedComponent = component.copyWith(
                       group: component.group.copyWith(
                         name: newName
@@ -193,7 +194,7 @@ class TreeGroup extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
                     decoration: BoxDecoration(
-                      color: unlockedState.selectedGroup?.join('/') == path.join('/') ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
+                      color: unlockedState.selectedGroup?.join('.') == path.join('.') ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: GestureDetector(
@@ -216,7 +217,7 @@ class TreeGroup extends StatelessWidget {
                         }
                       ),
                       onTap: () {
-                        context.read<VaultBloc>().add(VaultEvent.groupSelected(path, unlockedState.selectedGroup?.join('/') == path.join('/')));
+                        context.read<VaultBloc>().add(VaultEvent.groupSelected(path, unlockedState.selectedGroup?.join('.') == path.join('.')));
                       },
                       onDoubleTap: () {
                         context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
@@ -228,7 +229,7 @@ class TreeGroup extends StatelessWidget {
 
               final selectedPath = unlockedState.selectedGroup;
 
-              if (selectedPath?.join('/') == path.join('/') || path.length < (selectedPath?.length ?? -1)) {
+              if (selectedPath?.join('.') == path.join('.') || path.length < (selectedPath?.length ?? -1)) {
                 for (final childGroup in group.components.whereType<Group>()) {
                   groups.add(
                     Padding(
@@ -280,7 +281,7 @@ class FolderList extends StatelessWidget {
           if (paths == null) {
             components = decryptedContents.data.components;
           } else {
-            components = unlockedState.vault.getComponent(paths, unlockedState.vault.toGroup()).maybeWhen(group: (group) => group.components, orElse: () => throw Error());
+            components = unlockedState.vault.getComponent(paths).maybeWhen(group: (group) => group.components, orElse: () => throw Error());
             // var currentGroup = decryptedContents.data.components;
             // for (final path in paths) {
             //   currentGroup = currentGroup.whereType<Group>().where((group) => group.group.name == path).toList()[0].group.components;
@@ -344,7 +345,7 @@ class BaseRow extends StatelessWidget {
             orElse: () => throw Error()
           );
 
-          final isSelected = path?.join('/') == unlockedState.selectedItem?.join('/');
+          final isSelected = path?.join('.') == unlockedState.selectedItem?.join('.');
 
           var extras = extra(state, isSelected, rowWidth);
           extras ??= [];
@@ -543,7 +544,7 @@ class ListItem extends StatelessWidget {
                           decoration: TextDecoration.underline
                         ),
                         recognizer: TapGestureRecognizer()..onTap = () {
-                          // TODO: Handle edit item
+                          GoRouter.of(context).go('/vault/edit/${path.join('.')}');
                         }
                       )
                     ),

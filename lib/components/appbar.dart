@@ -54,11 +54,11 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
 
             final selectedPath = vaultState.selectedGroup;
 
-            final selectedComponents = selectedPath != null ? vaultState.vault.getComponent(selectedPath, vaultState.vault.toGroup()).maybeWhen(group: (group) => group.components, orElse: () => throw Error()) : decryptedContents.data.components;
+            final selectedComponents = selectedPath != null ? vaultState.vault.getComponent(selectedPath).maybeWhen(group: (group) => group.components, orElse: () => throw Error()) : decryptedContents.data.components;
 
             var testName = 'New Group';
             var number = 2;
-            while(selectedComponents.whereType<Group>().where((group) => group.group.name == testName).toList().isNotEmpty) {
+            while(selectedComponents.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == testName).toList().isNotEmpty) {
               testName = 'New Group $number';
               number++;
             }
