@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:bloc/bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
@@ -23,6 +21,7 @@ class VaultState with _$VaultState {
     required VaultFile vault,
     List<String>? selectedGroup,
     List<String>? selectedItem,
+    @Default(false) bool viewingSelectedItem,
     String? masterKey
   }) = _Unlocked;
 }
@@ -33,6 +32,7 @@ class VaultEvent with _$VaultEvent {
   const factory VaultEvent.unlocked(String masterKey) = UnlockedEvent;
   const factory VaultEvent.groupSelected(List<String>? path, bool deselect) = GroupSelectedEvent;
   const factory VaultEvent.itemSelected(List<String>? path, bool deselect) = ItemSelectedEvent;
+  const factory VaultEvent.selectedItemViewToggled() = SelectedItemViewToggledEvent;
   const factory VaultEvent.updated(VaultFile newVault, String masterKey) = UpdatedEvent;
   const factory VaultEvent.locked() = LockedEvent;
   const factory VaultEvent.closed() = ClosedEvent;
@@ -49,6 +49,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         unlocked: (event) => _onVaultUnlocked(event, emit),
         groupSelected: (event) => _onGroupSelected(event, emit),
         itemSelected: (event) => _onItemSelected(event, emit),
+        selectedItemViewToggled: (event) => _onSelectedItemViewToggled(event, emit),
         updated: (event) => _onVaultUpdated(event, emit),
         locked: (event) => _onVaultLocked(event, emit),
         closed: (event) => _onVaultClosed(event, emit)
@@ -131,6 +132,17 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
     emit(unlockedState.copyWith(
       selectedItem: event.deselect ? null : event.path
+    ));
+  }
+
+  Future<void> _onSelectedItemViewToggled(SelectedItemViewToggledEvent event, Emitter<VaultState> emit) async {
+    final unlockedState = state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    emit(unlockedState.copyWith(
+      viewingSelectedItem: !unlockedState.viewingSelectedItem
     ));
   }
 

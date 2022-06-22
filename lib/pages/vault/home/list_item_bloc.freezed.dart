@@ -132,19 +132,20 @@ abstract class _ListItemState implements ListItemState {
 
 /// @nodoc
 mixin _$ListItemEvent {
+  ListItemMode? get newMode => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() modeToggled,
+    required TResult Function(ListItemMode? newMode) modeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? modeToggled,
+    TResult Function(ListItemMode? newMode)? modeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? modeToggled,
+    TResult Function(ListItemMode? newMode)? modeToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -164,6 +165,10 @@ mixin _$ListItemEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ListItemEventCopyWith<ListItemEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -171,6 +176,7 @@ abstract class $ListItemEventCopyWith<$Res> {
   factory $ListItemEventCopyWith(
           ListItemEvent value, $Res Function(ListItemEvent) then) =
       _$ListItemEventCopyWithImpl<$Res>;
+  $Res call({ListItemMode? newMode});
 }
 
 /// @nodoc
@@ -181,13 +187,28 @@ class _$ListItemEventCopyWithImpl<$Res>
   final ListItemEvent _value;
   // ignore: unused_field
   final $Res Function(ListItemEvent) _then;
+
+  @override
+  $Res call({
+    Object? newMode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      newMode: newMode == freezed
+          ? _value.newMode
+          : newMode // ignore: cast_nullable_to_non_nullable
+              as ListItemMode?,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$$ModeToggledEventCopyWith<$Res> {
+abstract class _$$ModeToggledEventCopyWith<$Res>
+    implements $ListItemEventCopyWith<$Res> {
   factory _$$ModeToggledEventCopyWith(
           _$ModeToggledEvent value, $Res Function(_$ModeToggledEvent) then) =
       __$$ModeToggledEventCopyWithImpl<$Res>;
+  @override
+  $Res call({ListItemMode? newMode});
 }
 
 /// @nodoc
@@ -200,51 +221,74 @@ class __$$ModeToggledEventCopyWithImpl<$Res>
 
   @override
   _$ModeToggledEvent get _value => super._value as _$ModeToggledEvent;
+
+  @override
+  $Res call({
+    Object? newMode = freezed,
+  }) {
+    return _then(_$ModeToggledEvent(
+      newMode: newMode == freezed
+          ? _value.newMode
+          : newMode // ignore: cast_nullable_to_non_nullable
+              as ListItemMode?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ModeToggledEvent implements ModeToggledEvent {
-  const _$ModeToggledEvent();
+  const _$ModeToggledEvent({this.newMode});
+
+  @override
+  final ListItemMode? newMode;
 
   @override
   String toString() {
-    return 'ListItemEvent.modeToggled()';
+    return 'ListItemEvent.modeToggled(newMode: $newMode)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ModeToggledEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$ModeToggledEvent &&
+            const DeepCollectionEquality().equals(other.newMode, newMode));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(newMode));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ModeToggledEventCopyWith<_$ModeToggledEvent> get copyWith =>
+      __$$ModeToggledEventCopyWithImpl<_$ModeToggledEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() modeToggled,
+    required TResult Function(ListItemMode? newMode) modeToggled,
   }) {
-    return modeToggled();
+    return modeToggled(newMode);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? modeToggled,
+    TResult Function(ListItemMode? newMode)? modeToggled,
   }) {
-    return modeToggled?.call();
+    return modeToggled?.call(newMode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? modeToggled,
+    TResult Function(ListItemMode? newMode)? modeToggled,
     required TResult orElse(),
   }) {
     if (modeToggled != null) {
-      return modeToggled();
+      return modeToggled(newMode);
     }
     return orElse();
   }
@@ -279,5 +323,13 @@ class _$ModeToggledEvent implements ModeToggledEvent {
 }
 
 abstract class ModeToggledEvent implements ListItemEvent {
-  const factory ModeToggledEvent() = _$ModeToggledEvent;
+  const factory ModeToggledEvent({final ListItemMode? newMode}) =
+      _$ModeToggledEvent;
+
+  @override
+  ListItemMode? get newMode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$ModeToggledEventCopyWith<_$ModeToggledEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

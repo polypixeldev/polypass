@@ -143,13 +143,8 @@ class TreeGroup extends StatelessWidget {
                     }
 
                     final vaultBloc = context.read<VaultBloc>();
-                    final decryptedContents = unlockedState.vault.contents.maybeMap(
-                      decrypted: (contents) => contents,
-                      orElse: () => throw Error()
-                    );
-                    final rootGroup = VaultComponent.group(VaultGroup(name: unlockedState.vault.header.name, components: decryptedContents.data.components)).maybeMap(group: (group) => group, orElse: () => throw Error()).group;
+
                     var selectedPath = unlockedState.selectedGroup;
-                    var selectedGroup = rootGroup;
 
                     if(selectedPath != null) {
                       if (selectedPath.join('.') == path.join('.')) {
@@ -157,14 +152,12 @@ class TreeGroup extends StatelessWidget {
                           content: Text('You cannot rename the selected group')
                         ));
                         return;
-                      } else {
-                        for(final pathPart in selectedPath) {
-                          selectedGroup = selectedGroup.components.whereType<Group>().where((group) => group.group.name == pathPart).toList()[0].group;
-                        }
                       }
                     }
 
-                    if(selectedGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == newName).isNotEmpty) {
+                    final parentGroup = path.length == 1 ? unlockedState.vault.toGroup() : unlockedState.vault.getComponent(path.take(path.length - 1).toList()).maybeWhen(group: (group) => group, orElse: () => throw Error());
+
+                    if(parentGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == newName).isNotEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('A group or item with this name already exists in the selected group')
                       ));
@@ -423,155 +416,169 @@ class ListItem extends StatelessWidget {
 
     return BlocProvider(
       create: (_context) => ListItemBloc(),
-      child: BlocBuilder<ListItemBloc, ListItemState>(
-        builder: (context, state) {          
-          return BaseRow(
-            path: path,
-            extra: (componentState, isSelected, columnWidth) {
-              final extra = <Widget>[];
+      child: BlocBuilder<VaultBloc, VaultState>(
+        builder: (context, vaultState) {
+          final unlockedVaultState = vaultState.maybeMap(
+            unlocked: (state) => state,
+            orElse: () => throw Error()
+          );
 
-              if (state.mode == ListItemMode.view) {
-                final unlockedState = context.read<VaultBloc>().state.maybeMap(
-                  unlocked: (state) => state,
-                  orElse: () => throw Error()
-                );
+          if (unlockedVaultState.viewingSelectedItem && unlockedVaultState.selectedItem?.join('.') == path.join('.')) {
+            context.read<ListItemBloc>().add(const ListItemEvent.modeToggled(newMode: ListItemMode.view));
+          }
 
-
-                final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeWhen(decrypted: (data, _iv) => data, orElse: () => throw Error());
-
-                extra.add(Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: columnWidth * .35,
-                        child: Row(
-                          children: [
-                            Text(
-                              'Password: ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
-                                fontWeight: FontWeight.bold
-                              )
+          return BlocBuilder<ListItemBloc, ListItemState>(
+            builder: (context, state) {          
+              return BaseRow(
+                path: path,
+                extra: (componentState, isSelected, columnWidth) {
+                  final extra = <Widget>[];
+        
+                  if (state.mode == ListItemMode.view) {
+                    
+                    final unlockedState = context.read<VaultBloc>().state.maybeMap(
+                      unlocked: (state) => state,
+                      orElse: () => throw Error()
+                    );
+        
+        
+                    final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeWhen(decrypted: (data, _iv) => data, orElse: () => throw Error());
+        
+                    extra.add(Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: columnWidth * .35,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Password: ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+                                Text(
+                                  decryptedPassword.password,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                    fontWeight: FontWeight.w300
+                                  )
+                                ),
+                              ],
                             ),
-                            Text(
-                              decryptedPassword.password,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
-                                fontWeight: FontWeight.w300
-                              )
+                          ),
+                          const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                          SizedBox(
+                            width: columnWidth * .35,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Notes: ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+                                Text(
+                                  item.notes,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
+                                    fontWeight: FontWeight.w300
+                                  )
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                      SizedBox(
-                        width: columnWidth * .35,
-                        child: Row(
-                          children: [
-                            Text(
-                              'Notes: ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
-                                fontWeight: FontWeight.bold
-                              )
-                            ),
-                            Text(
-                              item.notes,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
-                                fontWeight: FontWeight.w300
-                              )
-                            ),
-                          ],
-                        ),
+                          )
+                        ]
                       )
-                    ]
-                  )
-                ));
-              }
-
-              return extra;
-            },
-            name: (state, isSelected, columnWidth) {
-              return Text(
-                item.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-                  fontWeight: FontWeight.w300
-                )
+                    ));
+                  }
+        
+                  return extra;
+                },
+                name: (state, isSelected, columnWidth) {
+                  return Text(
+                    item.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
+                      fontWeight: FontWeight.w300
+                    )
+                  );
+                },
+                username: (state, isSelected, columnWidth) {
+                  return Text(
+                    item.username,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
+                      fontWeight: FontWeight.w300
+                    ),
+                  );
+                },
+                actions: (state, isSelected, columnWidth) {
+                  if (state.inArea) {
+                    return Row(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'View',
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Colors.lightBlue,
+                              fontSize: theme.textTheme.bodySmall!.fontSize,
+                              decoration: TextDecoration.underline
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
+                            }
+                          )
+                        ),
+                        const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Edit',
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Colors.lightBlue,
+                              fontSize: theme.textTheme.bodySmall!.fontSize,
+                              decoration: TextDecoration.underline
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              GoRouter.of(context).go('/vault/edit/${path.join('.')}');
+                            }
+                          )
+                        ),
+                        const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Delete',
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Colors.lightBlue,
+                              fontSize: theme.textTheme.bodySmall!.fontSize,
+                              decoration: TextDecoration.underline
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              final vaultBloc = context.read<VaultBloc>();
+                              final unlockedState = vaultBloc.state.maybeMap(
+                                unlocked: (state) => state,
+                                orElse: () => throw Error()
+                              );
+        
+                              final newVault = unlockedState.vault.deleteComponent(path);
+                              vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+                            }
+                          )
+                        ),
+                      ]
+                    );
+                  }
+                }
               );
-            },
-            username: (state, isSelected, columnWidth) {
-              return Text(
-                item.username,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-                  fontWeight: FontWeight.w300
-                ),
-              );
-            },
-            actions: (state, isSelected, columnWidth) {
-              if (state.inArea) {
-                return Row(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: 'View',
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.lightBlue,
-                          fontSize: theme.textTheme.bodySmall!.fontSize,
-                          decoration: TextDecoration.underline
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
-                        }
-                      )
-                    ),
-                    const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                    RichText(
-                      text: TextSpan(
-                        text: 'Edit',
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.lightBlue,
-                          fontSize: theme.textTheme.bodySmall!.fontSize,
-                          decoration: TextDecoration.underline
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          GoRouter.of(context).go('/vault/edit/${path.join('.')}');
-                        }
-                      )
-                    ),
-                    const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                    RichText(
-                      text: TextSpan(
-                        text: 'Delete',
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.lightBlue,
-                          fontSize: theme.textTheme.bodySmall!.fontSize,
-                          decoration: TextDecoration.underline
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          final vaultBloc = context.read<VaultBloc>();
-                          final unlockedState = vaultBloc.state.maybeMap(
-                            unlocked: (state) => state,
-                            orElse: () => throw Error()
-                          );
-
-                          final newVault = unlockedState.vault.deleteComponent(path);
-                          vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
-                        }
-                      )
-                    ),
-                  ]
-                );
-              }
             }
           );
         }

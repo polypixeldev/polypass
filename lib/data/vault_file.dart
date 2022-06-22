@@ -182,6 +182,27 @@ class VaultFile with _$VaultFile {
   }
 
   VaultFile deleteComponent(List<String> path) {
+    if (path.length == 1) {
+      final decryptedContents = contents.maybeMap(
+        decrypted: (contents) => contents,
+        orElse: () => throw Error()
+      );
+
+      final root = toGroup();
+
+      root.components.removeWhere((component) => component.when(group: (group) => group.name, item: (item) => item.name) == path.last);
+
+      final newVault = copyWith(
+        contents: decryptedContents.copyWith(
+          data: decryptedContents.data.copyWith(
+            components: root.components
+          )
+        )
+      );
+
+      return newVault;
+    }
+    
     var currentGroup = toGroup();
     for (var i = 0; i < path.length - 1; i++) {
       currentGroup = currentGroup.components.whereType<Group>().where((group) => group.group.name == path[i]).toList()[0].group;

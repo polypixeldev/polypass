@@ -27,7 +27,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         )
       ];
     },
-    unlocked: (_vault, _selectedGroup, _selectedItem, _masterKey) {
+    unlocked: (_vault, _selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
         tooltip: 'Lock vault',
@@ -78,6 +78,34 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           splashRadius: 20
         ),
         IconButton(
+          icon: const Icon(Icons.folder_delete_sharp),
+          tooltip: 'Delete the selected group',
+          onPressed: () {
+            final vaultBloc = context.read<VaultBloc>();
+            final unlockedState = vaultBloc.state.maybeMap(
+              unlocked: (state) => state,
+              orElse: () => throw Error()
+            );
+
+            final selectedGroup = unlockedState.selectedGroup;
+            if (selectedGroup == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Select an group to delete first')
+              ));
+              
+              return;
+            }
+
+            
+
+            final newVault = unlockedState.vault.deleteComponent(selectedGroup);
+            vaultBloc.add(VaultEvent.groupSelected(selectedGroup, true));
+            vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
           icon: const Icon(Icons.add),
           tooltip: 'Create an item',
           onPressed: () {
@@ -89,7 +117,22 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           icon: const Icon(Icons.edit),
           tooltip: 'Edit the selected item',
           onPressed: () {
-            // TODO: Edit a vault item
+            final unlockedState = context.read<VaultBloc>().state.maybeMap(
+              unlocked: (state) => state,
+              orElse: () => throw Error()
+            );
+
+            final selectedItem = unlockedState.selectedItem;
+            if (selectedItem == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Select an item to edit first')
+              ));
+
+              return;
+            }
+
+            router.go('/vault/edit/${selectedItem.join('.')}');
           },
           splashRadius: 20,
         ),
@@ -97,7 +140,25 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           icon: const Icon(Icons.delete),
           tooltip: 'Delete the selected item',
           onPressed: () {
-            // TODO: Delete a vault item
+            final vaultBloc = context.read<VaultBloc>();
+            final unlockedState = vaultBloc.state.maybeMap(
+              unlocked: (state) => state,
+              orElse: () => throw Error()
+            );
+
+            final selectedItem = unlockedState.selectedItem;
+            if (selectedItem == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Select an item to delete first')
+              ));
+              
+              return;
+            }
+
+            final newVault = unlockedState.vault.deleteComponent(selectedItem);
+            vaultBloc.add(VaultEvent.itemSelected(selectedItem, true));
+            vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
           },
           splashRadius: 20,
         ),
@@ -105,7 +166,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
           icon: const Icon(Icons.preview_outlined),
           tooltip: 'View the selected item',
           onPressed: () {
-            // TODO: View a vault item
+            context.read<VaultBloc>().add(const VaultEvent.selectedItemViewToggled());
           },
           splashRadius: 20,
         )

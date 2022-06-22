@@ -9,12 +9,12 @@ enum ListItemMode { normal, view }
 class ListItemState with _$ListItemState {
   const factory ListItemState({ required ListItemMode mode }) = _ListItemState;
 
-  factory ListItemState.empty() => ListItemState( mode: ListItemMode.normal );
+  factory ListItemState.empty() => const ListItemState( mode: ListItemMode.normal );
 }
 
 @freezed
 class ListItemEvent with _$ListItemEvent {
-  const factory ListItemEvent.modeToggled() = ModeToggledEvent;
+  const factory ListItemEvent.modeToggled({ListItemMode? newMode}) = ModeToggledEvent;
 }
 
 class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
@@ -28,7 +28,7 @@ class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
 
   void _onModeToggled(ModeToggledEvent event, Emitter<ListItemState> emit) {
     emit(state.copyWith(
-      mode: state.mode == ListItemMode.normal ? ListItemMode.view : ListItemMode.normal
+      mode: event.newMode ?? (state.mode == ListItemMode.normal ? ListItemMode.view : ListItemMode.normal)
     ));
   }
 }

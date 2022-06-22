@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:polypass/data/vault_file.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_home_bloc.freezed.dart';
 

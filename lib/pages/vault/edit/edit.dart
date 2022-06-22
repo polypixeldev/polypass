@@ -362,7 +362,7 @@ class SubmitButton extends StatelessWidget {
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () {
             // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-            context.read<EditFormBloc>().add(EditFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
+            context.read<EditFormBloc>().add(EditFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, _viewingSelectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
           },
         );
       }
