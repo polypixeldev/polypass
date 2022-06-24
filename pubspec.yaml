@@ -20,6 +20,7 @@ dependencies:
   go_router: ^3.0.7
   hash: ^1.0.4
   json_annotation: ^4.5.0
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:

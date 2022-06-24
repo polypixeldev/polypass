@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/app_settings.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/create/create.dart';
+import 'package:polypass/pages/settings/settings.dart';
 import 'package:polypass/pages/vault/home/home.dart';
 import 'package:polypass/pages/vault/locked/locked.dart';
 import 'package:polypass/pages/vault/new/new.dart';
@@ -14,44 +16,52 @@ import 'package:polypass/pages/vault/edit/edit.dart';
 
 import 'package:polypass/theme.dart';
 
-void main() {
-  runApp(App());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settings = await AppSettings.load();
+  runApp(App( settings: settings ));
 }
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  App({ Key? key, required this.settings }) : super(key: key);
 
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const Home()
-      ),
-      GoRoute(
-        path: '/create',
-        builder: (context, state) => const Create()
-      ),
-      GoRoute(
-        path: '/vault/home',
-        builder: (context, state) => const VaultHome()
-      ),
-      GoRoute(
-        path: '/vault/locked',
-        builder: (context, state) => const VaultLocked()
-      ),
-      GoRoute(
-        path: '/vault/new',
-        builder: (context, state) => const NewItem()
-      ),
-      GoRoute(
-        path: '/vault/edit/:path',
-        builder: (context, state) => EditItem(routerState: state)
-      )
-    ]
-  );
+  final AppSettings settings;
 
   @override
   Widget build(BuildContext context) {
+    final _router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const Home()
+        ),
+        GoRoute(
+          path: '/create',
+          builder: (context, state) => const Create()
+        ),
+        GoRoute(
+          path: '/vault/home',
+          builder: (context, state) => const VaultHome()
+        ),
+        GoRoute(
+          path: '/vault/locked',
+          builder: (context, state) => const VaultLocked()
+        ),
+        GoRoute(
+          path: '/vault/new',
+          builder: (context, state) => const NewItem()
+        ),
+        GoRoute(
+          path: '/vault/edit/:path',
+          builder: (context, state) => EditItem(routerState: state)
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => Settings( settings: settings )
+        )
+      ]
+    );
+
     return RepositoryProvider(
       create: (context) => const VaultRepository(),
         child: BlocProvider(

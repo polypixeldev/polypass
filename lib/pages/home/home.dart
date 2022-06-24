@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:polypass/app_settings.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.all(Radius.circular(10))
+                borderRadius: BorderRadius.circular(10)
               ),
               child: BlocBuilder<VaultBloc, VaultState>(
                 builder: ((context, state) {
@@ -67,6 +68,7 @@ class Home extends StatelessWidget {
                           opening: () => null,
                           orElse: () => () async {
                             final result = await FilePicker.platform.pickFiles(
+                              initialDirectory: (await AppSettings.documentsDir).absolute.path,
                               dialogTitle: 'Open vault',
                               type: FileType.custom,
                               allowedExtensions: ['ppv.json']
@@ -84,6 +86,21 @@ class Home extends StatelessWidget {
                             }
                           }
                         )
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5)
+                      ),
+                      ElevatedButton(
+                        child: const Padding(
+                          child: Text('Global Settings', style: TextStyle( fontSize: 25 )),
+                          padding: EdgeInsets.all(5)
+                        ),
+                        onPressed: state.maybeWhen(
+                          opening: () => null,
+                          orElse: () => () async {
+                            router.go('/settings');
+                          }
+                        ),
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,

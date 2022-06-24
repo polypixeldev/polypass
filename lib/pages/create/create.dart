@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:polypass/app_settings.dart';
 import 'package:polypass/pages/create/create_form_bloc.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_repository.dart';
@@ -18,94 +19,93 @@ class Create extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AppWrapper(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration:BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10))
+      child: BlocProvider(
+        create: (context) => CreateFormBloc(
+          vaultRepository: context.read<VaultRepository>()
+        ),
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<CreateFormBloc, CreateFormState>(
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Creating vault...'),
+                  duration: Duration( days: 365 )
+                ));
+              },
+              listenWhen: (previous, current) => previous.submitted != current.submitted,
             ),
-            child: Text(
-              'Create a vault',
-              style: theme.textTheme.titleMedium
-            ),
-          ),
-          BlocProvider(
-            create: (context) => CreateFormBloc(
-              vaultRepository: context.read<VaultRepository>()
-            ),
-            child: MultiBlocListener(
-              listeners: [
-                BlocListener<CreateFormBloc, CreateFormState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Creating vault...'),
-                      duration: Duration( days: 365 )
-                    ));
-                  },
-                  listenWhen: (previous, current) => previous.submitted != current.submitted,
-                ),
-                BlocListener<CreateFormBloc, CreateFormState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            BlocListener<CreateFormBloc, CreateFormState>(
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Opening vault...'),
-                      duration: Duration( days: 365 )
-                    ));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Opening vault...'),
+                  duration: Duration( days: 365 )
+                ));
 
-                    context.read<VaultBloc>().add(VaultEvent.opened(state.path));
-                  },
-                  listenWhen: (previous, current) => previous.created != current.created
-                )
-              ],
-              child: Container(
+                context.read<VaultBloc>().add(VaultEvent.opened(state.path));
+              },
+              listenWhen: (previous, current) => previous.created != current.created
+            )
+          ],
+          child: Column(
+            children: [
+              Container(
                 decoration: BoxDecoration(
                   color: theme.cardColor,
                   borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 padding: const EdgeInsets.all(15),
-                child: Form(
-                  child: Column(
-                    children: [
-                      const NameInput(),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                      const DescriptionInput(),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                      const MasterPasswordInput(),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                      BlocBuilder<CreateFormBloc, CreateFormState>(
-                        builder: (context, state) {
-                          return Text(
-                            "Current path: ${state.path != '' ? state.path : 'None'}",
-                            style: theme.textTheme.bodyMedium
-                          );
-                        }
-                      ),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                      const PathInput(),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-                      Row(
+                child: Column(
+                  children: [
+                    Text(
+                      'Create a vault',
+                      style: theme.textTheme.titleMedium
+                    ),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                    Form(
+                      child: Column(
                         children: [
-                          BackButton(router: router),
-                          const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
-                          const SubmitButton()
+                          const NameInput(),
+                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const DescriptionInput(),
+                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const MasterPasswordInput(),
+                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          BlocBuilder<CreateFormBloc, CreateFormState>(
+                            builder: (context, state) {
+                              return Text(
+                                "Current path: ${state.path != '' ? state.path : 'None'}",
+                                style: theme.textTheme.bodyMedium
+                              );
+                            }
+                          ),
+                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const PathInput(),
+                          const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                          Row(
+                            children: [
+                              BackButton(router: router),
+                              const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
+                              const SubmitButton()
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min
+                          )
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min
+                        mainAxisSize: MainAxisSize.min,
                       )
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                  )
-                )
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-          )
-        ],
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+        ),
       ),
       actions: false,
       icon: false
@@ -191,6 +191,7 @@ class PathInput extends StatelessWidget {
             final bloc = context.read<CreateFormBloc>();
             
             final path = await FilePicker.platform.saveFile(
+              initialDirectory: (await AppSettings.documentsDir).absolute.path,
               dialogTitle: 'Set vault file location',
               fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
               type: FileType.custom,
