@@ -558,6 +558,8 @@ mixin _$VaultHeader {
   set name(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   set description(String value) => throw _privateConstructorUsedError;
+  VaultSettings get settings => throw _privateConstructorUsedError;
+  set settings(VaultSettings value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -570,7 +572,9 @@ abstract class $VaultHeaderCopyWith<$Res> {
   factory $VaultHeaderCopyWith(
           VaultHeader value, $Res Function(VaultHeader) then) =
       _$VaultHeaderCopyWithImpl<$Res>;
-  $Res call({String name, String description});
+  $Res call({String name, String description, VaultSettings settings});
+
+  $VaultSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
@@ -585,6 +589,7 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
+    Object? settings = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -595,7 +600,18 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as VaultSettings,
     ));
+  }
+
+  @override
+  $VaultSettingsCopyWith<$Res> get settings {
+    return $VaultSettingsCopyWith<$Res>(_value.settings, (value) {
+      return _then(_value.copyWith(settings: value));
+    });
   }
 }
 
@@ -606,7 +622,10 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
           _$_VaultHeader value, $Res Function(_$_VaultHeader) then) =
       __$$_VaultHeaderCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String description});
+  $Res call({String name, String description, VaultSettings settings});
+
+  @override
+  $VaultSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
@@ -623,6 +642,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
+    Object? settings = freezed,
   }) {
     return _then(_$_VaultHeader(
       name: name == freezed
@@ -633,14 +653,19 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as VaultSettings,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_VaultHeader extends _VaultHeader {
-  _$_VaultHeader({required this.name, required this.description}) : super._();
+class _$_VaultHeader implements _VaultHeader {
+  _$_VaultHeader(
+      {required this.name, required this.description, required this.settings});
 
   factory _$_VaultHeader.fromJson(Map<String, dynamic> json) =>
       _$$_VaultHeaderFromJson(json);
@@ -649,10 +674,12 @@ class _$_VaultHeader extends _VaultHeader {
   String name;
   @override
   String description;
+  @override
+  VaultSettings settings;
 
   @override
   String toString() {
-    return 'VaultHeader(name: $name, description: $description)';
+    return 'VaultHeader(name: $name, description: $description, settings: $settings)';
   }
 
   @JsonKey(ignore: true)
@@ -666,10 +693,11 @@ class _$_VaultHeader extends _VaultHeader {
   }
 }
 
-abstract class _VaultHeader extends VaultHeader {
-  factory _VaultHeader({required String name, required String description}) =
-      _$_VaultHeader;
-  _VaultHeader._() : super._();
+abstract class _VaultHeader implements VaultHeader {
+  factory _VaultHeader(
+      {required String name,
+      required String description,
+      required VaultSettings settings}) = _$_VaultHeader;
 
   factory _VaultHeader.fromJson(Map<String, dynamic> json) =
       _$_VaultHeader.fromJson;
@@ -679,8 +707,130 @@ abstract class _VaultHeader extends VaultHeader {
   @override
   String get description => throw _privateConstructorUsedError;
   @override
+  VaultSettings get settings => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
   _$$_VaultHeaderCopyWith<_$_VaultHeader> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VaultSettings _$VaultSettingsFromJson(Map<String, dynamic> json) {
+  return _VaultSettings.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VaultSettings {
+  bool get saveKeyInMemory => throw _privateConstructorUsedError;
+  set saveKeyInMemory(bool value) => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VaultSettingsCopyWith<VaultSettings> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VaultSettingsCopyWith<$Res> {
+  factory $VaultSettingsCopyWith(
+          VaultSettings value, $Res Function(VaultSettings) then) =
+      _$VaultSettingsCopyWithImpl<$Res>;
+  $Res call({bool saveKeyInMemory});
+}
+
+/// @nodoc
+class _$VaultSettingsCopyWithImpl<$Res>
+    implements $VaultSettingsCopyWith<$Res> {
+  _$VaultSettingsCopyWithImpl(this._value, this._then);
+
+  final VaultSettings _value;
+  // ignore: unused_field
+  final $Res Function(VaultSettings) _then;
+
+  @override
+  $Res call({
+    Object? saveKeyInMemory = freezed,
+  }) {
+    return _then(_value.copyWith(
+      saveKeyInMemory: saveKeyInMemory == freezed
+          ? _value.saveKeyInMemory
+          : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_VaultSettingsCopyWith<$Res>
+    implements $VaultSettingsCopyWith<$Res> {
+  factory _$$_VaultSettingsCopyWith(
+          _$_VaultSettings value, $Res Function(_$_VaultSettings) then) =
+      __$$_VaultSettingsCopyWithImpl<$Res>;
+  @override
+  $Res call({bool saveKeyInMemory});
+}
+
+/// @nodoc
+class __$$_VaultSettingsCopyWithImpl<$Res>
+    extends _$VaultSettingsCopyWithImpl<$Res>
+    implements _$$_VaultSettingsCopyWith<$Res> {
+  __$$_VaultSettingsCopyWithImpl(
+      _$_VaultSettings _value, $Res Function(_$_VaultSettings) _then)
+      : super(_value, (v) => _then(v as _$_VaultSettings));
+
+  @override
+  _$_VaultSettings get _value => super._value as _$_VaultSettings;
+
+  @override
+  $Res call({
+    Object? saveKeyInMemory = freezed,
+  }) {
+    return _then(_$_VaultSettings(
+      saveKeyInMemory: saveKeyInMemory == freezed
+          ? _value.saveKeyInMemory
+          : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VaultSettings implements _VaultSettings {
+  _$_VaultSettings({required this.saveKeyInMemory});
+
+  factory _$_VaultSettings.fromJson(Map<String, dynamic> json) =>
+      _$$_VaultSettingsFromJson(json);
+
+  @override
+  bool saveKeyInMemory;
+
+  @override
+  String toString() {
+    return 'VaultSettings(saveKeyInMemory: $saveKeyInMemory)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>
+      __$$_VaultSettingsCopyWithImpl<_$_VaultSettings>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_VaultSettingsToJson(this);
+  }
+}
+
+abstract class _VaultSettings implements VaultSettings {
+  factory _VaultSettings({required bool saveKeyInMemory}) = _$_VaultSettings;
+
+  factory _VaultSettings.fromJson(Map<String, dynamic> json) =
+      _$_VaultSettings.fromJson;
+
+  @override
+  bool get saveKeyInMemory => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

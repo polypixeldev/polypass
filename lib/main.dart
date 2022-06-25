@@ -37,7 +37,7 @@ class App extends StatelessWidget {
         ),
         GoRoute(
           path: '/create',
-          builder: (context, state) => const Create()
+          builder: (context, state) => Create( settings: settings )
         ),
         GoRoute(
           path: '/vault/home',

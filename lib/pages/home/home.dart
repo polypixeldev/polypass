@@ -68,7 +68,7 @@ class Home extends StatelessWidget {
                           opening: () => null,
                           orElse: () => () async {
                             final result = await FilePicker.platform.pickFiles(
-                              initialDirectory: (await AppSettings.documentsDir).absolute.path,
+                              initialDirectory: '${(await AppSettings.documentsDir).absolute.path}/polypass',
                               dialogTitle: 'Open vault',
                               type: FileType.custom,
                               allowedExtensions: ['ppv.json']

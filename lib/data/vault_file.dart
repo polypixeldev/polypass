@@ -237,13 +237,23 @@ class VaultFile with _$VaultFile {
 
 @unfreezed
 class VaultHeader with _$VaultHeader {
-  VaultHeader._();
   factory VaultHeader({
     required String name,
-    required String description
+    required String description,
+    required VaultSettings settings
   }) = _VaultHeader;
 
   factory VaultHeader.fromJson(Map<String, dynamic> json) => _$VaultHeaderFromJson(json);
+}
+
+@unfreezed
+class VaultSettings with _$VaultSettings {
+  factory VaultSettings({
+    required bool saveKeyInMemory
+  }) = _VaultSettings;
+
+  factory VaultSettings.empty() => VaultSettings( saveKeyInMemory: true );
+  factory VaultSettings.fromJson(Map<String, dynamic> json) => _$VaultSettingsFromJson(json);
 }
 
 @unfreezed

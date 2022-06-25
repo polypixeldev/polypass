@@ -11,7 +11,9 @@ import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class Create extends StatelessWidget {
-  const Create({Key? key}) : super(key: key);
+  const Create({ Key? key, required this.settings }) : super(key: key);
+
+  final AppSettings settings;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,8 @@ class Create extends StatelessWidget {
     return AppWrapper(
       child: BlocProvider(
         create: (context) => CreateFormBloc(
-          vaultRepository: context.read<VaultRepository>()
+          vaultRepository: context.read<VaultRepository>(),
+          appSettings: settings
         ),
         child: MultiBlocListener(
           listeners: [
@@ -191,7 +194,7 @@ class PathInput extends StatelessWidget {
             final bloc = context.read<CreateFormBloc>();
             
             final path = await FilePicker.platform.saveFile(
-              initialDirectory: (await AppSettings.documentsDir).absolute.path,
+              initialDirectory: '${(await AppSettings.documentsDir).absolute.path}/polypass',
               dialogTitle: 'Set vault file location',
               fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
               type: FileType.custom,

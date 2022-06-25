@@ -24,12 +24,24 @@ Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
 _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       name: json['name'] as String,
       description: json['description'] as String,
+      settings: VaultSettings.fromJson(
+          Map<String, dynamic>.from(json['settings'] as Map)),
     );
 
 Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
+      'settings': instance.settings.toJson(),
+    };
+
+_$_VaultSettings _$$_VaultSettingsFromJson(Map json) => _$_VaultSettings(
+      saveKeyInMemory: json['saveKeyInMemory'] as bool,
+    );
+
+Map<String, dynamic> _$$_VaultSettingsToJson(_$_VaultSettings instance) =>
+    <String, dynamic>{
+      'saveKeyInMemory': instance.saveKeyInMemory,
     };
 
 _$_VaultContents _$$_VaultContentsFromJson(Map json) => _$_VaultContents(

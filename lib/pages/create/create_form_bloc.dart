@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/app_settings.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'create_form_bloc.freezed.dart';
@@ -37,7 +38,8 @@ class CreateFormEvent with _$CreateFormEvent {
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   CreateFormBloc({
-    required this.vaultRepository
+    required this.vaultRepository,
+    required this.appSettings
   }) : super(CreateFormState.empty()) {
     on<CreateFormEvent>((event, emit) async {
       await event.map(
@@ -51,6 +53,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   }
 
   final VaultRepository vaultRepository;
+  final AppSettings appSettings;
 
   Future<void> _onNameChanged(NameChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(
@@ -86,7 +89,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
     await vaultRepository.updateFile(VaultFile(
       header: VaultHeader(
         name: state.name,
-        description: state.description
+        description: state.description,
+        settings: appSettings.defaultVaultSettings
       ),
       path: state.path,
       contents: EncryptedData<VaultContents>.decrypted(VaultContents(components: []), IV.fromSecureRandom(16))

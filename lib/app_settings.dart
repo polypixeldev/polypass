@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:polypass/data/vault_file.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:polypass/main.dart';
 part 'app_settings.freezed.dart';
 part 'app_settings.g.dart';
 
@@ -11,7 +12,7 @@ part 'app_settings.g.dart';
 class AppSettings with _$AppSettings {
   const AppSettings._();
   const factory AppSettings({
-    required DefaultVaultSettings defaultVaultSettings
+    required VaultSettings defaultVaultSettings
   }) = _AppSettings;
 
   static final documentsDir = getApplicationDocumentsDirectory();
@@ -38,16 +39,6 @@ class AppSettings with _$AppSettings {
     await File('${(await documentsDir).absolute.path}/polypass/.settings/settings.json').writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() => AppSettings( defaultVaultSettings: DefaultVaultSettings.empty());
+  factory AppSettings.empty() => AppSettings( defaultVaultSettings: VaultSettings.empty());
   factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
-}
-
-@freezed
-class DefaultVaultSettings with _$DefaultVaultSettings {
-  const factory DefaultVaultSettings({
-    required bool saveKeyInMemory
-  }) = _DefaultVaultSettings;
-
-  factory DefaultVaultSettings.empty() => const DefaultVaultSettings(saveKeyInMemory: true);
-  factory DefaultVaultSettings.fromJson(Map<String, dynamic> json) => _$DefaultVaultSettingsFromJson(json);
 }
