@@ -13,6 +13,7 @@ import 'package:polypass/pages/vault/home/home.dart';
 import 'package:polypass/pages/vault/locked/locked.dart';
 import 'package:polypass/pages/vault/new/new.dart';
 import 'package:polypass/pages/vault/edit/edit.dart';
+import 'package:polypass/pages/vault/settings/settings.dart';
 
 import 'package:polypass/theme.dart';
 
@@ -40,6 +41,10 @@ class App extends StatelessWidget {
           builder: (context, state) => Create( settings: settings )
         ),
         GoRoute(
+          path: '/settings',
+          builder: (context, state) => Settings( settings: settings )
+        ),
+        GoRoute(
           path: '/vault/home',
           builder: (context, state) => const VaultHome()
         ),
@@ -56,8 +61,8 @@ class App extends StatelessWidget {
           builder: (context, state) => EditItem(routerState: state)
         ),
         GoRoute(
-          path: '/settings',
-          builder: (context, state) => Settings( settings: settings )
+          path: '/vault/settings',
+          builder: (context, state) => const VaultSettingsPage()
         )
       ]
     );

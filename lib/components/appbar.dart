@@ -169,6 +169,14 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
             context.read<VaultBloc>().add(const VaultEvent.selectedItemViewToggled());
           },
           splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.settings_sharp),
+          tooltip: 'Vault settings',
+          onPressed: () {
+            router.go('/vault/settings');
+          },
+          splashRadius: 20,
         )
       ];
     }
