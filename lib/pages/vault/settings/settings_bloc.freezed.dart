@@ -29,6 +29,8 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res>;
   $Res call({VaultSettings settings});
+
+  $VaultSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
@@ -51,6 +53,13 @@ class _$SettingsStateCopyWithImpl<$Res>
               as VaultSettings,
     ));
   }
+
+  @override
+  $VaultSettingsCopyWith<$Res> get settings {
+    return $VaultSettingsCopyWith<$Res>(_value.settings, (value) {
+      return _then(_value.copyWith(settings: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -61,6 +70,9 @@ abstract class _$$_SettingsStateCopyWith<$Res>
       __$$_SettingsStateCopyWithImpl<$Res>;
   @override
   $Res call({VaultSettings settings});
+
+  @override
+  $VaultSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc

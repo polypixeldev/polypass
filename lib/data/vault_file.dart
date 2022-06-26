@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
+import 'package:hash/hash.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_file.freezed.dart';
@@ -10,7 +11,9 @@ part 'vault_file.g.dart';
 // {
 //    header: {
 //        name: String,
-//        description: String
+//        description: String,
+//        settings: VaultSettings,
+//        magic: String
 //    },
 //    contents: {
 //        data: String,
@@ -33,28 +36,27 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
 
   static final Map<Type, dynamic Function(Map<String, dynamic>)> fromJsonRegistry = {
     VaultContents: VaultContents.fromJson,
-    VaultPassword: VaultPassword.fromJson
+    VaultPassword: VaultPassword.fromJson,
+    MagicValue: MagicValue.fromJson
   };
 
-  EncryptedData<T> encrypt(String rawKey) {
+  EncryptedData<T> encrypt(Key key) {
     var decryptedData = map(
       decrypted: (data) => jsonEncode(data.toJson()),
       encrypted: (data) => throw Error()
     );
 
-    final key = Key.fromBase64(rawKey);
     final encrypter = Encrypter(AES(key));
     final encrypted = encrypter.encrypt(decryptedData, iv: iv);
     return EncryptedData<T>.encrypted(encrypted.base64, iv);
   }
 
-  EncryptedData<T> decrypt(String rawKey) {
+  EncryptedData<T> decrypt(Key key) {
     var encryptedData = when(
       decrypted: (data, iv) => throw Error(),
       encrypted: (data, iv) => data
     );
 
-    final key = Key.fromBase64(rawKey);
     final encrypter = Encrypter(AES(key));
     final rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(encryptedData), iv: iv);
     
@@ -78,6 +80,11 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
       decrypted: (data, iv) => data.toJson(),
       encrypted: (data, iv) => { 'data': data, 'iv': iv.base64 }
     );
+  }
+
+  static Key deriveKey(String masterPassword) {
+    final rawKey = base64Encode(SHA256().update(utf8.encode(masterPassword)).digest());
+    return Key.fromBase64(rawKey);
   }
 }
 
@@ -237,13 +244,31 @@ class VaultFile with _$VaultFile {
 
 @unfreezed
 class VaultHeader with _$VaultHeader {
+  VaultHeader._();
   factory VaultHeader({
     required String name,
     required String description,
-    required VaultSettings settings
+    required VaultSettings settings,
+    required MagicValue magic
   }) = _VaultHeader;
 
   factory VaultHeader.fromJson(Map<String, dynamic> json) => _$VaultHeaderFromJson(json);
+
+  bool testMagic(Key key, IV iv) {
+    final encrypter = Encrypter(AES(key));
+    final rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(magic.value), iv: iv);
+
+    return rawDecrypted == MagicValue.decryptedValue.value;
+  }
+}
+
+@unfreezed
+class MagicValue extends ToJsonAble with _$MagicValue {
+  factory MagicValue(String value) = _MagicValue;
+
+  static final decryptedValue = MagicValue('9TGSiAeFCpsokSts2GzEIABOv6cURDGM6eW3wLGmNWE3C+MKX5TCdRltnKvE3MIxOOJG2AiMu7UkqoTA4ggEJg==');
+
+  factory MagicValue.fromJson(Map<String, dynamic> json) => _$MagicValueFromJson(json);
 }
 
 @unfreezed

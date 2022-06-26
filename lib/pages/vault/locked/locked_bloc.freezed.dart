@@ -19,9 +19,10 @@ mixin _$UnlockFormState {
 // Raw master password that user enters
   String get masterPassword =>
       throw _privateConstructorUsedError; // Derived master key from master password
-  String get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
-  bool get derived => throw _privateConstructorUsedError;
+  bool get success => throw _privateConstructorUsedError;
+  int get fails => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UnlockFormStateCopyWith<UnlockFormState> get copyWith =>
@@ -34,7 +35,11 @@ abstract class $UnlockFormStateCopyWith<$Res> {
           UnlockFormState value, $Res Function(UnlockFormState) then) =
       _$UnlockFormStateCopyWithImpl<$Res>;
   $Res call(
-      {String masterPassword, String masterKey, bool submitted, bool derived});
+      {String masterPassword,
+      Key? masterKey,
+      bool submitted,
+      bool success,
+      int fails});
 }
 
 /// @nodoc
@@ -51,7 +56,8 @@ class _$UnlockFormStateCopyWithImpl<$Res>
     Object? masterPassword = freezed,
     Object? masterKey = freezed,
     Object? submitted = freezed,
-    Object? derived = freezed,
+    Object? success = freezed,
+    Object? fails = freezed,
   }) {
     return _then(_value.copyWith(
       masterPassword: masterPassword == freezed
@@ -61,15 +67,19 @@ class _$UnlockFormStateCopyWithImpl<$Res>
       masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Key?,
       submitted: submitted == freezed
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      derived: derived == freezed
-          ? _value.derived
-          : derived // ignore: cast_nullable_to_non_nullable
+      success: success == freezed
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      fails: fails == freezed
+          ? _value.fails
+          : fails // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -82,7 +92,11 @@ abstract class _$$_UnlockFormStateCopyWith<$Res>
       __$$_UnlockFormStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String masterPassword, String masterKey, bool submitted, bool derived});
+      {String masterPassword,
+      Key? masterKey,
+      bool submitted,
+      bool success,
+      int fails});
 }
 
 /// @nodoc
@@ -101,25 +115,30 @@ class __$$_UnlockFormStateCopyWithImpl<$Res>
     Object? masterPassword = freezed,
     Object? masterKey = freezed,
     Object? submitted = freezed,
-    Object? derived = freezed,
+    Object? success = freezed,
+    Object? fails = freezed,
   }) {
     return _then(_$_UnlockFormState(
-      masterPassword == freezed
+      masterPassword: masterPassword == freezed
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      masterKey == freezed
+      masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
-              as String,
-      submitted == freezed
+              as Key?,
+      submitted: submitted == freezed
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      derived == freezed
-          ? _value.derived
-          : derived // ignore: cast_nullable_to_non_nullable
+      success: success == freezed
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      fails: fails == freezed
+          ? _value.fails
+          : fails // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -128,7 +147,11 @@ class __$$_UnlockFormStateCopyWithImpl<$Res>
 
 class _$_UnlockFormState extends _UnlockFormState {
   const _$_UnlockFormState(
-      this.masterPassword, this.masterKey, this.submitted, this.derived)
+      {required this.masterPassword,
+      required this.masterKey,
+      required this.submitted,
+      required this.success,
+      required this.fails})
       : super._();
 
 // Raw master password that user enters
@@ -136,15 +159,17 @@ class _$_UnlockFormState extends _UnlockFormState {
   final String masterPassword;
 // Derived master key from master password
   @override
-  final String masterKey;
+  final Key? masterKey;
   @override
   final bool submitted;
   @override
-  final bool derived;
+  final bool success;
+  @override
+  final int fails;
 
   @override
   String toString() {
-    return 'UnlockFormState(masterPassword: $masterPassword, masterKey: $masterKey, submitted: $submitted, derived: $derived)';
+    return 'UnlockFormState(masterPassword: $masterPassword, masterKey: $masterKey, submitted: $submitted, success: $success, fails: $fails)';
   }
 
   @override
@@ -156,7 +181,8 @@ class _$_UnlockFormState extends _UnlockFormState {
                 .equals(other.masterPassword, masterPassword) &&
             const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
-            const DeepCollectionEquality().equals(other.derived, derived));
+            const DeepCollectionEquality().equals(other.success, success) &&
+            const DeepCollectionEquality().equals(other.fails, fails));
   }
 
   @override
@@ -165,7 +191,8 @@ class _$_UnlockFormState extends _UnlockFormState {
       const DeepCollectionEquality().hash(masterPassword),
       const DeepCollectionEquality().hash(masterKey),
       const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(derived));
+      const DeepCollectionEquality().hash(success),
+      const DeepCollectionEquality().hash(fails));
 
   @JsonKey(ignore: true)
   @override
@@ -175,20 +202,23 @@ class _$_UnlockFormState extends _UnlockFormState {
 
 abstract class _UnlockFormState extends UnlockFormState {
   const factory _UnlockFormState(
-      final String masterPassword,
-      final String masterKey,
-      final bool submitted,
-      final bool derived) = _$_UnlockFormState;
+      {required final String masterPassword,
+      required final Key? masterKey,
+      required final bool submitted,
+      required final bool success,
+      required final int fails}) = _$_UnlockFormState;
   const _UnlockFormState._() : super._();
 
   @override // Raw master password that user enters
   String get masterPassword => throw _privateConstructorUsedError;
   @override // Derived master key from master password
-  String get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey => throw _privateConstructorUsedError;
   @override
   bool get submitted => throw _privateConstructorUsedError;
   @override
-  bool get derived => throw _privateConstructorUsedError;
+  bool get success => throw _privateConstructorUsedError;
+  @override
+  int get fails => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_UnlockFormStateCopyWith<_$_UnlockFormState> get copyWith =>
@@ -201,21 +231,18 @@ mixin _$UnlockFormEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
     required TResult Function() formSubmitted,
-    required TResult Function(int? tries) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -224,21 +251,18 @@ mixin _$UnlockFormEvent {
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
-    required TResult Function(FailedEvent value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -333,7 +357,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
     required TResult Function() formSubmitted,
-    required TResult Function(int? tries) failed,
   }) {
     return masterPasswordChanged(masterPassword);
   }
@@ -343,7 +366,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
   }) {
     return masterPasswordChanged?.call(masterPassword);
   }
@@ -353,7 +375,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
     required TResult orElse(),
   }) {
     if (masterPasswordChanged != null) {
@@ -368,7 +389,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
-    required TResult Function(FailedEvent value) failed,
   }) {
     return masterPasswordChanged(this);
   }
@@ -378,7 +398,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
   }) {
     return masterPasswordChanged?.call(this);
   }
@@ -388,7 +407,6 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
     required TResult orElse(),
   }) {
     if (masterPasswordChanged != null) {
@@ -451,7 +469,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
     required TResult Function() formSubmitted,
-    required TResult Function(int? tries) failed,
   }) {
     return formSubmitted();
   }
@@ -461,7 +478,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
   }) {
     return formSubmitted?.call();
   }
@@ -471,7 +487,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
     TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -486,7 +501,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
-    required TResult Function(FailedEvent value) failed,
   }) {
     return formSubmitted(this);
   }
@@ -496,7 +510,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
   }) {
     return formSubmitted?.call(this);
   }
@@ -506,7 +519,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -518,145 +530,4 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 
 abstract class FormSubmittedEvent implements UnlockFormEvent {
   const factory FormSubmittedEvent() = _$FormSubmittedEvent;
-}
-
-/// @nodoc
-abstract class _$$FailedEventCopyWith<$Res> {
-  factory _$$FailedEventCopyWith(
-          _$FailedEvent value, $Res Function(_$FailedEvent) then) =
-      __$$FailedEventCopyWithImpl<$Res>;
-  $Res call({int? tries});
-}
-
-/// @nodoc
-class __$$FailedEventCopyWithImpl<$Res>
-    extends _$UnlockFormEventCopyWithImpl<$Res>
-    implements _$$FailedEventCopyWith<$Res> {
-  __$$FailedEventCopyWithImpl(
-      _$FailedEvent _value, $Res Function(_$FailedEvent) _then)
-      : super(_value, (v) => _then(v as _$FailedEvent));
-
-  @override
-  _$FailedEvent get _value => super._value as _$FailedEvent;
-
-  @override
-  $Res call({
-    Object? tries = freezed,
-  }) {
-    return _then(_$FailedEvent(
-      tries == freezed
-          ? _value.tries
-          : tries // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$FailedEvent implements FailedEvent {
-  const _$FailedEvent(this.tries);
-
-  @override
-  final int? tries;
-
-  @override
-  String toString() {
-    return 'UnlockFormEvent.failed(tries: $tries)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FailedEvent &&
-            const DeepCollectionEquality().equals(other.tries, tries));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(tries));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$FailedEventCopyWith<_$FailedEvent> get copyWith =>
-      __$$FailedEventCopyWithImpl<_$FailedEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function() formSubmitted,
-    required TResult Function(int? tries) failed,
-  }) {
-    return failed(tries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
-  }) {
-    return failed?.call(tries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
-    TResult Function(int? tries)? failed,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(tries);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MasterPasswordChangedEvent value)
-        masterPasswordChanged,
-    required TResult Function(FormSubmittedEvent value) formSubmitted,
-    required TResult Function(FailedEvent value) failed,
-  }) {
-    return failed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
-  }) {
-    return failed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FailedEvent implements UnlockFormEvent {
-  const factory FailedEvent(final int? tries) = _$FailedEvent;
-
-  int? get tries => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$$FailedEventCopyWith<_$FailedEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }

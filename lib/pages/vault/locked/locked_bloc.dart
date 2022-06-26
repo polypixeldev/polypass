@@ -1,23 +1,32 @@
 import 'package:bloc/bloc.dart';
-import 'package:hash/hash.dart';
-import 'dart:convert';
+import 'package:encrypt/encrypt.dart';
+
+import 'package:polypass/blocs/vault_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:polypass/data/vault_file.dart';
 part 'locked_bloc.freezed.dart';
 
 @freezed
 class UnlockFormState with _$UnlockFormState {
   const UnlockFormState._();
-  const factory UnlockFormState(
+  const factory UnlockFormState({
     // Raw master password that user enters
-    String masterPassword,
+    required String masterPassword,
     // Derived master key from master password
-    String masterKey,
-    bool submitted,
-    bool derived
-  ) = _UnlockFormState;
+    required Key? masterKey,
+    required bool submitted,
+    required bool success,
+    required int fails
+  }) = _UnlockFormState;
 
-  factory UnlockFormState.empty() => const UnlockFormState('', '', false, false);
+  factory UnlockFormState.empty() => const UnlockFormState(
+    masterPassword: '',
+    masterKey: null,
+    submitted: false,
+    success: false,
+    fails: 0
+  );
 
   bool get isFormValid => masterPassword != '';
 }
@@ -26,44 +35,54 @@ class UnlockFormState with _$UnlockFormState {
 class UnlockFormEvent with _$UnlockFormEvent {
   const factory UnlockFormEvent.masterPasswordChanged(String masterPassword) = MasterPasswordChangedEvent;
   const factory UnlockFormEvent.formSubmitted() = FormSubmittedEvent;
-  const factory UnlockFormEvent.failed(int? tries) = FailedEvent;
 }
 
 class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
-  UnlockFormBloc() : super(UnlockFormState.empty()) {
-    on<UnlockFormEvent>((event, emit) async {
-      await event.map(
+  UnlockFormBloc({ required this.vaultBloc }) : super(UnlockFormState.empty()) {
+    on<UnlockFormEvent>((event, emit) {
+      event.map(
         masterPasswordChanged: (event) => _onMasterPasswordChanged(event, emit),
-        formSubmitted: (event) => _onFormSubmitted(event, emit),
-        failed: (event) => _onFailed(event, emit)
+        formSubmitted: (event) => _onFormSubmitted(event, emit)
       );
     });
   }
 
-  Future<void> _onMasterPasswordChanged(MasterPasswordChangedEvent event, Emitter<UnlockFormState> emit) async {
+  final VaultBloc vaultBloc;
+
+  void _onMasterPasswordChanged(MasterPasswordChangedEvent event, Emitter<UnlockFormState> emit) {
     emit(state.copyWith(
       masterPassword: event.masterPassword
     ));
   }
 
-  Future<void> _onFormSubmitted(FormSubmittedEvent event, Emitter<UnlockFormState> emit) async {
+  void _onFormSubmitted(FormSubmittedEvent event, Emitter<UnlockFormState> emit) {
     emit(state.copyWith(
       submitted: true
     ));
 
-    final masterKey = SHA256().update(utf8.encode(state.masterPassword)).digest();
+
+    final lockedState = vaultBloc.state.maybeMap(
+      locked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    final derivedKey = EncryptedData.deriveKey(state.masterPassword);
+
+    if (lockedState.vault.header.testMagic(derivedKey, lockedState.vault.contents.iv)) {
+      emit(state.copyWith(
+        success: true
+      ));
+      vaultBloc.add(VaultEvent.unlocked(derivedKey));
+    } else {
+      emit(state.copyWith(
+        masterKey: null,
+        submitted: false,
+        fails: state.fails + 1
+      ));
+    }
 
     emit(state.copyWith(
-      derived: true,
-      masterKey: base64Encode(masterKey)
-    ));
-  }
-
-  Future<void> _onFailed(FailedEvent event, Emitter<UnlockFormState> emit) async {
-    emit(state.copyWith(
-      masterKey: '',
-      submitted: false,
-      derived: false
+      masterKey: derivedKey
     ));
   }
 }

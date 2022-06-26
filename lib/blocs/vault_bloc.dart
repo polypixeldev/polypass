@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
@@ -12,28 +13,23 @@ class VaultState with _$VaultState {
   const factory VaultState.opening() = _Opening;
   const factory VaultState.locked(VaultFile vault) = _Locked;
   const factory VaultState.unlocking(VaultFile vault) = _Unlocking;
-  const factory VaultState.failed({
-    required VaultFile vault,
-    required String failedKey,
-    required int tries
-  }) = _Failed;
   const factory VaultState.unlocked({
     required VaultFile vault,
     List<String>? selectedGroup,
     List<String>? selectedItem,
     @Default(false) bool viewingSelectedItem,
-    String? masterKey
+    Key? masterKey
   }) = _Unlocked;
 }
 
 @freezed
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(String path) = OpenedEvent;
-  const factory VaultEvent.unlocked(String masterKey) = UnlockedEvent;
+  const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
   const factory VaultEvent.groupSelected(List<String>? path, bool deselect) = GroupSelectedEvent;
   const factory VaultEvent.itemSelected(List<String>? path, bool deselect) = ItemSelectedEvent;
   const factory VaultEvent.selectedItemViewToggled() = SelectedItemViewToggledEvent;
-  const factory VaultEvent.updated(VaultFile newVault, String masterKey) = UpdatedEvent;
+  const factory VaultEvent.updated(VaultFile newVault, Key masterKey) = UpdatedEvent;
   const factory VaultEvent.locked() = LockedEvent;
   const factory VaultEvent.closed() = ClosedEvent;
 }
@@ -68,39 +64,12 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
   Future<void> _onVaultUnlocked(UnlockedEvent event, Emitter<VaultState> emit) async {
     final lockedVault = state.maybeWhen(
       locked: (vault) => vault,
-      failed: (vault, failedKey, tries) {
-        if (failedKey == event.masterKey) {
-          emit(VaultState.failed(
-            vault: vault,
-            failedKey: failedKey,
-            tries: tries + 1
-          ));
-          return null;
-        } else {
-          return vault;
-        }
-      },
       orElse: () => throw Error()
     );
 
-    if (lockedVault == null) {
-      return;
-    }
-
     emit(VaultState.unlocking(lockedVault));
 
-    final EncryptedData<VaultContents> decryptedContents;
-    try {
-      decryptedContents = lockedVault.contents.decrypt(event.masterKey);
-    } catch (_e) {
-      return emit(
-        VaultState.failed(
-          vault: lockedVault,
-          failedKey: event.masterKey,
-          tries: 1
-        )
-      );
-    }
+    final decryptedContents = lockedVault.contents.decrypt(event.masterKey);
 
     // TODO: Allow user to choose whether or not to keep key in memory while open
     emit(
@@ -108,7 +77,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         vault: lockedVault.copyWith(
           contents: decryptedContents
         ),
-        masterKey: event.masterKey
+        masterKey: lockedVault.header.settings.saveKeyInMemory ? event.masterKey : null
       )
     );
   }

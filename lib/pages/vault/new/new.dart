@@ -7,6 +7,7 @@ import 'package:polypass/data/vault_file.dart';
 import 'package:polypass/pages/vault/new/new_bloc.dart';
 
 import 'package:polypass/components/appwrapper.dart';
+import 'package:polypass/components/master_password_dialog.dart';
 
 class NewItem extends StatelessWidget {
   const NewItem({ Key? key }) : super(key: key);
@@ -60,7 +61,7 @@ class NewItem extends StatelessWidget {
 
                       final newVault = unlockedState.vault.updateComponent(path: selectedPath != null ? [...selectedPath, state.createdItem!.name] : [state.createdItem!.name], component: VaultComponent.item(state.createdItem!));
 
-                      vaultBloc.add(VaultEvent.updated(newVault, state.masterKey));
+                      vaultBloc.add(VaultEvent.updated(newVault, state.masterKey!));
                       ScaffoldMessenger.of(context).clearSnackBars();
                       GoRouter.of(context).go('/vault/home');
                     },
@@ -159,10 +160,8 @@ class ItemNameInput extends StatelessWidget {
             // autocorrect: false,
             onChanged: (name) {
               context.read<NewFormBloc>().add(NewFormEvent.nameChanged(name));
-            }
-            // onFieldSubmitted: (_name) {
-            //   context.read<NewFormBloc>().add(const UnlockFormEvent.formSubmitted());
-            // },
+            },
+            autofocus: true
           )
         );
       },
@@ -312,9 +311,34 @@ class SubmitButton extends StatelessWidget {
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
-          onPressed: !state.isFormValid || state.submitted ? null : () {
-            // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, _viewingSelectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
+          onPressed: !state.isFormValid || state.submitted ? null : () async {
+            var masterKey = context.read<VaultBloc>().state.maybeMap(
+              unlocked: (state) => state.masterKey,
+              orElse: () => throw Error()
+            );
+
+            if (masterKey == null) {
+              await showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => MasterPasswordDialog(
+                  onSuccess: (key) {
+                    masterKey = key;
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  onCancel: () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    GoRouter.of(context).go('/vault/home');
+                  },
+                )
+              );
+            }
+
+            if (masterKey == null) {
+              return;
+            }
+            
+            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(masterKey!));
           },
         );
       }

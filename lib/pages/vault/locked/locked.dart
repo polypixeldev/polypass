@@ -22,10 +22,10 @@ class VaultLocked extends StatelessWidget {
           width: 600,
           child: Form(
             child: BlocProvider(
-              create: (context) => UnlockFormBloc(),
+              create: (context) => UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
               child: MultiBlocListener(
                 listeners: [
-                  BlocListener<VaultBloc, VaultState>(
+                  BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -33,24 +33,17 @@ class VaultLocked extends StatelessWidget {
                         duration: Duration( seconds: 3 )
                       ));
                     },
-                    listenWhen: (previous, current) => previous.maybeWhen(locked: (_vault) => true, failed: (_vault, _failedKey, _tries) => true, orElse: () => false) && current.maybeWhen(unlocking: (_vault) => true, orElse: () => false)
+                    listenWhen: (previous, current) => current.success == true
                   ),
                   BlocListener<UnlockFormBloc, UnlockFormState>(
                     listener: (context, state) {
-                      context.read<VaultBloc>().add(VaultEvent.unlocked(state.masterKey));
-                    },
-                    listenWhen: (previous, current) => previous.derived == false && current.derived == true
-                  ),
-                  BlocListener<VaultBloc, VaultState>(
-                    listener: (context, state) {
-                      context.read<UnlockFormBloc>().add(UnlockFormEvent.failed(state.whenOrNull(failed: (vault, failedKey, tries) => tries)));
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
                         duration: Duration(seconds: 5)
                       ));
                     },
-                    listenWhen: (previous, current) => (previous.maybeWhen(unlocking: (_vault) => true, orElse: () => false) && current.maybeWhen(failed: (_vault, _failedKey, _tries) => true, orElse: () => false)) || previous.maybeWhen(failed:(vault, failedKey, tries) => tries, orElse: () => double.infinity) < current.maybeWhen(failed:(vault, failedKey, tries) => tries, orElse: () => 0)
+                    listenWhen: (previous, current) => previous.fails != current.fails
                   )
                 ],
                 child: Column(

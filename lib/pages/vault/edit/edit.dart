@@ -92,7 +92,7 @@ class EditItem extends StatelessWidget {
                         unlockedState.vault.deleteComponent(path);
                       }
 
-                      vaultBloc.add(VaultEvent.updated(newVault, state.masterKey));
+                      vaultBloc.add(VaultEvent.updated(newVault, state.masterKey!));
                       ScaffoldMessenger.of(context).clearSnackBars();
                       GoRouter.of(context).go('/vault/home');
                     },

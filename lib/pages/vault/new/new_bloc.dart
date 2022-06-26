@@ -16,7 +16,7 @@ class NewFormState with _$NewFormState {
     required String notes,
     required bool submitted,
     required VaultItem? createdItem,
-    required String masterKey
+    required Key? masterKey
   }) = _NewFormState;
 
   factory NewFormState.empty() => const NewFormState(
@@ -26,7 +26,7 @@ class NewFormState with _$NewFormState {
     notes: '',
     submitted: false,
     createdItem: null,
-    masterKey: ''
+    masterKey: null
   );
 
   bool get isFormValid => (name != '') && (username != '') && (password != '') && (notes != '');
@@ -38,7 +38,7 @@ class NewFormEvent with _$NewFormEvent {
   const factory NewFormEvent.usernameChanged(String username) = UsernameChangedEvent;
   const factory NewFormEvent.passwordChanged(String password) = PasswordChangedEvent;
   const factory NewFormEvent.notesChanged(String notes) = NotesChangedEvent;
-  const factory NewFormEvent.formSubmitted(String masterKey) = FormSubmittedEvent;
+  const factory NewFormEvent.formSubmitted(Key masterKey) = FormSubmittedEvent;
   const factory NewFormEvent.failed() = FailedEvent;
 }
 
@@ -90,7 +90,7 @@ class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
       createdItem: VaultItem(
         name: state.name,
         username: state.username,
-        password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(state.masterKey),
+        password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(event.masterKey),
         notes: state.notes
       )
     ));

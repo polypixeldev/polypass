@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_providers.dart';
 import 'package:polypass/data/vault_file.dart';
@@ -12,7 +13,7 @@ class VaultRepository {
     return VaultFile.fromJson(jsonDecode(raw));
   }
 
-  Future<void> updateFile(VaultFile file, String key) async {
+  Future<void> updateFile(VaultFile file, Key key) async {
     var encryptedContents = file.contents.encrypt(key);
     final raw = file.copyWith(contents: encryptedContents).toJson();
     await fileProvider.updateFile(file.path, jsonEncode(raw));

@@ -16,7 +16,7 @@ class EditFormState with _$EditFormState {
     required String notes,
     required bool submitted,
     required VaultItem? editedItem,
-    required String masterKey
+    required Key? masterKey
   }) = _EditFormState;
 
   bool get isFormValid => (name != '') && (username != '') && (password != '') && (notes != '');
@@ -28,7 +28,7 @@ class EditFormEvent with _$EditFormEvent {
   const factory EditFormEvent.usernameChanged(String username) = UsernameChangedEvent;
   const factory EditFormEvent.passwordChanged(String password) = PasswordChangedEvent;
   const factory EditFormEvent.notesChanged(String notes) = NotesChangedEvent;
-  const factory EditFormEvent.formSubmitted(String masterKey) = FormSubmittedEvent;
+  const factory EditFormEvent.formSubmitted(Key masterKey) = FormSubmittedEvent;
   const factory EditFormEvent.failed() = FailedEvent;
 }
 
@@ -45,7 +45,7 @@ class EditFormBloc extends Bloc<EditFormEvent, EditFormState> {
     notes: notes,
     submitted: false,
     editedItem: null,
-    masterKey: ''
+    masterKey: null
   )) {
     on<EditFormEvent>((event, emit) {
       event.map(
@@ -93,7 +93,7 @@ class EditFormBloc extends Bloc<EditFormEvent, EditFormState> {
       editedItem: VaultItem(
         name: state.name,
         username: state.username,
-        password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(state.masterKey),
+        password: EncryptedData<VaultPassword>.decrypted(VaultPassword(state.password), IV.fromSecureRandom(16)).encrypt(event.masterKey),
         notes: state.notes
       )
     ));

@@ -22,7 +22,7 @@ mixin _$EditFormState {
   String get notes => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
   VaultItem? get editedItem => throw _privateConstructorUsedError;
-  String get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditFormStateCopyWith<EditFormState> get copyWith =>
@@ -41,7 +41,7 @@ abstract class $EditFormStateCopyWith<$Res> {
       String notes,
       bool submitted,
       VaultItem? editedItem,
-      String masterKey});
+      Key? masterKey});
 
   $VaultItemCopyWith<$Res>? get editedItem;
 }
@@ -93,7 +93,7 @@ class _$EditFormStateCopyWithImpl<$Res>
       masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Key?,
     ));
   }
 
@@ -123,7 +123,7 @@ abstract class _$$_EditFormStateCopyWith<$Res>
       String notes,
       bool submitted,
       VaultItem? editedItem,
-      String masterKey});
+      Key? masterKey});
 
   @override
   $VaultItemCopyWith<$Res>? get editedItem;
@@ -178,7 +178,7 @@ class __$$_EditFormStateCopyWithImpl<$Res>
       masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Key?,
     ));
   }
 }
@@ -209,7 +209,7 @@ class _$_EditFormState extends _EditFormState {
   @override
   final VaultItem? editedItem;
   @override
-  final String masterKey;
+  final Key? masterKey;
 
   @override
   String toString() {
@@ -256,7 +256,7 @@ abstract class _EditFormState extends EditFormState {
       required final String notes,
       required final bool submitted,
       required final VaultItem? editedItem,
-      required final String masterKey}) = _$_EditFormState;
+      required final Key? masterKey}) = _$_EditFormState;
   const _EditFormState._() : super._();
 
   @override
@@ -272,7 +272,7 @@ abstract class _EditFormState extends EditFormState {
   @override
   VaultItem? get editedItem => throw _privateConstructorUsedError;
   @override
-  String get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_EditFormStateCopyWith<_$_EditFormState> get copyWith =>
@@ -287,7 +287,7 @@ mixin _$EditFormEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -297,7 +297,7 @@ mixin _$EditFormEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -307,7 +307,7 @@ mixin _$EditFormEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) =>
@@ -431,7 +431,7 @@ class _$NameChangedEvent implements NameChangedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return nameChanged(name);
@@ -444,7 +444,7 @@ class _$NameChangedEvent implements NameChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return nameChanged?.call(name);
@@ -457,7 +457,7 @@ class _$NameChangedEvent implements NameChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -590,7 +590,7 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return usernameChanged(username);
@@ -603,7 +603,7 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return usernameChanged?.call(username);
@@ -616,7 +616,7 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -750,7 +750,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return passwordChanged(password);
@@ -763,7 +763,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return passwordChanged?.call(password);
@@ -776,7 +776,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -909,7 +909,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return notesChanged(notes);
@@ -922,7 +922,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return notesChanged?.call(notes);
@@ -935,7 +935,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -1003,7 +1003,7 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
   factory _$$FormSubmittedEventCopyWith(_$FormSubmittedEvent value,
           $Res Function(_$FormSubmittedEvent) then) =
       __$$FormSubmittedEventCopyWithImpl<$Res>;
-  $Res call({String masterKey});
+  $Res call({Key masterKey});
 }
 
 /// @nodoc
@@ -1025,7 +1025,7 @@ class __$$FormSubmittedEventCopyWithImpl<$Res>
       masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Key,
     ));
   }
 }
@@ -1036,7 +1036,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   const _$FormSubmittedEvent(this.masterKey);
 
   @override
-  final String masterKey;
+  final Key masterKey;
 
   @override
   String toString() {
@@ -1068,7 +1068,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return formSubmitted(masterKey);
@@ -1081,7 +1081,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return formSubmitted?.call(masterKey);
@@ -1094,7 +1094,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
@@ -1149,10 +1149,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 }
 
 abstract class FormSubmittedEvent implements EditFormEvent {
-  const factory FormSubmittedEvent(final String masterKey) =
-      _$FormSubmittedEvent;
+  const factory FormSubmittedEvent(final Key masterKey) = _$FormSubmittedEvent;
 
-  String get masterKey => throw _privateConstructorUsedError;
+  Key get masterKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1203,7 +1202,7 @@ class _$FailedEvent implements FailedEvent {
     required TResult Function(String username) usernameChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String notes) notesChanged,
-    required TResult Function(String masterKey) formSubmitted,
+    required TResult Function(Key masterKey) formSubmitted,
     required TResult Function() failed,
   }) {
     return failed();
@@ -1216,7 +1215,7 @@ class _$FailedEvent implements FailedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
   }) {
     return failed?.call();
@@ -1229,7 +1228,7 @@ class _$FailedEvent implements FailedEvent {
     TResult Function(String username)? usernameChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String notes)? notesChanged,
-    TResult Function(String masterKey)? formSubmitted,
+    TResult Function(Key masterKey)? formSubmitted,
     TResult Function()? failed,
     required TResult orElse(),
   }) {
