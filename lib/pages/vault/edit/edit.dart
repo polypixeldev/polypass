@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
 import 'package:polypass/pages/vault/edit/edit_bloc.dart';
 
+import 'package:polypass/components/master_password_dialog.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class EditItem extends StatelessWidget {
@@ -26,10 +28,7 @@ class EditItem extends StatelessWidget {
       orElse: () => throw Error()
     );
 
-    final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeMap(
-      decrypted: (password) => password,
-      orElse: () => throw Error()
-    );
+    Future<encrypt.Key?>? dialog;
 
     return AppWrapper(
       child: Center(
@@ -45,83 +44,99 @@ class EditItem extends StatelessWidget {
               create: (_context) => EditFormBloc(
                 name: item.name,
                 username: item.username,
-                password: decryptedPassword.data.password,
+                password: '',
                 notes: item.notes
               ),
-              child: MultiBlocListener(
-                listeners: [
-                  BlocListener<EditFormBloc, EditFormState>(
-                    listener: (context, state) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Updating item...'),
-                        duration: Duration( days: 365 )
-                      ));
-                    },
-                    listenWhen: (previous, current) => previous.submitted == false && current.submitted == true,
-                  ),
-                  BlocListener<EditFormBloc, EditFormState>(
-                    listener: (context, state) {
-                      final vaultBloc = context.read<VaultBloc>();
-                      final unlockedState = vaultBloc.state.maybeMap(
-                        unlocked: (state) => state,
-                        orElse: () => throw Error()
-                      );
+              child: FutureBuilder<encrypt.Key?>(
+                future: dialog ?? Future.delayed(Duration.zero, () => getMasterKey(context)),
+                builder: (context, snapshot) {
+                  final masterKey = snapshot.data;
+                  if (masterKey != null) {
+                    context.read<EditFormBloc>().add(EditFormEvent.passwordChanged(
+                        item.password.decrypt(masterKey).maybeMap(
+                          decrypted: (p) => p.data.password,
+                          orElse: () => throw Error()
+                        )
+                      )
+                    );
+                  }
 
-                      final parent = unlockedState.vault.getComponent(path.take(path.length - 1).toList()).maybeWhen(group: (group) => group, orElse: () => throw Error());
-                      final exists = parent.components.where((component) {
-                        final componentName = component.when(group: (group) => group.name, item: (item) => item.name);
-                        return componentName == state.editedItem!.name && componentName != item.name;
-                      });
-
-                      if (exists.isNotEmpty) {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("A group or item with that name already exists in this item's group!")
-                        ));
-
-                        context.read<EditFormBloc>().add(const EditFormEvent.failed());
-
-                        return;
-                      }
-
-                      final newPath = [...path.take(path.length - 1), state.editedItem!.name];
-
-                      final newVault = unlockedState.vault.updateComponent(path: newPath, component: VaultComponent.item(state.editedItem!));
-
-                      if (newPath.join('.') != path.join('.')) {
-                        unlockedState.vault.deleteComponent(path);
-                      }
-
-                      vaultBloc.add(VaultEvent.updated(newVault, state.masterKey!));
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      GoRouter.of(context).go('/vault/home');
-                    },
-                    listenWhen: (previous, current) => previous.editedItem == null && current.editedItem != null,
-                  )
-                ],
-                child: Column(
-                  children: [
-                    const Text(
-                      'Edit Item',
-                      style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30
-                    )),
-                    ItemNameInput( item: item ),
-                    ItemUsernameInput( item: item ),
-                    ItemPasswordInput( item: item ),
-                    ItemNotesInput( item: item ),
-                    Row(
-                      children: const [
-                        BackToHomeButton(),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                        SubmitButton()
+                  return MultiBlocListener(
+                    listeners: [
+                      BlocListener<EditFormBloc, EditFormState>(
+                        listener: (context, state) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('Updating item...'),
+                            duration: Duration( days: 365 )
+                          ));
+                        },
+                        listenWhen: (previous, current) => previous.submitted == false && current.submitted == true,
+                      ),
+                      BlocListener<EditFormBloc, EditFormState>(
+                        listener: (context, state) {
+                          final vaultBloc = context.read<VaultBloc>();
+                          final unlockedState = vaultBloc.state.maybeMap(
+                            unlocked: (state) => state,
+                            orElse: () => throw Error()
+                          );
+                
+                          final parent = unlockedState.vault.getComponent(path.take(path.length - 1).toList()).maybeWhen(group: (group) => group, orElse: () => throw Error());
+                          final exists = parent.components.where((component) {
+                            final componentName = component.when(group: (group) => group.name, item: (item) => item.name);
+                            return componentName == state.editedItem!.name && componentName != item.name;
+                          });
+                
+                          if (exists.isNotEmpty) {
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("A group or item with that name already exists in this item's group!")
+                            ));
+                
+                            context.read<EditFormBloc>().add(const EditFormEvent.failed());
+                
+                            return;
+                          }
+                
+                          final newPath = [...path.take(path.length - 1), state.editedItem!.name];
+                
+                          final newVault = unlockedState.vault.updateComponent(path: newPath, component: VaultComponent.item(state.editedItem!));
+                
+                          if (newPath.join('.') != path.join('.')) {
+                            unlockedState.vault.deleteComponent(path);
+                          }
+                
+                          vaultBloc.add(VaultEvent.updated(newVault, state.masterKey!));
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          GoRouter.of(context).go('/vault/home');
+                        },
+                        listenWhen: (previous, current) => previous.editedItem == null && current.editedItem != null,
+                      )
+                    ],
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Edit Item',
+                          style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30
+                        )),
+                        ItemNameInput( item: item ),
+                        ItemUsernameInput( item: item ),
+                        ItemPasswordInput( item: item ),
+                        ItemNotesInput( item: item ),
+                        Row(
+                          children: const [
+                            BackToHomeButton(),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                            SubmitButton()
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        )
                       ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    )
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
+                      mainAxisSize: MainAxisSize.min,
+                    ),
+                  );
+                },
               ),
             )
           )
@@ -262,6 +277,10 @@ class ItemPasswordInput extends StatelessWidget {
 
     return BlocBuilder<EditFormBloc, EditFormState>(
       builder: (context, state) {
+        final controller = TextEditingController();
+        controller.text = state.password;
+        controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+
         return Container(
           decoration: BoxDecoration(
             color: theme.colorScheme.secondary,
@@ -269,7 +288,7 @@ class ItemPasswordInput extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
           child: TextFormField(
-            initialValue: state.password,
+            controller: controller,
             enabled: !context.read<EditFormBloc>().state.submitted,
             decoration: const InputDecoration(
               labelText: 'Item Password',
@@ -360,9 +379,14 @@ class SubmitButton extends StatelessWidget {
           style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
-          onPressed: !state.isFormValid || state.submitted ? null : () {
-            // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-            context.read<EditFormBloc>().add(EditFormEvent.formSubmitted(context.read<VaultBloc>().state.maybeWhen(unlocked: (_vault, _selectedGroup, _selectedItem, _viewingSelectedItem, masterKey) => masterKey!, orElse: () => throw Error())));
+          onPressed: !state.isFormValid || state.submitted ? null : () async {
+            var masterKey = await getMasterKey(context);
+
+            if (masterKey == null) {
+              return;
+            }
+
+            context.read<EditFormBloc>().add(EditFormEvent.formSubmitted(masterKey));
           },
         );
       }

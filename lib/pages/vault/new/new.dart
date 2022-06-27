@@ -312,33 +312,13 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () async {
-            var masterKey = context.read<VaultBloc>().state.maybeMap(
-              unlocked: (state) => state.masterKey,
-              orElse: () => throw Error()
-            );
-
-            if (masterKey == null) {
-              await showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => MasterPasswordDialog(
-                  onSuccess: (key) {
-                    masterKey = key;
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                  onCancel: () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    GoRouter.of(context).go('/vault/home');
-                  },
-                )
-              );
-            }
+            var masterKey = await getMasterKey(context);
 
             if (masterKey == null) {
               return;
             }
             
-            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(masterKey!));
+            context.read<NewFormBloc>().add(NewFormEvent.formSubmitted(masterKey));
           },
         );
       }

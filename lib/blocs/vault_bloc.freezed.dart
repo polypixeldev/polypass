@@ -1002,6 +1002,7 @@ mixin _$VaultEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1014,6 +1015,7 @@ mixin _$VaultEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1026,6 +1028,7 @@ mixin _$VaultEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1039,6 +1042,7 @@ mixin _$VaultEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1052,6 +1056,7 @@ mixin _$VaultEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1065,6 +1070,7 @@ mixin _$VaultEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1159,6 +1165,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1174,6 +1181,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1189,6 +1197,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1208,6 +1217,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1224,6 +1234,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1240,6 +1251,7 @@ class _$OpenedEvent implements OpenedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1331,6 +1343,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1346,6 +1359,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1361,6 +1375,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1380,6 +1395,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1396,6 +1412,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1412,6 +1429,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1434,6 +1452,187 @@ abstract class UnlockedEvent implements VaultEvent {
   Key get masterKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$UnlockedEventCopyWith<_$UnlockedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MasterKeyChangedEventCopyWith<$Res> {
+  factory _$$MasterKeyChangedEventCopyWith(_$MasterKeyChangedEvent value,
+          $Res Function(_$MasterKeyChangedEvent) then) =
+      __$$MasterKeyChangedEventCopyWithImpl<$Res>;
+  $Res call({Key? masterKey});
+}
+
+/// @nodoc
+class __$$MasterKeyChangedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res>
+    implements _$$MasterKeyChangedEventCopyWith<$Res> {
+  __$$MasterKeyChangedEventCopyWithImpl(_$MasterKeyChangedEvent _value,
+      $Res Function(_$MasterKeyChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$MasterKeyChangedEvent));
+
+  @override
+  _$MasterKeyChangedEvent get _value => super._value as _$MasterKeyChangedEvent;
+
+  @override
+  $Res call({
+    Object? masterKey = freezed,
+  }) {
+    return _then(_$MasterKeyChangedEvent(
+      masterKey == freezed
+          ? _value.masterKey
+          : masterKey // ignore: cast_nullable_to_non_nullable
+              as Key?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
+  const _$MasterKeyChangedEvent(this.masterKey);
+
+  @override
+  final Key? masterKey;
+
+  @override
+  String toString() {
+    return 'VaultEvent.masterKeyChanged(masterKey: $masterKey)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MasterKeyChangedEvent &&
+            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$MasterKeyChangedEventCopyWith<_$MasterKeyChangedEvent> get copyWith =>
+      __$$MasterKeyChangedEventCopyWithImpl<_$MasterKeyChangedEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) opened,
+    required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
+    required TResult Function(List<String>? path, bool deselect) groupSelected,
+    required TResult Function(List<String>? path, bool deselect) itemSelected,
+    required TResult Function() selectedItemViewToggled,
+    required TResult Function(VaultFile newVault, Key masterKey) updated,
+    required TResult Function() locked,
+    required TResult Function() closed,
+  }) {
+    return masterKeyChanged(masterKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
+    TResult Function(List<String>? path, bool deselect)? groupSelected,
+    TResult Function(List<String>? path, bool deselect)? itemSelected,
+    TResult Function()? selectedItemViewToggled,
+    TResult Function(VaultFile newVault, Key masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+  }) {
+    return masterKeyChanged?.call(masterKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? opened,
+    TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
+    TResult Function(List<String>? path, bool deselect)? groupSelected,
+    TResult Function(List<String>? path, bool deselect)? itemSelected,
+    TResult Function()? selectedItemViewToggled,
+    TResult Function(VaultFile newVault, Key masterKey)? updated,
+    TResult Function()? locked,
+    TResult Function()? closed,
+    required TResult orElse(),
+  }) {
+    if (masterKeyChanged != null) {
+      return masterKeyChanged(masterKey);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OpenedEvent value) opened,
+    required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
+    required TResult Function(GroupSelectedEvent value) groupSelected,
+    required TResult Function(ItemSelectedEvent value) itemSelected,
+    required TResult Function(SelectedItemViewToggledEvent value)
+        selectedItemViewToggled,
+    required TResult Function(UpdatedEvent value) updated,
+    required TResult Function(LockedEvent value) locked,
+    required TResult Function(ClosedEvent value) closed,
+  }) {
+    return masterKeyChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(SelectedItemViewToggledEvent value)?
+        selectedItemViewToggled,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+  }) {
+    return masterKeyChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OpenedEvent value)? opened,
+    TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult Function(GroupSelectedEvent value)? groupSelected,
+    TResult Function(ItemSelectedEvent value)? itemSelected,
+    TResult Function(SelectedItemViewToggledEvent value)?
+        selectedItemViewToggled,
+    TResult Function(UpdatedEvent value)? updated,
+    TResult Function(LockedEvent value)? locked,
+    TResult Function(ClosedEvent value)? closed,
+    required TResult orElse(),
+  }) {
+    if (masterKeyChanged != null) {
+      return masterKeyChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MasterKeyChangedEvent implements VaultEvent {
+  const factory MasterKeyChangedEvent(final Key? masterKey) =
+      _$MasterKeyChangedEvent;
+
+  Key? get masterKey => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$MasterKeyChangedEventCopyWith<_$MasterKeyChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1523,6 +1722,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1538,6 +1738,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1553,6 +1754,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1572,6 +1774,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1588,6 +1791,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1604,6 +1808,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1716,6 +1921,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1731,6 +1937,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1746,6 +1953,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1765,6 +1973,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1781,6 +1990,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1797,6 +2007,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1871,6 +2082,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -1886,6 +2098,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1901,6 +2114,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -1920,6 +2134,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -1936,6 +2151,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -1952,6 +2168,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2057,6 +2274,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -2072,6 +2290,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2087,6 +2306,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2106,6 +2326,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -2122,6 +2343,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2138,6 +2360,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2207,6 +2430,7 @@ class _$LockedEvent implements LockedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -2222,6 +2446,7 @@ class _$LockedEvent implements LockedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2237,6 +2462,7 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2256,6 +2482,7 @@ class _$LockedEvent implements LockedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -2272,6 +2499,7 @@ class _$LockedEvent implements LockedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2288,6 +2516,7 @@ class _$LockedEvent implements LockedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2350,6 +2579,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String path) opened,
     required TResult Function(Key masterKey) unlocked,
+    required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
     required TResult Function(List<String>? path, bool deselect) itemSelected,
     required TResult Function() selectedItemViewToggled,
@@ -2365,6 +2595,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2380,6 +2611,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String path)? opened,
     TResult Function(Key masterKey)? unlocked,
+    TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
     TResult Function(List<String>? path, bool deselect)? itemSelected,
     TResult Function()? selectedItemViewToggled,
@@ -2399,6 +2631,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(OpenedEvent value) opened,
     required TResult Function(UnlockedEvent value) unlocked,
+    required TResult Function(MasterKeyChangedEvent value) masterKeyChanged,
     required TResult Function(GroupSelectedEvent value) groupSelected,
     required TResult Function(ItemSelectedEvent value) itemSelected,
     required TResult Function(SelectedItemViewToggledEvent value)
@@ -2415,6 +2648,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?
@@ -2431,6 +2665,7 @@ class _$ClosedEvent implements ClosedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OpenedEvent value)? opened,
     TResult Function(UnlockedEvent value)? unlocked,
+    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
     TResult Function(GroupSelectedEvent value)? groupSelected,
     TResult Function(ItemSelectedEvent value)? itemSelected,
     TResult Function(SelectedItemViewToggledEvent value)?

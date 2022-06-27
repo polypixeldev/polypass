@@ -147,19 +147,19 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
-    required TResult Function() settingsSaved,
+    required TResult Function(BuildContext context) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -269,7 +269,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
-    required TResult Function() settingsSaved,
+    required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setSaveKeyInMemory(setting);
   }
@@ -278,7 +278,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
   }
@@ -287,7 +287,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
     if (setSaveKeyInMemory != null) {
@@ -343,6 +343,7 @@ abstract class _$$SettingsSavedEventCopyWith<$Res> {
   factory _$$SettingsSavedEventCopyWith(_$SettingsSavedEvent value,
           $Res Function(_$SettingsSavedEvent) then) =
       __$$SettingsSavedEventCopyWithImpl<$Res>;
+  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -355,54 +356,78 @@ class __$$SettingsSavedEventCopyWithImpl<$Res>
 
   @override
   _$SettingsSavedEvent get _value => super._value as _$SettingsSavedEvent;
+
+  @override
+  $Res call({
+    Object? context = freezed,
+  }) {
+    return _then(_$SettingsSavedEvent(
+      context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SettingsSavedEvent implements SettingsSavedEvent {
-  const _$SettingsSavedEvent();
+  const _$SettingsSavedEvent(this.context);
+
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'SettingsEvent.settingsSaved()';
+    return 'SettingsEvent.settingsSaved(context: $context)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SettingsSavedEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$SettingsSavedEvent &&
+            const DeepCollectionEquality().equals(other.context, context));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(context));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SettingsSavedEventCopyWith<_$SettingsSavedEvent> get copyWith =>
+      __$$SettingsSavedEventCopyWithImpl<_$SettingsSavedEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
-    required TResult Function() settingsSaved,
+    required TResult Function(BuildContext context) settingsSaved,
   }) {
-    return settingsSaved();
+    return settingsSaved(context);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
   }) {
-    return settingsSaved?.call();
+    return settingsSaved?.call(context);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function()? settingsSaved,
+    TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
     if (settingsSaved != null) {
-      return settingsSaved();
+      return settingsSaved(context);
     }
     return orElse();
   }
@@ -440,5 +465,11 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
 }
 
 abstract class SettingsSavedEvent implements SettingsEvent {
-  const factory SettingsSavedEvent() = _$SettingsSavedEvent;
+  const factory SettingsSavedEvent(final BuildContext context) =
+      _$SettingsSavedEvent;
+
+  BuildContext get context => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$SettingsSavedEventCopyWith<_$SettingsSavedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

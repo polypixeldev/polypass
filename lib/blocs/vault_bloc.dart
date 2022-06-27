@@ -26,6 +26,7 @@ class VaultState with _$VaultState {
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(String path) = OpenedEvent;
   const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
+  const factory VaultEvent.masterKeyChanged(Key? masterKey) = MasterKeyChangedEvent;
   const factory VaultEvent.groupSelected(List<String>? path, bool deselect) = GroupSelectedEvent;
   const factory VaultEvent.itemSelected(List<String>? path, bool deselect) = ItemSelectedEvent;
   const factory VaultEvent.selectedItemViewToggled() = SelectedItemViewToggledEvent;
@@ -43,6 +44,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       await rawEvent.map(
         opened: (event) => _onVaultOpened(event, emit),
         unlocked: (event) => _onVaultUnlocked(event, emit),
+        masterKeyChanged: (event) => _onMasterKeyChanged(event, emit),
         groupSelected: (event) => _onGroupSelected(event, emit),
         itemSelected: (event) => _onItemSelected(event, emit),
         selectedItemViewToggled: (event) => _onSelectedItemViewToggled(event, emit),
@@ -71,7 +73,6 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
     final decryptedContents = lockedVault.contents.decrypt(event.masterKey);
 
-    // TODO: Allow user to choose whether or not to keep key in memory while open
     emit(
       VaultState.unlocked(
         vault: lockedVault.copyWith(
@@ -80,6 +81,17 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         masterKey: lockedVault.header.settings.saveKeyInMemory ? event.masterKey : null
       )
     );
+  }
+
+  Future<void> _onMasterKeyChanged(MasterKeyChangedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState = state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    emit(unlockedState.copyWith(
+      masterKey: event.masterKey
+    ));
   }
 
   Future<void> _onGroupSelected(GroupSelectedEvent event, Emitter<VaultState> emit) async {

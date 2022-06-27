@@ -9,6 +9,7 @@ import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/pages/vault/home/component_bloc.dart';
 import 'package:polypass/pages/vault/home/list_item_bloc.dart';
 
+import 'package:polypass/components/master_password_dialog.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class VaultHome extends StatelessWidget {
@@ -134,7 +135,7 @@ class TreeGroup extends StatelessWidget {
                     color: Colors.white,
                     fontSize: theme.textTheme.bodySmall!.fontSize
                   ),
-                  onFieldSubmitted: (newName) {
+                  onFieldSubmitted: (newName) async {
                     if(newName.contains(RegExp(r'\.'))) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Invalid character - "." is not allowed in names')
@@ -173,8 +174,13 @@ class TreeGroup extends StatelessWidget {
                     
                     final newVault = unlockedState.vault.updateComponent(path: path, component: updatedComponent);
 
-                    // TODO: Prompt user for masterPassword and derive masterKey if masterKey is not saved
-                    vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+                    var masterKey = await getMasterKey(context);
+
+                    if (masterKey == null) {
+                      return;
+                    }
+
+                    vaultBloc.add(VaultEvent.updated(newVault, masterKey));
 
                     context.read<ComponentBloc>().add(const ComponentEvent.modeToggled());
                   },
@@ -428,22 +434,30 @@ class ListItem extends StatelessWidget {
           }
 
           return BlocBuilder<ListItemBloc, ListItemState>(
-            builder: (context, state) {          
+            builder: (context, state) {
+              var decryptedPassword = '';
+              if (state.mode == ListItemMode.view) {
+                final masterKey = state.masterKey;
+
+                if (masterKey == null) {
+                  Future.delayed(Duration.zero, () => getMasterKey(context)).then((k) {
+                    if (k == null) {
+                      context.read<ListItemBloc>().add(const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
+                    } else {
+                      context.read<ListItemBloc>().add(ListItemEvent.masterKeyChanged(k));
+                    }
+                  });
+                }
+
+                decryptedPassword = masterKey == null ? '-' : item.password.decrypt(masterKey).maybeWhen(decrypted: (data, _iv) => data, orElse: () => throw Error()).password;
+              }
+
               return BaseRow(
                 path: path,
                 extra: (componentState, isSelected, columnWidth) {
                   final extra = <Widget>[];
         
                   if (state.mode == ListItemMode.view) {
-                    
-                    final unlockedState = context.read<VaultBloc>().state.maybeMap(
-                      unlocked: (state) => state,
-                      orElse: () => throw Error()
-                    );
-        
-        
-                    final decryptedPassword = item.password.decrypt(unlockedState.masterKey!).maybeWhen(decrypted: (data, _iv) => data, orElse: () => throw Error());
-        
                     extra.add(Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: Row(
@@ -461,7 +475,7 @@ class ListItem extends StatelessWidget {
                                   )
                                 ),
                                 Text(
-                                  decryptedPassword.password,
+                                  decryptedPassword,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.1,
@@ -535,6 +549,7 @@ class ListItem extends StatelessWidget {
                               decoration: TextDecoration.underline
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {
+                              context.read<ListItemBloc>().add(const ListItemEvent.masterKeyChanged(null));
                               context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
                             }
                           )
@@ -562,7 +577,7 @@ class ListItem extends StatelessWidget {
                               fontSize: theme.textTheme.bodySmall!.fontSize,
                               decoration: TextDecoration.underline
                             ),
-                            recognizer: TapGestureRecognizer()..onTap = () {
+                            recognizer: TapGestureRecognizer()..onTap = () async {
                               final vaultBloc = context.read<VaultBloc>();
                               final unlockedState = vaultBloc.state.maybeMap(
                                 unlocked: (state) => state,
@@ -570,7 +585,14 @@ class ListItem extends StatelessWidget {
                               );
         
                               final newVault = unlockedState.vault.deleteComponent(path);
-                              vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+
+                              var masterKey = await getMasterKey(context);
+
+                              if (masterKey == null) {
+                                return;
+                              }
+
+                              vaultBloc.add(VaultEvent.updated(newVault, masterKey));
                             }
                           )
                         ),

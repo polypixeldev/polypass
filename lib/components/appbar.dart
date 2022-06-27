@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:polypass/components/master_password_dialog.dart';
+
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
 
@@ -41,7 +43,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         IconButton(
           icon: const Icon(Icons.create_new_folder_sharp),
           tooltip: 'Create a group',
-          onPressed: () {
+          onPressed: () async {
             final vaultBloc = context.read<VaultBloc>();
             final vaultState= vaultBloc.state.maybeMap(
               unlocked: (state) => state,
@@ -63,6 +65,12 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               number++;
             }
 
+            var masterKey = await getMasterKey(context);
+
+            if (masterKey == null) {
+              return;
+            }
+
             final newVault = vaultState.vault.updateComponent(
               path: selectedPath == null ? [testName] : [...selectedPath, testName],
               component: VaultComponent.group(
@@ -73,14 +81,14 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               )
             );
 
-            vaultBloc.add(VaultEvent.updated(newVault, vaultState.masterKey!));
+            vaultBloc.add(VaultEvent.updated(newVault, masterKey));
           },
           splashRadius: 20
         ),
         IconButton(
           icon: const Icon(Icons.folder_delete_sharp),
           tooltip: 'Delete the selected group',
-          onPressed: () {
+          onPressed: () async {
             final vaultBloc = context.read<VaultBloc>();
             final unlockedState = vaultBloc.state.maybeMap(
               unlocked: (state) => state,
@@ -97,11 +105,16 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               return;
             }
 
-            
+            var masterKey = await getMasterKey(context);
+
+            if (masterKey == null) {
+              return;
+            }
 
             final newVault = unlockedState.vault.deleteComponent(selectedGroup);
             vaultBloc.add(VaultEvent.groupSelected(selectedGroup, true));
-            vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+
+            vaultBloc.add(VaultEvent.updated(newVault, masterKey));
           },
           splashRadius: 20,
         ),
@@ -139,7 +152,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         IconButton(
           icon: const Icon(Icons.delete),
           tooltip: 'Delete the selected item',
-          onPressed: () {
+          onPressed: () async {
             final vaultBloc = context.read<VaultBloc>();
             final unlockedState = vaultBloc.state.maybeMap(
               unlocked: (state) => state,
@@ -156,9 +169,16 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               return;
             }
 
+            var masterKey = await getMasterKey(context);
+
+            if (masterKey == null) {
+              return;
+            }
+
             final newVault = unlockedState.vault.deleteComponent(selectedItem);
             vaultBloc.add(VaultEvent.itemSelected(selectedItem, true));
-            vaultBloc.add(VaultEvent.updated(newVault, unlockedState.masterKey!));
+
+            vaultBloc.add(VaultEvent.updated(newVault, masterKey));
           },
           splashRadius: 20,
         ),

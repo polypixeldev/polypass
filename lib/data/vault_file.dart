@@ -256,7 +256,12 @@ class VaultHeader with _$VaultHeader {
 
   bool testMagic(Key key, IV iv) {
     final encrypter = Encrypter(AES(key));
-    final rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(magic.value), iv: iv);
+    var rawDecrypted = '';
+    try {
+      rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(magic.value), iv: iv);
+    } catch (_e) {
+      return false;
+    }
 
     return rawDecrypted == MagicValue.decryptedValue.value;
   }

@@ -131,7 +131,7 @@ class SaveButton extends StatelessWidget {
         padding: MaterialStateProperty.all(const EdgeInsets.all(15))
       ),
       onPressed: () {
-        context.read<SettingsBloc>().add(const SettingsEvent.settingsSaved());
+        context.read<SettingsBloc>().add(SettingsEvent.settingsSaved(context));
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Settings saved')
         ));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:polypass/components/master_password_dialog_bloc.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
@@ -35,6 +36,15 @@ class MasterPasswordDialog extends StatelessWidget {
               onCancel();
             },
             listenWhen: (previous, current) => current.status == MasterPasswordDialogStatus.canceled
+          ),
+          BlocListener<MasterPasswordDialogBloc, MasterPasswordDialogState>(
+            listener: (context, state) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Invalid master password. Try again.')
+              ));
+            },
+            listenWhen: (previous, current) => previous.status == MasterPasswordDialogStatus.validating && current.status == MasterPasswordDialogStatus.failed,
           )
         ],
         child: Dialog(
@@ -67,7 +77,7 @@ class MasterPasswordDialog extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5)
                         ),
                         child: TextFormField(
-                          enabled: state.status == MasterPasswordDialogStatus.wait,
+                          enabled: state.status != MasterPasswordDialogStatus.success,
                           textAlign: TextAlign.center,
                           decoration: const InputDecoration(
                             label: Text(
@@ -174,4 +184,30 @@ class CancelButton extends StatelessWidget {
       }
     );
   }
+}
+
+Future<encrypt.Key?> getMasterKey(BuildContext context) async {
+  var masterKey = context.read<VaultBloc>().state.maybeMap(
+    unlocked: (state) => state.masterKey,
+    orElse: () => throw Error()
+  );
+
+  if (masterKey == null) {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => MasterPasswordDialog(
+        onSuccess: (key) {
+          masterKey = key;
+          Navigator.of(context, rootNavigator: true).pop();
+        },
+        onCancel: () {
+          Navigator.of(context, rootNavigator: true).pop();
+          GoRouter.of(context).go('/vault/home');
+        },
+      )
+    );
+  }
+
+  return masterKey;
 }
