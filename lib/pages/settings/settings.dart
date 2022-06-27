@@ -76,7 +76,6 @@ class ToggleSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // TODO: Check to make sure that key really is deleted from memory on vault lock
         Text(title),
         Switch(
           value: value,
