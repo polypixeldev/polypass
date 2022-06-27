@@ -146,7 +146,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       orElse: () => throw Error()
     );
 
-    final encryptedFile = await repository.getFile(unlockedState.vault.path);
+    final encryptedFile = await repository.getFile(unlockedState.vault.path!);
     
     emit(
       VaultState.locked(unlockedState.vault.copyWith(

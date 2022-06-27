@@ -378,8 +378,10 @@ mixin _$VaultFile {
       throw _privateConstructorUsedError;
   set contents(EncryptedData<VaultContents> value) =>
       throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
-  set path(String value) => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  set path(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -392,7 +394,9 @@ abstract class $VaultFileCopyWith<$Res> {
   factory $VaultFileCopyWith(VaultFile value, $Res Function(VaultFile) then) =
       _$VaultFileCopyWithImpl<$Res>;
   $Res call(
-      {VaultHeader header, EncryptedData<VaultContents> contents, String path});
+      {VaultHeader header,
+      EncryptedData<VaultContents> contents,
+      @JsonKey(ignore: true) String? path});
 
   $VaultHeaderCopyWith<$Res> get header;
   $EncryptedDataCopyWith<VaultContents, $Res> get contents;
@@ -424,7 +428,7 @@ class _$VaultFileCopyWithImpl<$Res> implements $VaultFileCopyWith<$Res> {
       path: path == freezed
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 
@@ -451,7 +455,9 @@ abstract class _$$_VaultFileCopyWith<$Res> implements $VaultFileCopyWith<$Res> {
       __$$_VaultFileCopyWithImpl<$Res>;
   @override
   $Res call(
-      {VaultHeader header, EncryptedData<VaultContents> contents, String path});
+      {VaultHeader header,
+      EncryptedData<VaultContents> contents,
+      @JsonKey(ignore: true) String? path});
 
   @override
   $VaultHeaderCopyWith<$Res> get header;
@@ -487,7 +493,7 @@ class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
       path: path == freezed
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -496,7 +502,9 @@ class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VaultFile extends _VaultFile {
   _$_VaultFile(
-      {required this.header, required this.contents, required this.path})
+      {required this.header,
+      required this.contents,
+      @JsonKey(ignore: true) this.path})
       : super._();
 
   factory _$_VaultFile.fromJson(Map<String, dynamic> json) =>
@@ -507,7 +515,8 @@ class _$_VaultFile extends _VaultFile {
   @override
   EncryptedData<VaultContents> contents;
   @override
-  String path;
+  @JsonKey(ignore: true)
+  String? path;
 
   @override
   String toString() {
@@ -529,7 +538,7 @@ abstract class _VaultFile extends VaultFile {
   factory _VaultFile(
       {required VaultHeader header,
       required EncryptedData<VaultContents> contents,
-      required String path}) = _$_VaultFile;
+      @JsonKey(ignore: true) String? path}) = _$_VaultFile;
   _VaultFile._() : super._();
 
   factory _VaultFile.fromJson(Map<String, dynamic> json) =
@@ -541,7 +550,8 @@ abstract class _VaultFile extends VaultFile {
   EncryptedData<VaultContents> get contents =>
       throw _privateConstructorUsedError;
   @override
-  String get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get path => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultFileCopyWith<_$_VaultFile> get copyWith =>

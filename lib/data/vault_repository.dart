@@ -10,13 +10,13 @@ class VaultRepository {
 
   Future<VaultFile> getFile(String path) async {
     final raw = await fileProvider.readFile(path);
-    return VaultFile.fromJson(jsonDecode(raw));
+    return VaultFile.fromJson(jsonDecode(raw)).copyWith(path: path);
   }
 
   Future<void> updateFile(VaultFile file, Key key) async {
     var encryptedContents = file.contents.encrypt(key);
     final raw = file.copyWith(contents: encryptedContents).toJson();
-    await fileProvider.updateFile(file.path, jsonEncode(raw));
+    await fileProvider.updateFile(file.path!, jsonEncode(raw));
   }
 
   Future<void> deleteFile(String path) async {

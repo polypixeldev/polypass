@@ -18,9 +18,7 @@ part 'vault_file.g.dart';
 //    contents: {
 //        data: String,
 //        iv: String
-//    },
-// TODO: Remove the path field
-//    path: String
+//    }
 // }
 
 
@@ -112,7 +110,8 @@ class VaultFile with _$VaultFile {
   factory VaultFile({
     required VaultHeader header,
     required EncryptedData<VaultContents> contents,
-    required String path
+    @JsonKey(ignore: true)
+    String? path
   }) = _VaultFile;
 
   factory VaultFile.fromJson(Map<String, dynamic> json) => _$VaultFileFromJson(json);

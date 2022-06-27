@@ -11,14 +11,12 @@ _$_VaultFile _$$_VaultFileFromJson(Map json) => _$_VaultFile(
           Map<String, dynamic>.from(json['header'] as Map)),
       contents: EncryptedData<VaultContents>.fromJson(
           Map<String, dynamic>.from(json['contents'] as Map)),
-      path: json['path'] as String,
     );
 
 Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
     <String, dynamic>{
       'header': instance.header.toJson(),
       'contents': instance.contents.toJson(),
-      'path': instance.path,
     };
 
 _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
