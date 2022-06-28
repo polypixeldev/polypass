@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
-import 'package:hash/hash.dart';
-import 'dart:convert';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
-import 'package:polypass/app_settings.dart';
+import 'package:polypass/data/app_settings.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'create_form_bloc.freezed.dart';

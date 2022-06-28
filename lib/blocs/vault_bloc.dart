@@ -3,6 +3,7 @@ import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/data/app_settings.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -38,7 +39,7 @@ class VaultEvent with _$VaultEvent {
 class VaultBloc extends Bloc<VaultEvent, VaultState> {
   VaultBloc({
     required this.repository,
-    VaultFile? vault,
+    required this.settings
   }) : super(const VaultState.none()) {
     on<VaultEvent>((rawEvent, emit) async {
       await rawEvent.map(
@@ -56,9 +57,12 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
   }
 
   final VaultRepository repository;
+  final AppSettings settings;
 
   Future<void> _onVaultOpened(OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
+
+    settings.copyWith( recentPath: event.path ).save();
 
     emit(VaultState.locked(await repository.getFile(event.path)));
   }
@@ -156,6 +160,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
   }
 
   Future<void> _onVaultClosed(ClosedEvent event, Emitter<VaultState> emit) async {
+    settings.copyWith( recentPath: null ).save();
+    
     emit(const VaultState.none());
   }
 }

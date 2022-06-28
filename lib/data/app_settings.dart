@@ -12,7 +12,8 @@ part 'app_settings.g.dart';
 class AppSettings with _$AppSettings {
   const AppSettings._();
   const factory AppSettings({
-    required VaultSettings defaultVaultSettings
+    required VaultSettings defaultVaultSettings,
+    required String? recentPath
   }) = _AppSettings;
 
   static final documentsDir = getApplicationDocumentsDirectory();
@@ -39,6 +40,6 @@ class AppSettings with _$AppSettings {
     await File('${(await documentsDir).absolute.path}/polypass/.settings/settings.json').writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() => AppSettings( defaultVaultSettings: VaultSettings.empty());
+  factory AppSettings.empty() => AppSettings( defaultVaultSettings: VaultSettings.empty(), recentPath: null );
   factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 }

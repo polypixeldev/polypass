@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
-import 'package:polypass/app_settings.dart';
+import 'package:polypass/data/app_settings.dart';
 import 'package:polypass/pages/settings/settings_bloc.dart';
 
 class Settings extends StatelessWidget {

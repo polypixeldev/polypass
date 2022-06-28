@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
-import 'package:polypass/app_settings.dart';
+import 'package:polypass/data/app_settings.dart';
 
 import 'package:polypass/pages/home/home.dart';
+import 'package:polypass/pages/recent/recent.dart';
 import 'package:polypass/pages/create/create.dart';
 import 'package:polypass/pages/settings/settings.dart';
 import 'package:polypass/pages/vault/home/home.dart';
@@ -24,7 +25,7 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  App({ Key? key, required this.settings }) : super(key: key);
+  const App({ Key? key, required this.settings }) : super(key: key);
 
   final AppSettings settings;
 
@@ -35,6 +36,10 @@ class App extends StatelessWidget {
         GoRoute(
           path: '/',
           builder: (context, state) => const Home()
+        ),
+        GoRoute(
+          path: '/recent',
+          builder: (context, state) => Recent( settings: settings )
         ),
         GoRoute(
           path: '/create',
@@ -64,14 +69,16 @@ class App extends StatelessWidget {
           path: '/vault/settings',
           builder: (context, state) => const VaultSettingsPage()
         )
-      ]
+      ],
+      initialLocation: '/recent'
     );
 
     return RepositoryProvider(
       create: (context) => const VaultRepository(),
         child: BlocProvider(
           create: (context) => VaultBloc(
-            repository: context.read<VaultRepository>()
+            repository: context.read<VaultRepository>(),
+            settings: settings
           ),
           child: MaterialApp.router(
             routeInformationParser: _router.routeInformationParser,

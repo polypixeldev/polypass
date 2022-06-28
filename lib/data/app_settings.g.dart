@@ -9,9 +9,11 @@ part of 'app_settings.dart';
 _$_AppSettings _$$_AppSettingsFromJson(Map json) => _$_AppSettings(
       defaultVaultSettings: VaultSettings.fromJson(
           Map<String, dynamic>.from(json['defaultVaultSettings'] as Map)),
+      recentPath: json['recentPath'] as String?,
     );
 
 Map<String, dynamic> _$$_AppSettingsToJson(_$_AppSettings instance) =>
     <String, dynamic>{
       'defaultVaultSettings': instance.defaultVaultSettings.toJson(),
+      'recentPath': instance.recentPath,
     };
