@@ -13,9 +13,12 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
 
   Widget? appBarIcon;
   List<IconButton>? appBarActions;
+  String name = '';
 
   state.whenOrNull(
-    locked: (_vault) {
+    locked: (vault) {
+      name = ' - ${vault.header.name}';
+
       appBarIcon = const Icon(Icons.lock);
 
       appBarActions = [
@@ -29,7 +32,9 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
         )
       ];
     },
-    unlocked: (_vault, _selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
+    unlocked: (vault, _selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
+      name = ' - ${vault.header.name}';
+
       appBarIcon = IconButton(
         icon: const Icon(Icons.lock_open),
         tooltip: 'Lock vault',
@@ -203,7 +208,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
   );
 
   final polyPassAppBar = AppBar(
-    title: const Text('PolyPass'),
+    title: Text('PolyPass$name'),
     centerTitle: true,
     leading: icon == true && appBarIcon != null ? appBarIcon : null,
     actions: actions == true && appBarActions != null ? appBarActions : null

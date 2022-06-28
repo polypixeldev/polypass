@@ -47,16 +47,16 @@ class VaultLocked extends StatelessWidget {
                   )
                 ],
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
-                      'Unlock Vault',
-                      style: TextStyle(
+                      'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30
                       )
                     ),
-                    MasterPasswordInput(),
-                    SubmitButton()
+                    const MasterPasswordInput(),
+                    const SubmitButton()
                   ],
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
