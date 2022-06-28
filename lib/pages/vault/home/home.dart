@@ -82,7 +82,8 @@ class Tree extends StatelessWidget {
             orElse: () => throw Error()
           );
 
-          final groups = [...decryptedContents.data.components.whereType<Group>()];
+          final groups = decryptedContents.data.components.whereType<Group>().toList();
+          groups.sort((a, b) => a.group.name.toLowerCase().compareTo(b.group.name.toLowerCase()));
 
           return ListView(
             primary: false,
@@ -229,7 +230,9 @@ class TreeGroup extends StatelessWidget {
               final selectedPath = unlockedState.selectedGroup;
 
               if (selectedPath?.join('.') == path.join('.') || path.length < (selectedPath?.length ?? -1)) {
-                for (final childGroup in group.components.whereType<Group>()) {
+                final childGroups = group.components.whereType<Group>().toList();
+                childGroups.sort((a, b) => a.group.name.toLowerCase().compareTo(b.group.name.toLowerCase()));
+                for (final childGroup in childGroups) {
                   groups.add(
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
@@ -288,7 +291,8 @@ class FolderList extends StatelessWidget {
             // components = currentGroup;
           }
 
-          final items = components.whereType<Item>();
+          final items = components.whereType<Item>().toList();
+          items.sort((a, b) => a.item.name.toLowerCase().compareTo(b.item.name.toLowerCase()));
 
           return Padding(
             padding: const EdgeInsets.only(left: 15),
