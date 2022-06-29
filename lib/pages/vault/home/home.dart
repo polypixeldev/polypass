@@ -175,7 +175,7 @@ class TreeGroup extends StatelessWidget {
                     
                     final newVault = unlockedState.vault.updateComponent(path: path, component: updatedComponent);
 
-                    var masterKey = await getMasterKey(context);
+                    var masterKey = (await getMasterKey(context)).masterKey;
 
                     if (masterKey == null) {
                       return;
@@ -445,10 +445,10 @@ class ListItem extends StatelessWidget {
 
                 if (masterKey == null) {
                   Future.delayed(Duration.zero, () => getMasterKey(context)).then((k) {
-                    if (k == null) {
+                    if (k.masterKey == null) {
                       context.read<ListItemBloc>().add(const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
                     } else {
-                      context.read<ListItemBloc>().add(ListItemEvent.masterKeyChanged(k));
+                      context.read<ListItemBloc>().add(ListItemEvent.masterKeyChanged(k.masterKey));
                     }
                   });
                 }
@@ -590,7 +590,7 @@ class ListItem extends StatelessWidget {
         
                               final newVault = unlockedState.vault.deleteComponent(path);
 
-                              var masterKey = await getMasterKey(context);
+                              var masterKey = (await getMasterKey(context)).masterKey;
 
                               if (masterKey == null) {
                                 return;

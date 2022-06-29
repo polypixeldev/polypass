@@ -70,7 +70,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               number++;
             }
 
-            var masterKey = await getMasterKey(context);
+            var masterKey = (await getMasterKey(context)).masterKey;
 
             if (masterKey == null) {
               return;
@@ -110,7 +110,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               return;
             }
 
-            var masterKey = await getMasterKey(context);
+            var masterKey = (await getMasterKey(context)).masterKey;
 
             if (masterKey == null) {
               return;
@@ -174,7 +174,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               return;
             }
 
-            var masterKey = await getMasterKey(context);
+            var masterKey = (await getMasterKey(context)).masterKey;
 
             if (masterKey == null) {
               return;

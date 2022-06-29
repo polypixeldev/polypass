@@ -22,6 +22,7 @@ class VaultSettingsPage extends StatelessWidget {
             child: Center(
               child: Container(
                 padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.symmetric( horizontal: 25 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(10)
@@ -44,11 +45,40 @@ class VaultSettingsPage extends StatelessWidget {
                             context.read<SettingsBloc>().add(SettingsEvent.setSaveKeyInMemory(setting));
                           }
                         ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric( vertical: 5 ),
+                        ),
+                        const Text(
+                          'Change Master Password',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white
+                          )
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric( horizontal: 20 ),
+                          child: Column(
+                            children: [
+                              MasterPasswordInput(
+                                onChanged: (newMasterPassword) {
+                                  context.read<SettingsBloc>().add(SettingsEvent.newMasterPasswordChanged(newMasterPassword));
+                                },
+                                label: 'New Master Password',
+                              ),
+                              MasterPasswordInput(
+                                onChanged: (newMasterPassword) {
+                                  context.read<SettingsBloc>().add(SettingsEvent.confirmNewMasterPasswordChanged(newMasterPassword));
+                                },
+                                label: 'Confirm New Master Password',
+                              )
+                            ],
+                          ),
+                        ),
                         Row(
-                          children: const [
-                            BackToHomeButton(),
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                            SaveButton()
+                          children: [
+                            const BackToHomeButton(),
+                            const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                            SaveButton( isFormValid: state.isFormValid )
                           ],
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -63,6 +93,45 @@ class VaultSettingsPage extends StatelessWidget {
           );
         }
       )
+    );
+  }
+}
+
+class MasterPasswordInput extends StatelessWidget {
+  const MasterPasswordInput({
+    Key? key,
+    required this.onChanged,
+    required this.label
+  }) : super(key: key);
+
+  final void Function(String newMasterPassword) onChanged;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.secondary,
+        borderRadius: BorderRadius.circular(5)
+      ),
+      margin: const EdgeInsets.all(10),
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: label,
+          contentPadding: const EdgeInsets.all(10),
+          floatingLabelStyle: const TextStyle( color: Colors.black ),
+          labelStyle: const TextStyle( color: Colors.black ),
+          border: InputBorder.none
+        ),
+        style: theme.textTheme.bodySmall,
+        cursorColor: Colors.black,
+        obscureText: true,
+        enableSuggestions: false,
+        autocorrect: false,
+        onChanged: onChanged
+      ),
     );
   }
 }
@@ -115,7 +184,9 @@ class BackToHomeButton extends StatelessWidget {
 }
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({ Key? key }) : super(key: key);
+  const SaveButton({ Key? key, required this.isFormValid }) : super(key: key);
+
+  final bool isFormValid;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +201,7 @@ class SaveButton extends StatelessWidget {
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(15))
       ),
-      onPressed: () {
+      onPressed: !isFormValid ? null : () {
         context.read<SettingsBloc>().add(SettingsEvent.settingsSaved(context));
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Settings saved')

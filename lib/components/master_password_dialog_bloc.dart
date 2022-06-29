@@ -14,12 +14,14 @@ class MasterPasswordDialogState with _$MasterPasswordDialogState {
   const factory MasterPasswordDialogState({
     required String masterPassword,
     required Key? masterKey,
+    required Key? derivedKey,
     required MasterPasswordDialogStatus status
   }) = _MasterPasswordDialogState;
 
   factory MasterPasswordDialogState.empty() => const MasterPasswordDialogState(
     masterPassword: 'masterPassword',
     masterKey: null,
+    derivedKey: null,
     status: MasterPasswordDialogStatus.wait
   );
 
@@ -62,7 +64,8 @@ class MasterPasswordDialogBloc extends Bloc<MasterPasswordDialogEvent, MasterPas
     if(vaultFile.header.testMagic(derivedKey, vaultFile.contents.iv)) {
       emit(state.copyWith(
         status: MasterPasswordDialogStatus.success,
-        masterKey: vaultFile.header.decryptMasterKey(derivedKey, vaultFile.contents.iv)
+        masterKey: vaultFile.header.decryptMasterKey(derivedKey, vaultFile.contents.iv),
+        derivedKey: derivedKey
       ));
     } else {
       emit(state.copyWith(

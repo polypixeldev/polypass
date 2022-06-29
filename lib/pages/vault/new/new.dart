@@ -312,7 +312,7 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () async {
-            var masterKey = await getMasterKey(context);
+            var masterKey = (await getMasterKey(context)).masterKey;
 
             if (masterKey == null) {
               return;

@@ -28,7 +28,7 @@ class EditItem extends StatelessWidget {
       orElse: () => throw Error()
     );
 
-    Future<encrypt.Key?>? dialog;
+    Future<MasterKeys>? dialog;
 
     return AppWrapper(
       child: Center(
@@ -47,10 +47,10 @@ class EditItem extends StatelessWidget {
                 password: '',
                 notes: item.notes
               ),
-              child: FutureBuilder<encrypt.Key?>(
+              child: FutureBuilder<MasterKeys>(
                 future: dialog ?? Future.delayed(Duration.zero, () => getMasterKey(context)),
                 builder: (context, snapshot) {
-                  final masterKey = snapshot.data;
+                  final masterKey = snapshot.data?.masterKey;
                   if (masterKey != null) {
                     context.read<EditFormBloc>().add(EditFormEvent.passwordChanged(
                         item.password.decrypt(masterKey).maybeMap(
@@ -380,7 +380,7 @@ class SubmitButton extends StatelessWidget {
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))
           ),
           onPressed: !state.isFormValid || state.submitted ? null : () async {
-            var masterKey = await getMasterKey(context);
+            var masterKey = (await getMasterKey(context)).masterKey;
 
             if (masterKey == null) {
               return;

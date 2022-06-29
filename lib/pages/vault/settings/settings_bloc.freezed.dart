@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingsState {
   VaultSettings get settings => throw _privateConstructorUsedError;
+  String get newMasterPassword => throw _privateConstructorUsedError;
+  String get confirmNewMasterPassword => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -28,7 +30,10 @@ abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res>;
-  $Res call({VaultSettings settings});
+  $Res call(
+      {VaultSettings settings,
+      String newMasterPassword,
+      String confirmNewMasterPassword});
 
   $VaultSettingsCopyWith<$Res> get settings;
 }
@@ -45,12 +50,22 @@ class _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? settings = freezed,
+    Object? newMasterPassword = freezed,
+    Object? confirmNewMasterPassword = freezed,
   }) {
     return _then(_value.copyWith(
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
+      newMasterPassword: newMasterPassword == freezed
+          ? _value.newMasterPassword
+          : newMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmNewMasterPassword: confirmNewMasterPassword == freezed
+          ? _value.confirmNewMasterPassword
+          : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -69,7 +84,10 @@ abstract class _$$_SettingsStateCopyWith<$Res>
           _$_SettingsState value, $Res Function(_$_SettingsState) then) =
       __$$_SettingsStateCopyWithImpl<$Res>;
   @override
-  $Res call({VaultSettings settings});
+  $Res call(
+      {VaultSettings settings,
+      String newMasterPassword,
+      String confirmNewMasterPassword});
 
   @override
   $VaultSettingsCopyWith<$Res> get settings;
@@ -89,27 +107,45 @@ class __$$_SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? settings = freezed,
+    Object? newMasterPassword = freezed,
+    Object? confirmNewMasterPassword = freezed,
   }) {
     return _then(_$_SettingsState(
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
+      newMasterPassword: newMasterPassword == freezed
+          ? _value.newMasterPassword
+          : newMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmNewMasterPassword: confirmNewMasterPassword == freezed
+          ? _value.confirmNewMasterPassword
+          : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SettingsState implements _SettingsState {
-  const _$_SettingsState({required this.settings});
+class _$_SettingsState extends _SettingsState {
+  const _$_SettingsState(
+      {required this.settings,
+      required this.newMasterPassword,
+      required this.confirmNewMasterPassword})
+      : super._();
 
   @override
   final VaultSettings settings;
+  @override
+  final String newMasterPassword;
+  @override
+  final String confirmNewMasterPassword;
 
   @override
   String toString() {
-    return 'SettingsState(settings: $settings)';
+    return 'SettingsState(settings: $settings, newMasterPassword: $newMasterPassword, confirmNewMasterPassword: $confirmNewMasterPassword)';
   }
 
   @override
@@ -117,12 +153,19 @@ class _$_SettingsState implements _SettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SettingsState &&
-            const DeepCollectionEquality().equals(other.settings, settings));
+            const DeepCollectionEquality().equals(other.settings, settings) &&
+            const DeepCollectionEquality()
+                .equals(other.newMasterPassword, newMasterPassword) &&
+            const DeepCollectionEquality().equals(
+                other.confirmNewMasterPassword, confirmNewMasterPassword));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(settings));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(settings),
+      const DeepCollectionEquality().hash(newMasterPassword),
+      const DeepCollectionEquality().hash(confirmNewMasterPassword));
 
   @JsonKey(ignore: true)
   @override
@@ -130,12 +173,19 @@ class _$_SettingsState implements _SettingsState {
       __$$_SettingsStateCopyWithImpl<_$_SettingsState>(this, _$identity);
 }
 
-abstract class _SettingsState implements SettingsState {
-  const factory _SettingsState({required final VaultSettings settings}) =
-      _$_SettingsState;
+abstract class _SettingsState extends SettingsState {
+  const factory _SettingsState(
+      {required final VaultSettings settings,
+      required final String newMasterPassword,
+      required final String confirmNewMasterPassword}) = _$_SettingsState;
+  const _SettingsState._() : super._();
 
   @override
   VaultSettings get settings => throw _privateConstructorUsedError;
+  @override
+  String get newMasterPassword => throw _privateConstructorUsedError;
+  @override
+  String get confirmNewMasterPassword => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
@@ -147,18 +197,28 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
     required TResult Function(BuildContext context) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -166,18 +226,30 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -269,6 +341,10 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setSaveKeyInMemory(setting);
@@ -278,6 +354,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
@@ -287,6 +366,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -300,6 +382,10 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setSaveKeyInMemory(this);
@@ -309,6 +395,10 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
@@ -318,6 +408,10 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -336,6 +430,335 @@ abstract class SetSaveKeyInMemoryEvent implements SettingsEvent {
   @JsonKey(ignore: true)
   _$$SetSaveKeyInMemoryEventCopyWith<_$SetSaveKeyInMemoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NewMasterPasswordChangedEventCopyWith<$Res> {
+  factory _$$NewMasterPasswordChangedEventCopyWith(
+          _$NewMasterPasswordChangedEvent value,
+          $Res Function(_$NewMasterPasswordChangedEvent) then) =
+      __$$NewMasterPasswordChangedEventCopyWithImpl<$Res>;
+  $Res call({String newMasterPassword});
+}
+
+/// @nodoc
+class __$$NewMasterPasswordChangedEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$NewMasterPasswordChangedEventCopyWith<$Res> {
+  __$$NewMasterPasswordChangedEventCopyWithImpl(
+      _$NewMasterPasswordChangedEvent _value,
+      $Res Function(_$NewMasterPasswordChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$NewMasterPasswordChangedEvent));
+
+  @override
+  _$NewMasterPasswordChangedEvent get _value =>
+      super._value as _$NewMasterPasswordChangedEvent;
+
+  @override
+  $Res call({
+    Object? newMasterPassword = freezed,
+  }) {
+    return _then(_$NewMasterPasswordChangedEvent(
+      newMasterPassword == freezed
+          ? _value.newMasterPassword
+          : newMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
+  const _$NewMasterPasswordChangedEvent(this.newMasterPassword);
+
+  @override
+  final String newMasterPassword;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.newMasterPasswordChanged(newMasterPassword: $newMasterPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NewMasterPasswordChangedEvent &&
+            const DeepCollectionEquality()
+                .equals(other.newMasterPassword, newMasterPassword));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(newMasterPassword));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$NewMasterPasswordChangedEventCopyWith<_$NewMasterPasswordChangedEvent>
+      get copyWith => __$$NewMasterPasswordChangedEventCopyWithImpl<
+          _$NewMasterPasswordChangedEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return newMasterPasswordChanged(newMasterPassword);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return newMasterPasswordChanged?.call(newMasterPassword);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (newMasterPasswordChanged != null) {
+      return newMasterPasswordChanged(newMasterPassword);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return newMasterPasswordChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return newMasterPasswordChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (newMasterPasswordChanged != null) {
+      return newMasterPasswordChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NewMasterPasswordChangedEvent implements SettingsEvent {
+  const factory NewMasterPasswordChangedEvent(final String newMasterPassword) =
+      _$NewMasterPasswordChangedEvent;
+
+  String get newMasterPassword => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$NewMasterPasswordChangedEventCopyWith<_$NewMasterPasswordChangedEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConfirmNewMasterPasswordChangedEventCopyWith<$Res> {
+  factory _$$ConfirmNewMasterPasswordChangedEventCopyWith(
+          _$ConfirmNewMasterPasswordChangedEvent value,
+          $Res Function(_$ConfirmNewMasterPasswordChangedEvent) then) =
+      __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<$Res>;
+  $Res call({String confirmNewMasterPassword});
+}
+
+/// @nodoc
+class __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$ConfirmNewMasterPasswordChangedEventCopyWith<$Res> {
+  __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl(
+      _$ConfirmNewMasterPasswordChangedEvent _value,
+      $Res Function(_$ConfirmNewMasterPasswordChangedEvent) _then)
+      : super(
+            _value, (v) => _then(v as _$ConfirmNewMasterPasswordChangedEvent));
+
+  @override
+  _$ConfirmNewMasterPasswordChangedEvent get _value =>
+      super._value as _$ConfirmNewMasterPasswordChangedEvent;
+
+  @override
+  $Res call({
+    Object? confirmNewMasterPassword = freezed,
+  }) {
+    return _then(_$ConfirmNewMasterPasswordChangedEvent(
+      confirmNewMasterPassword == freezed
+          ? _value.confirmNewMasterPassword
+          : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConfirmNewMasterPasswordChangedEvent
+    implements ConfirmNewMasterPasswordChangedEvent {
+  const _$ConfirmNewMasterPasswordChangedEvent(this.confirmNewMasterPassword);
+
+  @override
+  final String confirmNewMasterPassword;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.confirmNewMasterPasswordChanged(confirmNewMasterPassword: $confirmNewMasterPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConfirmNewMasterPasswordChangedEvent &&
+            const DeepCollectionEquality().equals(
+                other.confirmNewMasterPassword, confirmNewMasterPassword));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(confirmNewMasterPassword));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ConfirmNewMasterPasswordChangedEventCopyWith<
+          _$ConfirmNewMasterPasswordChangedEvent>
+      get copyWith => __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<
+          _$ConfirmNewMasterPasswordChangedEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return confirmNewMasterPasswordChanged(confirmNewMasterPassword);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return confirmNewMasterPasswordChanged?.call(confirmNewMasterPassword);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (confirmNewMasterPasswordChanged != null) {
+      return confirmNewMasterPasswordChanged(confirmNewMasterPassword);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return confirmNewMasterPasswordChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return confirmNewMasterPasswordChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (confirmNewMasterPasswordChanged != null) {
+      return confirmNewMasterPasswordChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConfirmNewMasterPasswordChangedEvent implements SettingsEvent {
+  const factory ConfirmNewMasterPasswordChangedEvent(
+          final String confirmNewMasterPassword) =
+      _$ConfirmNewMasterPasswordChangedEvent;
+
+  String get confirmNewMasterPassword => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$ConfirmNewMasterPasswordChangedEventCopyWith<
+          _$ConfirmNewMasterPasswordChangedEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -405,6 +828,10 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return settingsSaved(context);
@@ -414,6 +841,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return settingsSaved?.call(context);
@@ -423,6 +853,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -436,6 +869,10 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return settingsSaved(this);
@@ -445,6 +882,10 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
@@ -454,6 +895,10 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {

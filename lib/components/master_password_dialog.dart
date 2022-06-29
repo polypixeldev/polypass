@@ -7,9 +7,13 @@ import 'package:polypass/components/master_password_dialog_bloc.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 
 class MasterPasswordDialog extends StatelessWidget {
-  const MasterPasswordDialog({ Key? key, required this.onSuccess, required this.onCancel }) : super(key: key);
+  const MasterPasswordDialog({
+    Key? key,
+    required this.onSuccess,
+    required this.onCancel
+  }) : super(key: key);
 
-  final void Function(encrypt.Key masterKey) onSuccess;
+  final void Function(encrypt.Key masterKey, encrypt.Key derivedKey) onSuccess;
   final void Function() onCancel;
 
   @override
@@ -27,7 +31,7 @@ class MasterPasswordDialog extends StatelessWidget {
         listeners: [
           BlocListener<MasterPasswordDialogBloc, MasterPasswordDialogState>(
             listener: (context, state) {
-              onSuccess(state.masterKey!);
+              onSuccess(state.masterKey!, state.derivedKey!);
             },
             listenWhen: (previous, current) => current.status == MasterPasswordDialogStatus.success
           ),
@@ -186,19 +190,31 @@ class CancelButton extends StatelessWidget {
   }
 }
 
-Future<encrypt.Key?> getMasterKey(BuildContext context) async {
+class MasterKeys {
+  const MasterKeys({
+    this.masterKey,
+    this.derivedKey
+  });
+
+  final encrypt.Key? masterKey;
+  final encrypt.Key? derivedKey;
+}
+
+Future<MasterKeys> getMasterKey(BuildContext context, {bool forceDialog = false}) async {
   var masterKey = context.read<VaultBloc>().state.maybeMap(
     unlocked: (state) => state.masterKey,
     orElse: () => throw Error()
   );
+  encrypt.Key? derivedKey;
 
-  if (masterKey == null) {
+  if (masterKey == null || forceDialog) {
     await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => MasterPasswordDialog(
-        onSuccess: (key) {
-          masterKey = key;
+        onSuccess: (dialogMasterKey, dialogDerivedKey) {
+          masterKey = dialogMasterKey;
+          derivedKey = dialogDerivedKey;
           Navigator.of(context, rootNavigator: true).pop();
         },
         onCancel: () {
@@ -209,5 +225,8 @@ Future<encrypt.Key?> getMasterKey(BuildContext context) async {
     );
   }
 
-  return masterKey;
+  return MasterKeys(
+    masterKey: masterKey,
+    derivedKey: derivedKey
+  );
 }

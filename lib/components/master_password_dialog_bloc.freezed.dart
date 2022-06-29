@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MasterPasswordDialogState {
   String get masterPassword => throw _privateConstructorUsedError;
   Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get derivedKey => throw _privateConstructorUsedError;
   MasterPasswordDialogStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -33,6 +34,7 @@ abstract class $MasterPasswordDialogStateCopyWith<$Res> {
   $Res call(
       {String masterPassword,
       Key? masterKey,
+      Key? derivedKey,
       MasterPasswordDialogStatus status});
 }
 
@@ -49,6 +51,7 @@ class _$MasterPasswordDialogStateCopyWithImpl<$Res>
   $Res call({
     Object? masterPassword = freezed,
     Object? masterKey = freezed,
+    Object? derivedKey = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +62,10 @@ class _$MasterPasswordDialogStateCopyWithImpl<$Res>
       masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
+              as Key?,
+      derivedKey: derivedKey == freezed
+          ? _value.derivedKey
+          : derivedKey // ignore: cast_nullable_to_non_nullable
               as Key?,
       status: status == freezed
           ? _value.status
@@ -79,6 +86,7 @@ abstract class _$$_MasterPasswordDialogStateCopyWith<$Res>
   $Res call(
       {String masterPassword,
       Key? masterKey,
+      Key? derivedKey,
       MasterPasswordDialogStatus status});
 }
 
@@ -99,6 +107,7 @@ class __$$_MasterPasswordDialogStateCopyWithImpl<$Res>
   $Res call({
     Object? masterPassword = freezed,
     Object? masterKey = freezed,
+    Object? derivedKey = freezed,
     Object? status = freezed,
   }) {
     return _then(_$_MasterPasswordDialogState(
@@ -109,6 +118,10 @@ class __$$_MasterPasswordDialogStateCopyWithImpl<$Res>
       masterKey: masterKey == freezed
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
+              as Key?,
+      derivedKey: derivedKey == freezed
+          ? _value.derivedKey
+          : derivedKey // ignore: cast_nullable_to_non_nullable
               as Key?,
       status: status == freezed
           ? _value.status
@@ -124,6 +137,7 @@ class _$_MasterPasswordDialogState extends _MasterPasswordDialogState {
   const _$_MasterPasswordDialogState(
       {required this.masterPassword,
       required this.masterKey,
+      required this.derivedKey,
       required this.status})
       : super._();
 
@@ -132,11 +146,13 @@ class _$_MasterPasswordDialogState extends _MasterPasswordDialogState {
   @override
   final Key? masterKey;
   @override
+  final Key? derivedKey;
+  @override
   final MasterPasswordDialogStatus status;
 
   @override
   String toString() {
-    return 'MasterPasswordDialogState(masterPassword: $masterPassword, masterKey: $masterKey, status: $status)';
+    return 'MasterPasswordDialogState(masterPassword: $masterPassword, masterKey: $masterKey, derivedKey: $derivedKey, status: $status)';
   }
 
   @override
@@ -147,6 +163,8 @@ class _$_MasterPasswordDialogState extends _MasterPasswordDialogState {
             const DeepCollectionEquality()
                 .equals(other.masterPassword, masterPassword) &&
             const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
+            const DeepCollectionEquality()
+                .equals(other.derivedKey, derivedKey) &&
             const DeepCollectionEquality().equals(other.status, status));
   }
 
@@ -155,6 +173,7 @@ class _$_MasterPasswordDialogState extends _MasterPasswordDialogState {
       runtimeType,
       const DeepCollectionEquality().hash(masterPassword),
       const DeepCollectionEquality().hash(masterKey),
+      const DeepCollectionEquality().hash(derivedKey),
       const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
@@ -168,6 +187,7 @@ abstract class _MasterPasswordDialogState extends MasterPasswordDialogState {
   const factory _MasterPasswordDialogState(
           {required final String masterPassword,
           required final Key? masterKey,
+          required final Key? derivedKey,
           required final MasterPasswordDialogStatus status}) =
       _$_MasterPasswordDialogState;
   const _MasterPasswordDialogState._() : super._();
@@ -176,6 +196,8 @@ abstract class _MasterPasswordDialogState extends MasterPasswordDialogState {
   String get masterPassword => throw _privateConstructorUsedError;
   @override
   Key? get masterKey => throw _privateConstructorUsedError;
+  @override
+  Key? get derivedKey => throw _privateConstructorUsedError;
   @override
   MasterPasswordDialogStatus get status => throw _privateConstructorUsedError;
   @override
