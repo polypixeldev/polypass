@@ -62,7 +62,7 @@ class MasterPasswordDialogBloc extends Bloc<MasterPasswordDialogEvent, MasterPas
     if(vaultFile.header.testMagic(derivedKey, vaultFile.contents.iv)) {
       emit(state.copyWith(
         status: MasterPasswordDialogStatus.success,
-        masterKey: derivedKey
+        masterKey: vaultFile.header.decryptMasterKey(derivedKey, vaultFile.contents.iv)
       ));
     } else {
       emit(state.copyWith(

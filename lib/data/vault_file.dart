@@ -81,6 +81,7 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
   }
 
   static Key deriveKey(String masterPassword) {
+    // TODO: Use more secure KDF
     final rawKey = base64Encode(SHA256().update(utf8.encode(masterPassword)).digest());
     return Key.fromBase64(rawKey);
   }
@@ -248,13 +249,14 @@ class VaultHeader with _$VaultHeader {
     required String name,
     required String description,
     required VaultSettings settings,
-    required MagicValue magic
+    required MagicValue magic,
+    required String key
   }) = _VaultHeader;
 
   factory VaultHeader.fromJson(Map<String, dynamic> json) => _$VaultHeaderFromJson(json);
 
-  bool testMagic(Key key, IV iv) {
-    final encrypter = Encrypter(AES(key));
+  bool testMagic(Key derivedKey, IV iv) {
+    final encrypter = Encrypter(AES(derivedKey));
     var rawDecrypted = '';
     try {
       rawDecrypted = encrypter.decrypt(Encrypted.fromBase64(magic.value), iv: iv);
@@ -263,6 +265,10 @@ class VaultHeader with _$VaultHeader {
     }
 
     return rawDecrypted == MagicValue.decryptedValue.value;
+  }
+
+  Key decryptMasterKey(Key derivedKey, IV iv) {
+    return Key.fromBase64(Encrypter(AES(derivedKey)).decrypt(Encrypted.fromBase64(key), iv: iv));
   }
 }
 

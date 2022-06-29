@@ -72,7 +72,7 @@ class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
       emit(state.copyWith(
         success: true
       ));
-      vaultBloc.add(VaultEvent.unlocked(derivedKey));
+      vaultBloc.add(VaultEvent.unlocked(lockedState.vault.header.decryptMasterKey(derivedKey, lockedState.vault.contents.iv)));
     } else {
       emit(state.copyWith(
         masterKey: null,
