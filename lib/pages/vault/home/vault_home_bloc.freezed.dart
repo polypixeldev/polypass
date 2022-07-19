@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$VaultHomeState {
   String get query => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
+  List<List<String>> get results => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VaultHomeStateCopyWith<VaultHomeState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $VaultHomeStateCopyWith<$Res> {
   factory $VaultHomeStateCopyWith(
           VaultHomeState value, $Res Function(VaultHomeState) then) =
       _$VaultHomeStateCopyWithImpl<$Res>;
-  $Res call({String query, bool submitted});
+  $Res call({String query, bool submitted, List<List<String>> results});
 }
 
 /// @nodoc
@@ -45,6 +46,7 @@ class _$VaultHomeStateCopyWithImpl<$Res>
   $Res call({
     Object? query = freezed,
     Object? submitted = freezed,
+    Object? results = freezed,
   }) {
     return _then(_value.copyWith(
       query: query == freezed
@@ -55,6 +57,10 @@ class _$VaultHomeStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
+      results: results == freezed
+          ? _value.results
+          : results // ignore: cast_nullable_to_non_nullable
+              as List<List<String>>,
     ));
   }
 }
@@ -66,7 +72,7 @@ abstract class _$$_VaultHomeStateCopyWith<$Res>
           _$_VaultHomeState value, $Res Function(_$_VaultHomeState) then) =
       __$$_VaultHomeStateCopyWithImpl<$Res>;
   @override
-  $Res call({String query, bool submitted});
+  $Res call({String query, bool submitted, List<List<String>> results});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_VaultHomeStateCopyWithImpl<$Res>
   $Res call({
     Object? query = freezed,
     Object? submitted = freezed,
+    Object? results = freezed,
   }) {
     return _then(_$_VaultHomeState(
       query: query == freezed
@@ -94,6 +101,10 @@ class __$$_VaultHomeStateCopyWithImpl<$Res>
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
+      results: results == freezed
+          ? _value._results
+          : results // ignore: cast_nullable_to_non_nullable
+              as List<List<String>>,
     ));
   }
 }
@@ -101,16 +112,26 @@ class __$$_VaultHomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_VaultHomeState implements _VaultHomeState {
-  const _$_VaultHomeState({required this.query, required this.submitted});
+  const _$_VaultHomeState(
+      {required this.query,
+      required this.submitted,
+      required final List<List<String>> results})
+      : _results = results;
 
   @override
   final String query;
   @override
   final bool submitted;
+  final List<List<String>> _results;
+  @override
+  List<List<String>> get results {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_results);
+  }
 
   @override
   String toString() {
-    return 'VaultHomeState(query: $query, submitted: $submitted)';
+    return 'VaultHomeState(query: $query, submitted: $submitted, results: $results)';
   }
 
   @override
@@ -119,14 +140,16 @@ class _$_VaultHomeState implements _VaultHomeState {
         (other.runtimeType == runtimeType &&
             other is _$_VaultHomeState &&
             const DeepCollectionEquality().equals(other.query, query) &&
-            const DeepCollectionEquality().equals(other.submitted, submitted));
+            const DeepCollectionEquality().equals(other.submitted, submitted) &&
+            const DeepCollectionEquality().equals(other._results, _results));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(query),
-      const DeepCollectionEquality().hash(submitted));
+      const DeepCollectionEquality().hash(submitted),
+      const DeepCollectionEquality().hash(_results));
 
   @JsonKey(ignore: true)
   @override
@@ -137,12 +160,15 @@ class _$_VaultHomeState implements _VaultHomeState {
 abstract class _VaultHomeState implements VaultHomeState {
   const factory _VaultHomeState(
       {required final String query,
-      required final bool submitted}) = _$_VaultHomeState;
+      required final bool submitted,
+      required final List<List<String>> results}) = _$_VaultHomeState;
 
   @override
   String get query => throw _privateConstructorUsedError;
   @override
   bool get submitted => throw _privateConstructorUsedError;
+  @override
+  List<List<String>> get results => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultHomeStateCopyWith<_$_VaultHomeState> get copyWith =>

@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
 
+import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/data/vault_file.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_home_bloc.freezed.dart';
 
@@ -7,12 +10,14 @@ part 'vault_home_bloc.freezed.dart';
 class VaultHomeState with _$VaultHomeState {
   const factory VaultHomeState({
     required String query,
-    required bool submitted
+    required bool submitted,
+    required List<List<String>> results
   }) = _VaultHomeState;
 
   factory VaultHomeState.empty() => const VaultHomeState(
     query: '',
-    submitted: false
+    submitted: false,
+    results: []
   );
 }
 
@@ -23,7 +28,7 @@ class VaultHomeEvent with _$VaultHomeEvent {
 }
 
 class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
-  VaultHomeBloc() : super(VaultHomeState.empty()) {
+  VaultHomeBloc({ required this.vaultBloc }) : super(VaultHomeState.empty()) {
     on<VaultHomeEvent>((event, emit) async {
       await event.map(
         queryChanged: (event) => _onQueryChanged(event, emit),
@@ -31,6 +36,8 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
       );
     });
   }
+
+  final VaultBloc vaultBloc;
 
   Future<void> _onQueryChanged(QueryChangedEvent event, Emitter<VaultHomeState> emit) async {
     emit(state.copyWith(
@@ -43,6 +50,43 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
       submitted: true
     ));
 
-    // TODO: Handle search
+    final unlockedState = vaultBloc.state.maybeMap(
+      unlocked: (state) => state,
+      orElse: () => throw Error()
+    );
+
+    final decryptedContents = unlockedState.vault.contents.maybeMap(
+      decrypted: (contents) => contents,
+      orElse: () => throw Error()
+    );
+
+    final results = searchGroup(decryptedContents.data.components, state.query, null);
+
+    emit(state.copyWith(
+      results: results
+    ));
+
+    vaultBloc.add(const VaultEvent.groupSelected(['Search Results'], false));
   }
+}
+
+List<List<String>> searchGroup(List<VaultComponent> components, String query, List<String>? path) {
+  final matchedItems = <List<String>>[];
+
+  for (final component in components) {
+    component.map(
+      group: (group) {
+        final groupMatchedItems = searchGroup(group.group.components, query, path == null ? [group.group.name] : [...path, group.group.name]);
+        matchedItems.addAll(groupMatchedItems);
+      },
+      item: (item) {
+        final exp = RegExp(query);
+        if (exp.hasMatch(item.item.name)) {
+          matchedItems.add(path == null ? [item.item.name] : [...path, item.item.name]);
+        }
+      }
+    );
+  }
+
+  return matchedItems;
 }

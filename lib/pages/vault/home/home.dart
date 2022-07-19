@@ -19,7 +19,9 @@ class VaultHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppWrapper(
       child: BlocProvider(
-        create: (context) => VaultHomeBloc(),
+        create: (context) => VaultHomeBloc(
+          vaultBloc: context.read<VaultBloc>()
+        ),
         child: Column(
           children: const [
             SearchBar(),
@@ -85,6 +87,15 @@ class Tree extends StatelessWidget {
           final groups = decryptedContents.data.components.whereType<Group>().toList();
           groups.sort((a, b) => a.group.name.toLowerCase().compareTo(b.group.name.toLowerCase()));
 
+          if (unlockedState.selectedGroup?[0] == 'Search Results') {
+            final components = context.read<VaultHomeBloc>().state.results.map((path) => unlockedState.vault.getComponent(path));
+
+            groups.add(Group(VaultGroup(
+              name: 'Search Results',
+              components: components.toList()
+            )));
+          }
+
           return ListView(
             primary: false,
             children: [...groups.map((group) => 
@@ -137,9 +148,16 @@ class TreeGroup extends StatelessWidget {
                     fontSize: theme.textTheme.bodySmall!.fontSize
                   ),
                   onFieldSubmitted: (newName) async {
-                    if(newName.contains(RegExp(r'\.'))) {
+                    if (newName.contains(RegExp(r'\.'))) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Invalid character - "." is not allowed in names')
+                      ));
+                      return;
+                    }
+
+                    if (newName == 'Search Results') {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('This group name is reserved')
                       ));
                       return;
                     }
@@ -148,7 +166,7 @@ class TreeGroup extends StatelessWidget {
 
                     var selectedPath = unlockedState.selectedGroup;
 
-                    if(selectedPath != null) {
+                    if (selectedPath != null) {
                       if (selectedPath.join('.') == path.join('.')) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('You cannot rename the selected group')
@@ -159,7 +177,7 @@ class TreeGroup extends StatelessWidget {
 
                     final parentGroup = path.length == 1 ? unlockedState.vault.toGroup() : unlockedState.vault.getComponent(path.take(path.length - 1).toList()).maybeWhen(group: (group) => group, orElse: () => throw Error());
 
-                    if(parentGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == newName).isNotEmpty) {
+                    if (parentGroup.components.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == newName).isNotEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('A group or item with this name already exists in the selected group')
                       ));
@@ -194,7 +212,7 @@ class TreeGroup extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
                     decoration: BoxDecoration(
-                      color: unlockedState.selectedGroup?.join('.') == path.join('.') ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
+                      color: path[0] == 'Search Results' ? Colors.orange : unlockedState.selectedGroup?.join('.') == path.join('.') ? theme.colorScheme.tertiary : componentState.inArea ? theme.colorScheme.primaryContainer : theme.cardColor,
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: GestureDetector(
@@ -282,13 +300,10 @@ class FolderList extends StatelessWidget {
 
           if (paths == null) {
             components = decryptedContents.data.components;
+          } else if (paths[0] == 'Search Results') {
+            components = context.read<VaultHomeBloc>().state.results.map((path) => unlockedState.vault.getComponent(path)).toList();
           } else {
             components = unlockedState.vault.getComponent(paths).maybeWhen(group: (group) => group.components, orElse: () => throw Error());
-            // var currentGroup = decryptedContents.data.components;
-            // for (final path in paths) {
-            //   currentGroup = currentGroup.whereType<Group>().where((group) => group.group.name == path).toList()[0].group.components;
-            // }
-            // components = currentGroup;
           }
 
           final items = components.whereType<Item>().toList();
@@ -542,22 +557,25 @@ class ListItem extends StatelessWidget {
                 },
                 actions: (state, isSelected, columnWidth) {
                   if (state.inArea) {
-                    return Row(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: 'View',
-                            style: TextStyle(
-                              color: isSelected ? Colors.white : Colors.lightBlue,
-                              fontSize: theme.textTheme.bodySmall!.fontSize,
-                              decoration: TextDecoration.underline
-                            ),
-                            recognizer: TapGestureRecognizer()..onTap = () {
-                              context.read<ListItemBloc>().add(const ListItemEvent.masterKeyChanged(null));
-                              context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
-                            }
-                          )
-                        ),
+                    final actions = <Widget>[
+                      RichText(
+                        text: TextSpan(
+                          text: 'View',
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.lightBlue,
+                            fontSize: theme.textTheme.bodySmall!.fontSize,
+                            decoration: TextDecoration.underline
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {
+                            context.read<ListItemBloc>().add(const ListItemEvent.masterKeyChanged(null));
+                            context.read<ListItemBloc>().add(const ListItemEvent.modeToggled());
+                          }
+                        )
+                      )
+                    ];
+
+                    if (path[0] != 'Search Results') {
+                      actions.addAll([
                         const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
                         RichText(
                           text: TextSpan(
@@ -599,8 +617,11 @@ class ListItem extends StatelessWidget {
                               vaultBloc.add(VaultEvent.updated(newVault, masterKey));
                             }
                           )
-                        ),
-                      ]
+                        )
+                      ]);
+                    }
+                    return Row(
+                      children: actions
                     );
                   }
                 }

@@ -27,7 +27,7 @@ class AppWrapper extends StatelessWidget {
         );
       },
       child: Scaffold(
-        appBar: createAppBar(context, context.read<VaultBloc>().state, actions, icon),
+        appBar: createAppBar(context, context.watch<VaultBloc>().state, actions, icon),
         body: SizedBox.expand(
           child: Container(
             color: Theme.of(context).backgroundColor,
