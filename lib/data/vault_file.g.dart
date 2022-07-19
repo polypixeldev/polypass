@@ -27,6 +27,7 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       magic:
           MagicValue.fromJson(Map<String, dynamic>.from(json['magic'] as Map)),
       key: json['key'] as String,
+      salt: (json['salt'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
       'settings': instance.settings.toJson(),
       'magic': instance.magic.toJson(),
       'key': instance.key,
+      'salt': instance.salt,
     };
 
 _$_MagicValue _$$_MagicValueFromJson(Map json) => _$_MagicValue(

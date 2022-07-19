@@ -1,8 +1,13 @@
 import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
-import 'package:hash/hash.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/key_derivators/argon2_native_int_impl.dart';
+import 'package:pointycastle/random/fortuna_random.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pointycastle/pointycastle.dart';
 part 'vault_file.freezed.dart';
 part 'vault_file.g.dart';
 
@@ -80,10 +85,41 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
     );
   }
 
-  static Key deriveKey(String masterPassword) {
-    // TODO: Use more secure KDF
-    final rawKey = base64Encode(SHA256().update(utf8.encode(masterPassword)).digest());
+  static Key deriveKey(String masterPassword, Uint8List salt) {
+    final argon = Argon2BytesGenerator();
+    argon.init(
+      Argon2Parameters(
+        Argon2Parameters.ARGON2_id,
+        Uint8List.fromList(salt),
+        desiredKeyLength: 32,
+        iterations: 30,
+        lanes: 2,
+        memory: 1024
+      )
+    );
+
+    final derivedKey = Uint8List(32);
+    argon.deriveKey(Uint8List.fromList(utf8.encode(masterPassword)), 0, derivedKey, 0);
+
+    final rawKey = base64Encode(derivedKey);
     return Key.fromBase64(rawKey);
+  }
+
+  static Uint8List generateSalt() {
+    final fortuna = FortunaRandom();
+    final seedSource = Random.secure();
+    final seeds = <int>[];
+    for (int i=0; i < 32; i++) {
+      seeds.add(seedSource.nextInt(255));
+    }
+    fortuna.seed(KeyParameter(Uint8List.fromList(seeds)));
+
+    final salts = <int>[];
+    for (int i=0; i < 32; i++) {
+      salts.add(fortuna.nextUint8());
+    }
+
+    return Uint8List.fromList(salts);
   }
 }
 
@@ -250,7 +286,8 @@ class VaultHeader with _$VaultHeader {
     required String description,
     required VaultSettings settings,
     required MagicValue magic,
-    required String key
+    required String key,
+    required List<int> salt
   }) = _VaultHeader;
 
   factory VaultHeader.fromJson(Map<String, dynamic> json) => _$VaultHeaderFromJson(json);

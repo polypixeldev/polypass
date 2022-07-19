@@ -574,6 +574,8 @@ mixin _$VaultHeader {
   set magic(MagicValue value) => throw _privateConstructorUsedError;
   String get key => throw _privateConstructorUsedError;
   set key(String value) => throw _privateConstructorUsedError;
+  List<int> get salt => throw _privateConstructorUsedError;
+  set salt(List<int> value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -591,7 +593,8 @@ abstract class $VaultHeaderCopyWith<$Res> {
       String description,
       VaultSettings settings,
       MagicValue magic,
-      String key});
+      String key,
+      List<int> salt});
 
   $VaultSettingsCopyWith<$Res> get settings;
   $MagicValueCopyWith<$Res> get magic;
@@ -612,6 +615,7 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
     Object? settings = freezed,
     Object? magic = freezed,
     Object? key = freezed,
+    Object? salt = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -634,6 +638,10 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String,
+      salt: salt == freezed
+          ? _value.salt
+          : salt // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 
@@ -664,7 +672,8 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
       String description,
       VaultSettings settings,
       MagicValue magic,
-      String key});
+      String key,
+      List<int> salt});
 
   @override
   $VaultSettingsCopyWith<$Res> get settings;
@@ -689,6 +698,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
     Object? settings = freezed,
     Object? magic = freezed,
     Object? key = freezed,
+    Object? salt = freezed,
   }) {
     return _then(_$_VaultHeader(
       name: name == freezed
@@ -711,6 +721,10 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String,
+      salt: salt == freezed
+          ? _value.salt
+          : salt // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -723,7 +737,8 @@ class _$_VaultHeader extends _VaultHeader {
       required this.description,
       required this.settings,
       required this.magic,
-      required this.key})
+      required this.key,
+      required this.salt})
       : super._();
 
   factory _$_VaultHeader.fromJson(Map<String, dynamic> json) =>
@@ -739,10 +754,12 @@ class _$_VaultHeader extends _VaultHeader {
   MagicValue magic;
   @override
   String key;
+  @override
+  List<int> salt;
 
   @override
   String toString() {
-    return 'VaultHeader(name: $name, description: $description, settings: $settings, magic: $magic, key: $key)';
+    return 'VaultHeader(name: $name, description: $description, settings: $settings, magic: $magic, key: $key, salt: $salt)';
   }
 
   @JsonKey(ignore: true)
@@ -762,7 +779,8 @@ abstract class _VaultHeader extends VaultHeader {
       required String description,
       required VaultSettings settings,
       required MagicValue magic,
-      required String key}) = _$_VaultHeader;
+      required String key,
+      required List<int> salt}) = _$_VaultHeader;
   _VaultHeader._() : super._();
 
   factory _VaultHeader.fromJson(Map<String, dynamic> json) =
@@ -778,6 +796,8 @@ abstract class _VaultHeader extends VaultHeader {
   MagicValue get magic => throw _privateConstructorUsedError;
   @override
   String get key => throw _privateConstructorUsedError;
+  @override
+  List<int> get salt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultHeaderCopyWith<_$_VaultHeader> get copyWith =>

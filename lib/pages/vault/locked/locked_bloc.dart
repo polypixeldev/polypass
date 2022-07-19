@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
 
@@ -66,7 +67,7 @@ class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
       orElse: () => throw Error()
     );
 
-    final derivedKey = EncryptedData.deriveKey(state.masterPassword);
+    final derivedKey = EncryptedData.deriveKey(state.masterPassword, Uint8List.fromList(lockedState.vault.header.salt));
 
     if (lockedState.vault.header.testMagic(derivedKey, lockedState.vault.contents.iv)) {
       emit(state.copyWith(

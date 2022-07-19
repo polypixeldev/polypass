@@ -82,8 +82,9 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
       submitted: true
     ));
 
-    final derivedKey = EncryptedData.deriveKey(state.masterPassword);
-    final masterKey = EncryptedData.deriveKey(Key.fromSecureRandom(256).base64);
+    final salt = EncryptedData.generateSalt();
+    final derivedKey = EncryptedData.deriveKey(state.masterPassword, salt);
+    final masterKey = EncryptedData.deriveKey(Key.fromSecureRandom(256).base64, salt);
     final iv = IV.fromSecureRandom(16);
 
     await vaultRepository.updateFile(VaultFile(
@@ -92,7 +93,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         description: state.description,
         settings: appSettings.defaultVaultSettings,
         magic: MagicValue(Encrypter(AES(derivedKey)).encrypt(MagicValue.decryptedValue.value, iv: iv).base64),
-        key: Encrypter(AES(derivedKey)).encrypt(masterKey.base64, iv: iv).base64
+        key: Encrypter(AES(derivedKey)).encrypt(masterKey.base64, iv: iv).base64,
+        salt: salt
       ),
       path: state.path,
       contents: EncryptedData<VaultContents>.decrypted(VaultContents(components: []), iv)

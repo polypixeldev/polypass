@@ -296,13 +296,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  hash:
-    dependency: "direct main"
-    description:
-      name: hash
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -472,12 +465,12 @@ packages:
     source: hosted
     version: "2.1.2"
   pointycastle:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.0"
+    version: "3.6.1"
   pool:
     dependency: transitive
     description:

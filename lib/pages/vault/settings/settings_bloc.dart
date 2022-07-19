@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart';
@@ -88,7 +89,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       return;
     }
 
-    final encrypter = Encrypter(AES(EncryptedData.deriveKey(state.newMasterPassword)));
+    final encrypter = Encrypter(AES(EncryptedData.deriveKey(state.newMasterPassword, Uint8List.fromList(unlockedState.vault.header.salt))));
 
     vaultBloc.add(VaultEvent.updated(unlockedState.vault.copyWith(
         header: unlockedState.vault.header.copyWith(

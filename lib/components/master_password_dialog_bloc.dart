@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
 
@@ -59,7 +60,7 @@ class MasterPasswordDialogBloc extends Bloc<MasterPasswordDialogEvent, MasterPas
       status: MasterPasswordDialogStatus.validating
     ));
 
-    final derivedKey = EncryptedData.deriveKey(state.masterPassword);
+    final derivedKey = EncryptedData.deriveKey(state.masterPassword, Uint8List.fromList(vaultFile.header.salt));
 
     if(vaultFile.header.testMagic(derivedKey, vaultFile.contents.iv)) {
       emit(state.copyWith(
