@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:polypass/components/appwrapper.dart';
 
+import 'dart:io';
+
 import 'package:polypass/data/app_settings.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 
@@ -13,7 +15,15 @@ class Recent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final recentPath = settings.recentPath;
+    var recentPath = settings.recentPath;
+
+    if (recentPath != null) {
+      final recentFile = File(recentPath);
+      
+      if (!recentFile.existsSync()) {
+        recentPath = null;
+      }
+    }
 
     Future.delayed(Duration.zero, () {
       if (recentPath != null) {
