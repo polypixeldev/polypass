@@ -7,7 +7,8 @@ import 'package:polypass/components/master_password_dialog.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
 
-AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool icon) {
+AppBar createAppBar(
+    BuildContext context, VaultState state, bool actions, bool icon) {
   final vaultBloc = context.read<VaultBloc>();
   final router = GoRouter.of(context);
 
@@ -15,58 +16,65 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
   List<IconButton>? appBarActions;
   String name = '';
 
-  state.whenOrNull(
-    locked: (vault) {
-      name = ' - ${vault.header.name}';
+  state.whenOrNull(locked: (vault) {
+    name = ' - ${vault.header.name}';
 
-      appBarIcon = const Icon(Icons.lock);
+    appBarIcon = const Icon(Icons.lock);
 
-      appBarActions = [
-        IconButton(
-          icon: const Icon(Icons.close),
-          tooltip: 'Close vault',
-          onPressed: () {
-            vaultBloc.add(const VaultEvent.closed());
-          },
-          splashRadius: 20,
-        )
-      ];
-    },
-    unlocked: (vault, selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
-      name = ' - ${vault.header.name}';
-
-      appBarIcon = IconButton(
-        icon: const Icon(Icons.lock_open),
-        tooltip: 'Lock vault',
+    appBarActions = [
+      IconButton(
+        icon: const Icon(Icons.close),
+        tooltip: 'Close vault',
         onPressed: () {
-          vaultBloc.add(const VaultEvent.locked());
+          vaultBloc.add(const VaultEvent.closed());
         },
         splashRadius: 20,
-      );
+      )
+    ];
+  }, unlocked:
+      (vault, selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
+    name = ' - ${vault.header.name}';
 
-      if (selectedGroup?[0] != 'Search Results') {
-        appBarActions = [
-          IconButton(
+    appBarIcon = IconButton(
+      icon: const Icon(Icons.lock_open),
+      tooltip: 'Lock vault',
+      onPressed: () {
+        vaultBloc.add(const VaultEvent.locked());
+      },
+      splashRadius: 20,
+    );
+
+    if (selectedGroup?[0] != 'Search Results') {
+      appBarActions = [
+        IconButton(
             icon: const Icon(Icons.create_new_folder_sharp),
             tooltip: 'Create a group',
             onPressed: () async {
               final vaultBloc = context.read<VaultBloc>();
-              final vaultState= vaultBloc.state.maybeMap(
-                unlocked: (state) => state,
-                orElse: () => throw Error()
-              );
+              final vaultState = vaultBloc.state.maybeMap(
+                  unlocked: (state) => state, orElse: () => throw Error());
               final decryptedContents = vaultState.vault.contents.maybeMap(
-                decrypted: (contents) => contents,
-                orElse: () => throw Error()
-              );
+                  decrypted: (contents) => contents,
+                  orElse: () => throw Error());
 
               final selectedPath = vaultState.selectedGroup;
 
-              final selectedComponents = selectedPath != null ? vaultState.vault.getComponent(selectedPath).maybeWhen(group: (group) => group.components, orElse: () => throw Error()) : decryptedContents.data.components;
+              final selectedComponents = selectedPath != null
+                  ? vaultState.vault.getComponent(selectedPath).maybeWhen(
+                      group: (group) => group.components,
+                      orElse: () => throw Error())
+                  : decryptedContents.data.components;
 
               var testName = 'New Group';
               var number = 2;
-              while(selectedComponents.where((component) => component.when(group: (group) => group.name, item: (item) => item.name) == testName).toList().isNotEmpty) {
+              while (selectedComponents
+                  .where((component) =>
+                      component.when(
+                          group: (group) => group.name,
+                          item: (item) => item.name) ==
+                      testName)
+                  .toList()
+                  .isNotEmpty) {
                 testName = 'New Group $number';
                 number++;
               }
@@ -78,154 +86,143 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool i
               }
 
               final newVault = vaultState.vault.updateComponent(
-                path: selectedPath == null ? [testName] : [...selectedPath, testName],
-                component: VaultComponent.group(
-                  VaultGroup(
+                  path: selectedPath == null
+                      ? [testName]
+                      : [...selectedPath, testName],
+                  component: VaultComponent.group(VaultGroup(
                     name: testName,
                     components: [],
-                  )
-                )
-              );
+                  )));
 
               vaultBloc.add(VaultEvent.updated(newVault, masterKey));
             },
-            splashRadius: 20
-          ),
-          IconButton(
-            icon: const Icon(Icons.folder_delete_sharp),
-            tooltip: 'Delete the selected group',
-            onPressed: () async {
-              final vaultBloc = context.read<VaultBloc>();
-              final unlockedState = vaultBloc.state.maybeMap(
-                unlocked: (state) => state,
-                orElse: () => throw Error()
-              );
+            splashRadius: 20),
+        IconButton(
+          icon: const Icon(Icons.folder_delete_sharp),
+          tooltip: 'Delete the selected group',
+          onPressed: () async {
+            final vaultBloc = context.read<VaultBloc>();
+            final unlockedState = vaultBloc.state.maybeMap(
+                unlocked: (state) => state, orElse: () => throw Error());
 
-              final selectedGroup = unlockedState.selectedGroup;
-              if (selectedGroup == null) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an group to delete first')
-                ));
-                
-                return;
-              }
+            final selectedGroup = unlockedState.selectedGroup;
+            if (selectedGroup == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Select an group to delete first')));
 
-              var masterKey = (await getMasterKey(context)).masterKey;
+              return;
+            }
 
-              if (masterKey == null) {
-                return;
-              }
+            var masterKey = (await getMasterKey(context)).masterKey;
 
-              final newVault = unlockedState.vault.deleteComponent(selectedGroup);
-              vaultBloc.add(VaultEvent.groupSelected(selectedGroup, true));
+            if (masterKey == null) {
+              return;
+            }
 
-              vaultBloc.add(VaultEvent.updated(newVault, masterKey));
-            },
-            splashRadius: 20,
-          ),
-          IconButton(
-            icon: const Icon(Icons.add),
-            tooltip: 'Create an item',
-            onPressed: () {
-              router.go('/vault/new');
-            },
-            splashRadius: 20,
-          ),
-          IconButton(
-            icon: const Icon(Icons.edit),
-            tooltip: 'Edit the selected item',
-            onPressed: () {
-              final unlockedState = context.read<VaultBloc>().state.maybeMap(
-                unlocked: (state) => state,
-                orElse: () => throw Error()
-              );
+            final newVault = unlockedState.vault.deleteComponent(selectedGroup);
+            vaultBloc.add(VaultEvent.groupSelected(selectedGroup, true));
 
-              final selectedItem = unlockedState.selectedItem;
-              if (selectedItem == null) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an item to edit first')
-                ));
+            vaultBloc.add(VaultEvent.updated(newVault, masterKey));
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.add),
+          tooltip: 'Create an item',
+          onPressed: () {
+            router.go('/vault/new');
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.edit),
+          tooltip: 'Edit the selected item',
+          onPressed: () {
+            final unlockedState = context.read<VaultBloc>().state.maybeMap(
+                unlocked: (state) => state, orElse: () => throw Error());
 
-                return;
-              }
+            final selectedItem = unlockedState.selectedItem;
+            if (selectedItem == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Select an item to edit first')));
 
-              router.go('/vault/edit/${selectedItem.join('.')}');
-            },
-            splashRadius: 20,
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete),
-            tooltip: 'Delete the selected item',
-            onPressed: () async {
-              final vaultBloc = context.read<VaultBloc>();
-              final unlockedState = vaultBloc.state.maybeMap(
-                unlocked: (state) => state,
-                orElse: () => throw Error()
-              );
+              return;
+            }
 
-              final selectedItem = unlockedState.selectedItem;
-              if (selectedItem == null) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an item to delete first')
-                ));
-                
-                return;
-              }
+            router.go('/vault/edit/${selectedItem.join('.')}');
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.delete),
+          tooltip: 'Delete the selected item',
+          onPressed: () async {
+            final vaultBloc = context.read<VaultBloc>();
+            final unlockedState = vaultBloc.state.maybeMap(
+                unlocked: (state) => state, orElse: () => throw Error());
 
-              var masterKey = (await getMasterKey(context)).masterKey;
+            final selectedItem = unlockedState.selectedItem;
+            if (selectedItem == null) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Select an item to delete first')));
 
-              if (masterKey == null) {
-                return;
-              }
+              return;
+            }
 
-              final newVault = unlockedState.vault.deleteComponent(selectedItem);
-              vaultBloc.add(VaultEvent.itemSelected(selectedItem, true));
+            var masterKey = (await getMasterKey(context)).masterKey;
 
-              vaultBloc.add(VaultEvent.updated(newVault, masterKey));
-            },
-            splashRadius: 20,
-          ),
-          IconButton(
-            icon: const Icon(Icons.preview_outlined),
-            tooltip: 'View the selected item',
-            onPressed: () {
-              context.read<VaultBloc>().add(const VaultEvent.selectedItemViewToggled());
-            },
-            splashRadius: 20,
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings_sharp),
-            tooltip: 'Vault settings',
-            onPressed: () {
-              router.go('/vault/settings');
-            },
-            splashRadius: 20,
-          )
-        ];
-      } else {
-        appBarActions = [
-          IconButton(
-            icon: const Icon(Icons.settings_sharp),
-            tooltip: 'Vault settings',
-            onPressed: () {
-              router.go('/vault/settings');
-            },
-            splashRadius: 20,
-          )
-        ];
-      }
+            if (masterKey == null) {
+              return;
+            }
+
+            final newVault = unlockedState.vault.deleteComponent(selectedItem);
+            vaultBloc.add(VaultEvent.itemSelected(selectedItem, true));
+
+            vaultBloc.add(VaultEvent.updated(newVault, masterKey));
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.preview_outlined),
+          tooltip: 'View the selected item',
+          onPressed: () {
+            context
+                .read<VaultBloc>()
+                .add(const VaultEvent.selectedItemViewToggled());
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.settings_sharp),
+          tooltip: 'Vault settings',
+          onPressed: () {
+            router.go('/vault/settings');
+          },
+          splashRadius: 20,
+        )
+      ];
+    } else {
+      appBarActions = [
+        IconButton(
+          icon: const Icon(Icons.settings_sharp),
+          tooltip: 'Vault settings',
+          onPressed: () {
+            router.go('/vault/settings');
+          },
+          splashRadius: 20,
+        )
+      ];
     }
-  );
+  });
 
   final polyPassAppBar = AppBar(
-    title: Text('PolyPass$name'),
-    centerTitle: true,
-    leading: icon == true && appBarIcon != null ? appBarIcon : null,
-    actions: actions == true && appBarActions != null ? appBarActions : null
-  );
+      title: Text('PolyPass$name'),
+      centerTitle: true,
+      leading: icon == true && appBarIcon != null ? appBarIcon : null,
+      actions: actions == true && appBarActions != null ? appBarActions : null);
 
   return polyPassAppBar;
 }

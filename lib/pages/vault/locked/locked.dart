@@ -7,67 +7,59 @@ import 'package:polypass/pages/vault/locked/locked_bloc.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class VaultLocked extends StatelessWidget {
-  const VaultLocked({ Key? key }) : super(key: key);
+  const VaultLocked({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppWrapper(
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF373b42),
-            borderRadius: BorderRadius.circular(10)
-          ),
-          padding: const EdgeInsets.all(10),
-          width: 600,
-          child: Form(
-            child: BlocProvider(
-              create: (context) => UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
-              child: MultiBlocListener(
-                listeners: [
-                  BlocListener<UnlockFormBloc, UnlockFormState>(
-                    listener: (context, state) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        child: Center(
+            child: Container(
+      decoration: BoxDecoration(
+          color: const Color(0xFF373b42),
+          borderRadius: BorderRadius.circular(10)),
+      padding: const EdgeInsets.all(10),
+      width: 600,
+      child: Form(
+        child: BlocProvider(
+          create: (context) =>
+              UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
+          child: MultiBlocListener(
+            listeners: [
+              BlocListener<UnlockFormBloc, UnlockFormState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Unlocking vault...'),
-                        duration: Duration( seconds: 3 )
-                      ));
-                    },
-                    listenWhen: (previous, current) => current.success == true
-                  ),
-                  BlocListener<UnlockFormBloc, UnlockFormState>(
-                    listener: (context, state) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
-                        duration: Duration(seconds: 5)
-                      ));
-                    },
-                    listenWhen: (previous, current) => previous.fails != current.fails
-                  )
-                ],
-                child: Column(
-                  children: [
-                    Text(
-                      'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30
-                      )
-                    ),
-                    const MasterPasswordInput(),
-                    const SubmitButton()
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
+                        duration: Duration(seconds: 3)));
+                  },
+                  listenWhen: (previous, current) => current.success == true),
+              BlocListener<UnlockFormBloc, UnlockFormState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
+                        duration: Duration(seconds: 5)));
+                  },
+                  listenWhen: (previous, current) =>
+                      previous.fails != current.fails)
+            ],
+            child: Column(
+              children: [
+                Text(
+                    'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
+                    style: const TextStyle(color: Colors.white, fontSize: 30)),
+                const MasterPasswordInput(),
+                const SubmitButton()
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
             ),
           ),
-        )
-      )
-    );
+        ),
+      ),
+    )));
   }
 }
 
@@ -83,34 +75,38 @@ class MasterPasswordInput extends StatelessWidget {
     return BlocBuilder<UnlockFormBloc, UnlockFormState>(
       builder: (context, state) {
         return Container(
-          decoration: BoxDecoration(
-            color: theme.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(5)
-          ),
-          margin: const EdgeInsets.symmetric( vertical: 10, horizontal: 5 ),
-          child: TextFormField(
-            enabled: context.read<VaultBloc>().state.maybeWhen(unlocking: (_vault) => false, orElse: () => true),
-            decoration: const InputDecoration(
-              labelText: 'Master Password',
-              contentPadding: EdgeInsets.all(10),
-              floatingLabelStyle: TextStyle( color: Colors.black ),
-              labelStyle: TextStyle( color: Colors.black ),
-              border: InputBorder.none
-            ),
-            style: theme.textTheme.bodySmall,
-            cursorColor: Colors.black,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            onChanged: (masterPassword) {
-              context.read<UnlockFormBloc>().add(UnlockFormEvent.masterPasswordChanged(masterPassword));
-            },
-            onFieldSubmitted: (masterPassword) {
-              context.read<UnlockFormBloc>().add(const UnlockFormEvent.formSubmitted());
-            },
-            autofocus: true,
-          )
-        );
+            decoration: BoxDecoration(
+                color: theme.colorScheme.secondary,
+                borderRadius: BorderRadius.circular(5)),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: TextFormField(
+              enabled: context
+                  .read<VaultBloc>()
+                  .state
+                  .maybeWhen(unlocking: (_vault) => false, orElse: () => true),
+              decoration: const InputDecoration(
+                  labelText: 'Master Password',
+                  contentPadding: EdgeInsets.all(10),
+                  floatingLabelStyle: TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(color: Colors.black),
+                  border: InputBorder.none),
+              style: theme.textTheme.bodySmall,
+              cursorColor: Colors.black,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              onChanged: (masterPassword) {
+                context
+                    .read<UnlockFormBloc>()
+                    .add(UnlockFormEvent.masterPasswordChanged(masterPassword));
+              },
+              onFieldSubmitted: (masterPassword) {
+                context
+                    .read<UnlockFormBloc>()
+                    .add(const UnlockFormEvent.formSubmitted());
+              },
+              autofocus: true,
+            ));
       },
     );
   }
@@ -124,23 +120,22 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UnlockFormBloc, UnlockFormState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          child: const Text(
-            'Submit',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20
-            )
-          ),
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-          ),
-          onPressed: context.read<VaultBloc>().state.maybeWhen(unlocking: (_vault) => true, orElse: () => false) || !state.isFormValid ? null : () {
-            context.read<UnlockFormBloc>().add(const UnlockFormEvent.formSubmitted());
-          },
-        );
-      }
-    );
+        builder: (context, state) {
+      return ElevatedButton(
+        child: const Text('Submit',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        onPressed: context.read<VaultBloc>().state.maybeWhen(
+                    unlocking: (_vault) => true, orElse: () => false) ||
+                !state.isFormValid
+            ? null
+            : () {
+                context
+                    .read<UnlockFormBloc>()
+                    .add(const UnlockFormEvent.formSubmitted());
+              },
+      );
+    });
   }
 }

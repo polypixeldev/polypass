@@ -8,17 +8,13 @@ part 'vault_home_bloc.freezed.dart';
 
 @freezed
 class VaultHomeState with _$VaultHomeState {
-  const factory VaultHomeState({
-    required String query,
-    required bool submitted,
-    required List<List<String>> results
-  }) = _VaultHomeState;
+  const factory VaultHomeState(
+      {required String query,
+      required bool submitted,
+      required List<List<String>> results}) = _VaultHomeState;
 
-  factory VaultHomeState.empty() => const VaultHomeState(
-    query: '',
-    submitted: false,
-    results: []
-  );
+  factory VaultHomeState.empty() =>
+      const VaultHomeState(query: '', submitted: false, results: []);
 }
 
 @freezed
@@ -28,64 +24,56 @@ class VaultHomeEvent with _$VaultHomeEvent {
 }
 
 class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
-  VaultHomeBloc({ required this.vaultBloc }) : super(VaultHomeState.empty()) {
+  VaultHomeBloc({required this.vaultBloc}) : super(VaultHomeState.empty()) {
     on<VaultHomeEvent>((event, emit) async {
       await event.map(
-        queryChanged: (event) => _onQueryChanged(event, emit),
-        searchSubmitted: (event) => _onSearchSubmitted(event, emit)
-      );
+          queryChanged: (event) => _onQueryChanged(event, emit),
+          searchSubmitted: (event) => _onSearchSubmitted(event, emit));
     });
   }
 
   final VaultBloc vaultBloc;
 
-  Future<void> _onQueryChanged(QueryChangedEvent event, Emitter<VaultHomeState> emit) async {
-    emit(state.copyWith(
-      query: event.query
-    ));
+  Future<void> _onQueryChanged(
+      QueryChangedEvent event, Emitter<VaultHomeState> emit) async {
+    emit(state.copyWith(query: event.query));
   }
 
-  Future<void> _onSearchSubmitted(SearchSubmittedEvent event, Emitter<VaultHomeState> emit) async {
-    emit(state.copyWith(
-      submitted: true
-    ));
+  Future<void> _onSearchSubmitted(
+      SearchSubmittedEvent event, Emitter<VaultHomeState> emit) async {
+    emit(state.copyWith(submitted: true));
 
-    final unlockedState = vaultBloc.state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+    final unlockedState = vaultBloc.state
+        .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     final decryptedContents = unlockedState.vault.contents.maybeMap(
-      decrypted: (contents) => contents,
-      orElse: () => throw Error()
-    );
+        decrypted: (contents) => contents, orElse: () => throw Error());
 
-    final results = searchGroup(decryptedContents.data.components, state.query, null);
+    final results =
+        searchGroup(decryptedContents.data.components, state.query, null);
 
-    emit(state.copyWith(
-      results: results
-    ));
+    emit(state.copyWith(results: results));
 
     vaultBloc.add(const VaultEvent.groupSelected(['Search Results'], false));
   }
 }
 
-List<List<String>> searchGroup(List<VaultComponent> components, String query, List<String>? path) {
+List<List<String>> searchGroup(
+    List<VaultComponent> components, String query, List<String>? path) {
   final matchedItems = <List<String>>[];
 
   for (final component in components) {
-    component.map(
-      group: (group) {
-        final groupMatchedItems = searchGroup(group.group.components, query, path == null ? [group.group.name] : [...path, group.group.name]);
-        matchedItems.addAll(groupMatchedItems);
-      },
-      item: (item) {
-        final exp = RegExp(query);
-        if (exp.hasMatch(item.item.name)) {
-          matchedItems.add(path == null ? [item.item.name] : [...path, item.item.name]);
-        }
+    component.map(group: (group) {
+      final groupMatchedItems = searchGroup(group.group.components, query,
+          path == null ? [group.group.name] : [...path, group.group.name]);
+      matchedItems.addAll(groupMatchedItems);
+    }, item: (item) {
+      final exp = RegExp(query);
+      if (exp.hasMatch(item.item.name)) {
+        matchedItems
+            .add(path == null ? [item.item.name] : [...path, item.item.name]);
       }
-    );
+    });
   }
 
   return matchedItems;

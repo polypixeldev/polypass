@@ -21,73 +21,53 @@ import 'package:polypass/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final settings = await AppSettings.load();
-  runApp(App( settings: settings ));
+  runApp(App(settings: settings));
 }
 
 class App extends StatelessWidget {
-  const App({ Key? key, required this.settings }) : super(key: key);
+  const App({Key? key, required this.settings}) : super(key: key);
 
   final AppSettings settings;
 
   @override
   Widget build(BuildContext context) {
-    final _router = GoRouter(
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const Home()
-        ),
-        GoRoute(
+    final _router = GoRouter(routes: [
+      GoRoute(path: '/', builder: (context, state) => const Home()),
+      GoRoute(
           path: '/recent',
-          builder: (context, state) => Recent( settings: settings )
-        ),
-        GoRoute(
+          builder: (context, state) => Recent(settings: settings)),
+      GoRoute(
           path: '/create',
-          builder: (context, state) => Create( settings: settings )
-        ),
-        GoRoute(
+          builder: (context, state) => Create(settings: settings)),
+      GoRoute(
           path: '/settings',
-          builder: (context, state) => Settings( settings: settings )
-        ),
-        GoRoute(
-          path: '/vault/home',
-          builder: (context, state) => const VaultHome()
-        ),
-        GoRoute(
+          builder: (context, state) => Settings(settings: settings)),
+      GoRoute(
+          path: '/vault/home', builder: (context, state) => const VaultHome()),
+      GoRoute(
           path: '/vault/locked',
-          builder: (context, state) => const VaultLocked()
-        ),
-        GoRoute(
-          path: '/vault/new',
-          builder: (context, state) => const NewItem()
-        ),
-        GoRoute(
+          builder: (context, state) => const VaultLocked()),
+      GoRoute(path: '/vault/new', builder: (context, state) => const NewItem()),
+      GoRoute(
           path: '/vault/edit/:path',
-          builder: (context, state) => EditItem(routerState: state)
-        ),
-        GoRoute(
+          builder: (context, state) => EditItem(routerState: state)),
+      GoRoute(
           path: '/vault/settings',
-          builder: (context, state) => const VaultSettingsPage()
-        )
-      ],
-      initialLocation: '/recent'
-    );
+          builder: (context, state) => const VaultSettingsPage())
+    ], initialLocation: '/recent');
 
     return RepositoryProvider(
       create: (context) => const VaultRepository(),
-        child: BlocProvider(
-          create: (context) => VaultBloc(
-            repository: context.read<VaultRepository>(),
-            settings: settings
-          ),
-          child: MaterialApp.router(
+      child: BlocProvider(
+        create: (context) => VaultBloc(
+            repository: context.read<VaultRepository>(), settings: settings),
+        child: MaterialApp.router(
             routeInformationParser: _router.routeInformationParser,
             routerDelegate: _router.routerDelegate,
             title: 'PolyPass',
             debugShowCheckedModeBanner: false,
-            theme: appTheme
-          ),
-        ),
+            theme: appTheme),
+      ),
     );
   }
 }

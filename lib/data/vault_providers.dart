@@ -6,7 +6,7 @@ abstract class VaultProvider {
   Future<String> readFile(String path);
 
   Future<void> updateFile(String path, String contents);
-  
+
   Future<void> deleteFile(String path);
 }
 

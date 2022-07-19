@@ -12,96 +12,99 @@ part 'create_form_bloc.freezed.dart';
 class CreateFormState with _$CreateFormState {
   const CreateFormState._();
   const factory CreateFormState(
-    String name,
-    String description,
-    String masterPassword,
-    String path,
-    bool submitted,
-    bool created
-  ) = _CreateFormState;
+      String name,
+      String description,
+      String masterPassword,
+      String path,
+      bool submitted,
+      bool created) = _CreateFormState;
 
-  factory CreateFormState.empty() => const CreateFormState('', '', '', '', false, false);
+  factory CreateFormState.empty() =>
+      const CreateFormState('', '', '', '', false, false);
 
-  bool get isFormValid => (name != '') && (description != '') && (masterPassword != '') && (path != '');
+  bool get isFormValid =>
+      (name != '') &&
+      (description != '') &&
+      (masterPassword != '') &&
+      (path != '');
 }
 
 @freezed
 class CreateFormEvent with _$CreateFormEvent {
   const factory CreateFormEvent.nameChanged(String name) = NameChangedEvent;
-  const factory CreateFormEvent.descriptionChanged(String description) = DescriptionChangedEvent;
-  const factory CreateFormEvent.masterPasswordChanged(String masterPassword) = MasterPasswordChangedEvent;
+  const factory CreateFormEvent.descriptionChanged(String description) =
+      DescriptionChangedEvent;
+  const factory CreateFormEvent.masterPasswordChanged(String masterPassword) =
+      MasterPasswordChangedEvent;
   const factory CreateFormEvent.pathChanged(String path) = PathChangedEvent;
   const factory CreateFormEvent.formSubmitted() = FormSubmittedEvent;
 }
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
-  CreateFormBloc({
-    required this.vaultRepository,
-    required this.appSettings
-  }) : super(CreateFormState.empty()) {
+  CreateFormBloc({required this.vaultRepository, required this.appSettings})
+      : super(CreateFormState.empty()) {
     on<CreateFormEvent>((event, emit) async {
       await event.map(
-        nameChanged: (event) => _onNameChanged(event, emit),
-        descriptionChanged: (event) => _onDescriptionChanged(event, emit),
-        masterPasswordChanged: (event) => _onMasterPasswordChanged(event, emit),
-        pathChanged: (event) => _onPathChanged(event, emit),
-        formSubmitted: (event) => _onFormSubmitted(event, emit)
-      );
+          nameChanged: (event) => _onNameChanged(event, emit),
+          descriptionChanged: (event) => _onDescriptionChanged(event, emit),
+          masterPasswordChanged: (event) =>
+              _onMasterPasswordChanged(event, emit),
+          pathChanged: (event) => _onPathChanged(event, emit),
+          formSubmitted: (event) => _onFormSubmitted(event, emit));
     });
   }
 
   final VaultRepository vaultRepository;
   final AppSettings appSettings;
 
-  Future<void> _onNameChanged(NameChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(
-      name: event.name
-    ));
+  Future<void> _onNameChanged(
+      NameChangedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(name: event.name));
   }
 
-  Future<void> _onDescriptionChanged(DescriptionChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(
-      description: event.description
-    ));
+  Future<void> _onDescriptionChanged(
+      DescriptionChangedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(description: event.description));
   }
 
-  Future<void> _onMasterPasswordChanged(MasterPasswordChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(
-      masterPassword: event.masterPassword
-    ));
+  Future<void> _onMasterPasswordChanged(
+      MasterPasswordChangedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(masterPassword: event.masterPassword));
   }
 
-  Future<void> _onPathChanged(PathChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(
-      path: event.path
-    ));
+  Future<void> _onPathChanged(
+      PathChangedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(path: event.path));
   }
 
-  Future<void> _onFormSubmitted(FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(
-      submitted: true
-    ));
+  Future<void> _onFormSubmitted(
+      FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(submitted: true));
 
     final salt = EncryptedData.generateSalt();
     final derivedKey = EncryptedData.deriveKey(state.masterPassword, salt);
-    final masterKey = EncryptedData.deriveKey(Key.fromSecureRandom(256).base64, salt);
+    final masterKey =
+        EncryptedData.deriveKey(Key.fromSecureRandom(256).base64, salt);
     final iv = IV.fromSecureRandom(16);
 
-    await vaultRepository.updateFile(VaultFile(
-      header: VaultHeader(
-        name: state.name,
-        description: state.description,
-        settings: appSettings.defaultVaultSettings,
-        magic: MagicValue(Encrypter(AES(derivedKey)).encrypt(MagicValue.decryptedValue.value, iv: iv).base64),
-        key: Encrypter(AES(derivedKey)).encrypt(masterKey.base64, iv: iv).base64,
-        salt: salt
-      ),
-      path: state.path,
-      contents: EncryptedData<VaultContents>.decrypted(VaultContents(components: []), iv)
-    ), masterKey);
+    await vaultRepository.updateFile(
+        VaultFile(
+            header: VaultHeader(
+                name: state.name,
+                description: state.description,
+                settings: appSettings.defaultVaultSettings,
+                magic: MagicValue(Encrypter(AES(derivedKey))
+                    .encrypt(MagicValue.decryptedValue.value, iv: iv)
+                    .base64),
+                key: Encrypter(AES(derivedKey))
+                    .encrypt(masterKey.base64, iv: iv)
+                    .base64,
+                salt: salt),
+            path: state.path,
+            contents: EncryptedData<VaultContents>.decrypted(
+                VaultContents(components: []), iv)),
+        masterKey);
 
-    emit(state.copyWith(
-      created: true
-    ));
+    emit(state.copyWith(created: true));
   }
 }

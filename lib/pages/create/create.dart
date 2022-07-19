@@ -11,7 +11,7 @@ import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class Create extends StatelessWidget {
-  const Create({ Key? key, required this.settings }) : super(key: key);
+  const Create({Key? key, required this.settings}) : super(key: key);
 
   final AppSettings settings;
 
@@ -21,100 +21,101 @@ class Create extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AppWrapper(
-      child: BlocProvider(
-        create: (context) => CreateFormBloc(
-          vaultRepository: context.read<VaultRepository>(),
-          appSettings: settings
-        ),
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<CreateFormBloc, CreateFormState>(
-              listener: (context, state) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Creating vault...'),
-                  duration: Duration( days: 365 )
-                ));
-              },
-              listenWhen: (previous, current) => previous.submitted != current.submitted,
-            ),
-            BlocListener<CreateFormBloc, CreateFormState>(
-              listener: (context, state) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        child: BlocProvider(
+          create: (context) => CreateFormBloc(
+              vaultRepository: context.read<VaultRepository>(),
+              appSettings: settings),
+          child: MultiBlocListener(
+            listeners: [
+              BlocListener<CreateFormBloc, CreateFormState>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Creating vault...'),
+                      duration: Duration(days: 365)));
+                },
+                listenWhen: (previous, current) =>
+                    previous.submitted != current.submitted,
+              ),
+              BlocListener<CreateFormBloc, CreateFormState>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Opening vault...'),
-                  duration: Duration( days: 365 )
-                ));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Opening vault...'),
+                        duration: Duration(days: 365)));
 
-                context.read<VaultBloc>().add(VaultEvent.opened(state.path));
-              },
-              listenWhen: (previous, current) => previous.created != current.created
-            )
-          ],
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: theme.cardColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(10))
-                ),
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Text(
-                      'Create a vault',
-                      style: theme.textTheme.titleMedium
-                    ),
-                    const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                    Form(
-                      child: Column(
+                    context
+                        .read<VaultBloc>()
+                        .add(VaultEvent.opened(state.path));
+                  },
+                  listenWhen: (previous, current) =>
+                      previous.created != current.created)
+            ],
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: theme.cardColor,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Text('Create a vault',
+                          style: theme.textTheme.titleMedium),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      Form(
+                          child: Column(
                         children: [
                           const NameInput(),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5)),
                           const DescriptionInput(),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5)),
                           const MasterPasswordInput(),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5)),
                           BlocBuilder<CreateFormBloc, CreateFormState>(
-                            builder: (context, state) {
-                              return Text(
+                              builder: (context, state) {
+                            return Text(
                                 "Current path: ${state.path != '' ? state.path : 'None'}",
-                                style: theme.textTheme.bodyMedium
-                              );
-                            }
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                                style: theme.textTheme.bodyMedium);
+                          }),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5)),
                           const PathInput(),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 15)),
                           Row(
-                            children: [
-                              BackButton(router: router),
-                              const Padding( padding: EdgeInsets.symmetric( horizontal: 5 )),
-                              const SubmitButton()
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min
-                          )
+                              children: [
+                                BackButton(router: router),
+                                const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5)),
+                                const SubmitButton()
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min)
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
-                      )
-                    ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                      )),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                  ),
                 ),
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.center,
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
           ),
         ),
-      ),
-      actions: false,
-      icon: false
-    );
+        actions: false,
+        icon: false);
   }
 }
+
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     Key? key,
@@ -123,21 +124,20 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          child: Text(
-            'Submit',
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-          ),
-          onPressed: state.submitted || !state.isFormValid ? null : () {
-            context.read<CreateFormBloc>().add(const CreateFormEvent.formSubmitted());
-          },
-        );
-      }
-    );
+        builder: (context, state) {
+      return ElevatedButton(
+        child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        onPressed: state.submitted || !state.isFormValid
+            ? null
+            : () {
+                context
+                    .read<CreateFormBloc>()
+                    .add(const CreateFormEvent.formSubmitted());
+              },
+      );
+    });
   }
 }
 
@@ -152,27 +152,24 @@ class BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          child: Text(
-            'Back',
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
+        builder: (context, state) {
+      return ElevatedButton(
+          child: Text('Back', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-          ),
-          onPressed: state.submitted ? null : () { 
-            try {
-              router.pop();
-            } catch (_e) {
-              router.go('/');
-            }
-          }
-        );
-      }
-    );
+              padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+          onPressed: state.submitted
+              ? null
+              : () {
+                  try {
+                    router.pop();
+                  } catch (_e) {
+                    router.go('/');
+                  }
+                });
+    });
   }
 }
+
 class PathInput extends StatelessWidget {
   const PathInput({
     Key? key,
@@ -181,35 +178,33 @@ class PathInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-      builder:(context, state) {
-        return ElevatedButton(
-          child: Text(
-            'Set vault file location',
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15))
-          ),
-          onPressed: state.submitted ? null : () async {
-            final bloc = context.read<CreateFormBloc>();
-            
-            final path = await FilePicker.platform.saveFile(
-              initialDirectory: '${(await AppSettings.documentsDir).absolute.path}/polypass',
-              dialogTitle: 'Set vault file location',
-              fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
-              type: FileType.custom,
-              allowedExtensions: ['ppv.json']
-            );
-      
-            if (path == null) {
-              return;
-            }
-                
-            bloc.add(CreateFormEvent.pathChanged(path));
-          },
-        );
-      }
-    );
+        builder: (context, state) {
+      return ElevatedButton(
+        child: Text('Set vault file location',
+            style: Theme.of(context).textTheme.bodyMedium),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        onPressed: state.submitted
+            ? null
+            : () async {
+                final bloc = context.read<CreateFormBloc>();
+
+                final path = await FilePicker.platform.saveFile(
+                    initialDirectory:
+                        '${(await AppSettings.documentsDir).absolute.path}/polypass',
+                    dialogTitle: 'Set vault file location',
+                    fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
+                    type: FileType.custom,
+                    allowedExtensions: ['ppv.json']);
+
+                if (path == null) {
+                  return;
+                }
+
+                bloc.add(CreateFormEvent.pathChanged(path));
+              },
+      );
+    });
   }
 }
 
@@ -225,30 +220,29 @@ class MasterPasswordInput extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: ((context, state) {
         return Container(
-          width: 500,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: theme.colorScheme.secondary
-          ),
-          child: TextFormField(
-            enabled: !state.submitted,
-            decoration: InputDecoration(
-              labelText: 'Master Password',
-              contentPadding: const EdgeInsets.all(10),
-              floatingLabelStyle: theme.textTheme.bodySmall,
-              labelStyle: theme.textTheme.bodySmall,
-              border: InputBorder.none
-            ),
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            style: theme.textTheme.bodySmall,
-            onChanged: (masterPassword) {
-              context.read<CreateFormBloc>().add(CreateFormEvent.masterPasswordChanged(masterPassword));
-            },
-            cursorColor: Colors.black,
-          )
-        );
+            width: 500,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: theme.colorScheme.secondary),
+            child: TextFormField(
+              enabled: !state.submitted,
+              decoration: InputDecoration(
+                  labelText: 'Master Password',
+                  contentPadding: const EdgeInsets.all(10),
+                  floatingLabelStyle: theme.textTheme.bodySmall,
+                  labelStyle: theme.textTheme.bodySmall,
+                  border: InputBorder.none),
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              style: theme.textTheme.bodySmall,
+              onChanged: (masterPassword) {
+                context
+                    .read<CreateFormBloc>()
+                    .add(CreateFormEvent.masterPasswordChanged(masterPassword));
+              },
+              cursorColor: Colors.black,
+            ));
       }),
     );
   }
@@ -266,27 +260,26 @@ class DescriptionInput extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: ((context, state) {
         return Container(
-          width: 500,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: theme.colorScheme.secondary
-          ),
-          child: TextFormField(
-            enabled: !state.submitted,
-            decoration: InputDecoration(
-              labelText: 'Description',
-              contentPadding: const EdgeInsets.all(10),
-              floatingLabelStyle: theme.textTheme.bodySmall,
-              labelStyle: theme.textTheme.bodySmall,
-              border: InputBorder.none
-            ),
-            style: theme.textTheme.bodySmall,
-            onChanged: (description) {
-              context.read<CreateFormBloc>().add(CreateFormEvent.descriptionChanged(description));
-            },
-            cursorColor: Colors.black,
-          )
-        );
+            width: 500,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: theme.colorScheme.secondary),
+            child: TextFormField(
+              enabled: !state.submitted,
+              decoration: InputDecoration(
+                  labelText: 'Description',
+                  contentPadding: const EdgeInsets.all(10),
+                  floatingLabelStyle: theme.textTheme.bodySmall,
+                  labelStyle: theme.textTheme.bodySmall,
+                  border: InputBorder.none),
+              style: theme.textTheme.bodySmall,
+              onChanged: (description) {
+                context
+                    .read<CreateFormBloc>()
+                    .add(CreateFormEvent.descriptionChanged(description));
+              },
+              cursorColor: Colors.black,
+            ));
       }),
     );
   }
@@ -302,30 +295,28 @@ class NameInput extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocBuilder<CreateFormBloc, CreateFormState>(
-      builder: ((context, state) {
-        return Container(
+        builder: ((context, state) {
+      return Container(
           width: 500,
           decoration: BoxDecoration(
-            color: theme.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(5)
-          ),
+              color: theme.colorScheme.secondary,
+              borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
             enabled: !state.submitted,
             decoration: InputDecoration(
-              labelText: 'Name',
-              contentPadding: const EdgeInsets.all(10),
-              floatingLabelStyle: theme.textTheme.bodySmall,
-              labelStyle: theme.textTheme.bodySmall,
-              border: InputBorder.none
-            ),
+                labelText: 'Name',
+                contentPadding: const EdgeInsets.all(10),
+                floatingLabelStyle: theme.textTheme.bodySmall,
+                labelStyle: theme.textTheme.bodySmall,
+                border: InputBorder.none),
             style: theme.textTheme.bodySmall,
             onChanged: (name) {
-              context.read<CreateFormBloc>().add(CreateFormEvent.nameChanged(name));
+              context
+                  .read<CreateFormBloc>()
+                  .add(CreateFormEvent.nameChanged(name));
             },
             cursorColor: Colors.black,
-          )
-        );
-      })
-    );
+          ));
+    }));
   }
 }

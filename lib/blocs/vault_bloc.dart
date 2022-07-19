@@ -14,154 +14,138 @@ class VaultState with _$VaultState {
   const factory VaultState.opening() = _Opening;
   const factory VaultState.locked(VaultFile vault) = _Locked;
   const factory VaultState.unlocking(VaultFile vault) = _Unlocking;
-  const factory VaultState.unlocked({
-    required VaultFile vault,
-    List<String>? selectedGroup,
-    List<String>? selectedItem,
-    @Default(false) bool viewingSelectedItem,
-    Key? masterKey
-  }) = _Unlocked;
+  const factory VaultState.unlocked(
+      {required VaultFile vault,
+      List<String>? selectedGroup,
+      List<String>? selectedItem,
+      @Default(false) bool viewingSelectedItem,
+      Key? masterKey}) = _Unlocked;
 }
 
 @freezed
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(String path) = OpenedEvent;
   const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
-  const factory VaultEvent.masterKeyChanged(Key? masterKey) = MasterKeyChangedEvent;
-  const factory VaultEvent.groupSelected(List<String>? path, bool deselect) = GroupSelectedEvent;
-  const factory VaultEvent.itemSelected(List<String>? path, bool deselect) = ItemSelectedEvent;
-  const factory VaultEvent.selectedItemViewToggled() = SelectedItemViewToggledEvent;
-  const factory VaultEvent.updated(VaultFile newVault, Key masterKey) = UpdatedEvent;
+  const factory VaultEvent.masterKeyChanged(Key? masterKey) =
+      MasterKeyChangedEvent;
+  const factory VaultEvent.groupSelected(List<String>? path, bool deselect) =
+      GroupSelectedEvent;
+  const factory VaultEvent.itemSelected(List<String>? path, bool deselect) =
+      ItemSelectedEvent;
+  const factory VaultEvent.selectedItemViewToggled() =
+      SelectedItemViewToggledEvent;
+  const factory VaultEvent.updated(VaultFile newVault, Key masterKey) =
+      UpdatedEvent;
   const factory VaultEvent.locked() = LockedEvent;
   const factory VaultEvent.closed() = ClosedEvent;
 }
 
 class VaultBloc extends Bloc<VaultEvent, VaultState> {
-  VaultBloc({
-    required this.repository,
-    required this.settings
-  }) : super(const VaultState.none()) {
+  VaultBloc({required this.repository, required this.settings})
+      : super(const VaultState.none()) {
     on<VaultEvent>((rawEvent, emit) async {
       await rawEvent.map(
-        opened: (event) => _onVaultOpened(event, emit),
-        unlocked: (event) => _onVaultUnlocked(event, emit),
-        masterKeyChanged: (event) => _onMasterKeyChanged(event, emit),
-        groupSelected: (event) => _onGroupSelected(event, emit),
-        itemSelected: (event) => _onItemSelected(event, emit),
-        selectedItemViewToggled: (event) => _onSelectedItemViewToggled(event, emit),
-        updated: (event) => _onVaultUpdated(event, emit),
-        locked: (event) => _onVaultLocked(event, emit),
-        closed: (event) => _onVaultClosed(event, emit)
-      );
+          opened: (event) => _onVaultOpened(event, emit),
+          unlocked: (event) => _onVaultUnlocked(event, emit),
+          masterKeyChanged: (event) => _onMasterKeyChanged(event, emit),
+          groupSelected: (event) => _onGroupSelected(event, emit),
+          itemSelected: (event) => _onItemSelected(event, emit),
+          selectedItemViewToggled: (event) =>
+              _onSelectedItemViewToggled(event, emit),
+          updated: (event) => _onVaultUpdated(event, emit),
+          locked: (event) => _onVaultLocked(event, emit),
+          closed: (event) => _onVaultClosed(event, emit));
     });
   }
 
   final VaultRepository repository;
   final AppSettings settings;
 
-  Future<void> _onVaultOpened(OpenedEvent event, Emitter<VaultState> emit) async {
+  Future<void> _onVaultOpened(
+      OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
 
-    settings.copyWith( recentPath: event.path ).save();
+    settings.copyWith(recentPath: event.path).save();
 
     emit(VaultState.locked(await repository.getFile(event.path)));
   }
 
-  Future<void> _onVaultUnlocked(UnlockedEvent event, Emitter<VaultState> emit) async {
-    final lockedVault = state.maybeWhen(
-      locked: (vault) => vault,
-      orElse: () => throw Error()
-    );
+  Future<void> _onVaultUnlocked(
+      UnlockedEvent event, Emitter<VaultState> emit) async {
+    final lockedVault =
+        state.maybeWhen(locked: (vault) => vault, orElse: () => throw Error());
 
     emit(VaultState.unlocking(lockedVault));
 
     final decryptedContents = lockedVault.contents.decrypt(event.masterKey);
 
-    emit(
-      VaultState.unlocked(
-        vault: lockedVault.copyWith(
-          contents: decryptedContents
-        ),
-        masterKey: lockedVault.header.settings.saveKeyInMemory ? event.masterKey : null
-      )
-    );
+    emit(VaultState.unlocked(
+        vault: lockedVault.copyWith(contents: decryptedContents),
+        masterKey: lockedVault.header.settings.saveKeyInMemory
+            ? event.masterKey
+            : null));
   }
 
-  Future<void> _onMasterKeyChanged(MasterKeyChangedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onMasterKeyChanged(
+      MasterKeyChangedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    emit(unlockedState.copyWith(
-      masterKey: event.masterKey
-    ));
+    emit(unlockedState.copyWith(masterKey: event.masterKey));
   }
 
-  Future<void> _onGroupSelected(GroupSelectedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onGroupSelected(
+      GroupSelectedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     emit(unlockedState.copyWith(
-      selectedGroup: event.deselect ? null : event.path
-    ));
+        selectedGroup: event.deselect ? null : event.path));
   }
 
-  Future<void> _onItemSelected(ItemSelectedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onItemSelected(
+      ItemSelectedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     emit(unlockedState.copyWith(
-      selectedItem: event.deselect ? null : event.path
-    ));
+        selectedItem: event.deselect ? null : event.path));
   }
 
-  Future<void> _onSelectedItemViewToggled(SelectedItemViewToggledEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onSelectedItemViewToggled(
+      SelectedItemViewToggledEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     emit(unlockedState.copyWith(
-      viewingSelectedItem: !unlockedState.viewingSelectedItem
-    ));
+        viewingSelectedItem: !unlockedState.viewingSelectedItem));
   }
 
-  Future<void> _onVaultUpdated(UpdatedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onVaultUpdated(
+      UpdatedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    emit(unlockedState.copyWith(
-      vault: event.newVault
-    ));
+    emit(unlockedState.copyWith(vault: event.newVault));
 
     repository.updateFile(event.newVault, event.masterKey);
   }
 
-  Future<void> _onVaultLocked(LockedEvent event, Emitter<VaultState> emit) async {
-    final unlockedState = state.maybeMap(
-      unlocked: (state) => state,
-      orElse: () => throw Error()
-    );
+  Future<void> _onVaultLocked(
+      LockedEvent event, Emitter<VaultState> emit) async {
+    final unlockedState =
+        state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     final encryptedFile = await repository.getFile(unlockedState.vault.path!);
-    
-    emit(
-      VaultState.locked(unlockedState.vault.copyWith(
-        contents: encryptedFile.contents
-      ))
-    );
+
+    emit(VaultState.locked(
+        unlockedState.vault.copyWith(contents: encryptedFile.contents)));
   }
 
-  Future<void> _onVaultClosed(ClosedEvent event, Emitter<VaultState> emit) async {
-    settings.copyWith( recentPath: null ).save();
-    
+  Future<void> _onVaultClosed(
+      ClosedEvent event, Emitter<VaultState> emit) async {
+    settings.copyWith(recentPath: null).save();
+
     emit(const VaultState.none());
   }
 }

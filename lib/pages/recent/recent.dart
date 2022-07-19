@@ -9,7 +9,7 @@ import 'package:polypass/data/app_settings.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 
 class Recent extends StatelessWidget {
-  const Recent({ Key? key, required this.settings }) : super(key: key);
+  const Recent({Key? key, required this.settings}) : super(key: key);
 
   final AppSettings settings;
 
@@ -19,7 +19,7 @@ class Recent extends StatelessWidget {
 
     if (recentPath != null) {
       final recentFile = File(recentPath);
-      
+
       if (!recentFile.existsSync()) {
         recentPath = null;
       }

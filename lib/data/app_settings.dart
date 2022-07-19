@@ -11,20 +11,21 @@ part 'app_settings.g.dart';
 @freezed
 class AppSettings with _$AppSettings {
   const AppSettings._();
-  const factory AppSettings({
-    required VaultSettings defaultVaultSettings,
-    required String? recentPath
-  }) = _AppSettings;
+  const factory AppSettings(
+      {required VaultSettings defaultVaultSettings,
+      required String? recentPath}) = _AppSettings;
 
   static final documentsDir = getApplicationDocumentsDirectory();
 
   static Future<AppSettings> load() async {
-    final file = File('${(await documentsDir).absolute.path}/polypass/.settings/settings.json');
+    final file = File(
+        '${(await documentsDir).absolute.path}/polypass/.settings/settings.json');
 
     if (!(await file.exists())) {
-      final settingsDir = Directory('${(await documentsDir).absolute.path}/polypass/.settings');
+      final settingsDir =
+          Directory('${(await documentsDir).absolute.path}/polypass/.settings');
 
-      if(!(await settingsDir.exists())) {
+      if (!(await settingsDir.exists())) {
         await settingsDir.create(recursive: true);
       }
 
@@ -37,9 +38,13 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File('${(await documentsDir).absolute.path}/polypass/.settings/settings.json').writeAsString(jsonEncode(toJson()));
+    await File(
+            '${(await documentsDir).absolute.path}/polypass/.settings/settings.json')
+        .writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() => AppSettings( defaultVaultSettings: VaultSettings.empty(), recentPath: null );
-  factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
+  factory AppSettings.empty() => AppSettings(
+      defaultVaultSettings: VaultSettings.empty(), recentPath: null);
+  factory AppSettings.fromJson(Map<String, dynamic> json) =>
+      _$AppSettingsFromJson(json);
 }
