@@ -3,11 +3,11 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
 import 'package:pointycastle/api.dart';
+import 'package:pointycastle/key_derivators/api.dart';
 import 'package:pointycastle/key_derivators/argon2_native_int_impl.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pointycastle/pointycastle.dart';
 part 'vault_file.freezed.dart';
 part 'vault_file.g.dart';
 

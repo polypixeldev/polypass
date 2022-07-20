@@ -646,6 +646,8 @@ class ListItem extends StatelessWidget {
                   }
                   return Row(children: actions);
                 }
+
+                return null;
               });
         });
       }),

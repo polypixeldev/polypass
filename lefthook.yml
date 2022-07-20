@@ -1,0 +1,13 @@
+pre-commit:
+  commands:
+    lint:
+      exclude: ".*.g.dart|.*.freezed.dart"
+      run: dart analyze --fatal-infos {all_files}
+    format:
+      glob: "*.dart"
+      run: dart format {staged_files}
+
+commit-msg:
+  commands:
+    lint:
+      run: dart run commit_check.dart

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:polypass/blocs/vault_bloc.dart';
 import 'package:polypass/data/vault_file.dart';
