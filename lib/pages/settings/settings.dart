@@ -4,13 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import 'package:polypass/components/appwrapper.dart';
 
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/blocs/app_settings_bloc.dart';
 import 'package:polypass/pages/settings/settings_bloc.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key, required this.settings}) : super(key: key);
-
-  final AppSettings settings;
+  const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,8 @@ class Settings extends StatelessWidget {
         actions: false,
         icon: false,
         child: BlocProvider(
-          create: (_context) => SettingsBloc(settings: settings),
+          create: (_context) =>
+              SettingsBloc(settingsBloc: context.read<AppSettingsBloc>()),
           child: Center(
               child: Container(
                   padding: const EdgeInsets.all(15),
@@ -38,6 +37,42 @@ class Settings extends StatelessWidget {
                             context
                                 .read<SettingsBloc>()
                                 .add(SettingsEvent.setSaveKeyInMemory(setting));
+                          }),
+                      TextSetting(
+                          title: 'KDF Iterations',
+                          value: state.settings.defaultVaultSettings.iterations
+                              .toString(),
+                          onChanged: (setting) {
+                            final parsed = int.tryParse(setting);
+                            if (parsed != null) {
+                              context
+                                  .read<SettingsBloc>()
+                                  .add(SettingsEvent.setKDFIterations(parsed));
+                            }
+                          }),
+                      TextSetting(
+                          title: 'KDF Threads',
+                          value: state.settings.defaultVaultSettings.threads
+                              .toString(),
+                          onChanged: (setting) {
+                            final parsed = int.tryParse(setting);
+                            if (parsed != null) {
+                              context
+                                  .read<SettingsBloc>()
+                                  .add(SettingsEvent.setKDFThreads(parsed));
+                            }
+                          }),
+                      TextSetting(
+                          title: 'KDF Memory',
+                          value: state.settings.defaultVaultSettings.memory
+                              .toString(),
+                          onChanged: (setting) {
+                            final parsed = int.tryParse(setting);
+                            if (parsed != null) {
+                              context
+                                  .read<SettingsBloc>()
+                                  .add(SettingsEvent.setKDFMemory(parsed));
+                            }
                           }),
                       Row(
                         children: const [
@@ -78,6 +113,46 @@ class ToggleSetting extends StatelessWidget {
       ],
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
+    );
+  }
+}
+
+class TextSetting extends StatelessWidget {
+  const TextSetting(
+      {Key? key,
+      required this.title,
+      required this.value,
+      required this.onChanged})
+      : super(key: key);
+
+  final String title;
+  final String value;
+  final void Function(String) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final controller = TextEditingController();
+    controller.text = value;
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
+
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: theme.colorScheme.secondary),
+      margin: const EdgeInsets.all(5),
+      child: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+              labelText: title,
+              contentPadding: const EdgeInsets.all(10),
+              floatingLabelStyle: theme.textTheme.bodySmall,
+              labelStyle: theme.textTheme.bodySmall,
+              border: InputBorder.none),
+          style: theme.textTheme.bodySmall,
+          onChanged: onChanged),
     );
   }
 }

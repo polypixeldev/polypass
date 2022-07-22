@@ -62,8 +62,10 @@ class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
     final lockedState = vaultBloc.state
         .maybeMap(locked: (state) => state, orElse: () => throw Error());
 
-    final derivedKey = EncryptedData.deriveKey(state.masterPassword,
-        Uint8List.fromList(lockedState.vault.header.salt));
+    final derivedKey = EncryptedData.deriveDerivedKey(
+        state.masterPassword,
+        Uint8List.fromList(lockedState.vault.header.salt),
+        lockedState.vault.header.settings);
 
     if (lockedState.vault.header
         .testMagic(derivedKey, lockedState.vault.contents.iv)) {

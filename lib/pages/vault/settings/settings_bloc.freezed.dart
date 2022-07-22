@@ -201,6 +201,9 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
     required TResult Function(BuildContext context) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -210,6 +213,9 @@ mixin _$SettingsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -219,6 +225,9 @@ mixin _$SettingsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -230,6 +239,9 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -240,6 +252,9 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -250,6 +265,9 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -345,6 +363,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setSaveKeyInMemory(setting);
@@ -357,6 +378,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
@@ -369,6 +393,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -386,6 +413,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setSaveKeyInMemory(this);
@@ -399,6 +429,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
@@ -412,6 +445,9 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -507,6 +543,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return newMasterPasswordChanged(newMasterPassword);
@@ -519,6 +558,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(newMasterPassword);
@@ -531,6 +573,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -548,6 +593,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return newMasterPasswordChanged(this);
@@ -561,6 +609,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(this);
@@ -574,6 +625,9 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -672,6 +726,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged(confirmNewMasterPassword);
@@ -684,6 +741,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(confirmNewMasterPassword);
@@ -696,6 +756,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -713,6 +776,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged(this);
@@ -726,6 +792,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(this);
@@ -739,6 +808,9 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -759,6 +831,531 @@ abstract class ConfirmNewMasterPasswordChangedEvent implements SettingsEvent {
   _$$ConfirmNewMasterPasswordChangedEventCopyWith<
           _$ConfirmNewMasterPasswordChangedEvent>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetKDFIterationsEventCopyWith<$Res> {
+  factory _$$SetKDFIterationsEventCopyWith(_$SetKDFIterationsEvent value,
+          $Res Function(_$SetKDFIterationsEvent) then) =
+      __$$SetKDFIterationsEventCopyWithImpl<$Res>;
+  $Res call({int setting});
+}
+
+/// @nodoc
+class __$$SetKDFIterationsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$SetKDFIterationsEventCopyWith<$Res> {
+  __$$SetKDFIterationsEventCopyWithImpl(_$SetKDFIterationsEvent _value,
+      $Res Function(_$SetKDFIterationsEvent) _then)
+      : super(_value, (v) => _then(v as _$SetKDFIterationsEvent));
+
+  @override
+  _$SetKDFIterationsEvent get _value => super._value as _$SetKDFIterationsEvent;
+
+  @override
+  $Res call({
+    Object? setting = freezed,
+  }) {
+    return _then(_$SetKDFIterationsEvent(
+      setting == freezed
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
+  const _$SetKDFIterationsEvent(this.setting);
+
+  @override
+  final int setting;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setKDFIterations(setting: $setting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetKDFIterationsEvent &&
+            const DeepCollectionEquality().equals(other.setting, setting));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetKDFIterationsEventCopyWith<_$SetKDFIterationsEvent> get copyWith =>
+      __$$SetKDFIterationsEventCopyWithImpl<_$SetKDFIterationsEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return setKDFIterations(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return setKDFIterations?.call(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFIterations != null) {
+      return setKDFIterations(setting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return setKDFIterations(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return setKDFIterations?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFIterations != null) {
+      return setKDFIterations(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetKDFIterationsEvent implements SettingsEvent {
+  const factory SetKDFIterationsEvent(final int setting) =
+      _$SetKDFIterationsEvent;
+
+  int get setting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$SetKDFIterationsEventCopyWith<_$SetKDFIterationsEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetKDFThreadsEventCopyWith<$Res> {
+  factory _$$SetKDFThreadsEventCopyWith(_$SetKDFThreadsEvent value,
+          $Res Function(_$SetKDFThreadsEvent) then) =
+      __$$SetKDFThreadsEventCopyWithImpl<$Res>;
+  $Res call({int setting});
+}
+
+/// @nodoc
+class __$$SetKDFThreadsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$SetKDFThreadsEventCopyWith<$Res> {
+  __$$SetKDFThreadsEventCopyWithImpl(
+      _$SetKDFThreadsEvent _value, $Res Function(_$SetKDFThreadsEvent) _then)
+      : super(_value, (v) => _then(v as _$SetKDFThreadsEvent));
+
+  @override
+  _$SetKDFThreadsEvent get _value => super._value as _$SetKDFThreadsEvent;
+
+  @override
+  $Res call({
+    Object? setting = freezed,
+  }) {
+    return _then(_$SetKDFThreadsEvent(
+      setting == freezed
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
+  const _$SetKDFThreadsEvent(this.setting);
+
+  @override
+  final int setting;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setKDFThreads(setting: $setting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetKDFThreadsEvent &&
+            const DeepCollectionEquality().equals(other.setting, setting));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetKDFThreadsEventCopyWith<_$SetKDFThreadsEvent> get copyWith =>
+      __$$SetKDFThreadsEventCopyWithImpl<_$SetKDFThreadsEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return setKDFThreads(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return setKDFThreads?.call(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFThreads != null) {
+      return setKDFThreads(setting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return setKDFThreads(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return setKDFThreads?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFThreads != null) {
+      return setKDFThreads(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetKDFThreadsEvent implements SettingsEvent {
+  const factory SetKDFThreadsEvent(final int setting) = _$SetKDFThreadsEvent;
+
+  int get setting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$SetKDFThreadsEventCopyWith<_$SetKDFThreadsEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetKDFMemoryEventCopyWith<$Res> {
+  factory _$$SetKDFMemoryEventCopyWith(
+          _$SetKDFMemoryEvent value, $Res Function(_$SetKDFMemoryEvent) then) =
+      __$$SetKDFMemoryEventCopyWithImpl<$Res>;
+  $Res call({int setting});
+}
+
+/// @nodoc
+class __$$SetKDFMemoryEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$SetKDFMemoryEventCopyWith<$Res> {
+  __$$SetKDFMemoryEventCopyWithImpl(
+      _$SetKDFMemoryEvent _value, $Res Function(_$SetKDFMemoryEvent) _then)
+      : super(_value, (v) => _then(v as _$SetKDFMemoryEvent));
+
+  @override
+  _$SetKDFMemoryEvent get _value => super._value as _$SetKDFMemoryEvent;
+
+  @override
+  $Res call({
+    Object? setting = freezed,
+  }) {
+    return _then(_$SetKDFMemoryEvent(
+      setting == freezed
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
+  const _$SetKDFMemoryEvent(this.setting);
+
+  @override
+  final int setting;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setKDFMemory(setting: $setting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetKDFMemoryEvent &&
+            const DeepCollectionEquality().equals(other.setting, setting));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
+      __$$SetKDFMemoryEventCopyWithImpl<_$SetKDFMemoryEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return setKDFMemory(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return setKDFMemory?.call(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFMemory != null) {
+      return setKDFMemory(setting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return setKDFMemory(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return setKDFMemory?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setKDFMemory != null) {
+      return setKDFMemory(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetKDFMemoryEvent implements SettingsEvent {
+  const factory SetKDFMemoryEvent(final int setting) = _$SetKDFMemoryEvent;
+
+  int get setting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -832,6 +1429,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return settingsSaved(context);
@@ -844,6 +1444,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return settingsSaved?.call(context);
@@ -856,6 +1459,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -873,6 +1479,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return settingsSaved(this);
@@ -886,6 +1495,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
@@ -899,6 +1511,9 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {

@@ -51,11 +51,17 @@ Map<String, dynamic> _$$_MagicValueToJson(_$_MagicValue instance) =>
 
 _$_VaultSettings _$$_VaultSettingsFromJson(Map json) => _$_VaultSettings(
       saveKeyInMemory: json['saveKeyInMemory'] as bool,
+      iterations: json['iterations'] as int,
+      threads: json['threads'] as int,
+      memory: json['memory'] as int,
     );
 
 Map<String, dynamic> _$$_VaultSettingsToJson(_$_VaultSettings instance) =>
     <String, dynamic>{
       'saveKeyInMemory': instance.saveKeyInMemory,
+      'iterations': instance.iterations,
+      'threads': instance.threads,
+      'memory': instance.memory,
     };
 
 _$_VaultContents _$$_VaultContentsFromJson(Map json) => _$_VaultContents(

@@ -42,6 +42,38 @@ class VaultSettingsPage extends StatelessWidget {
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 5),
                         ),
+                        TextSetting(
+                            title: 'KDF Iterations',
+                            value: state.settings.iterations.toString(),
+                            onChanged: (setting) {
+                              final parsed = int.tryParse(setting);
+                              if (parsed != null) {
+                                context.read<SettingsBloc>().add(
+                                    SettingsEvent.setKDFIterations(parsed));
+                              }
+                            }),
+                        TextSetting(
+                            title: 'KDF Threads',
+                            value: state.settings.threads.toString(),
+                            onChanged: (setting) {
+                              final parsed = int.tryParse(setting);
+                              if (parsed != null) {
+                                context
+                                    .read<SettingsBloc>()
+                                    .add(SettingsEvent.setKDFThreads(parsed));
+                              }
+                            }),
+                        TextSetting(
+                            title: 'KDF Memory',
+                            value: state.settings.memory.toString(),
+                            onChanged: (setting) {
+                              final parsed = int.tryParse(setting);
+                              if (parsed != null) {
+                                context
+                                    .read<SettingsBloc>()
+                                    .add(SettingsEvent.setKDFMemory(parsed));
+                              }
+                            }),
                         const Text('Change Master Password',
                             style:
                                 TextStyle(fontSize: 30, color: Colors.white)),
@@ -49,21 +81,25 @@ class VaultSettingsPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             children: [
-                              MasterPasswordInput(
+                              TextSetting(
                                 onChanged: (newMasterPassword) {
                                   context.read<SettingsBloc>().add(
                                       SettingsEvent.newMasterPasswordChanged(
                                           newMasterPassword));
                                 },
-                                label: 'New Master Password',
+                                obscured: true,
+                                value: state.newMasterPassword,
+                                title: 'New Master Password',
                               ),
-                              MasterPasswordInput(
+                              TextSetting(
                                 onChanged: (newMasterPassword) {
                                   context.read<SettingsBloc>().add(SettingsEvent
                                       .confirmNewMasterPasswordChanged(
                                           newMasterPassword));
                                 },
-                                label: 'Confirm New Master Password',
+                                obscured: true,
+                                value: state.confirmNewMasterPassword,
+                                title: 'Confirm New Master Password',
                               )
                             ],
                           ),
@@ -85,35 +121,47 @@ class VaultSettingsPage extends StatelessWidget {
   }
 }
 
-class MasterPasswordInput extends StatelessWidget {
-  const MasterPasswordInput(
-      {Key? key, required this.onChanged, required this.label})
+class TextSetting extends StatelessWidget {
+  const TextSetting(
+      {Key? key,
+      required this.title,
+      required this.value,
+      this.obscured = false,
+      required this.onChanged})
       : super(key: key);
 
-  final void Function(String newMasterPassword) onChanged;
-  final String label;
+  final String title;
+  final String value;
+  final bool obscured;
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final controller = TextEditingController();
+    controller.text = value;
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
+
     return Container(
       decoration: BoxDecoration(
-          color: theme.colorScheme.secondary,
-          borderRadius: BorderRadius.circular(5)),
-      margin: const EdgeInsets.all(10),
+          borderRadius: BorderRadius.circular(5),
+          color: theme.colorScheme.secondary),
+      margin: const EdgeInsets.all(5),
       child: TextField(
+          controller: controller,
           decoration: InputDecoration(
-              labelText: label,
+              labelText: title,
               contentPadding: const EdgeInsets.all(10),
-              floatingLabelStyle: const TextStyle(color: Colors.black),
-              labelStyle: const TextStyle(color: Colors.black),
+              floatingLabelStyle: theme.textTheme.bodySmall,
+              labelStyle: theme.textTheme.bodySmall,
               border: InputBorder.none),
+          obscureText: obscured,
+          autocorrect: !obscured,
+          enableSuggestions: !obscured,
+          enableIMEPersonalizedLearning: !obscured,
           style: theme.textTheme.bodySmall,
-          cursorColor: Colors.black,
-          obscureText: true,
-          enableSuggestions: false,
-          autocorrect: false,
           onChanged: onChanged),
     );
   }

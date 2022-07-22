@@ -930,6 +930,12 @@ VaultSettings _$VaultSettingsFromJson(Map<String, dynamic> json) {
 mixin _$VaultSettings {
   bool get saveKeyInMemory => throw _privateConstructorUsedError;
   set saveKeyInMemory(bool value) => throw _privateConstructorUsedError;
+  int get iterations => throw _privateConstructorUsedError;
+  set iterations(int value) => throw _privateConstructorUsedError;
+  int get threads => throw _privateConstructorUsedError;
+  set threads(int value) => throw _privateConstructorUsedError;
+  int get memory => throw _privateConstructorUsedError;
+  set memory(int value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -942,7 +948,7 @@ abstract class $VaultSettingsCopyWith<$Res> {
   factory $VaultSettingsCopyWith(
           VaultSettings value, $Res Function(VaultSettings) then) =
       _$VaultSettingsCopyWithImpl<$Res>;
-  $Res call({bool saveKeyInMemory});
+  $Res call({bool saveKeyInMemory, int iterations, int threads, int memory});
 }
 
 /// @nodoc
@@ -957,12 +963,27 @@ class _$VaultSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? saveKeyInMemory = freezed,
+    Object? iterations = freezed,
+    Object? threads = freezed,
+    Object? memory = freezed,
   }) {
     return _then(_value.copyWith(
       saveKeyInMemory: saveKeyInMemory == freezed
           ? _value.saveKeyInMemory
           : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
               as bool,
+      iterations: iterations == freezed
+          ? _value.iterations
+          : iterations // ignore: cast_nullable_to_non_nullable
+              as int,
+      threads: threads == freezed
+          ? _value.threads
+          : threads // ignore: cast_nullable_to_non_nullable
+              as int,
+      memory: memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -974,7 +995,7 @@ abstract class _$$_VaultSettingsCopyWith<$Res>
           _$_VaultSettings value, $Res Function(_$_VaultSettings) then) =
       __$$_VaultSettingsCopyWithImpl<$Res>;
   @override
-  $Res call({bool saveKeyInMemory});
+  $Res call({bool saveKeyInMemory, int iterations, int threads, int memory});
 }
 
 /// @nodoc
@@ -991,12 +1012,27 @@ class __$$_VaultSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? saveKeyInMemory = freezed,
+    Object? iterations = freezed,
+    Object? threads = freezed,
+    Object? memory = freezed,
   }) {
     return _then(_$_VaultSettings(
       saveKeyInMemory: saveKeyInMemory == freezed
           ? _value.saveKeyInMemory
           : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
               as bool,
+      iterations: iterations == freezed
+          ? _value.iterations
+          : iterations // ignore: cast_nullable_to_non_nullable
+              as int,
+      threads: threads == freezed
+          ? _value.threads
+          : threads // ignore: cast_nullable_to_non_nullable
+              as int,
+      memory: memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1004,17 +1040,27 @@ class __$$_VaultSettingsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultSettings implements _VaultSettings {
-  _$_VaultSettings({required this.saveKeyInMemory});
+  _$_VaultSettings(
+      {required this.saveKeyInMemory,
+      required this.iterations,
+      required this.threads,
+      required this.memory});
 
   factory _$_VaultSettings.fromJson(Map<String, dynamic> json) =>
       _$$_VaultSettingsFromJson(json);
 
   @override
   bool saveKeyInMemory;
+  @override
+  int iterations;
+  @override
+  int threads;
+  @override
+  int memory;
 
   @override
   String toString() {
-    return 'VaultSettings(saveKeyInMemory: $saveKeyInMemory)';
+    return 'VaultSettings(saveKeyInMemory: $saveKeyInMemory, iterations: $iterations, threads: $threads, memory: $memory)';
   }
 
   @JsonKey(ignore: true)
@@ -1029,13 +1075,23 @@ class _$_VaultSettings implements _VaultSettings {
 }
 
 abstract class _VaultSettings implements VaultSettings {
-  factory _VaultSettings({required bool saveKeyInMemory}) = _$_VaultSettings;
+  factory _VaultSettings(
+      {required bool saveKeyInMemory,
+      required int iterations,
+      required int threads,
+      required int memory}) = _$_VaultSettings;
 
   factory _VaultSettings.fromJson(Map<String, dynamic> json) =
       _$_VaultSettings.fromJson;
 
   @override
   bool get saveKeyInMemory => throw _privateConstructorUsedError;
+  @override
+  int get iterations => throw _privateConstructorUsedError;
+  @override
+  int get threads => throw _privateConstructorUsedError;
+  @override
+  int get memory => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>

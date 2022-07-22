@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:polypass/blocs/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings.dart';
 import 'package:polypass/pages/create/create_form_bloc.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
@@ -11,9 +12,7 @@ import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/components/appwrapper.dart';
 
 class Create extends StatelessWidget {
-  const Create({Key? key, required this.settings}) : super(key: key);
-
-  final AppSettings settings;
+  const Create({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class Create extends StatelessWidget {
         child: BlocProvider(
           create: (context) => CreateFormBloc(
               vaultRepository: context.read<VaultRepository>(),
-              appSettings: settings),
+              appSettings: context.read<AppSettingsBloc>().state.settings),
           child: MultiBlocListener(
             listeners: [
               BlocListener<CreateFormBloc, CreateFormState>(

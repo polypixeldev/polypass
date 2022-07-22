@@ -11,7 +11,9 @@ class MasterPasswordDialog extends StatelessWidget {
       {Key? key, required this.onSuccess, required this.onCancel})
       : super(key: key);
 
-  final void Function(encrypt.Key masterKey, encrypt.Key derivedKey) onSuccess;
+  final void Function(
+          encrypt.Key masterKey, encrypt.Key derivedKey, String masterPassword)
+      onSuccess;
   final void Function() onCancel;
 
   @override
@@ -30,7 +32,8 @@ class MasterPasswordDialog extends StatelessWidget {
         listeners: [
           BlocListener<MasterPasswordDialogBloc, MasterPasswordDialogState>(
               listener: (context, state) {
-                onSuccess(state.masterKey!, state.derivedKey!);
+                onSuccess(
+                    state.masterKey!, state.derivedKey!, state.masterPassword);
               },
               listenWhen: (previous, current) =>
                   current.status == MasterPasswordDialogStatus.success),
@@ -186,10 +189,11 @@ class CancelButton extends StatelessWidget {
 }
 
 class MasterKeys {
-  const MasterKeys({this.masterKey, this.derivedKey});
+  const MasterKeys({this.masterKey, this.derivedKey, this.masterPassword});
 
   final encrypt.Key? masterKey;
   final encrypt.Key? derivedKey;
+  final String? masterPassword;
 }
 
 Future<MasterKeys> getMasterKey(BuildContext context,
@@ -197,15 +201,18 @@ Future<MasterKeys> getMasterKey(BuildContext context,
   var masterKey = context.read<VaultBloc>().state.maybeMap(
       unlocked: (state) => state.masterKey, orElse: () => throw Error());
   encrypt.Key? derivedKey;
+  String? masterPassword;
 
   if (masterKey == null || forceDialog) {
     await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => MasterPasswordDialog(
-              onSuccess: (dialogMasterKey, dialogDerivedKey) {
+              onSuccess:
+                  (dialogMasterKey, dialogDerivedKey, dialogMasterPassword) {
                 masterKey = dialogMasterKey;
                 derivedKey = dialogDerivedKey;
+                masterPassword = dialogMasterPassword;
                 Navigator.of(context, rootNavigator: true).pop();
               },
               onCancel: () {
@@ -215,5 +222,8 @@ Future<MasterKeys> getMasterKey(BuildContext context,
             ));
   }
 
-  return MasterKeys(masterKey: masterKey, derivedKey: derivedKey);
+  return MasterKeys(
+      masterKey: masterKey,
+      derivedKey: derivedKey,
+      masterPassword: masterPassword);
 }

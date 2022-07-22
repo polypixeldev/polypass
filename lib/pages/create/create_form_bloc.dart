@@ -82,9 +82,12 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
     emit(state.copyWith(submitted: true));
 
     final salt = EncryptedData.generateSalt();
-    final derivedKey = EncryptedData.deriveKey(state.masterPassword, salt);
-    final masterKey =
-        EncryptedData.deriveKey(Key.fromSecureRandom(256).base64, salt);
+    final derivedKey = EncryptedData.deriveDerivedKey(
+        state.masterPassword, salt, appSettings.defaultVaultSettings);
+    final masterKey = EncryptedData.deriveMasterKey(
+        Key.fromSecureRandom(256).base64,
+        salt,
+        appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
     await vaultRepository.updateFile(

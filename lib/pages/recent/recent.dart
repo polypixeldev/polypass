@@ -5,17 +5,15 @@ import 'package:polypass/components/appwrapper.dart';
 
 import 'dart:io';
 
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/blocs/app_settings_bloc.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
 
 class Recent extends StatelessWidget {
-  const Recent({Key? key, required this.settings}) : super(key: key);
-
-  final AppSettings settings;
+  const Recent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var recentPath = settings.recentPath;
+    var recentPath = context.read<AppSettingsBloc>().state.settings.recentPath;
 
     if (recentPath != null) {
       final recentFile = File(recentPath);

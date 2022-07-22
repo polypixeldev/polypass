@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file.dart';
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/blocs/app_settings_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -41,8 +42,7 @@ class VaultEvent with _$VaultEvent {
 }
 
 class VaultBloc extends Bloc<VaultEvent, VaultState> {
-  VaultBloc({required this.repository, required this.settings})
-      : super(const VaultState.none()) {
+  VaultBloc({required this.read}) : super(const VaultState.none()) {
     on<VaultEvent>((rawEvent, emit) async {
       await rawEvent.map(
           opened: (event) => _onVaultOpened(event, emit),
@@ -58,16 +58,19 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     });
   }
 
-  final VaultRepository repository;
-  final AppSettings settings;
+  final Locator read;
 
   Future<void> _onVaultOpened(
       OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
 
-    settings.copyWith(recentPath: event.path).save();
+    read<AppSettingsBloc>()
+        .state
+        .settings
+        .copyWith(recentPath: event.path)
+        .save();
 
-    emit(VaultState.locked(await repository.getFile(event.path)));
+    emit(VaultState.locked(await read<VaultRepository>().getFile(event.path)));
   }
 
   Future<void> _onVaultUnlocked(
@@ -128,7 +131,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
     emit(unlockedState.copyWith(vault: event.newVault));
 
-    repository.updateFile(event.newVault, event.masterKey);
+    read<VaultRepository>().updateFile(event.newVault, event.masterKey);
   }
 
   Future<void> _onVaultLocked(
@@ -136,7 +139,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     final unlockedState =
         state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    final encryptedFile = await repository.getFile(unlockedState.vault.path!);
+    final encryptedFile =
+        await read<VaultRepository>().getFile(unlockedState.vault.path!);
 
     emit(VaultState.locked(
         unlockedState.vault.copyWith(contents: encryptedFile.contents)));
@@ -144,7 +148,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
   Future<void> _onVaultClosed(
       ClosedEvent event, Emitter<VaultState> emit) async {
-    settings.copyWith(recentPath: null).save();
+    read<AppSettingsBloc>().state.settings.copyWith(recentPath: null).save();
 
     emit(const VaultState.none());
   }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/blocs/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings.dart';
 
 import 'package:polypass/pages/home/home.dart';
@@ -21,27 +22,21 @@ import 'package:polypass/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final settings = await AppSettings.load();
-  runApp(App(settings: settings));
+  runApp(App(initialSettings: settings));
 }
 
 class App extends StatelessWidget {
-  const App({Key? key, required this.settings}) : super(key: key);
+  const App({Key? key, required this.initialSettings}) : super(key: key);
 
-  final AppSettings settings;
+  final AppSettings initialSettings;
 
   @override
   Widget build(BuildContext context) {
     final _router = GoRouter(routes: [
       GoRoute(path: '/', builder: (context, state) => const Home()),
-      GoRoute(
-          path: '/recent',
-          builder: (context, state) => Recent(settings: settings)),
-      GoRoute(
-          path: '/create',
-          builder: (context, state) => Create(settings: settings)),
-      GoRoute(
-          path: '/settings',
-          builder: (context, state) => Settings(settings: settings)),
+      GoRoute(path: '/recent', builder: (context, state) => const Recent()),
+      GoRoute(path: '/create', builder: (context, state) => const Create()),
+      GoRoute(path: '/settings', builder: (context, state) => const Settings()),
       GoRoute(
           path: '/vault/home', builder: (context, state) => const VaultHome()),
       GoRoute(
@@ -59,14 +54,16 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => const VaultRepository(),
       child: BlocProvider(
-        create: (context) => VaultBloc(
-            repository: context.read<VaultRepository>(), settings: settings),
-        child: MaterialApp.router(
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate,
-            title: 'PolyPass',
-            debugShowCheckedModeBanner: false,
-            theme: appTheme),
+        create: (context) => AppSettingsBloc(initialSettings),
+        child: BlocProvider(
+          create: (context) => VaultBloc(read: context.read),
+          child: MaterialApp.router(
+              routeInformationParser: _router.routeInformationParser,
+              routerDelegate: _router.routerDelegate,
+              title: 'PolyPass',
+              debugShowCheckedModeBanner: false,
+              theme: appTheme),
+        ),
       ),
     );
   }

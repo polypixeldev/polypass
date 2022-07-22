@@ -61,8 +61,8 @@ class MasterPasswordDialogBloc
       Emitter<MasterPasswordDialogState> emit) {
     emit(state.copyWith(status: MasterPasswordDialogStatus.validating));
 
-    final derivedKey = EncryptedData.deriveKey(
-        state.masterPassword, Uint8List.fromList(vaultFile.header.salt));
+    final derivedKey = EncryptedData.deriveDerivedKey(state.masterPassword,
+        Uint8List.fromList(vaultFile.header.salt), vaultFile.header.settings);
 
     if (vaultFile.header.testMagic(derivedKey, vaultFile.contents.iv)) {
       emit(state.copyWith(

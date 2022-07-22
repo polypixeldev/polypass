@@ -6,6 +6,7 @@ import 'package:pointycastle/api.dart';
 import 'package:pointycastle/key_derivators/api.dart';
 import 'package:pointycastle/key_derivators/argon2_native_int_impl.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
+import 'package:hash/hash.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_file.freezed.dart';
@@ -83,16 +84,27 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
         encrypted: (data, iv) => {'data': data, 'iv': iv.base64});
   }
 
-  static Key deriveKey(String masterPassword, Uint8List salt) {
+  static Key deriveDerivedKey(
+      String masterPassword, Uint8List salt, VaultSettings settings) {
     final argon = Argon2BytesGenerator();
     argon.init(Argon2Parameters(
         Argon2Parameters.ARGON2_id, Uint8List.fromList(salt),
-        desiredKeyLength: 32, iterations: 30, lanes: 2, memory: 1024));
+        desiredKeyLength: 32,
+        iterations: settings.iterations,
+        lanes: settings.threads,
+        memory: settings.memory));
 
     final derivedKey = Uint8List(32);
     argon.deriveKey(
         Uint8List.fromList(utf8.encode(masterPassword)), 0, derivedKey, 0);
 
+    final rawKey = base64Encode(derivedKey);
+    return Key.fromBase64(rawKey);
+  }
+
+  static Key deriveMasterKey(
+      String masterPassword, Uint8List salt, VaultSettings settings) {
+    final derivedKey = SHA256().update(utf8.encode(masterPassword)).digest();
     final rawKey = base64Encode(derivedKey);
     return Key.fromBase64(rawKey);
   }
@@ -336,9 +348,14 @@ class MagicValue extends ToJsonAble with _$MagicValue {
 
 @unfreezed
 class VaultSettings with _$VaultSettings {
-  factory VaultSettings({required bool saveKeyInMemory}) = _VaultSettings;
+  factory VaultSettings(
+      {required bool saveKeyInMemory,
+      required int iterations,
+      required int threads,
+      required int memory}) = _VaultSettings;
 
-  factory VaultSettings.empty() => VaultSettings(saveKeyInMemory: true);
+  factory VaultSettings.empty() => VaultSettings(
+      saveKeyInMemory: true, iterations: 30, threads: 2, memory: 1024);
   factory VaultSettings.fromJson(Map<String, dynamic> json) =>
       _$VaultSettingsFromJson(json);
 }

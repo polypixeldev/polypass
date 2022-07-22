@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Key;
 import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/components/master_password_dialog.dart';
@@ -31,6 +31,10 @@ class SettingsEvent with _$SettingsEvent {
       String newMasterPassword) = NewMasterPasswordChangedEvent;
   const factory SettingsEvent.confirmNewMasterPasswordChanged(
       String confirmNewMasterPassword) = ConfirmNewMasterPasswordChangedEvent;
+  const factory SettingsEvent.setKDFIterations(int setting) =
+      SetKDFIterationsEvent;
+  const factory SettingsEvent.setKDFThreads(int setting) = SetKDFThreadsEvent;
+  const factory SettingsEvent.setKDFMemory(int setting) = SetKDFMemoryEvent;
   const factory SettingsEvent.settingsSaved(BuildContext context) =
       SettingsSavedEvent;
 }
@@ -53,6 +57,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               _onNewMasterPasswordChanged(event, emit),
           confirmNewMasterPasswordChanged: (event) =>
               _onConfirmNewMasterPasswordChanged(event, emit),
+          setKDFIterations: (event) => _onSetKDFIterations(event, emit),
+          setKDFThreads: (event) => _onSetKDFThreads(event, emit),
+          setKDFMemory: (event) => _onSetKDFMemory(event, emit),
           settingsSaved: (event) => _onSettingsSaved(event, emit));
     });
   }
@@ -77,6 +84,24 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         confirmNewMasterPassword: event.confirmNewMasterPassword));
   }
 
+  Future<void> _onSetKDFIterations(
+      SetKDFIterationsEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(
+        settings: state.settings.copyWith(iterations: event.setting)));
+  }
+
+  Future<void> _onSetKDFThreads(
+      SetKDFThreadsEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(
+        settings: state.settings.copyWith(threads: event.setting)));
+  }
+
+  Future<void> _onSetKDFMemory(
+      SetKDFMemoryEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(
+        settings: state.settings.copyWith(memory: event.setting)));
+  }
+
   Future<void> _onSettingsSaved(
       SettingsSavedEvent event, Emitter<SettingsState> emit) async {
     final unlockedState = vaultBloc.state
@@ -84,31 +109,46 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     var masterKeys = await getMasterKey(event.context, forceDialog: true);
     final masterKey = masterKeys.masterKey;
+    final masterPassword = masterKeys.masterPassword;
 
-    if (masterKey == null) {
+    if (masterKey == null || masterPassword == null) {
       return;
     }
 
-    final encrypter = Encrypter(AES(EncryptedData.deriveKey(
-        state.newMasterPassword,
-        Uint8List.fromList(unlockedState.vault.header.salt))));
+    final encSettingsChanged = state.newMasterPassword != '' ||
+        state.settings.iterations !=
+            unlockedState.vault.header.settings.iterations ||
+        state.settings.threads != unlockedState.vault.header.settings.threads ||
+        state.settings.memory != unlockedState.vault.header.settings.memory;
+
+    MagicValue magic;
+    String key;
+
+    if (encSettingsChanged) {
+      final encrypter = Encrypter(AES(EncryptedData.deriveDerivedKey(
+          state.newMasterPassword == ''
+              ? masterPassword
+              : state.newMasterPassword,
+          Uint8List.fromList(unlockedState.vault.header.salt),
+          state.settings)));
+
+      magic = MagicValue(encrypter
+          .encrypt(MagicValue.decryptedValue.value,
+              iv: unlockedState.vault.contents.iv)
+          .base64);
+
+      key = encrypter
+          .encrypt(masterKey.base64, iv: unlockedState.vault.contents.iv)
+          .base64;
+    } else {
+      magic = MagicValue(unlockedState.vault.header.magic.value);
+      key = unlockedState.vault.header.key;
+    }
 
     vaultBloc.add(VaultEvent.updated(
         unlockedState.vault.copyWith(
-            header: unlockedState.vault.header.copyWith(
-                settings: state.settings,
-                magic: MagicValue(state.newMasterPassword == ''
-                    ? unlockedState.vault.header.magic.value
-                    : encrypter
-                        .encrypt(MagicValue.decryptedValue.value,
-                            iv: unlockedState.vault.contents.iv)
-                        .base64),
-                key: state.newMasterPassword == ''
-                    ? unlockedState.vault.header.key
-                    : encrypter
-                        .encrypt(masterKey.base64,
-                            iv: unlockedState.vault.contents.iv)
-                        .base64)),
+            header: unlockedState.vault.header
+                .copyWith(settings: state.settings, magic: magic, key: key)),
         masterKey));
 
     vaultBloc.add(VaultEvent.masterKeyChanged(
