@@ -6,7 +6,7 @@ dynamic main() {
   final commitMessage = commitFile.readAsStringSync();
 
   final regExp = RegExp(
-    r'(fix|feat|wip|none|chore|refactor|doc|style|test|ci)(\(\w+\))?:\s?(\[\DEV-\d+])?.+',
+    r'(fix|feat|wip|none|chore|refactor|doc|style|test|ci)(\((\w|,| )+\))?:\s?(\[\DEV-\d+])?.+',
   );
 
   final valid = regExp.hasMatch(commitMessage);
