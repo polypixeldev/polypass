@@ -27,8 +27,7 @@ class NewFormState with _$NewFormState {
       createdItem: null,
       masterKey: null);
 
-  bool get isFormValid =>
-      (name != '') && (username != '') && (password != '') && (notes != '');
+  bool get isFormValid => (name != '') && (username != '') && (password != '');
 }
 
 @freezed

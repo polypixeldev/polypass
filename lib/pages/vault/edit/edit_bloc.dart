@@ -18,8 +18,7 @@ class EditFormState with _$EditFormState {
       required VaultItem? editedItem,
       required Key? masterKey}) = _EditFormState;
 
-  bool get isFormValid =>
-      (name != '') && (username != '') && (password != '') && (notes != '');
+  bool get isFormValid => (name != '') && (username != '') && (password != '');
 }
 
 @freezed
