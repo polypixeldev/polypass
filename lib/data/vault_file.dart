@@ -307,7 +307,6 @@ class VaultHeader with _$VaultHeader {
   VaultHeader._();
   factory VaultHeader(
       {required String name,
-      required String description,
       required VaultSettings settings,
       required MagicValue magic,
       required String key,

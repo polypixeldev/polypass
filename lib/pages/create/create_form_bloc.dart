@@ -11,29 +11,19 @@ part 'create_form_bloc.freezed.dart';
 @freezed
 class CreateFormState with _$CreateFormState {
   const CreateFormState._();
-  const factory CreateFormState(
-      String name,
-      String description,
-      String masterPassword,
-      String path,
-      bool submitted,
-      bool created) = _CreateFormState;
+  const factory CreateFormState(String name, String masterPassword, String path,
+      bool submitted, bool created) = _CreateFormState;
 
   factory CreateFormState.empty() =>
-      const CreateFormState('', '', '', '', false, false);
+      const CreateFormState('', '', '', false, false);
 
   bool get isFormValid =>
-      (name != '') &&
-      (description != '') &&
-      (masterPassword != '') &&
-      (path != '');
+      (name != '') && (masterPassword != '') && (path != '');
 }
 
 @freezed
 class CreateFormEvent with _$CreateFormEvent {
   const factory CreateFormEvent.nameChanged(String name) = NameChangedEvent;
-  const factory CreateFormEvent.descriptionChanged(String description) =
-      DescriptionChangedEvent;
   const factory CreateFormEvent.masterPasswordChanged(String masterPassword) =
       MasterPasswordChangedEvent;
   const factory CreateFormEvent.pathChanged(String path) = PathChangedEvent;
@@ -46,7 +36,6 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
     on<CreateFormEvent>((event, emit) async {
       await event.map(
           nameChanged: (event) => _onNameChanged(event, emit),
-          descriptionChanged: (event) => _onDescriptionChanged(event, emit),
           masterPasswordChanged: (event) =>
               _onMasterPasswordChanged(event, emit),
           pathChanged: (event) => _onPathChanged(event, emit),
@@ -60,11 +49,6 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   Future<void> _onNameChanged(
       NameChangedEvent event, Emitter<CreateFormState> emit) async {
     emit(state.copyWith(name: event.name));
-  }
-
-  Future<void> _onDescriptionChanged(
-      DescriptionChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(description: event.description));
   }
 
   Future<void> _onMasterPasswordChanged(
@@ -94,7 +78,6 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         VaultFile(
             header: VaultHeader(
                 name: state.name,
-                description: state.description,
                 settings: appSettings.defaultVaultSettings,
                 magic: MagicValue(Encrypter(AES(derivedKey))
                     .encrypt(MagicValue.decryptedValue.value, iv: iv)

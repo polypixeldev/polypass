@@ -21,7 +21,6 @@ Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
 
 _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       name: json['name'] as String,
-      description: json['description'] as String,
       settings: VaultSettings.fromJson(
           Map<String, dynamic>.from(json['settings'] as Map)),
       magic:
@@ -33,7 +32,6 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
 Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'description': instance.description,
       'settings': instance.settings.toJson(),
       'magic': instance.magic.toJson(),
       'key': instance.key,

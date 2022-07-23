@@ -69,9 +69,6 @@ class Create extends StatelessWidget {
                           const NameInput(),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 5)),
-                          const DescriptionInput(),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
                           const MasterPasswordInput(),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 5)),
@@ -239,43 +236,6 @@ class MasterPasswordInput extends StatelessWidget {
                 context
                     .read<CreateFormBloc>()
                     .add(CreateFormEvent.masterPasswordChanged(masterPassword));
-              },
-              cursorColor: Colors.black,
-            ));
-      }),
-    );
-  }
-}
-
-class DescriptionInput extends StatelessWidget {
-  const DescriptionInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return BlocBuilder<CreateFormBloc, CreateFormState>(
-      builder: ((context, state) {
-        return Container(
-            width: 500,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: theme.colorScheme.secondary),
-            child: TextFormField(
-              enabled: !state.submitted,
-              decoration: InputDecoration(
-                  labelText: 'Description',
-                  contentPadding: const EdgeInsets.all(10),
-                  floatingLabelStyle: theme.textTheme.bodySmall,
-                  labelStyle: theme.textTheme.bodySmall,
-                  border: InputBorder.none),
-              style: theme.textTheme.bodySmall,
-              onChanged: (description) {
-                context
-                    .read<CreateFormBloc>()
-                    .add(CreateFormEvent.descriptionChanged(description));
               },
               cursorColor: Colors.black,
             ));
