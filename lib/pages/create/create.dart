@@ -156,11 +156,7 @@ class BackButton extends StatelessWidget {
           onPressed: state.submitted
               ? null
               : () {
-                  try {
-                    router.pop();
-                  } catch (_e) {
-                    router.go('/');
-                  }
+                  router.go('/');
                 });
     });
   }
