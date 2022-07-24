@@ -516,13 +516,15 @@ class ListItem extends StatelessWidget {
                                               .textTheme.bodyMedium!.fontSize! *
                                           1.1,
                                       fontWeight: FontWeight.bold)),
-                              Text(decryptedPassword,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: theme
-                                              .textTheme.bodyMedium!.fontSize! *
-                                          1.1,
-                                      fontWeight: FontWeight.w300)),
+                              Flexible(
+                                child: Text(decryptedPassword,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: theme.textTheme.bodyMedium!
+                                                .fontSize! *
+                                            1.1,
+                                        fontWeight: FontWeight.w300)),
+                              ),
                             ],
                           ),
                         ),
@@ -539,13 +541,15 @@ class ListItem extends StatelessWidget {
                                               .textTheme.bodyMedium!.fontSize! *
                                           1.1,
                                       fontWeight: FontWeight.bold)),
-                              Text(item.notes,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: theme
-                                              .textTheme.bodyMedium!.fontSize! *
-                                          1.1,
-                                      fontWeight: FontWeight.w300)),
+                              Flexible(
+                                child: Text(item.notes,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: theme.textTheme.bodyMedium!
+                                                .fontSize! *
+                                            1.1,
+                                        fontWeight: FontWeight.w300)),
+                              ),
                             ],
                           ),
                         )
