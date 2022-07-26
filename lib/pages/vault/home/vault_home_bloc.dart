@@ -68,7 +68,7 @@ List<List<String>> searchGroup(
           path == null ? [group.group.name] : [...path, group.group.name]);
       matchedItems.addAll(groupMatchedItems);
     }, item: (item) {
-      final exp = RegExp(query);
+      final exp = RegExp(query, caseSensitive: false);
       if (exp.hasMatch(item.item.name)) {
         matchedItems
             .add(path == null ? [item.item.name] : [...path, item.item.name]);
