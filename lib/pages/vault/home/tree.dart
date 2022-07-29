@@ -42,10 +42,47 @@ class Tree extends StatelessWidget {
               name: 'Search Results', components: components.toList())));
         }
 
-        return ListView(primary: false, children: [
-          ...groups.map((group) =>
-              TreeGroup(group: group.group, path: [group.group.name]))
-        ]);
+        return DragTarget<String>(
+          builder: (context, candidateItems, rejectedItems) {
+            return ListView(primary: false, children: [
+              ...groups.map((group) =>
+                  TreeGroup(group: group.group, path: [group.group.name]))
+            ]);
+          },
+          onAccept: (pathStr) async {
+            final componentPath = pathStr.split('.');
+            final componentData =
+                unlockedState.vault.getComponent(componentPath);
+            var updatedVault =
+                unlockedState.vault.deleteComponent(componentPath);
+            final decryptedContents = updatedVault.contents.maybeMap(
+                decrypted: (contents) => contents, orElse: () => throw Error());
+            updatedVault = updatedVault.copyWith(
+                contents: decryptedContents.copyWith(
+                    data: decryptedContents.data.copyWith(components: [
+              ...decryptedContents.data.components,
+              componentData
+            ])));
+
+            final masterKey = (await getMasterKey(context)).masterKey;
+
+            if (masterKey == null) {
+              return;
+            }
+
+            context
+                .read<VaultBloc>()
+                .add(VaultEvent.updated(updatedVault, masterKey));
+          },
+          onWillAccept: (pathStr) {
+            if (unlockedState.selectedGroup?.join('.') == pathStr ||
+                unlockedState.selectedItem?.join('.') == pathStr) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+        );
       }),
     );
   }
@@ -156,66 +193,116 @@ class TreeGroup extends StatelessWidget {
             }
 
             var groups = <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
-                  decoration: BoxDecoration(
-                      color: path[0] == 'Search Results'
-                          ? Colors.orange
-                          : unlockedState.selectedGroup?.join('.') ==
-                                  path.join('.')
-                              ? theme.colorScheme.tertiary
-                              : componentState.inArea
-                                  ? theme.colorScheme.primaryContainer
-                                  : theme.cardColor,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: GestureDetector(
-                    child: MouseRegion(
-                        child: Row(children: [
-                          IconButton(
-                            icon: Icon(
-                                componentState.expand == ExpandMode.collapsed
-                                    ? Icons.expand_more_sharp
-                                    : Icons.expand_less_sharp),
-                            onPressed: () {
-                              context
-                                  .read<ComponentBloc>()
-                                  .add(const ComponentEvent.expandToggled());
-                            },
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 3),
-                              child: textWidget,
-                            ),
-                          )
-                        ]),
-                        onEnter: (_event) {
-                          context
-                              .read<ComponentBloc>()
-                              .add(const ComponentEvent.entered());
-                        },
-                        onExit: (_event) {
-                          context
-                              .read<ComponentBloc>()
-                              .add(const ComponentEvent.exited());
-                        }),
-                    onTap: () {
-                      context.read<VaultBloc>().add(VaultEvent.groupSelected(
-                          path,
-                          unlockedState.selectedGroup?.join('.') ==
-                              path.join('.')));
-                    },
-                    onDoubleTap: () {
-                      context
-                          .read<ComponentBloc>()
-                          .add(const ComponentEvent.modeToggled());
-                    },
-                  ),
-                ),
+              DragTarget<String>(
+                builder: (context, candidateItems, rejectedItems) {
+                  return LongPressDraggable<String>(
+                    feedback: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(7),
+                        child: Text(group.name,
+                            style: TextStyle(
+                                fontSize: theme.textTheme.bodySmall!.fontSize,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                                decoration: TextDecoration.none))),
+                    data: path.join('.'),
+                    dragAnchorStrategy: pointerDragAnchorStrategy,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2, horizontal: 5),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 3),
+                        decoration: BoxDecoration(
+                            color: path[0] == 'Search Results'
+                                ? Colors.orange
+                                : unlockedState.selectedGroup?.join('.') ==
+                                        path.join('.')
+                                    ? theme.colorScheme.tertiary
+                                    : componentState.inArea
+                                        ? theme.colorScheme.primaryContainer
+                                        : theme.cardColor,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: GestureDetector(
+                          child: MouseRegion(
+                              child: Row(children: [
+                                IconButton(
+                                  icon: Icon(componentState.expand ==
+                                          ExpandMode.collapsed
+                                      ? Icons.expand_more_sharp
+                                      : Icons.expand_less_sharp),
+                                  onPressed: () {
+                                    context.read<ComponentBloc>().add(
+                                        const ComponentEvent.expandToggled());
+                                  },
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 3),
+                                    child: textWidget,
+                                  ),
+                                )
+                              ]),
+                              onEnter: (_event) {
+                                context
+                                    .read<ComponentBloc>()
+                                    .add(const ComponentEvent.entered());
+                              },
+                              onExit: (_event) {
+                                context
+                                    .read<ComponentBloc>()
+                                    .add(const ComponentEvent.exited());
+                              }),
+                          onTap: () {
+                            context.read<VaultBloc>().add(
+                                VaultEvent.groupSelected(
+                                    path,
+                                    unlockedState.selectedGroup?.join('.') ==
+                                        path.join('.')));
+                          },
+                          onDoubleTap: () {
+                            context
+                                .read<ComponentBloc>()
+                                .add(const ComponentEvent.modeToggled());
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                onAccept: (pathStr) async {
+                  final componentPath = pathStr.split('.');
+                  final componentData =
+                      unlockedState.vault.getComponent(componentPath);
+                  var updatedVault =
+                      unlockedState.vault.deleteComponent(componentPath);
+                  updatedVault = updatedVault.updateComponent(
+                      path: path,
+                      component: VaultComponent.group(group.copyWith(
+                          components: [...group.components, componentData])));
+
+                  final masterKey = (await getMasterKey(context)).masterKey;
+
+                  if (masterKey == null) {
+                    return;
+                  }
+
+                  context
+                      .read<VaultBloc>()
+                      .add(VaultEvent.updated(updatedVault, masterKey));
+                },
+                onWillAccept: (pathStr) {
+                  if (unlockedState.selectedGroup?.join('.') == pathStr ||
+                      unlockedState.selectedItem?.join('.') == pathStr ||
+                      path.join('.') == pathStr) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                },
               )
             ];
 

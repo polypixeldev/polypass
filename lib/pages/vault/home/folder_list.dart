@@ -235,113 +235,104 @@ class ListItem extends StatelessWidget {
                     .password;
           }
 
-          return BaseRow(
-              path: path,
-              extra: (componentState, isSelected, columnWidth) {
-                final extra = <Widget>[];
+          return LongPressDraggable<String>(
+            feedback: Container(
+                decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(10)),
+                padding: const EdgeInsets.all(7),
+                child: Text(item.name,
+                    style: TextStyle(
+                        fontSize: theme.textTheme.bodySmall!.fontSize,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w300,
+                        decoration: TextDecoration.none))),
+            data: path.join('.'),
+            dragAnchorStrategy: pointerDragAnchorStrategy,
+            child: BaseRow(
+                path: path,
+                extra: (componentState, isSelected, columnWidth) {
+                  final extra = <Widget>[];
 
-                if (state.mode == ListItemMode.view) {
-                  extra.add(Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Row(children: [
-                        SizedBox(
-                          width: columnWidth * .35,
-                          child: Row(
-                            children: [
-                              Text('Password: ',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: theme
-                                              .textTheme.bodyMedium!.fontSize! *
-                                          1.1,
-                                      fontWeight: FontWeight.bold)),
-                              Flexible(
-                                child: Text(decryptedPassword,
+                  if (state.mode == ListItemMode.view) {
+                    extra.add(Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Row(children: [
+                          SizedBox(
+                            width: columnWidth * .35,
+                            child: Row(
+                              children: [
+                                Text('Password: ',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: theme.textTheme.bodyMedium!
                                                 .fontSize! *
                                             1.1,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                            ],
+                                        fontWeight: FontWeight.bold)),
+                                Flexible(
+                                  child: Text(decryptedPassword,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: theme.textTheme.bodyMedium!
+                                                  .fontSize! *
+                                              1.1,
+                                          fontWeight: FontWeight.w300)),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20)),
-                        SizedBox(
-                          width: columnWidth * .35,
-                          child: Row(
-                            children: [
-                              Text('Notes: ',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: theme
-                                              .textTheme.bodyMedium!.fontSize! *
-                                          1.1,
-                                      fontWeight: FontWeight.bold)),
-                              Flexible(
-                                child: Text(item.notes,
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20)),
+                          SizedBox(
+                            width: columnWidth * .35,
+                            child: Row(
+                              children: [
+                                Text('Notes: ',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: theme.textTheme.bodyMedium!
                                                 .fontSize! *
                                             1.1,
-                                        fontWeight: FontWeight.w300)),
-                              ),
-                            ],
-                          ),
-                        )
-                      ])));
-                }
+                                        fontWeight: FontWeight.bold)),
+                                Flexible(
+                                  child: Text(item.notes,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: theme.textTheme.bodyMedium!
+                                                  .fontSize! *
+                                              1.1,
+                                          fontWeight: FontWeight.w300)),
+                                ),
+                              ],
+                            ),
+                          )
+                        ])));
+                  }
 
-                return extra;
-              },
-              name: (state, isSelected, columnWidth) {
-                return Text(item.name,
+                  return extra;
+                },
+                name: (state, isSelected, columnWidth) {
+                  return Text(item.name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
+                          fontWeight: FontWeight.w300));
+                },
+                username: (state, isSelected, columnWidth) {
+                  return Text(
+                    item.username,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-                        fontWeight: FontWeight.w300));
-              },
-              username: (state, isSelected, columnWidth) {
-                return Text(
-                  item.username,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.2,
-                      fontWeight: FontWeight.w300),
-                );
-              },
-              actions: (state, isSelected, columnWidth) {
-                if (state.inArea) {
-                  final actions = <Widget>[
-                    RichText(
-                        text: TextSpan(
-                            text: 'View',
-                            style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.lightBlue,
-                                fontSize: theme.textTheme.bodySmall!.fontSize,
-                                decoration: TextDecoration.underline),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.read<ListItemBloc>().add(
-                                    const ListItemEvent.masterKeyChanged(null));
-                                context
-                                    .read<ListItemBloc>()
-                                    .add(const ListItemEvent.modeToggled());
-                              }))
-                  ];
-
-                  if (path[0] != 'Search Results') {
-                    actions.addAll([
-                      const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5)),
+                        fontWeight: FontWeight.w300),
+                  );
+                },
+                actions: (state, isSelected, columnWidth) {
+                  if (state.inArea) {
+                    final actions = <Widget>[
                       RichText(
                           text: TextSpan(
-                              text: 'Edit',
+                              text: 'View',
                               style: TextStyle(
                                   color: isSelected
                                       ? Colors.white
@@ -350,48 +341,75 @@ class ListItem extends StatelessWidget {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  GoRouter.of(context)
-                                      .go('/vault/edit/${path.join('.')}');
-                                })),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5)),
-                      RichText(
-                          text: TextSpan(
-                              text: 'Delete',
-                              style: TextStyle(
-                                  color: isSelected
-                                      ? Colors.white
-                                      : Colors.lightBlue,
-                                  fontSize: theme.textTheme.bodySmall!.fontSize,
-                                  decoration: TextDecoration.underline),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  final vaultBloc = context.read<VaultBloc>();
-                                  final unlockedState = vaultBloc.state
-                                      .maybeMap(
-                                          unlocked: (state) => state,
-                                          orElse: () => throw Error());
-
-                                  final newVault =
-                                      unlockedState.vault.deleteComponent(path);
-
-                                  var masterKey =
-                                      (await getMasterKey(context)).masterKey;
-
-                                  if (masterKey == null) {
-                                    return;
-                                  }
-
-                                  vaultBloc.add(
-                                      VaultEvent.updated(newVault, masterKey));
+                                  context.read<ListItemBloc>().add(
+                                      const ListItemEvent.masterKeyChanged(
+                                          null));
+                                  context
+                                      .read<ListItemBloc>()
+                                      .add(const ListItemEvent.modeToggled());
                                 }))
-                    ]);
-                  }
-                  return Row(children: actions);
-                }
+                    ];
 
-                return null;
-              });
+                    if (path[0] != 'Search Results') {
+                      actions.addAll([
+                        const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5)),
+                        RichText(
+                            text: TextSpan(
+                                text: 'Edit',
+                                style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.lightBlue,
+                                    fontSize:
+                                        theme.textTheme.bodySmall!.fontSize,
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    GoRouter.of(context)
+                                        .go('/vault/edit/${path.join('.')}');
+                                  })),
+                        const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5)),
+                        RichText(
+                            text: TextSpan(
+                                text: 'Delete',
+                                style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.lightBlue,
+                                    fontSize:
+                                        theme.textTheme.bodySmall!.fontSize,
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    final vaultBloc = context.read<VaultBloc>();
+                                    final unlockedState = vaultBloc.state
+                                        .maybeMap(
+                                            unlocked: (state) => state,
+                                            orElse: () => throw Error());
+
+                                    final newVault = unlockedState.vault
+                                        .deleteComponent(path);
+
+                                    var masterKey =
+                                        (await getMasterKey(context)).masterKey;
+
+                                    if (masterKey == null) {
+                                      return;
+                                    }
+
+                                    vaultBloc.add(VaultEvent.updated(
+                                        newVault, masterKey));
+                                  }))
+                      ]);
+                    }
+                    return Row(children: actions);
+                  }
+
+                  return null;
+                }),
+          );
         });
       }),
     );
