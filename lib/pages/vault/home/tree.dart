@@ -174,6 +174,17 @@ class TreeGroup extends StatelessWidget {
                   child: GestureDetector(
                     child: MouseRegion(
                         child: Row(children: [
+                          IconButton(
+                            icon: Icon(
+                                componentState.expand == ExpandMode.collapsed
+                                    ? Icons.expand_more_sharp
+                                    : Icons.expand_less_sharp),
+                            onPressed: () {
+                              context
+                                  .read<ComponentBloc>()
+                                  .add(const ComponentEvent.expandToggled());
+                            },
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -210,8 +221,9 @@ class TreeGroup extends StatelessWidget {
 
             final selectedPath = unlockedState.selectedGroup;
 
-            if (selectedPath?.join('.') == path.join('.') ||
-                path.length < (selectedPath?.length ?? -1)) {
+            if ((selectedPath?.join('.') == path.join('.') ||
+                    path.length < (selectedPath?.length ?? -1)) ||
+                componentState.expand == ExpandMode.expanded) {
               final childGroups = group.components.whereType<Group>().toList();
               childGroups.sort((a, b) => a.group.name
                   .toLowerCase()

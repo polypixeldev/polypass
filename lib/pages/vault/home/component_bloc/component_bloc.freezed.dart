@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ComponentState {
   bool get inArea => throw _privateConstructorUsedError;
   ComponentMode get mode => throw _privateConstructorUsedError;
+  ExpandMode get expand => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComponentStateCopyWith<ComponentState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $ComponentStateCopyWith<$Res> {
   factory $ComponentStateCopyWith(
           ComponentState value, $Res Function(ComponentState) then) =
       _$ComponentStateCopyWithImpl<$Res>;
-  $Res call({bool inArea, ComponentMode mode});
+  $Res call({bool inArea, ComponentMode mode, ExpandMode expand});
 }
 
 /// @nodoc
@@ -45,6 +46,7 @@ class _$ComponentStateCopyWithImpl<$Res>
   $Res call({
     Object? inArea = freezed,
     Object? mode = freezed,
+    Object? expand = freezed,
   }) {
     return _then(_value.copyWith(
       inArea: inArea == freezed
@@ -55,6 +57,10 @@ class _$ComponentStateCopyWithImpl<$Res>
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ComponentMode,
+      expand: expand == freezed
+          ? _value.expand
+          : expand // ignore: cast_nullable_to_non_nullable
+              as ExpandMode,
     ));
   }
 }
@@ -66,7 +72,7 @@ abstract class _$$_ComponentStateCopyWith<$Res>
           _$_ComponentState value, $Res Function(_$_ComponentState) then) =
       __$$_ComponentStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool inArea, ComponentMode mode});
+  $Res call({bool inArea, ComponentMode mode, ExpandMode expand});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_ComponentStateCopyWithImpl<$Res>
   $Res call({
     Object? inArea = freezed,
     Object? mode = freezed,
+    Object? expand = freezed,
   }) {
     return _then(_$_ComponentState(
       inArea == freezed
@@ -94,6 +101,10 @@ class __$$_ComponentStateCopyWithImpl<$Res>
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ComponentMode,
+      expand == freezed
+          ? _value.expand
+          : expand // ignore: cast_nullable_to_non_nullable
+              as ExpandMode,
     ));
   }
 }
@@ -101,16 +112,18 @@ class __$$_ComponentStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ComponentState implements _ComponentState {
-  const _$_ComponentState(this.inArea, this.mode);
+  const _$_ComponentState(this.inArea, this.mode, this.expand);
 
   @override
   final bool inArea;
   @override
   final ComponentMode mode;
+  @override
+  final ExpandMode expand;
 
   @override
   String toString() {
-    return 'ComponentState(inArea: $inArea, mode: $mode)';
+    return 'ComponentState(inArea: $inArea, mode: $mode, expand: $expand)';
   }
 
   @override
@@ -119,14 +132,16 @@ class _$_ComponentState implements _ComponentState {
         (other.runtimeType == runtimeType &&
             other is _$_ComponentState &&
             const DeepCollectionEquality().equals(other.inArea, inArea) &&
-            const DeepCollectionEquality().equals(other.mode, mode));
+            const DeepCollectionEquality().equals(other.mode, mode) &&
+            const DeepCollectionEquality().equals(other.expand, expand));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(inArea),
-      const DeepCollectionEquality().hash(mode));
+      const DeepCollectionEquality().hash(mode),
+      const DeepCollectionEquality().hash(expand));
 
   @JsonKey(ignore: true)
   @override
@@ -135,13 +150,15 @@ class _$_ComponentState implements _ComponentState {
 }
 
 abstract class _ComponentState implements ComponentState {
-  const factory _ComponentState(final bool inArea, final ComponentMode mode) =
-      _$_ComponentState;
+  const factory _ComponentState(final bool inArea, final ComponentMode mode,
+      final ExpandMode expand) = _$_ComponentState;
 
   @override
   bool get inArea => throw _privateConstructorUsedError;
   @override
   ComponentMode get mode => throw _privateConstructorUsedError;
+  @override
+  ExpandMode get expand => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ComponentStateCopyWith<_$_ComponentState> get copyWith =>
@@ -155,6 +172,7 @@ mixin _$ComponentEvent {
     required TResult Function() entered,
     required TResult Function() exited,
     required TResult Function() modeToggled,
+    required TResult Function() expandToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -162,6 +180,7 @@ mixin _$ComponentEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -169,6 +188,7 @@ mixin _$ComponentEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -177,6 +197,7 @@ mixin _$ComponentEvent {
     required TResult Function(EnteredEvent value) entered,
     required TResult Function(ExitedEvent value) exited,
     required TResult Function(ModeToggledEvent value) modeToggled,
+    required TResult Function(ExpandToggledEvent value) expandToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -184,6 +205,7 @@ mixin _$ComponentEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -191,6 +213,7 @@ mixin _$ComponentEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -257,6 +280,7 @@ class _$EnteredEvent implements EnteredEvent {
     required TResult Function() entered,
     required TResult Function() exited,
     required TResult Function() modeToggled,
+    required TResult Function() expandToggled,
   }) {
     return entered();
   }
@@ -267,6 +291,7 @@ class _$EnteredEvent implements EnteredEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
   }) {
     return entered?.call();
   }
@@ -277,6 +302,7 @@ class _$EnteredEvent implements EnteredEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
     required TResult orElse(),
   }) {
     if (entered != null) {
@@ -291,6 +317,7 @@ class _$EnteredEvent implements EnteredEvent {
     required TResult Function(EnteredEvent value) entered,
     required TResult Function(ExitedEvent value) exited,
     required TResult Function(ModeToggledEvent value) modeToggled,
+    required TResult Function(ExpandToggledEvent value) expandToggled,
   }) {
     return entered(this);
   }
@@ -301,6 +328,7 @@ class _$EnteredEvent implements EnteredEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
   }) {
     return entered?.call(this);
   }
@@ -311,6 +339,7 @@ class _$EnteredEvent implements EnteredEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
     required TResult orElse(),
   }) {
     if (entered != null) {
@@ -368,6 +397,7 @@ class _$ExitedEvent implements ExitedEvent {
     required TResult Function() entered,
     required TResult Function() exited,
     required TResult Function() modeToggled,
+    required TResult Function() expandToggled,
   }) {
     return exited();
   }
@@ -378,6 +408,7 @@ class _$ExitedEvent implements ExitedEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
   }) {
     return exited?.call();
   }
@@ -388,6 +419,7 @@ class _$ExitedEvent implements ExitedEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
     required TResult orElse(),
   }) {
     if (exited != null) {
@@ -402,6 +434,7 @@ class _$ExitedEvent implements ExitedEvent {
     required TResult Function(EnteredEvent value) entered,
     required TResult Function(ExitedEvent value) exited,
     required TResult Function(ModeToggledEvent value) modeToggled,
+    required TResult Function(ExpandToggledEvent value) expandToggled,
   }) {
     return exited(this);
   }
@@ -412,6 +445,7 @@ class _$ExitedEvent implements ExitedEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
   }) {
     return exited?.call(this);
   }
@@ -422,6 +456,7 @@ class _$ExitedEvent implements ExitedEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
     required TResult orElse(),
   }) {
     if (exited != null) {
@@ -479,6 +514,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     required TResult Function() entered,
     required TResult Function() exited,
     required TResult Function() modeToggled,
+    required TResult Function() expandToggled,
   }) {
     return modeToggled();
   }
@@ -489,6 +525,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
   }) {
     return modeToggled?.call();
   }
@@ -499,6 +536,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     TResult Function()? entered,
     TResult Function()? exited,
     TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
     required TResult orElse(),
   }) {
     if (modeToggled != null) {
@@ -513,6 +551,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     required TResult Function(EnteredEvent value) entered,
     required TResult Function(ExitedEvent value) exited,
     required TResult Function(ModeToggledEvent value) modeToggled,
+    required TResult Function(ExpandToggledEvent value) expandToggled,
   }) {
     return modeToggled(this);
   }
@@ -523,6 +562,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
   }) {
     return modeToggled?.call(this);
   }
@@ -533,6 +573,7 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     TResult Function(EnteredEvent value)? entered,
     TResult Function(ExitedEvent value)? exited,
     TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
     required TResult orElse(),
   }) {
     if (modeToggled != null) {
@@ -544,4 +585,121 @@ class _$ModeToggledEvent implements ModeToggledEvent {
 
 abstract class ModeToggledEvent implements ComponentEvent {
   const factory ModeToggledEvent() = _$ModeToggledEvent;
+}
+
+/// @nodoc
+abstract class _$$ExpandToggledEventCopyWith<$Res> {
+  factory _$$ExpandToggledEventCopyWith(_$ExpandToggledEvent value,
+          $Res Function(_$ExpandToggledEvent) then) =
+      __$$ExpandToggledEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ExpandToggledEventCopyWithImpl<$Res>
+    extends _$ComponentEventCopyWithImpl<$Res>
+    implements _$$ExpandToggledEventCopyWith<$Res> {
+  __$$ExpandToggledEventCopyWithImpl(
+      _$ExpandToggledEvent _value, $Res Function(_$ExpandToggledEvent) _then)
+      : super(_value, (v) => _then(v as _$ExpandToggledEvent));
+
+  @override
+  _$ExpandToggledEvent get _value => super._value as _$ExpandToggledEvent;
+}
+
+/// @nodoc
+
+class _$ExpandToggledEvent implements ExpandToggledEvent {
+  const _$ExpandToggledEvent();
+
+  @override
+  String toString() {
+    return 'ComponentEvent.expandToggled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ExpandToggledEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() entered,
+    required TResult Function() exited,
+    required TResult Function() modeToggled,
+    required TResult Function() expandToggled,
+  }) {
+    return expandToggled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? entered,
+    TResult Function()? exited,
+    TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
+  }) {
+    return expandToggled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? entered,
+    TResult Function()? exited,
+    TResult Function()? modeToggled,
+    TResult Function()? expandToggled,
+    required TResult orElse(),
+  }) {
+    if (expandToggled != null) {
+      return expandToggled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EnteredEvent value) entered,
+    required TResult Function(ExitedEvent value) exited,
+    required TResult Function(ModeToggledEvent value) modeToggled,
+    required TResult Function(ExpandToggledEvent value) expandToggled,
+  }) {
+    return expandToggled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(EnteredEvent value)? entered,
+    TResult Function(ExitedEvent value)? exited,
+    TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
+  }) {
+    return expandToggled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EnteredEvent value)? entered,
+    TResult Function(ExitedEvent value)? exited,
+    TResult Function(ModeToggledEvent value)? modeToggled,
+    TResult Function(ExpandToggledEvent value)? expandToggled,
+    required TResult orElse(),
+  }) {
+    if (expandToggled != null) {
+      return expandToggled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ExpandToggledEvent implements ComponentEvent {
+  const factory ExpandToggledEvent() = _$ExpandToggledEvent;
 }
