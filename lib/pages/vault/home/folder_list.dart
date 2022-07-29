@@ -24,12 +24,12 @@ class FolderList extends StatelessWidget {
               state.maybeMap(unlocked: (state) => state, orElse: () => null);
 
           if (unlockedState == null) {
-            // TODO: Switch from throwing errors to peacefully returning
             return Container();
           }
 
           final decryptedContents = unlockedState.vault.contents.maybeMap(
               decrypted: (contents) => contents, orElse: () => throw Error());
+
           final List<VaultComponent> components;
           final paths = unlockedState.selectedGroup;
 
