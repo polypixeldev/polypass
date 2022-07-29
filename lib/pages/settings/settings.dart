@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:polypass/components/appwrapper.dart';
+import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
-import 'package:polypass/blocs/app_settings_bloc.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/pages/settings/settings_bloc.dart';
 
 class Settings extends StatelessWidget {

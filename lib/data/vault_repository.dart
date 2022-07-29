@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_providers.dart';
-import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 class VaultRepository {
   const VaultRepository();

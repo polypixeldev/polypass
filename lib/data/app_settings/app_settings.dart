@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_settings.freezed.dart';

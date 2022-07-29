@@ -3,10 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' hide Key;
 import 'package:encrypt/encrypt.dart';
 
-import 'package:polypass/components/master_password_dialog.dart';
+import 'package:polypass/components/master_password_dialog/master_password_dialog.dart';
 
-import 'package:polypass/data/vault_file.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'settings_bloc.freezed.dart';

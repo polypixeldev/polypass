@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:polypass/components/appwrapper.dart';
+import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
 import 'dart:io';
 
-import 'package:polypass/blocs/app_settings_bloc.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
 class Recent extends StatelessWidget {
   const Recent({Key? key}) : super(key: key);

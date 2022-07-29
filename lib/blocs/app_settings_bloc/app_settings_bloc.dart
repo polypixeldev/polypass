@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/data/app_settings/app_settings.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_settings_bloc.freezed.dart';

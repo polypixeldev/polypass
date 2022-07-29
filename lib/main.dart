@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/data/vault_repository.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
-import 'package:polypass/blocs/app_settings_bloc.dart';
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
+import 'package:polypass/data/app_settings/app_settings.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/recent/recent.dart';

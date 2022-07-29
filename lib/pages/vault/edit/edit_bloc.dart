@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
 
-import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'edit_bloc.freezed.dart';

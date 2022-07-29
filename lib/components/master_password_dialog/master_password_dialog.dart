@@ -3,8 +3,8 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:polypass/components/master_password_dialog_bloc.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/components/master_password_dialog/master_password_dialog_bloc.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
 class MasterPasswordDialog extends StatelessWidget {
   const MasterPasswordDialog(

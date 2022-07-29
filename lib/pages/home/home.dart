@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:polypass/data/app_settings.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/data/app_settings/app_settings.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
-import 'package:polypass/components/appwrapper.dart';
+import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);

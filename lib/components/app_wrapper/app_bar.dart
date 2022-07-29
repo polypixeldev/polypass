@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:polypass/components/master_password_dialog.dart';
+import 'package:polypass/components/master_password_dialog/master_password_dialog.dart';
 
-import 'package:polypass/blocs/vault_bloc.dart';
-import 'package:polypass/data/vault_file.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 AppBar createAppBar(
     BuildContext context, VaultState state, bool actions, bool icon) {

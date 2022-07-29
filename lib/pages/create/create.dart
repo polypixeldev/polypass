@@ -3,13 +3,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:polypass/blocs/app_settings_bloc.dart';
-import 'package:polypass/data/app_settings.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
+import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/pages/create/create_form_bloc.dart';
-import 'package:polypass/blocs/vault_bloc.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_repository.dart';
 
-import 'package:polypass/components/appwrapper.dart';
+import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
 class Create extends StatelessWidget {
   const Create({Key? key}) : super(key: key);
