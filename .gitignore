@@ -27,3 +27,13 @@ doc/api/
 
 # Packaged deb files
 debian/packages/*
+
+# Generated installer files
+setup-script.iss
+Output
+
+# Built files
+windows-install/data
+windows-install/polypass.exe
+windows-install/flutter_windows.dll
+windows-install/polypass.exe
