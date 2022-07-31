@@ -24,3 +24,6 @@ doc/api/
 
 # Testing files
 *.ppv.json
+
+# Packaged deb files
+debian/packages/*

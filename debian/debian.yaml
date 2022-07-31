@@ -1,0 +1,12 @@
+flutter_app: 
+  command: polypass
+  arch: x64
+
+control:
+  Package: PolyPass
+  Version: 1.0.0
+  Architecture: amd64
+  Essential: no
+  Priority: optional
+  Maintainer: Poly-Pixel
+  Description: A simple, secure, and easy to use password manager

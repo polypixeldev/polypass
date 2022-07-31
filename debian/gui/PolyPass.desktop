@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=PolyPass
+GenericName=PolyPass
+Comment=A simple, secure, and easy to use password manager
+Terminal=false
+Type=Application
+Categories=Utility
+Keywords=Flutter;share;files;
+Icon=PolyPass.png
+StartupWMClass=Polypass
