@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -270,13 +271,23 @@ class ListItem extends StatelessWidget {
                                             1.1,
                                         fontWeight: FontWeight.bold)),
                                 Flexible(
-                                  child: Text(decryptedPassword,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: theme.textTheme.bodyMedium!
-                                                  .fontSize! *
-                                              1.1,
-                                          fontWeight: FontWeight.w300)),
+                                  child: Tooltip(
+                                    message: 'Click to copy password',
+                                    child: RichText(
+                                        text: TextSpan(
+                                            text: decryptedPassword,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: theme.textTheme
+                                                        .bodyMedium!.fontSize! *
+                                                    1.1,
+                                                fontWeight: FontWeight.w300),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Clipboard.setData(ClipboardData(
+                                                    text: decryptedPassword));
+                                              })),
+                                  ),
                                 ),
                               ],
                             ),
