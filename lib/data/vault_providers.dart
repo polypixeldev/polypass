@@ -19,7 +19,7 @@ class FileProvider extends VaultProvider {
     final exists = await file.exists();
 
     if (!exists) {
-      throw Exception('NONEXISTENT_FILE');
+      throw Exception('NONEXISTENT_FILE: $path');
     }
 
     final contents = await file.readAsString();
@@ -39,7 +39,7 @@ class FileProvider extends VaultProvider {
     final exists = await file.exists();
 
     if (!exists) {
-      throw Exception('NONEXISTENT_FILE');
+      throw Exception('NONEXISTENT_FILE: $path');
     }
 
     await file.delete();

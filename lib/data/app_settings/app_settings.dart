@@ -15,15 +15,17 @@ class AppSettings with _$AppSettings {
       {required VaultSettings defaultVaultSettings,
       required String? recentPath}) = _AppSettings;
 
-  static final documentsDir = getApplicationDocumentsDirectory();
+  static final documentsDir = Platform.isAndroid
+      ? getExternalStorageDirectory()
+      : getApplicationDocumentsDirectory();
 
   static Future<AppSettings> load() async {
     final file = File(
-        '${(await documentsDir).absolute.path}/polypass/.settings/settings.json');
+        '${(await documentsDir)?.absolute.path}/polypass/.settings/settings.json');
 
     if (!(await file.exists())) {
-      final settingsDir =
-          Directory('${(await documentsDir).absolute.path}/polypass/.settings');
+      final settingsDir = Directory(
+          '${(await documentsDir)?.absolute.path}/polypass/.settings');
 
       if (!(await settingsDir.exists())) {
         await settingsDir.create(recursive: true);
@@ -39,7 +41,7 @@ class AppSettings with _$AppSettings {
 
   Future<void> save() async {
     await File(
-            '${(await documentsDir).absolute.path}/polypass/.settings/settings.json')
+            '${(await documentsDir)?.absolute.path}/polypass/.settings/settings.json')
         .writeAsString(jsonEncode(toJson()));
   }
 

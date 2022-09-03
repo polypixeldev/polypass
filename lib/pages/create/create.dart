@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:io';
 
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
@@ -72,17 +73,7 @@ class Create extends StatelessWidget {
                           const MasterPasswordInput(),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 5)),
-                          BlocBuilder<CreateFormBloc, CreateFormState>(
-                              builder: (context, state) {
-                            return Text(
-                                "Current path: ${state.path != '' ? state.path : 'None'}",
-                                style: theme.textTheme.bodyMedium);
-                          }),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
-                          const PathInput(),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15)),
+                          const FilePathWidget(),
                           Row(
                               children: [
                                 BackButton(router: router),
@@ -109,6 +100,33 @@ class Create extends StatelessWidget {
         ),
         actions: false,
         icon: false);
+  }
+}
+
+class FilePathWidget extends StatelessWidget {
+  const FilePathWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Platform.isAndroid
+        ? Container()
+        : Column(
+            children: [
+              BlocBuilder<CreateFormBloc, CreateFormState>(
+                  builder: (context, state) {
+                return Text(
+                    "Current path: ${state.path != '' ? state.path : 'None'}",
+                    style: theme.textTheme.bodyMedium);
+              }),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+              const PathInput(),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 15))
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+          );
   }
 }
 
@@ -183,7 +201,7 @@ class PathInput extends StatelessWidget {
 
                 final path = await FilePicker.platform.saveFile(
                     initialDirectory:
-                        '${(await AppSettings.documentsDir).absolute.path}/polypass',
+                        '${(await AppSettings.documentsDir)?.absolute.path}/polypass',
                     dialogTitle: 'Set vault file location',
                     fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
                     type: FileType.custom,

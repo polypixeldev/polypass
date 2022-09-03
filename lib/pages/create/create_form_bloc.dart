@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
+import 'dart:io';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
@@ -18,7 +19,9 @@ class CreateFormState with _$CreateFormState {
       const CreateFormState('', '', '', false, false);
 
   bool get isFormValid =>
-      (name != '') && (masterPassword != '') && (path != '');
+      (name != '') &&
+      (masterPassword != '') &&
+      (path != '' || Platform.isAndroid);
 }
 
 @freezed
@@ -74,6 +77,13 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
+    String? androidPath;
+
+    if (Platform.isAndroid) {
+      androidPath =
+          '${(await AppSettings.documentsDir)?.absolute.path}/polypass/${state.name == '' ? 'passwords.ppv.json' : '${state.name}.ppv.json'}';
+    }
+
     await vaultRepository.updateFile(
         VaultFile(
             header: VaultHeader(
@@ -86,11 +96,12 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
                     .encrypt(masterKey.base64, iv: iv)
                     .base64,
                 salt: salt),
-            path: state.path,
+            path: Platform.isAndroid ? androidPath : state.path,
             contents: EncryptedData<VaultContents>.decrypted(
                 VaultContents(components: []), iv)),
         masterKey);
 
-    emit(state.copyWith(created: true));
+    emit(state.copyWith(
+        created: true, path: Platform.isAndroid ? androidPath! : state.path));
   }
 }
