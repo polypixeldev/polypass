@@ -916,6 +916,8 @@ mixin _$VaultSettings {
   set threads(int value) => throw _privateConstructorUsedError;
   int get memory => throw _privateConstructorUsedError;
   set memory(int value) => throw _privateConstructorUsedError;
+  int get clipboardClearSeconds => throw _privateConstructorUsedError;
+  set clipboardClearSeconds(int value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -928,7 +930,12 @@ abstract class $VaultSettingsCopyWith<$Res> {
   factory $VaultSettingsCopyWith(
           VaultSettings value, $Res Function(VaultSettings) then) =
       _$VaultSettingsCopyWithImpl<$Res>;
-  $Res call({bool saveKeyInMemory, int iterations, int threads, int memory});
+  $Res call(
+      {bool saveKeyInMemory,
+      int iterations,
+      int threads,
+      int memory,
+      int clipboardClearSeconds});
 }
 
 /// @nodoc
@@ -946,6 +953,7 @@ class _$VaultSettingsCopyWithImpl<$Res>
     Object? iterations = freezed,
     Object? threads = freezed,
     Object? memory = freezed,
+    Object? clipboardClearSeconds = freezed,
   }) {
     return _then(_value.copyWith(
       saveKeyInMemory: saveKeyInMemory == freezed
@@ -964,6 +972,10 @@ class _$VaultSettingsCopyWithImpl<$Res>
           ? _value.memory
           : memory // ignore: cast_nullable_to_non_nullable
               as int,
+      clipboardClearSeconds: clipboardClearSeconds == freezed
+          ? _value.clipboardClearSeconds
+          : clipboardClearSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -975,7 +987,12 @@ abstract class _$$_VaultSettingsCopyWith<$Res>
           _$_VaultSettings value, $Res Function(_$_VaultSettings) then) =
       __$$_VaultSettingsCopyWithImpl<$Res>;
   @override
-  $Res call({bool saveKeyInMemory, int iterations, int threads, int memory});
+  $Res call(
+      {bool saveKeyInMemory,
+      int iterations,
+      int threads,
+      int memory,
+      int clipboardClearSeconds});
 }
 
 /// @nodoc
@@ -995,6 +1012,7 @@ class __$$_VaultSettingsCopyWithImpl<$Res>
     Object? iterations = freezed,
     Object? threads = freezed,
     Object? memory = freezed,
+    Object? clipboardClearSeconds = freezed,
   }) {
     return _then(_$_VaultSettings(
       saveKeyInMemory: saveKeyInMemory == freezed
@@ -1013,6 +1031,10 @@ class __$$_VaultSettingsCopyWithImpl<$Res>
           ? _value.memory
           : memory // ignore: cast_nullable_to_non_nullable
               as int,
+      clipboardClearSeconds: clipboardClearSeconds == freezed
+          ? _value.clipboardClearSeconds
+          : clipboardClearSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1024,7 +1046,8 @@ class _$_VaultSettings implements _VaultSettings {
       {required this.saveKeyInMemory,
       required this.iterations,
       required this.threads,
-      required this.memory});
+      required this.memory,
+      required this.clipboardClearSeconds});
 
   factory _$_VaultSettings.fromJson(Map<String, dynamic> json) =>
       _$$_VaultSettingsFromJson(json);
@@ -1037,10 +1060,12 @@ class _$_VaultSettings implements _VaultSettings {
   int threads;
   @override
   int memory;
+  @override
+  int clipboardClearSeconds;
 
   @override
   String toString() {
-    return 'VaultSettings(saveKeyInMemory: $saveKeyInMemory, iterations: $iterations, threads: $threads, memory: $memory)';
+    return 'VaultSettings(saveKeyInMemory: $saveKeyInMemory, iterations: $iterations, threads: $threads, memory: $memory, clipboardClearSeconds: $clipboardClearSeconds)';
   }
 
   @JsonKey(ignore: true)
@@ -1059,7 +1084,8 @@ abstract class _VaultSettings implements VaultSettings {
       {required bool saveKeyInMemory,
       required int iterations,
       required int threads,
-      required int memory}) = _$_VaultSettings;
+      required int memory,
+      required int clipboardClearSeconds}) = _$_VaultSettings;
 
   factory _VaultSettings.fromJson(Map<String, dynamic> json) =
       _$_VaultSettings.fromJson;
@@ -1072,6 +1098,8 @@ abstract class _VaultSettings implements VaultSettings {
   int get threads => throw _privateConstructorUsedError;
   @override
   int get memory => throw _privateConstructorUsedError;
+  @override
+  int get clipboardClearSeconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>

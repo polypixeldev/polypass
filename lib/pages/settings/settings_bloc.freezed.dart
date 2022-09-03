@@ -150,6 +150,7 @@ mixin _$SettingsEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -159,6 +160,7 @@ mixin _$SettingsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +170,7 @@ mixin _$SettingsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -178,6 +181,8 @@ mixin _$SettingsEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -187,6 +192,8 @@ mixin _$SettingsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -196,6 +203,8 @@ mixin _$SettingsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -290,6 +299,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) {
     return setSaveKeyInMemory(setting);
@@ -302,6 +312,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
@@ -314,6 +325,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) {
@@ -330,6 +342,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setSaveKeyInMemory(this);
@@ -342,6 +356,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
@@ -354,6 +370,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -444,6 +462,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) {
     return setKDFIterations(setting);
@@ -456,6 +475,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) {
     return setKDFIterations?.call(setting);
@@ -468,6 +488,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) {
@@ -484,6 +505,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFIterations(this);
@@ -496,6 +519,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFIterations?.call(this);
@@ -508,6 +533,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -598,6 +625,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) {
     return setKDFThreads(setting);
@@ -610,6 +638,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) {
     return setKDFThreads?.call(setting);
@@ -622,6 +651,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) {
@@ -638,6 +668,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFThreads(this);
@@ -650,6 +682,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFThreads?.call(this);
@@ -662,6 +696,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -750,6 +786,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) {
     return setKDFMemory(setting);
@@ -762,6 +799,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) {
     return setKDFMemory?.call(setting);
@@ -774,6 +812,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) {
@@ -790,6 +829,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFMemory(this);
@@ -802,6 +843,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFMemory?.call(this);
@@ -814,6 +857,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -831,6 +876,172 @@ abstract class SetKDFMemoryEvent implements SettingsEvent {
   @JsonKey(ignore: true)
   _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetClipboardClearSecondsEventCopyWith<$Res> {
+  factory _$$SetClipboardClearSecondsEventCopyWith(
+          _$SetClipboardClearSecondsEvent value,
+          $Res Function(_$SetClipboardClearSecondsEvent) then) =
+      __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>;
+  $Res call({int setting});
+}
+
+/// @nodoc
+class __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$SetClipboardClearSecondsEventCopyWith<$Res> {
+  __$$SetClipboardClearSecondsEventCopyWithImpl(
+      _$SetClipboardClearSecondsEvent _value,
+      $Res Function(_$SetClipboardClearSecondsEvent) _then)
+      : super(_value, (v) => _then(v as _$SetClipboardClearSecondsEvent));
+
+  @override
+  _$SetClipboardClearSecondsEvent get _value =>
+      super._value as _$SetClipboardClearSecondsEvent;
+
+  @override
+  $Res call({
+    Object? setting = freezed,
+  }) {
+    return _then(_$SetClipboardClearSecondsEvent(
+      setting == freezed
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
+  const _$SetClipboardClearSecondsEvent(this.setting);
+
+  @override
+  final int setting;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setClipboardClearSeconds(setting: $setting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetClipboardClearSecondsEvent &&
+            const DeepCollectionEquality().equals(other.setting, setting));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
+      get copyWith => __$$SetClipboardClearSecondsEventCopyWithImpl<
+          _$SetClipboardClearSecondsEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function() settingsSaved,
+  }) {
+    return setClipboardClearSeconds(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function()? settingsSaved,
+  }) {
+    return setClipboardClearSeconds?.call(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function()? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setClipboardClearSeconds != null) {
+      return setClipboardClearSeconds(setting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return setClipboardClearSeconds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return setClipboardClearSeconds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setClipboardClearSeconds != null) {
+      return setClipboardClearSeconds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetClipboardClearSecondsEvent implements SettingsEvent {
+  const factory SetClipboardClearSecondsEvent(final int setting) =
+      _$SetClipboardClearSecondsEvent;
+
+  int get setting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -878,6 +1089,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
     required TResult Function() settingsSaved,
   }) {
     return settingsSaved();
@@ -890,6 +1102,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
   }) {
     return settingsSaved?.call();
@@ -902,6 +1115,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
     TResult Function()? settingsSaved,
     required TResult orElse(),
   }) {
@@ -918,6 +1132,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return settingsSaved(this);
@@ -930,6 +1146,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
@@ -942,6 +1160,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {

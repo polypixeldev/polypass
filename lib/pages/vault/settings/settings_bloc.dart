@@ -35,6 +35,8 @@ class SettingsEvent with _$SettingsEvent {
       SetKDFIterationsEvent;
   const factory SettingsEvent.setKDFThreads(int setting) = SetKDFThreadsEvent;
   const factory SettingsEvent.setKDFMemory(int setting) = SetKDFMemoryEvent;
+  const factory SettingsEvent.setClipboardClearSeconds(int setting) =
+      SetClipboardClearSecondsEvent;
   const factory SettingsEvent.settingsSaved(BuildContext context) =
       SettingsSavedEvent;
 }
@@ -60,6 +62,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           setKDFIterations: (event) => _onSetKDFIterations(event, emit),
           setKDFThreads: (event) => _onSetKDFThreads(event, emit),
           setKDFMemory: (event) => _onSetKDFMemory(event, emit),
+          setClipboardClearSeconds: (event) =>
+              _onSetClipboardClearSeconds(event, emit),
           settingsSaved: (event) => _onSettingsSaved(event, emit));
     });
   }
@@ -100,6 +104,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       SetKDFMemoryEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(
         settings: state.settings.copyWith(memory: event.setting)));
+  }
+
+  Future<void> _onSetClipboardClearSeconds(
+      SetClipboardClearSecondsEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(
+        settings:
+            state.settings.copyWith(clipboardClearSeconds: event.setting)));
   }
 
   Future<void> _onSettingsSaved(

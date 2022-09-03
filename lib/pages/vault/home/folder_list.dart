@@ -286,6 +286,22 @@ class ListItem extends StatelessWidget {
                                               ..onTap = () {
                                                 Clipboard.setData(ClipboardData(
                                                     text: decryptedPassword));
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Copied password to clipboard - it will be cleared in ${unlockedVaultState.vault.header.settings.clipboardClearSeconds} seconds'),
+                                                ));
+                                                Future.delayed(Duration(
+                                                        seconds: unlockedVaultState
+                                                            .vault
+                                                            .header
+                                                            .settings
+                                                            .clipboardClearSeconds))
+                                                    .then((_v) {
+                                                  Clipboard.setData(
+                                                      const ClipboardData(
+                                                          text: ''));
+                                                });
                                               })),
                                   ),
                                 ),

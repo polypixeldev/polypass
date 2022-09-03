@@ -52,6 +52,7 @@ _$_VaultSettings _$$_VaultSettingsFromJson(Map json) => _$_VaultSettings(
       iterations: json['iterations'] as int,
       threads: json['threads'] as int,
       memory: json['memory'] as int,
+      clipboardClearSeconds: json['clipboardClearSeconds'] as int,
     );
 
 Map<String, dynamic> _$$_VaultSettingsToJson(_$_VaultSettings instance) =>
@@ -60,6 +61,7 @@ Map<String, dynamic> _$$_VaultSettingsToJson(_$_VaultSettings instance) =>
       'iterations': instance.iterations,
       'threads': instance.threads,
       'memory': instance.memory,
+      'clipboardClearSeconds': instance.clipboardClearSeconds,
     };
 
 _$_VaultContents _$$_VaultContentsFromJson(Map json) => _$_VaultContents(

@@ -75,6 +75,19 @@ class Settings extends StatelessWidget {
                                   .add(SettingsEvent.setKDFMemory(parsed));
                             }
                           }),
+                      TextSetting(
+                          title: 'Clipboard Clear Time (seconds)',
+                          value: state.settings.defaultVaultSettings
+                              .clipboardClearSeconds
+                              .toString(),
+                          onChanged: (setting) {
+                            final parsed = int.tryParse(setting);
+                            if (parsed != null) {
+                              context.read<SettingsBloc>().add(
+                                  SettingsEvent.setClipboardClearSeconds(
+                                      parsed));
+                            }
+                          }),
                       Row(
                         children: const [
                           BackToHomeButton(),

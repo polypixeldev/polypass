@@ -74,6 +74,18 @@ class VaultSettingsPage extends StatelessWidget {
                                     .add(SettingsEvent.setKDFMemory(parsed));
                               }
                             }),
+                        TextSetting(
+                            title: 'Clipboard Clear Time (seconds)',
+                            value:
+                                state.settings.clipboardClearSeconds.toString(),
+                            onChanged: (setting) {
+                              final parsed = int.tryParse(setting);
+                              if (parsed != null) {
+                                context.read<SettingsBloc>().add(
+                                    SettingsEvent.setClipboardClearSeconds(
+                                        parsed));
+                              }
+                            }),
                         const Text('Change Master Password',
                             style:
                                 TextStyle(fontSize: 30, color: Colors.white)),
