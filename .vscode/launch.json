@@ -5,9 +5,21 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "polypass",
+			"name": "Current Device",
 			"request": "launch",
 			"type": "dart"
+		},
+		{
+			"name": "Linux",
+			"request": "launch",
+			"type": "dart",
+			"deviceId": "linux"
+		},
+		{
+			"name": "Android",
+			"request": "launch",
+			"type": "dart",
+			"deviceId": "emulator-5554"
 		},
 		{
 			"name": "polypass (profile mode)",
@@ -21,5 +33,11 @@
 			"type": "dart",
 			"flutterMode": "release"
 		}
-	]
+	],
+	"compounds": [
+        {
+            "name": "All Devices",
+            "configurations": ["Android", "Linux"],
+        }
+    ]
 }
