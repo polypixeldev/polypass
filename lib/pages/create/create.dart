@@ -59,6 +59,7 @@ class Create extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(10))),
                   padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
                       Text('Create a vault',

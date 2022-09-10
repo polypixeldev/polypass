@@ -23,6 +23,7 @@ dependencies:
   path_provider: ^2.0.11
   pointycastle: ^3.6.1
   provider: ^6.0.3
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

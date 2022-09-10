@@ -135,7 +135,7 @@ abstract class _AppSettingsState implements AppSettingsState {
       _$_AppSettingsState;
 
   @override
-  AppSettings get settings => throw _privateConstructorUsedError;
+  AppSettings get settings;
   @override
   @JsonKey(ignore: true)
   _$$_AppSettingsStateCopyWith<_$_AppSettingsState> get copyWith =>
@@ -353,7 +353,7 @@ abstract class SettingsUpdatedEvent implements AppSettingsEvent {
       _$SettingsUpdatedEvent;
 
   @override
-  AppSettings get newSettings => throw _privateConstructorUsedError;
+  AppSettings get newSettings;
   @override
   @JsonKey(ignore: true)
   _$$SettingsUpdatedEventCopyWith<_$SettingsUpdatedEvent> get copyWith =>

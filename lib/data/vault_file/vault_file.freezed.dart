@@ -219,9 +219,11 @@ abstract class _Encrypted<T extends ToJsonAble<dynamic>>
   factory _Encrypted(String data, IV iv) = _$_Encrypted<T>;
   _Encrypted._() : super._();
 
-  String get data => throw _privateConstructorUsedError;
+  String get data;
+  set data(String value);
   @override
-  IV get iv => throw _privateConstructorUsedError;
+  IV get iv;
+  set iv(IV value);
   @override
   @JsonKey(ignore: true)
   _$$_EncryptedCopyWith<T, _$_Encrypted<T>> get copyWith =>
@@ -357,9 +359,12 @@ abstract class _Decrypted<T extends ToJsonAble<dynamic>>
   _Decrypted._() : super._();
 
   @EncTypeConverter()
-  T get data => throw _privateConstructorUsedError;
+  T get data;
+  @EncTypeConverter()
+  set data(T value);
   @override
-  IV get iv => throw _privateConstructorUsedError;
+  IV get iv;
+  set iv(IV value);
   @override
   @JsonKey(ignore: true)
   _$$_DecryptedCopyWith<T, _$_Decrypted<T>> get copyWith =>
@@ -530,7 +535,9 @@ class _$_VaultFile extends _VaultFile {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultFileToJson(this);
+    return _$$_VaultFileToJson(
+      this,
+    );
   }
 }
 
@@ -545,13 +552,16 @@ abstract class _VaultFile extends VaultFile {
       _$_VaultFile.fromJson;
 
   @override
-  VaultHeader get header => throw _privateConstructorUsedError;
+  VaultHeader get header;
+  set header(VaultHeader value);
   @override
-  EncryptedData<VaultContents> get contents =>
-      throw _privateConstructorUsedError;
+  EncryptedData<VaultContents> get contents;
+  set contents(EncryptedData<VaultContents> value);
   @override
   @JsonKey(ignore: true)
-  String? get path => throw _privateConstructorUsedError;
+  String? get path;
+  @JsonKey(ignore: true)
+  set path(String? value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultFileCopyWith<_$_VaultFile> get copyWith =>
@@ -752,7 +762,9 @@ class _$_VaultHeader extends _VaultHeader {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultHeaderToJson(this);
+    return _$$_VaultHeaderToJson(
+      this,
+    );
   }
 }
 
@@ -769,15 +781,20 @@ abstract class _VaultHeader extends VaultHeader {
       _$_VaultHeader.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+  set name(String value);
   @override
-  VaultSettings get settings => throw _privateConstructorUsedError;
+  VaultSettings get settings;
+  set settings(VaultSettings value);
   @override
-  MagicValue get magic => throw _privateConstructorUsedError;
+  MagicValue get magic;
+  set magic(MagicValue value);
   @override
-  String get key => throw _privateConstructorUsedError;
+  String get key;
+  set key(String value);
   @override
-  List<int> get salt => throw _privateConstructorUsedError;
+  List<int> get salt;
+  set salt(List<int> value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultHeaderCopyWith<_$_VaultHeader> get copyWith =>
@@ -884,7 +901,9 @@ class _$_MagicValue implements _MagicValue {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MagicValueToJson(this);
+    return _$$_MagicValueToJson(
+      this,
+    );
   }
 }
 
@@ -895,7 +914,8 @@ abstract class _MagicValue implements MagicValue {
       _$_MagicValue.fromJson;
 
   @override
-  String get value => throw _privateConstructorUsedError;
+  String get value;
+  set value(String value);
   @override
   @JsonKey(ignore: true)
   _$$_MagicValueCopyWith<_$_MagicValue> get copyWith =>
@@ -1075,7 +1095,9 @@ class _$_VaultSettings implements _VaultSettings {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultSettingsToJson(this);
+    return _$$_VaultSettingsToJson(
+      this,
+    );
   }
 }
 
@@ -1091,15 +1113,20 @@ abstract class _VaultSettings implements VaultSettings {
       _$_VaultSettings.fromJson;
 
   @override
-  bool get saveKeyInMemory => throw _privateConstructorUsedError;
+  bool get saveKeyInMemory;
+  set saveKeyInMemory(bool value);
   @override
-  int get iterations => throw _privateConstructorUsedError;
+  int get iterations;
+  set iterations(int value);
   @override
-  int get threads => throw _privateConstructorUsedError;
+  int get threads;
+  set threads(int value);
   @override
-  int get memory => throw _privateConstructorUsedError;
+  int get memory;
+  set memory(int value);
   @override
-  int get clipboardClearSeconds => throw _privateConstructorUsedError;
+  int get clipboardClearSeconds;
+  set clipboardClearSeconds(int value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>
@@ -1209,7 +1236,9 @@ class _$_VaultContents implements _VaultContents {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultContentsToJson(this);
+    return _$$_VaultContentsToJson(
+      this,
+    );
   }
 }
 
@@ -1221,7 +1250,8 @@ abstract class _VaultContents implements VaultContents {
       _$_VaultContents.fromJson;
 
   @override
-  List<VaultComponent> get components => throw _privateConstructorUsedError;
+  List<VaultComponent> get components;
+  set components(List<VaultComponent> value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultContentsCopyWith<_$_VaultContents> get copyWith =>
@@ -1426,7 +1456,9 @@ class _$Group implements Group {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GroupToJson(this);
+    return _$$GroupToJson(
+      this,
+    );
   }
 }
 
@@ -1435,7 +1467,8 @@ abstract class Group implements VaultComponent {
 
   factory Group.fromJson(Map<String, dynamic> json) = _$Group.fromJson;
 
-  VaultGroup get group => throw _privateConstructorUsedError;
+  VaultGroup get group;
+  set group(VaultGroup value);
   @JsonKey(ignore: true)
   _$$GroupCopyWith<_$Group> get copyWith => throw _privateConstructorUsedError;
 }
@@ -1565,7 +1598,9 @@ class _$Item implements Item {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ItemToJson(this);
+    return _$$ItemToJson(
+      this,
+    );
   }
 }
 
@@ -1574,7 +1609,8 @@ abstract class Item implements VaultComponent {
 
   factory Item.fromJson(Map<String, dynamic> json) = _$Item.fromJson;
 
-  VaultItem get item => throw _privateConstructorUsedError;
+  VaultItem get item;
+  set item(VaultItem value);
   @JsonKey(ignore: true)
   _$$ItemCopyWith<_$Item> get copyWith => throw _privateConstructorUsedError;
 }
@@ -1695,7 +1731,9 @@ class _$_VaultGroup implements _VaultGroup {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultGroupToJson(this);
+    return _$$_VaultGroupToJson(
+      this,
+    );
   }
 }
 
@@ -1707,9 +1745,11 @@ abstract class _VaultGroup implements VaultGroup {
       _$_VaultGroup.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+  set name(String value);
   @override
-  List<VaultComponent> get components => throw _privateConstructorUsedError;
+  List<VaultComponent> get components;
+  set components(List<VaultComponent> value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultGroupCopyWith<_$_VaultGroup> get copyWith =>
@@ -1883,7 +1923,9 @@ class _$_VaultItem implements _VaultItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultItemToJson(this);
+    return _$$_VaultItemToJson(
+      this,
+    );
   }
 }
 
@@ -1898,14 +1940,17 @@ abstract class _VaultItem implements VaultItem {
       _$_VaultItem.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+  set name(String value);
   @override
-  String get username => throw _privateConstructorUsedError;
+  String get username;
+  set username(String value);
   @override
-  EncryptedData<VaultPassword> get password =>
-      throw _privateConstructorUsedError;
+  EncryptedData<VaultPassword> get password;
+  set password(EncryptedData<VaultPassword> value);
   @override
-  String get notes => throw _privateConstructorUsedError;
+  String get notes;
+  set notes(String value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultItemCopyWith<_$_VaultItem> get copyWith =>
@@ -2014,7 +2059,9 @@ class _$_VaultPassword implements _VaultPassword {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VaultPasswordToJson(this);
+    return _$$_VaultPasswordToJson(
+      this,
+    );
   }
 }
 
@@ -2025,7 +2072,8 @@ abstract class _VaultPassword implements VaultPassword {
       _$_VaultPassword.fromJson;
 
   @override
-  String get password => throw _privateConstructorUsedError;
+  String get password;
+  set password(String value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultPasswordCopyWith<_$_VaultPassword> get copyWith =>

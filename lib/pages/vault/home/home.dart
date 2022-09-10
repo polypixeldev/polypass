@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:polypass/pages/vault/home/vault_home_bloc/vault_home_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
@@ -33,12 +34,91 @@ class PasswordsView extends StatelessWidget {
               color: Theme.of(context).cardColor),
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(10),
-          child: Row(children: const [
-            Tree(),
-            SizedBox(width: 3, child: VerticalDivider()),
-            FolderList()
-          ])),
+          child: LayoutBuilder(builder: (context, constraints) {
+            final size = MediaQuery.of(context).size;
+            final noDividerWidth = constraints.maxWidth - 20;
+
+            return Row(children: [
+              BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                  builder: (context, state) {
+                return SizedBox(
+                  width: size.width < 600 && state.treeVisible
+                      ? noDividerWidth
+                      : size.width >= 600 && state.treeVisible
+                          ? noDividerWidth * 0.25
+                          : 0,
+                  child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                      builder: (context, state) {
+                    return state.treeVisible ? const Tree() : Container();
+                  }),
+                );
+              }),
+              const SizedBox(width: 20, child: TreeDivider()),
+              BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                  builder: (context, state) {
+                return SizedBox(
+                  width: size.width < 600 && !state.treeVisible
+                      ? noDividerWidth
+                      : size.width >= 600 && state.treeVisible
+                          ? noDividerWidth * 0.75
+                          : size.width >= 600 && !state.treeVisible
+                              ? noDividerWidth
+                              : 0,
+                  child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                      builder: (context, state) {
+                    if (MediaQuery.of(context).size.width < 600) {
+                      return !state.treeVisible
+                          ? const FolderList()
+                          : Container();
+                    } else {
+                      return const FolderList();
+                    }
+                  }),
+                );
+              })
+            ]);
+          })),
     );
+  }
+}
+
+class TreeDivider extends StatelessWidget {
+  const TreeDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        height: constraints.maxHeight,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+              width: 20,
+              child: GestureDetector(
+                child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                    builder: (context, state) {
+                  return Text(
+                    state.treeVisible ? '<' : '>',
+                    style: TextStyle(fontSize: 10.sp),
+                    textAlign: TextAlign.center,
+                  );
+                }),
+                onTap: () => context
+                    .read<VaultHomeBloc>()
+                    .add(const VaultHomeEvent.treeToggled()),
+              ),
+            ),
+            SizedBox(
+                width: 20,
+                height: constraints.maxHeight - 20,
+                child: const VerticalDivider()),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+      );
+    });
   }
 }
 

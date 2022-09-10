@@ -15,90 +15,101 @@ class Settings extends StatelessWidget {
     return AppWrapper(
         actions: false,
         icon: false,
-        child: BlocProvider(
-          create: (_context) =>
-              SettingsBloc(settingsBloc: context.read<AppSettingsBloc>()),
-          child: Center(
-              child: Container(
-                  padding: const EdgeInsets.all(15),
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: BlocBuilder<SettingsBloc, SettingsState>(
-                      builder: (context, state) {
-                    return Column(children: [
-                      const Text('Default Vault Settings',
-                          style: TextStyle(fontSize: 30, color: Colors.white)),
-                      ToggleSetting(
-                          title: 'Save key in memory while vault is unlocked',
-                          value: state
-                              .settings.defaultVaultSettings.saveKeyInMemory,
-                          onChanged: (setting) {
-                            context
-                                .read<SettingsBloc>()
-                                .add(SettingsEvent.setSaveKeyInMemory(setting));
-                          }),
-                      TextSetting(
-                          title: 'KDF Iterations',
-                          value: state.settings.defaultVaultSettings.iterations
-                              .toString(),
-                          onChanged: (setting) {
-                            final parsed = int.tryParse(setting);
-                            if (parsed != null) {
-                              context
-                                  .read<SettingsBloc>()
-                                  .add(SettingsEvent.setKDFIterations(parsed));
-                            }
-                          }),
-                      TextSetting(
-                          title: 'KDF Threads',
-                          value: state.settings.defaultVaultSettings.threads
-                              .toString(),
-                          onChanged: (setting) {
-                            final parsed = int.tryParse(setting);
-                            if (parsed != null) {
-                              context
-                                  .read<SettingsBloc>()
-                                  .add(SettingsEvent.setKDFThreads(parsed));
-                            }
-                          }),
-                      TextSetting(
-                          title: 'KDF Memory',
-                          value: state.settings.defaultVaultSettings.memory
-                              .toString(),
-                          onChanged: (setting) {
-                            final parsed = int.tryParse(setting);
-                            if (parsed != null) {
-                              context
-                                  .read<SettingsBloc>()
-                                  .add(SettingsEvent.setKDFMemory(parsed));
-                            }
-                          }),
-                      TextSetting(
-                          title: 'Clipboard Clear Time (seconds)',
-                          value: state.settings.defaultVaultSettings
-                              .clipboardClearSeconds
-                              .toString(),
-                          onChanged: (setting) {
-                            final parsed = int.tryParse(setting);
-                            if (parsed != null) {
-                              context.read<SettingsBloc>().add(
-                                  SettingsEvent.setClipboardClearSeconds(
-                                      parsed));
-                            }
-                          }),
-                      Row(
-                        children: const [
-                          BackToHomeButton(),
-                          Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                          SaveButton()
-                        ],
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                      )
-                    ], mainAxisSize: MainAxisSize.min);
-                  }))),
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              BlocProvider(
+                create: (_context) =>
+                    SettingsBloc(settingsBloc: context.read<AppSettingsBloc>()),
+                child: Center(
+                    child: Container(
+                        padding: const EdgeInsets.all(15),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: BlocBuilder<SettingsBloc, SettingsState>(
+                            builder: (context, state) {
+                          return Column(children: [
+                            const Text('Default Vault Settings',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white)),
+                            ToggleSetting(
+                                title:
+                                    'Save key in memory while vault is unlocked',
+                                value: state.settings.defaultVaultSettings
+                                    .saveKeyInMemory,
+                                onChanged: (setting) {
+                                  context.read<SettingsBloc>().add(
+                                      SettingsEvent.setSaveKeyInMemory(
+                                          setting));
+                                }),
+                            TextSetting(
+                                title: 'KDF Iterations',
+                                value: state
+                                    .settings.defaultVaultSettings.iterations
+                                    .toString(),
+                                onChanged: (setting) {
+                                  final parsed = int.tryParse(setting);
+                                  if (parsed != null) {
+                                    context.read<SettingsBloc>().add(
+                                        SettingsEvent.setKDFIterations(parsed));
+                                  }
+                                }),
+                            TextSetting(
+                                title: 'KDF Threads',
+                                value: state
+                                    .settings.defaultVaultSettings.threads
+                                    .toString(),
+                                onChanged: (setting) {
+                                  final parsed = int.tryParse(setting);
+                                  if (parsed != null) {
+                                    context.read<SettingsBloc>().add(
+                                        SettingsEvent.setKDFThreads(parsed));
+                                  }
+                                }),
+                            TextSetting(
+                                title: 'KDF Memory',
+                                value: state
+                                    .settings.defaultVaultSettings.memory
+                                    .toString(),
+                                onChanged: (setting) {
+                                  final parsed = int.tryParse(setting);
+                                  if (parsed != null) {
+                                    context.read<SettingsBloc>().add(
+                                        SettingsEvent.setKDFMemory(parsed));
+                                  }
+                                }),
+                            TextSetting(
+                                title: 'Clipboard Clear Time (seconds)',
+                                value: state.settings.defaultVaultSettings
+                                    .clipboardClearSeconds
+                                    .toString(),
+                                onChanged: (setting) {
+                                  final parsed = int.tryParse(setting);
+                                  if (parsed != null) {
+                                    context.read<SettingsBloc>().add(
+                                        SettingsEvent.setClipboardClearSeconds(
+                                            parsed));
+                                  }
+                                }),
+                            Row(
+                              children: const [
+                                BackToHomeButton(),
+                                Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5)),
+                                SaveButton()
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                            )
+                          ], mainAxisSize: MainAxisSize.min);
+                        }))),
+              ),
+            ],
+          ),
         ));
   }
 }
@@ -119,7 +130,7 @@ class ToggleSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title),
+        Flexible(child: Text(title)),
         Switch(
             value: value,
             onChanged: onChanged,

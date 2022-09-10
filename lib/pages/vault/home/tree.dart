@@ -13,78 +13,73 @@ class Tree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: (MediaQuery.of(context).size.width * .25) - 21,
-      child: BlocBuilder<VaultBloc, VaultState>(builder: (context, state) {
-        final unlockedState =
-            state.maybeMap(unlocked: (state) => state, orElse: () => null);
+    return BlocBuilder<VaultBloc, VaultState>(builder: (context, state) {
+      final unlockedState =
+          state.maybeMap(unlocked: (state) => state, orElse: () => null);
 
-        if (unlockedState == null) {
-          return Container();
-        }
+      if (unlockedState == null) {
+        return Container();
+      }
 
-        final decryptedContents = unlockedState.vault.contents.maybeMap(
-            decrypted: (contents) => contents, orElse: () => throw Error());
+      final decryptedContents = unlockedState.vault.contents.maybeMap(
+          decrypted: (contents) => contents, orElse: () => throw Error());
 
-        final groups =
-            decryptedContents.data.components.whereType<Group>().toList();
-        groups.sort((a, b) =>
-            a.group.name.toLowerCase().compareTo(b.group.name.toLowerCase()));
+      final groups =
+          decryptedContents.data.components.whereType<Group>().toList();
+      groups.sort((a, b) =>
+          a.group.name.toLowerCase().compareTo(b.group.name.toLowerCase()));
 
-        if (unlockedState.selectedGroup?[0] == 'Search Results') {
-          final components = context
-              .read<VaultHomeBloc>()
-              .state
-              .results
-              .map((path) => unlockedState.vault.getComponent(path));
+      if (unlockedState.selectedGroup?[0] == 'Search Results') {
+        final components = context
+            .read<VaultHomeBloc>()
+            .state
+            .results
+            .map((path) => unlockedState.vault.getComponent(path));
 
-          groups.add(Group(VaultGroup(
-              name: 'Search Results', components: components.toList())));
-        }
+        groups.add(Group(VaultGroup(
+            name: 'Search Results', components: components.toList())));
+      }
 
-        return DragTarget<String>(
-          builder: (context, candidateItems, rejectedItems) {
-            return ListView(primary: false, children: [
-              ...groups.map((group) =>
-                  TreeGroup(group: group.group, path: [group.group.name]))
-            ]);
-          },
-          onAccept: (pathStr) async {
-            final componentPath = pathStr.split('.');
-            final componentData =
-                unlockedState.vault.getComponent(componentPath);
-            var updatedVault =
-                unlockedState.vault.deleteComponent(componentPath);
-            final decryptedContents = updatedVault.contents.maybeMap(
-                decrypted: (contents) => contents, orElse: () => throw Error());
-            updatedVault = updatedVault.copyWith(
-                contents: decryptedContents.copyWith(
-                    data: decryptedContents.data.copyWith(components: [
-              ...decryptedContents.data.components,
-              componentData
-            ])));
+      return DragTarget<String>(
+        builder: (context, candidateItems, rejectedItems) {
+          return ListView(primary: false, children: [
+            ...groups.map((group) =>
+                TreeGroup(group: group.group, path: [group.group.name]))
+          ]);
+        },
+        onAccept: (pathStr) async {
+          final componentPath = pathStr.split('.');
+          final componentData = unlockedState.vault.getComponent(componentPath);
+          var updatedVault = unlockedState.vault.deleteComponent(componentPath);
+          final decryptedContents = updatedVault.contents.maybeMap(
+              decrypted: (contents) => contents, orElse: () => throw Error());
+          updatedVault = updatedVault.copyWith(
+              contents: decryptedContents.copyWith(
+                  data: decryptedContents.data.copyWith(components: [
+            ...decryptedContents.data.components,
+            componentData
+          ])));
 
-            final masterKey = (await getMasterKey(context)).masterKey;
+          final masterKey = (await getMasterKey(context)).masterKey;
 
-            if (masterKey == null) {
-              return;
-            }
+          if (masterKey == null) {
+            return;
+          }
 
-            context
-                .read<VaultBloc>()
-                .add(VaultEvent.updated(updatedVault, masterKey));
-          },
-          onWillAccept: (pathStr) {
-            if (unlockedState.selectedGroup?.join('.') == pathStr ||
-                unlockedState.selectedItem?.join('.') == pathStr) {
-              return false;
-            } else {
-              return true;
-            }
-          },
-        );
-      }),
-    );
+          context
+              .read<VaultBloc>()
+              .add(VaultEvent.updated(updatedVault, masterKey));
+        },
+        onWillAccept: (pathStr) {
+          if (unlockedState.selectedGroup?.join('.') == pathStr ||
+              unlockedState.selectedItem?.join('.') == pathStr) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+      );
+    });
   }
 }
 

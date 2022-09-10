@@ -193,13 +193,13 @@ abstract class _MasterPasswordDialogState extends MasterPasswordDialogState {
   const _MasterPasswordDialogState._() : super._();
 
   @override
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @override
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @override
-  Key? get derivedKey => throw _privateConstructorUsedError;
+  Key? get derivedKey;
   @override
-  MasterPasswordDialogStatus get status => throw _privateConstructorUsedError;
+  MasterPasswordDialogStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$_MasterPasswordDialogStateCopyWith<_$_MasterPasswordDialogState>
@@ -419,7 +419,7 @@ abstract class MasterPasswordChangedEvent implements MasterPasswordDialogEvent {
   const factory MasterPasswordChangedEvent(final String masterPassword) =
       _$MasterPasswordChangedEvent;
 
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @JsonKey(ignore: true)
   _$$MasterPasswordChangedEventCopyWith<_$MasterPasswordChangedEvent>
       get copyWith => throw _privateConstructorUsedError;

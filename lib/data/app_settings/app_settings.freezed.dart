@@ -158,7 +158,9 @@ class _$_AppSettings extends _AppSettings {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppSettingsToJson(this);
+    return _$$_AppSettingsToJson(
+      this,
+    );
   }
 }
 
@@ -172,9 +174,9 @@ abstract class _AppSettings extends AppSettings {
       _$_AppSettings.fromJson;
 
   @override
-  VaultSettings get defaultVaultSettings => throw _privateConstructorUsedError;
+  VaultSettings get defaultVaultSettings;
   @override
-  String? get recentPath => throw _privateConstructorUsedError;
+  String? get recentPath;
   @override
   @JsonKey(ignore: true)
   _$$_AppSettingsCopyWith<_$_AppSettings> get copyWith =>

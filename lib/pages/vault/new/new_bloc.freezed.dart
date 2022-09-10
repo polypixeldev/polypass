@@ -259,19 +259,19 @@ abstract class _NewFormState extends NewFormState {
   const _NewFormState._() : super._();
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get username => throw _privateConstructorUsedError;
+  String get username;
   @override
-  String get password => throw _privateConstructorUsedError;
+  String get password;
   @override
-  String get notes => throw _privateConstructorUsedError;
+  String get notes;
   @override
-  bool get submitted => throw _privateConstructorUsedError;
+  bool get submitted;
   @override
-  VaultItem? get createdItem => throw _privateConstructorUsedError;
+  VaultItem? get createdItem;
   @override
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @override
   @JsonKey(ignore: true)
   _$$_NewFormStateCopyWith<_$_NewFormState> get copyWith =>
@@ -512,7 +512,7 @@ class _$NameChangedEvent implements NameChangedEvent {
 abstract class NameChangedEvent implements NewFormEvent {
   const factory NameChangedEvent(final String name) = _$NameChangedEvent;
 
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(ignore: true)
   _$$NameChangedEventCopyWith<_$NameChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -672,7 +672,7 @@ abstract class UsernameChangedEvent implements NewFormEvent {
   const factory UsernameChangedEvent(final String username) =
       _$UsernameChangedEvent;
 
-  String get username => throw _privateConstructorUsedError;
+  String get username;
   @JsonKey(ignore: true)
   _$$UsernameChangedEventCopyWith<_$UsernameChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -832,7 +832,7 @@ abstract class PasswordChangedEvent implements NewFormEvent {
   const factory PasswordChangedEvent(final String password) =
       _$PasswordChangedEvent;
 
-  String get password => throw _privateConstructorUsedError;
+  String get password;
   @JsonKey(ignore: true)
   _$$PasswordChangedEventCopyWith<_$PasswordChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -990,7 +990,7 @@ class _$NotesChangedEvent implements NotesChangedEvent {
 abstract class NotesChangedEvent implements NewFormEvent {
   const factory NotesChangedEvent(final String notes) = _$NotesChangedEvent;
 
-  String get notes => throw _privateConstructorUsedError;
+  String get notes;
   @JsonKey(ignore: true)
   _$$NotesChangedEventCopyWith<_$NotesChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1149,7 +1149,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 abstract class FormSubmittedEvent implements NewFormEvent {
   const factory FormSubmittedEvent(final Key masterKey) = _$FormSubmittedEvent;
 
-  Key get masterKey => throw _privateConstructorUsedError;
+  Key get masterKey;
   @JsonKey(ignore: true)
   _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
       throw _privateConstructorUsedError;

@@ -555,7 +555,7 @@ class _$_Locked implements _Locked {
 abstract class _Locked implements VaultState {
   const factory _Locked(final VaultFile vault) = _$_Locked;
 
-  VaultFile get vault => throw _privateConstructorUsedError;
+  VaultFile get vault;
   @JsonKey(ignore: true)
   _$$_LockedCopyWith<_$_Locked> get copyWith =>
       throw _privateConstructorUsedError;
@@ -733,7 +733,7 @@ class _$_Unlocking implements _Unlocking {
 abstract class _Unlocking implements VaultState {
   const factory _Unlocking(final VaultFile vault) = _$_Unlocking;
 
-  VaultFile get vault => throw _privateConstructorUsedError;
+  VaultFile get vault;
   @JsonKey(ignore: true)
   _$$_UnlockingCopyWith<_$_Unlocking> get copyWith =>
       throw _privateConstructorUsedError;
@@ -986,11 +986,11 @@ abstract class _Unlocked implements VaultState {
       final bool viewingSelectedItem,
       final Key? masterKey}) = _$_Unlocked;
 
-  VaultFile get vault => throw _privateConstructorUsedError;
-  List<String>? get selectedGroup => throw _privateConstructorUsedError;
-  List<String>? get selectedItem => throw _privateConstructorUsedError;
-  bool get viewingSelectedItem => throw _privateConstructorUsedError;
-  Key? get masterKey => throw _privateConstructorUsedError;
+  VaultFile get vault;
+  List<String>? get selectedGroup;
+  List<String>? get selectedItem;
+  bool get viewingSelectedItem;
+  Key? get masterKey;
   @JsonKey(ignore: true)
   _$$_UnlockedCopyWith<_$_Unlocked> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1271,7 +1271,7 @@ class _$OpenedEvent implements OpenedEvent {
 abstract class OpenedEvent implements VaultEvent {
   const factory OpenedEvent(final String path) = _$OpenedEvent;
 
-  String get path => throw _privateConstructorUsedError;
+  String get path;
   @JsonKey(ignore: true)
   _$$OpenedEventCopyWith<_$OpenedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1449,7 +1449,7 @@ class _$UnlockedEvent implements UnlockedEvent {
 abstract class UnlockedEvent implements VaultEvent {
   const factory UnlockedEvent(final Key masterKey) = _$UnlockedEvent;
 
-  Key get masterKey => throw _privateConstructorUsedError;
+  Key get masterKey;
   @JsonKey(ignore: true)
   _$$UnlockedEventCopyWith<_$UnlockedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1630,7 +1630,7 @@ abstract class MasterKeyChangedEvent implements VaultEvent {
   const factory MasterKeyChangedEvent(final Key? masterKey) =
       _$MasterKeyChangedEvent;
 
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @JsonKey(ignore: true)
   _$$MasterKeyChangedEventCopyWith<_$MasterKeyChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1829,8 +1829,8 @@ abstract class GroupSelectedEvent implements VaultEvent {
   const factory GroupSelectedEvent(
       final List<String>? path, final bool deselect) = _$GroupSelectedEvent;
 
-  List<String>? get path => throw _privateConstructorUsedError;
-  bool get deselect => throw _privateConstructorUsedError;
+  List<String>? get path;
+  bool get deselect;
   @JsonKey(ignore: true)
   _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2028,8 +2028,8 @@ abstract class ItemSelectedEvent implements VaultEvent {
   const factory ItemSelectedEvent(
       final List<String>? path, final bool deselect) = _$ItemSelectedEvent;
 
-  List<String>? get path => throw _privateConstructorUsedError;
-  bool get deselect => throw _privateConstructorUsedError;
+  List<String>? get path;
+  bool get deselect;
   @JsonKey(ignore: true)
   _$$ItemSelectedEventCopyWith<_$ItemSelectedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2381,8 +2381,8 @@ abstract class UpdatedEvent implements VaultEvent {
   const factory UpdatedEvent(final VaultFile newVault, final Key masterKey) =
       _$UpdatedEvent;
 
-  VaultFile get newVault => throw _privateConstructorUsedError;
-  Key get masterKey => throw _privateConstructorUsedError;
+  VaultFile get newVault;
+  Key get masterKey;
   @JsonKey(ignore: true)
   _$$UpdatedEventCopyWith<_$UpdatedEvent> get copyWith =>
       throw _privateConstructorUsedError;

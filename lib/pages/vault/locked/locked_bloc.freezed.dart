@@ -210,15 +210,15 @@ abstract class _UnlockFormState extends UnlockFormState {
   const _UnlockFormState._() : super._();
 
   @override // Raw master password that user enters
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @override // Derived master key from master password
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @override
-  bool get submitted => throw _privateConstructorUsedError;
+  bool get submitted;
   @override
-  bool get success => throw _privateConstructorUsedError;
+  bool get success;
   @override
-  int get fails => throw _privateConstructorUsedError;
+  int get fails;
   @override
   @JsonKey(ignore: true)
   _$$_UnlockFormStateCopyWith<_$_UnlockFormState> get copyWith =>
@@ -420,7 +420,7 @@ abstract class MasterPasswordChangedEvent implements UnlockFormEvent {
   const factory MasterPasswordChangedEvent(final String masterPassword) =
       _$MasterPasswordChangedEvent;
 
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @JsonKey(ignore: true)
   _$$MasterPasswordChangedEventCopyWith<_$MasterPasswordChangedEvent>
       get copyWith => throw _privateConstructorUsedError;

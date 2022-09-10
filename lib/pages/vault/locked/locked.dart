@@ -18,6 +18,7 @@ class VaultLocked extends StatelessWidget {
           color: const Color(0xFF373b42),
           borderRadius: BorderRadius.circular(10)),
       padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 600,
       child: Form(
         child: BlocProvider(

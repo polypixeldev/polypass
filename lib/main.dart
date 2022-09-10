@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
@@ -51,20 +52,22 @@ class App extends StatelessWidget {
           builder: (context, state) => const VaultSettingsPage())
     ], initialLocation: '/recent');
 
-    return RepositoryProvider(
-      create: (context) => const VaultRepository(),
-      child: BlocProvider(
-        create: (context) => AppSettingsBloc(initialSettings),
+    return Sizer(builder: (context, orientation, deviceType) {
+      return RepositoryProvider(
+        create: (context) => const VaultRepository(),
         child: BlocProvider(
-          create: (context) => VaultBloc(read: context.read),
-          child: MaterialApp.router(
-              routeInformationParser: _router.routeInformationParser,
-              routerDelegate: _router.routerDelegate,
-              title: 'PolyPass',
-              debugShowCheckedModeBanner: false,
-              theme: appTheme),
+          create: (context) => AppSettingsBloc(initialSettings),
+          child: BlocProvider(
+            create: (context) => VaultBloc(read: context.read),
+            child: MaterialApp.router(
+                routeInformationParser: _router.routeInformationParser,
+                routerDelegate: _router.routerDelegate,
+                title: 'PolyPass',
+                debugShowCheckedModeBanner: false,
+                theme: appTheme),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

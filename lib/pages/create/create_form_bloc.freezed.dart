@@ -202,15 +202,15 @@ abstract class _CreateFormState extends CreateFormState {
   const _CreateFormState._() : super._();
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @override
-  String get path => throw _privateConstructorUsedError;
+  String get path;
   @override
-  bool get submitted => throw _privateConstructorUsedError;
+  bool get submitted;
   @override
-  bool get created => throw _privateConstructorUsedError;
+  bool get created;
   @override
   @JsonKey(ignore: true)
   _$$_CreateFormStateCopyWith<_$_CreateFormState> get copyWith =>
@@ -430,7 +430,7 @@ class _$NameChangedEvent implements NameChangedEvent {
 abstract class NameChangedEvent implements CreateFormEvent {
   const factory NameChangedEvent(final String name) = _$NameChangedEvent;
 
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(ignore: true)
   _$$NameChangedEventCopyWith<_$NameChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -583,7 +583,7 @@ abstract class MasterPasswordChangedEvent implements CreateFormEvent {
   const factory MasterPasswordChangedEvent(final String masterPassword) =
       _$MasterPasswordChangedEvent;
 
-  String get masterPassword => throw _privateConstructorUsedError;
+  String get masterPassword;
   @JsonKey(ignore: true)
   _$$MasterPasswordChangedEventCopyWith<_$MasterPasswordChangedEvent>
       get copyWith => throw _privateConstructorUsedError;
@@ -730,7 +730,7 @@ class _$PathChangedEvent implements PathChangedEvent {
 abstract class PathChangedEvent implements CreateFormEvent {
   const factory PathChangedEvent(final String path) = _$PathChangedEvent;
 
-  String get path => throw _privateConstructorUsedError;
+  String get path;
   @JsonKey(ignore: true)
   _$$PathChangedEventCopyWith<_$PathChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;

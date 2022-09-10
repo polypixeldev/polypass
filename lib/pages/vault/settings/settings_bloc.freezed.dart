@@ -181,11 +181,11 @@ abstract class _SettingsState extends SettingsState {
   const _SettingsState._() : super._();
 
   @override
-  VaultSettings get settings => throw _privateConstructorUsedError;
+  VaultSettings get settings;
   @override
-  String get newMasterPassword => throw _privateConstructorUsedError;
+  String get newMasterPassword;
   @override
-  String get confirmNewMasterPassword => throw _privateConstructorUsedError;
+  String get confirmNewMasterPassword;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
@@ -480,7 +480,7 @@ abstract class SetSaveKeyInMemoryEvent implements SettingsEvent {
   const factory SetSaveKeyInMemoryEvent(final bool setting) =
       _$SetSaveKeyInMemoryEvent;
 
-  bool get setting => throw _privateConstructorUsedError;
+  bool get setting;
   @JsonKey(ignore: true)
   _$$SetSaveKeyInMemoryEventCopyWith<_$SetSaveKeyInMemoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -669,7 +669,7 @@ abstract class NewMasterPasswordChangedEvent implements SettingsEvent {
   const factory NewMasterPasswordChangedEvent(final String newMasterPassword) =
       _$NewMasterPasswordChangedEvent;
 
-  String get newMasterPassword => throw _privateConstructorUsedError;
+  String get newMasterPassword;
   @JsonKey(ignore: true)
   _$$NewMasterPasswordChangedEventCopyWith<_$NewMasterPasswordChangedEvent>
       get copyWith => throw _privateConstructorUsedError;
@@ -862,7 +862,7 @@ abstract class ConfirmNewMasterPasswordChangedEvent implements SettingsEvent {
           final String confirmNewMasterPassword) =
       _$ConfirmNewMasterPasswordChangedEvent;
 
-  String get confirmNewMasterPassword => throw _privateConstructorUsedError;
+  String get confirmNewMasterPassword;
   @JsonKey(ignore: true)
   _$$ConfirmNewMasterPasswordChangedEventCopyWith<
           _$ConfirmNewMasterPasswordChangedEvent>
@@ -1048,7 +1048,7 @@ abstract class SetKDFIterationsEvent implements SettingsEvent {
   const factory SetKDFIterationsEvent(final int setting) =
       _$SetKDFIterationsEvent;
 
-  int get setting => throw _privateConstructorUsedError;
+  int get setting;
   @JsonKey(ignore: true)
   _$$SetKDFIterationsEventCopyWith<_$SetKDFIterationsEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1232,7 +1232,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
 abstract class SetKDFThreadsEvent implements SettingsEvent {
   const factory SetKDFThreadsEvent(final int setting) = _$SetKDFThreadsEvent;
 
-  int get setting => throw _privateConstructorUsedError;
+  int get setting;
   @JsonKey(ignore: true)
   _$$SetKDFThreadsEventCopyWith<_$SetKDFThreadsEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1415,7 +1415,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
 abstract class SetKDFMemoryEvent implements SettingsEvent {
   const factory SetKDFMemoryEvent(final int setting) = _$SetKDFMemoryEvent;
 
-  int get setting => throw _privateConstructorUsedError;
+  int get setting;
   @JsonKey(ignore: true)
   _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1603,7 +1603,7 @@ abstract class SetClipboardClearSecondsEvent implements SettingsEvent {
   const factory SetClipboardClearSecondsEvent(final int setting) =
       _$SetClipboardClearSecondsEvent;
 
-  int get setting => throw _privateConstructorUsedError;
+  int get setting;
   @JsonKey(ignore: true)
   _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
       get copyWith => throw _privateConstructorUsedError;
@@ -1788,7 +1788,7 @@ abstract class SettingsSavedEvent implements SettingsEvent {
   const factory SettingsSavedEvent(final BuildContext context) =
       _$SettingsSavedEvent;
 
-  BuildContext get context => throw _privateConstructorUsedError;
+  BuildContext get context;
   @JsonKey(ignore: true)
   _$$SettingsSavedEventCopyWith<_$SettingsSavedEvent> get copyWith =>
       throw _privateConstructorUsedError;

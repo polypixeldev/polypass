@@ -29,135 +29,144 @@ class EditItem extends StatelessWidget {
 
     return AppWrapper(
         child: Center(
-            child: Container(
-                decoration: BoxDecoration(
-                    color: const Color(0xFF373b42),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.all(10),
-                width: 700,
-                child: Form(
-                    child: BlocProvider(
-                  create: (_context) => EditFormBloc(
-                      name: item.name,
-                      username: item.username,
-                      password: '',
-                      notes: item.notes),
-                  child: FutureBuilder<MasterKeys>(
-                    future: dialog ??
-                        Future.delayed(
-                            Duration.zero, () => getMasterKey(context)),
-                    builder: (context, snapshot) {
-                      final masterKey = snapshot.data?.masterKey;
-                      if (masterKey != null) {
-                        context.read<EditFormBloc>().add(
-                            EditFormEvent.passwordChanged(item.password
-                                .decrypt(masterKey)
-                                .maybeMap(
-                                    decrypted: (p) => p.data.password,
-                                    orElse: () => throw Error())));
-                      }
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xFF373b42),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  width: 700,
+                  child: Form(
+                      child: BlocProvider(
+                    create: (_context) => EditFormBloc(
+                        name: item.name,
+                        username: item.username,
+                        password: '',
+                        notes: item.notes),
+                    child: FutureBuilder<MasterKeys>(
+                      future: dialog ??
+                          Future.delayed(
+                              Duration.zero, () => getMasterKey(context)),
+                      builder: (context, snapshot) {
+                        final masterKey = snapshot.data?.masterKey;
+                        if (masterKey != null) {
+                          context.read<EditFormBloc>().add(
+                              EditFormEvent.passwordChanged(item.password
+                                  .decrypt(masterKey)
+                                  .maybeMap(
+                                      decrypted: (p) => p.data.password,
+                                      orElse: () => throw Error())));
+                        }
 
-                      return MultiBlocListener(
-                        listeners: [
-                          BlocListener<EditFormBloc, EditFormState>(
-                            listener: (context, state) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Updating item...'),
-                                      duration: Duration(days: 365)));
-                            },
-                            listenWhen: (previous, current) =>
-                                previous.submitted == false &&
-                                current.submitted == true,
-                          ),
-                          BlocListener<EditFormBloc, EditFormState>(
-                            listener: (context, state) {
-                              final vaultBloc = context.read<VaultBloc>();
-                              final unlockedState = vaultBloc.state.maybeMap(
-                                  unlocked: (state) => state,
-                                  orElse: () => throw Error());
-
-                              final parent = unlockedState.vault
-                                  .getComponent(
-                                      path.take(path.length - 1).toList())
-                                  .maybeWhen(
-                                      group: (group) => group,
-                                      orElse: () => throw Error());
-                              final exists =
-                                  parent.components.where((component) {
-                                final componentName = component.when(
-                                    group: (group) => group.name,
-                                    item: (item) => item.name);
-                                return componentName ==
-                                        state.editedItem!.name &&
-                                    componentName != item.name;
-                              });
-
-                              if (exists.isNotEmpty) {
-                                ScaffoldMessenger.of(context).clearSnackBars();
+                        return MultiBlocListener(
+                          listeners: [
+                            BlocListener<EditFormBloc, EditFormState>(
+                              listener: (context, state) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text(
-                                            "A group or item with that name already exists in this item's group!")));
+                                        content: Text('Updating item...'),
+                                        duration: Duration(days: 365)));
+                              },
+                              listenWhen: (previous, current) =>
+                                  previous.submitted == false &&
+                                  current.submitted == true,
+                            ),
+                            BlocListener<EditFormBloc, EditFormState>(
+                              listener: (context, state) {
+                                final vaultBloc = context.read<VaultBloc>();
+                                final unlockedState = vaultBloc.state.maybeMap(
+                                    unlocked: (state) => state,
+                                    orElse: () => throw Error());
 
-                                context
-                                    .read<EditFormBloc>()
-                                    .add(const EditFormEvent.failed());
+                                final parent = unlockedState.vault
+                                    .getComponent(
+                                        path.take(path.length - 1).toList())
+                                    .maybeWhen(
+                                        group: (group) => group,
+                                        orElse: () => throw Error());
+                                final exists =
+                                    parent.components.where((component) {
+                                  final componentName = component.when(
+                                      group: (group) => group.name,
+                                      item: (item) => item.name);
+                                  return componentName ==
+                                          state.editedItem!.name &&
+                                      componentName != item.name;
+                                });
 
-                                return;
-                              }
+                                if (exists.isNotEmpty) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "A group or item with that name already exists in this item's group!")));
 
-                              final newPath = [
-                                ...path.take(path.length - 1),
-                                state.editedItem!.name
-                              ];
+                                  context
+                                      .read<EditFormBloc>()
+                                      .add(const EditFormEvent.failed());
 
-                              final newVault = unlockedState.vault
-                                  .updateComponent(
-                                      path: newPath,
-                                      component: VaultComponent.item(
-                                          state.editedItem!));
+                                  return;
+                                }
 
-                              if (newPath.join('.') != path.join('.')) {
-                                unlockedState.vault.deleteComponent(path);
-                              }
+                                final newPath = [
+                                  ...path.take(path.length - 1),
+                                  state.editedItem!.name
+                                ];
 
-                              vaultBloc.add(VaultEvent.updated(
-                                  newVault, state.masterKey!));
-                              ScaffoldMessenger.of(context).clearSnackBars();
-                              GoRouter.of(context).go('/vault/home');
-                            },
-                            listenWhen: (previous, current) =>
-                                previous.editedItem == null &&
-                                current.editedItem != null,
-                          )
-                        ],
-                        child: Column(
-                          children: [
-                            const Text('Edit Item',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30)),
-                            ItemNameInput(item: item),
-                            ItemUsernameInput(item: item),
-                            ItemPasswordInput(item: item),
-                            ItemNotesInput(item: item),
-                            Row(
-                              children: const [
-                                BackToHomeButton(),
-                                Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10)),
-                                SubmitButton()
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.center,
+                                final newVault = unlockedState.vault
+                                    .updateComponent(
+                                        path: newPath,
+                                        component: VaultComponent.item(
+                                            state.editedItem!));
+
+                                if (newPath.join('.') != path.join('.')) {
+                                  unlockedState.vault.deleteComponent(path);
+                                }
+
+                                vaultBloc.add(VaultEvent.updated(
+                                    newVault, state.masterKey!));
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                GoRouter.of(context).go('/vault/home');
+                              },
+                              listenWhen: (previous, current) =>
+                                  previous.editedItem == null &&
+                                  current.editedItem != null,
                             )
                           ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      );
-                    },
-                  ),
-                )))));
+                          child: Column(
+                            children: [
+                              const Text('Edit Item',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 30)),
+                              ItemNameInput(item: item),
+                              ItemUsernameInput(item: item),
+                              ItemPasswordInput(item: item),
+                              ItemNotesInput(item: item),
+                              Row(
+                                children: const [
+                                  BackToHomeButton(),
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10)),
+                                  SubmitButton()
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.center,
+                              )
+                            ],
+                            mainAxisSize: MainAxisSize.min,
+                          ),
+                        );
+                      },
+                    ),
+                  )))),
+        ],
+      ),
+    ));
   }
 }
 

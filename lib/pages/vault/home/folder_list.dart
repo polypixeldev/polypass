@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
+import 'dart:io';
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/pages/vault/home/vault_home_bloc/vault_home_bloc.dart';
@@ -17,55 +19,51 @@ class FolderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: (MediaQuery.of(context).size.width * .75) - 22,
-      child: BlocBuilder<VaultBloc, VaultState>(
-        builder: (context, state) {
-          final unlockedState =
-              state.maybeMap(unlocked: (state) => state, orElse: () => null);
+    return BlocBuilder<VaultBloc, VaultState>(
+      builder: (context, state) {
+        final unlockedState =
+            state.maybeMap(unlocked: (state) => state, orElse: () => null);
 
-          if (unlockedState == null) {
-            return Container();
-          }
+        if (unlockedState == null) {
+          return Container();
+        }
 
-          final decryptedContents = unlockedState.vault.contents.maybeMap(
-              decrypted: (contents) => contents, orElse: () => throw Error());
+        final decryptedContents = unlockedState.vault.contents.maybeMap(
+            decrypted: (contents) => contents, orElse: () => throw Error());
 
-          final List<VaultComponent> components;
-          final paths = unlockedState.selectedGroup;
+        final List<VaultComponent> components;
+        final paths = unlockedState.selectedGroup;
 
-          if (paths == null) {
-            components = decryptedContents.data.components;
-          } else if (paths[0] == 'Search Results') {
-            components = context
-                .read<VaultHomeBloc>()
-                .state
-                .results
-                .map((path) => unlockedState.vault.getComponent(path))
-                .toList();
-          } else {
-            components = unlockedState.vault.getComponent(paths).maybeWhen(
-                group: (group) => group.components,
-                orElse: () => throw Error());
-          }
+        if (paths == null) {
+          components = decryptedContents.data.components;
+        } else if (paths[0] == 'Search Results') {
+          components = context
+              .read<VaultHomeBloc>()
+              .state
+              .results
+              .map((path) => unlockedState.vault.getComponent(path))
+              .toList();
+        } else {
+          components = unlockedState.vault.getComponent(paths).maybeWhen(
+              group: (group) => group.components, orElse: () => throw Error());
+        }
 
-          final items = components.whereType<Item>().toList();
-          items.sort((a, b) =>
-              a.item.name.toLowerCase().compareTo(b.item.name.toLowerCase()));
+        final items = components.whereType<Item>().toList();
+        items.sort((a, b) =>
+            a.item.name.toLowerCase().compareTo(b.item.name.toLowerCase()));
 
-          return Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: ListView(primary: false, children: [
-              const ListHeader(),
-              ...items.map((item) => ListItem(
-                  item: item.item,
-                  path: paths != null
-                      ? [...paths, item.item.name]
-                      : [item.item.name]))
-            ]),
-          );
-        },
-      ),
+        return Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: ListView(primary: false, children: [
+            const ListHeader(),
+            ...items.map((item) => ListItem(
+                item: item.item,
+                path: paths != null
+                    ? [...paths, item.item.name]
+                    : [item.item.name]))
+          ]),
+        );
+      },
     );
   }
 }
@@ -96,88 +94,100 @@ class BaseRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocProvider(
-      create: (_context) => ComponentBloc(),
-      child:
-          BlocBuilder<ComponentBloc, ComponentState>(builder: (context, state) {
-        final bloc = context.read<ComponentBloc>();
-        final rowWidth =
-            (MediaQuery.of(context).size.width * .75) - 22 - 15 - 20 - 80;
+    return LayoutBuilder(builder: (context, constraints) {
+      return BlocProvider(
+        create: (_context) => ComponentBloc(),
+        child: BlocBuilder<ComponentBloc, ComponentState>(
+            builder: (context, state) {
+          final bloc = context.read<ComponentBloc>();
+          final rowWidth = constraints.maxWidth - 100;
 
-        final vaultBloc = context.read<VaultBloc>();
-        final unlockedState = vaultBloc.state
-            .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
+          final vaultBloc = context.read<VaultBloc>();
+          final unlockedState = vaultBloc.state.maybeMap(
+              unlocked: (state) => state, orElse: () => throw Error());
 
-        final isSelected =
-            path?.join('.') == unlockedState.selectedItem?.join('.');
+          final isSelected =
+              path?.join('.') == unlockedState.selectedItem?.join('.');
 
-        var extras = extra(state, isSelected, rowWidth);
-        extras ??= [];
+          var extras = extra(state, isSelected, rowWidth);
+          extras ??= [];
 
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: GestureDetector(
-                  child: MouseRegion(
-                    onEnter: (_event) {
-                      bloc.add(const ComponentEvent.entered());
-                    },
-                    onExit: (_event) {
-                      bloc.add(const ComponentEvent.exited());
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: path != null && isSelected
-                              ? theme.colorScheme.tertiary
-                              : (state.inArea && hoverEffect)
-                                  ? theme.colorScheme.primaryContainer
-                                  : theme.cardColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Row(children: [
-                                SizedBox(
-                                    width: rowWidth * .35,
-                                    child: name(
-                                        state, isSelected, rowWidth * .35)),
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20)),
-                                SizedBox(
-                                    width: rowWidth * .35,
-                                    child: username(
-                                        state, isSelected, rowWidth * .35)),
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20)),
-                                SizedBox(
-                                    width: rowWidth * .3,
-                                    child: actions(
-                                        state, isSelected, rowWidth * .3))
-                              ]),
-                              const Spacer()
-                            ],
-                          ),
-                          ...extras
-                        ],
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: GestureDetector(
+                    child: MouseRegion(
+                      onEnter: (_event) {
+                        bloc.add(const ComponentEvent.entered());
+                      },
+                      onExit: (_event) {
+                        bloc.add(const ComponentEvent.exited());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: path != null && isSelected
+                                ? theme.colorScheme.tertiary
+                                : (state.inArea && hoverEffect)
+                                    ? theme.colorScheme.primaryContainer
+                                    : theme.cardColor,
+                            borderRadius: BorderRadius.circular(5)),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Row(children: [
+                                  SizedBox(
+                                      width: rowWidth *
+                                          (Platform.isAndroid ? .38 : .35),
+                                      child: name(
+                                          state,
+                                          isSelected,
+                                          rowWidth *
+                                              (Platform.isAndroid
+                                                  ? .40
+                                                  : .35))),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20)),
+                                  SizedBox(
+                                      width: rowWidth *
+                                          (Platform.isAndroid ? .52 : .35),
+                                      child: username(
+                                          state, isSelected, rowWidth * .35)),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20)),
+                                  SizedBox(
+                                      width: rowWidth *
+                                          (Platform.isAndroid ? .10 : .3),
+                                      child: actions(
+                                          state,
+                                          isSelected,
+                                          rowWidth *
+                                              (Platform.isAndroid ? .10 : .3)))
+                                ]),
+                                const Spacer()
+                              ],
+                            ),
+                            ...extras
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  onTap: path == null
-                      ? null
-                      : () {
-                          vaultBloc
-                              .add(VaultEvent.itemSelected(path, isSelected));
-                        }),
-            )
-          ],
-        );
-      }),
-    );
+                    onTap: path == null
+                        ? null
+                        : () {
+                            vaultBloc
+                                .add(VaultEvent.itemSelected(path, isSelected));
+                          }),
+              )
+            ],
+          );
+        }),
+      );
+    });
   }
 }
 
@@ -203,6 +213,10 @@ class ListItem extends StatelessWidget {
           context
               .read<ListItemBloc>()
               .add(const ListItemEvent.modeToggled(newMode: ListItemMode.view));
+        } else if (!unlockedVaultState.viewingSelectedItem &&
+            unlockedVaultState.selectedItem?.join('.') == path.join('.')) {
+          context.read<ListItemBloc>().add(
+              const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
         }
 
         return BlocBuilder<ListItemBloc, ListItemState>(
@@ -256,82 +270,87 @@ class ListItem extends StatelessWidget {
                   final extra = <Widget>[];
 
                   if (state.mode == ListItemMode.view) {
+                    final passChildren = [
+                      Text('Password: ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold)),
+                      Flexible(
+                        child: Tooltip(
+                          message: 'Click to copy password',
+                          child: RichText(
+                              text: TextSpan(
+                                  text: decryptedPassword,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w300),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Clipboard.setData(ClipboardData(
+                                          text: decryptedPassword));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            'Copied password to clipboard - it will be cleared in ${unlockedVaultState.vault.header.settings.clipboardClearSeconds} seconds'),
+                                      ));
+                                      Future.delayed(Duration(
+                                              seconds: unlockedVaultState
+                                                  .vault
+                                                  .header
+                                                  .settings
+                                                  .clipboardClearSeconds))
+                                          .then((_v) {
+                                        Clipboard.setData(
+                                            const ClipboardData(text: ''));
+                                      });
+                                    })),
+                        ),
+                      ),
+                    ];
+
+                    final notesChildren = [
+                      Text('Notes: ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold)),
+                      Flexible(
+                        child: Text(item.notes,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w300)),
+                      ),
+                    ];
+
                     extra.add(Padding(
                         padding: const EdgeInsets.only(top: 15),
                         child: Row(children: [
                           SizedBox(
                             width: columnWidth * .35,
-                            child: Row(
-                              children: [
-                                Text('Password: ',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: theme.textTheme.bodyMedium!
-                                                .fontSize! *
-                                            1.1,
-                                        fontWeight: FontWeight.bold)),
-                                Flexible(
-                                  child: Tooltip(
-                                    message: 'Click to copy password',
-                                    child: RichText(
-                                        text: TextSpan(
-                                            text: decryptedPassword,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: theme.textTheme
-                                                        .bodyMedium!.fontSize! *
-                                                    1.1,
-                                                fontWeight: FontWeight.w300),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Clipboard.setData(ClipboardData(
-                                                    text: decryptedPassword));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      'Copied password to clipboard - it will be cleared in ${unlockedVaultState.vault.header.settings.clipboardClearSeconds} seconds'),
-                                                ));
-                                                Future.delayed(Duration(
-                                                        seconds: unlockedVaultState
-                                                            .vault
-                                                            .header
-                                                            .settings
-                                                            .clipboardClearSeconds))
-                                                    .then((_v) {
-                                                  Clipboard.setData(
-                                                      const ClipboardData(
-                                                          text: ''));
-                                                });
-                                              })),
+                            child: columnWidth > 600
+                                ? Row(
+                                    children: passChildren,
+                                  )
+                                : Column(
+                                    children: passChildren,
+                                    mainAxisSize: MainAxisSize.min,
                                   ),
-                                ),
-                              ],
-                            ),
                           ),
                           const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20)),
                           SizedBox(
                             width: columnWidth * .35,
-                            child: Row(
-                              children: [
-                                Text('Notes: ',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: theme.textTheme.bodyMedium!
-                                                .fontSize! *
-                                            1.1,
-                                        fontWeight: FontWeight.bold)),
-                                Flexible(
-                                  child: Text(item.notes,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: theme.textTheme.bodyMedium!
-                                                  .fontSize! *
-                                              1.1,
-                                          fontWeight: FontWeight.w300)),
-                                ),
-                              ],
-                            ),
+                            child: columnWidth > 600
+                                ? Row(
+                                    children: notesChildren,
+                                  )
+                                : Column(
+                                    children: notesChildren,
+                                    mainAxisSize: MainAxisSize.min,
+                                  ),
                           )
                         ])));
                   }
@@ -448,8 +467,6 @@ class ListHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: BaseRow(
@@ -457,14 +474,14 @@ class ListHeader extends StatelessWidget {
             return Text('Item Name',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.3,
+                    fontSize: 12.5.sp,
                     fontWeight: FontWeight.w400));
           },
           username: (_state, _isSelected, _columnWidth) {
             return Text('Item Username',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: theme.textTheme.bodyMedium!.fontSize! * 1.3,
+                    fontSize: 12.5.sp,
                     fontWeight: FontWeight.w400));
           },
           actions: (_state, _isSelected, _columnWidth) => null,

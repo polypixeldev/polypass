@@ -13,6 +13,7 @@ class Recent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
     var recentPath = context.read<AppSettingsBloc>().state.settings.recentPath;
 
     if (recentPath != null) {
@@ -27,7 +28,7 @@ class Recent extends StatelessWidget {
       if (recentPath != null) {
         context.read<VaultBloc>().add(VaultEvent.opened(recentPath));
       } else {
-        GoRouter.of(context).go('/');
+        router.go('/');
       }
     });
 

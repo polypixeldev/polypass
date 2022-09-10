@@ -154,11 +154,11 @@ abstract class _ComponentState implements ComponentState {
       final ExpandMode expand) = _$_ComponentState;
 
   @override
-  bool get inArea => throw _privateConstructorUsedError;
+  bool get inArea;
   @override
-  ComponentMode get mode => throw _privateConstructorUsedError;
+  ComponentMode get mode;
   @override
-  ExpandMode get expand => throw _privateConstructorUsedError;
+  ExpandMode get expand;
   @override
   @JsonKey(ignore: true)
   _$$_ComponentStateCopyWith<_$_ComponentState> get copyWith =>

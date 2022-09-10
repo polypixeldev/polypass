@@ -16,103 +16,116 @@ class NewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppWrapper(
         child: Center(
-            child: Container(
-                decoration: BoxDecoration(
-                    color: const Color(0xFF373b42),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.all(10),
-                width: 700,
-                child: Form(
-                    child: BlocProvider(
-                  create: (_context) => NewFormBloc(),
-                  child: MultiBlocListener(
-                    listeners: [
-                      BlocListener<NewFormBloc, NewFormState>(
-                        listener: (context, state) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Creating item...'),
-                                  duration: Duration(days: 365)));
-                        },
-                        listenWhen: (previous, current) =>
-                            previous.submitted == false &&
-                            current.submitted == true,
-                      ),
-                      BlocListener<NewFormBloc, NewFormState>(
-                        listener: (context, state) {
-                          final vaultBloc = context.read<VaultBloc>();
-                          final unlockedState = vaultBloc.state.maybeMap(
-                              unlocked: (state) => state,
-                              orElse: () => throw Error());
-
-                          final selectedPath = unlockedState.selectedGroup;
-                          final selectedGroup = selectedPath != null
-                              ? unlockedState.vault
-                                  .getComponent(selectedPath)
-                                  .maybeWhen(
-                                      group: (group) => group,
-                                      orElse: () => throw Error())
-                              : unlockedState.vault.toGroup();
-
-                          final exists = selectedGroup.components.where(
-                              (component) =>
-                                  component.when(
-                                      group: (group) => group.name,
-                                      item: (item) => item.name) ==
-                                  state.createdItem!.name);
-
-                          if (exists.isNotEmpty) {
-                            ScaffoldMessenger.of(context).clearSnackBars();
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xFF373b42),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  width: 700,
+                  child: Form(
+                      child: BlocProvider(
+                    create: (_context) => NewFormBloc(),
+                    child: MultiBlocListener(
+                      listeners: [
+                        BlocListener<NewFormBloc, NewFormState>(
+                          listener: (context, state) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text(
-                                        'A group or item with that name already exists in the selected group')));
-                            context
-                                .read<NewFormBloc>()
-                                .add(const NewFormEvent.failed());
-                            return;
-                          }
+                                    content: Text('Creating item...'),
+                                    duration: Duration(days: 365)));
+                          },
+                          listenWhen: (previous, current) =>
+                              previous.submitted == false &&
+                              current.submitted == true,
+                        ),
+                        BlocListener<NewFormBloc, NewFormState>(
+                          listener: (context, state) {
+                            final vaultBloc = context.read<VaultBloc>();
+                            final unlockedState = vaultBloc.state.maybeMap(
+                                unlocked: (state) => state,
+                                orElse: () => throw Error());
 
-                          final newVault = unlockedState.vault.updateComponent(
-                              path: selectedPath != null
-                                  ? [...selectedPath, state.createdItem!.name]
-                                  : [state.createdItem!.name],
-                              component:
-                                  VaultComponent.item(state.createdItem!));
+                            final selectedPath = unlockedState.selectedGroup;
+                            final selectedGroup = selectedPath != null
+                                ? unlockedState.vault
+                                    .getComponent(selectedPath)
+                                    .maybeWhen(
+                                        group: (group) => group,
+                                        orElse: () => throw Error())
+                                : unlockedState.vault.toGroup();
 
-                          vaultBloc.add(
-                              VaultEvent.updated(newVault, state.masterKey!));
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          GoRouter.of(context).go('/vault/home');
-                        },
-                        listenWhen: (previous, current) =>
-                            previous.createdItem == null &&
-                            current.createdItem != null,
-                      )
-                    ],
-                    child: Column(
-                      children: [
-                        const Text('New Item',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 30)),
-                        const ItemNameInput(),
-                        const ItemUsernameInput(),
-                        const ItemPasswordInput(),
-                        const ItemNotesInput(),
-                        Row(
-                          children: const [
-                            BackToHomeButton(),
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10)),
-                            SubmitButton()
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
+                            final exists = selectedGroup.components.where(
+                                (component) =>
+                                    component.when(
+                                        group: (group) => group.name,
+                                        item: (item) => item.name) ==
+                                    state.createdItem!.name);
+
+                            if (exists.isNotEmpty) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'A group or item with that name already exists in the selected group')));
+                              context
+                                  .read<NewFormBloc>()
+                                  .add(const NewFormEvent.failed());
+                              return;
+                            }
+
+                            final newVault = unlockedState.vault
+                                .updateComponent(
+                                    path: selectedPath != null
+                                        ? [
+                                            ...selectedPath,
+                                            state.createdItem!.name
+                                          ]
+                                        : [state.createdItem!.name],
+                                    component: VaultComponent.item(
+                                        state.createdItem!));
+
+                            vaultBloc.add(
+                                VaultEvent.updated(newVault, state.masterKey!));
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            GoRouter.of(context).go('/vault/home');
+                          },
+                          listenWhen: (previous, current) =>
+                              previous.createdItem == null &&
+                              current.createdItem != null,
                         )
                       ],
-                      mainAxisSize: MainAxisSize.min,
+                      child: Column(
+                        children: [
+                          const Text('New Item',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 30)),
+                          const ItemNameInput(),
+                          const ItemUsernameInput(),
+                          const ItemPasswordInput(),
+                          const ItemNotesInput(),
+                          Row(
+                            children: const [
+                              BackToHomeButton(),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10)),
+                              SubmitButton()
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          )
+                        ],
+                        mainAxisSize: MainAxisSize.min,
+                      ),
                     ),
-                  ),
-                )))));
+                  )))),
+        ],
+      ),
+    ));
   }
 }
 

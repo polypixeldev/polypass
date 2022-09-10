@@ -11,16 +11,18 @@ class VaultHomeState with _$VaultHomeState {
   const factory VaultHomeState(
       {required String query,
       required bool submitted,
-      required List<List<String>> results}) = _VaultHomeState;
+      required List<List<String>> results,
+      required bool treeVisible}) = _VaultHomeState;
 
-  factory VaultHomeState.empty() =>
-      const VaultHomeState(query: '', submitted: false, results: []);
+  factory VaultHomeState.empty() => const VaultHomeState(
+      query: '', submitted: false, results: [], treeVisible: true);
 }
 
 @freezed
 class VaultHomeEvent with _$VaultHomeEvent {
   const factory VaultHomeEvent.queryChanged(String query) = QueryChangedEvent;
   const factory VaultHomeEvent.searchSubmitted() = SearchSubmittedEvent;
+  const factory VaultHomeEvent.treeToggled() = TreeToggledEvent;
 }
 
 class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
@@ -28,7 +30,8 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
     on<VaultHomeEvent>((event, emit) async {
       await event.map(
           queryChanged: (event) => _onQueryChanged(event, emit),
-          searchSubmitted: (event) => _onSearchSubmitted(event, emit));
+          searchSubmitted: (event) => _onSearchSubmitted(event, emit),
+          treeToggled: (event) => _onTreeToggled(event, emit));
     });
   }
 
@@ -55,6 +58,11 @@ class VaultHomeBloc extends Bloc<VaultHomeEvent, VaultHomeState> {
     emit(state.copyWith(results: results));
 
     vaultBloc.add(const VaultEvent.groupSelected(['Search Results'], false));
+  }
+
+  Future<void> _onTreeToggled(
+      TreeToggledEvent event, Emitter<VaultHomeState> emit) async {
+    emit(state.copyWith(treeVisible: !state.treeVisible));
   }
 }
 

@@ -140,9 +140,9 @@ abstract class _ListItemState implements ListItemState {
       required final Key? masterKey}) = _$_ListItemState;
 
   @override
-  ListItemMode get mode => throw _privateConstructorUsedError;
+  ListItemMode get mode;
   @override
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @override
   @JsonKey(ignore: true)
   _$$_ListItemStateCopyWith<_$_ListItemState> get copyWith =>
@@ -337,7 +337,7 @@ abstract class ModeToggledEvent implements ListItemEvent {
   const factory ModeToggledEvent({final ListItemMode? newMode}) =
       _$ModeToggledEvent;
 
-  ListItemMode? get newMode => throw _privateConstructorUsedError;
+  ListItemMode? get newMode;
   @JsonKey(ignore: true)
   _$$ModeToggledEventCopyWith<_$ModeToggledEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -474,7 +474,7 @@ abstract class MasterKeyAcquiredEvent implements ListItemEvent {
   const factory MasterKeyAcquiredEvent(final Key? masterKey) =
       _$MasterKeyAcquiredEvent;
 
-  Key? get masterKey => throw _privateConstructorUsedError;
+  Key? get masterKey;
   @JsonKey(ignore: true)
   _$$MasterKeyAcquiredEventCopyWith<_$MasterKeyAcquiredEvent> get copyWith =>
       throw _privateConstructorUsedError;
