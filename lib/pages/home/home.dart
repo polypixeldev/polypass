@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
                         builder: ((context, state) {
                       return Column(
                         children: [
-                          const Text('Welcome to PolyPass',
+                          const Text('PolyPass',
                               style:
                                   TextStyle(fontSize: 30, color: Colors.white)),
                           const Padding(
