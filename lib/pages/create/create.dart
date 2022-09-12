@@ -9,6 +9,7 @@ import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/pages/create/create_form_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_repository.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
@@ -46,7 +47,7 @@ class Create extends StatelessWidget {
 
                     context
                         .read<VaultBloc>()
-                        .add(VaultEvent.opened(state.path));
+                        .add(VaultEvent.opened(VaultUrl.file(state.path)));
                   },
                   listenWhen: (previous, current) =>
                       previous.created != current.created)

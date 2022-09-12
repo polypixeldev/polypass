@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 import 'package:polypass/components/android_picker_dialog/android_picker_dialog.dart';
@@ -86,9 +87,9 @@ class Home extends StatelessWidget {
                                         }
 
                                         if (path != null) {
-                                          context
-                                              .read<VaultBloc>()
-                                              .add(VaultEvent.opened(path));
+                                          context.read<VaultBloc>().add(
+                                              VaultEvent.opened(
+                                                  VaultUrl.file(path)));
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(

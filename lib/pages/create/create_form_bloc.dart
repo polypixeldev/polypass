@@ -96,7 +96,9 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
                     .encrypt(masterKey.base64, iv: iv)
                     .base64,
                 salt: salt),
-            path: Platform.isAndroid ? androidPath : state.path,
+            url: Platform.isAndroid
+                ? VaultUrl.file(androidPath!)
+                : VaultUrl.file(state.path),
             contents: EncryptedData<VaultContents>.decrypted(
                 VaultContents(components: []), iv)),
         masterKey);

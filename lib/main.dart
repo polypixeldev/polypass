@@ -9,6 +9,7 @@ import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
 
 import 'package:polypass/pages/home/home.dart';
+import 'package:polypass/pages/ftp/ftp.dart';
 import 'package:polypass/pages/recent/recent.dart';
 import 'package:polypass/pages/create/create.dart';
 import 'package:polypass/pages/settings/settings.dart';
@@ -35,6 +36,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final _router = GoRouter(routes: [
       GoRoute(path: '/', builder: (context, state) => const Home()),
+      GoRoute(path: '/ftp', builder: (context, state) => const FtpOpen()),
       GoRoute(path: '/recent', builder: (context, state) => const Recent()),
       GoRoute(path: '/create', builder: (context, state) => const Create()),
       GoRoute(path: '/settings', builder: (context, state) => const Settings()),

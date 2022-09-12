@@ -384,9 +384,9 @@ mixin _$VaultFile {
   set contents(EncryptedData<VaultContents> value) =>
       throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  String? get path => throw _privateConstructorUsedError;
+  VaultUrl? get url => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  set path(String? value) => throw _privateConstructorUsedError;
+  set url(VaultUrl? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -401,10 +401,11 @@ abstract class $VaultFileCopyWith<$Res> {
   $Res call(
       {VaultHeader header,
       EncryptedData<VaultContents> contents,
-      @JsonKey(ignore: true) String? path});
+      @JsonKey(ignore: true) VaultUrl? url});
 
   $VaultHeaderCopyWith<$Res> get header;
   $EncryptedDataCopyWith<VaultContents, $Res> get contents;
+  $VaultUrlCopyWith<$Res>? get url;
 }
 
 /// @nodoc
@@ -419,7 +420,7 @@ class _$VaultFileCopyWithImpl<$Res> implements $VaultFileCopyWith<$Res> {
   $Res call({
     Object? header = freezed,
     Object? contents = freezed,
-    Object? path = freezed,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
       header: header == freezed
@@ -430,10 +431,10 @@ class _$VaultFileCopyWithImpl<$Res> implements $VaultFileCopyWith<$Res> {
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultContents>,
-      path: path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
     ));
   }
 
@@ -451,6 +452,17 @@ class _$VaultFileCopyWithImpl<$Res> implements $VaultFileCopyWith<$Res> {
       return _then(_value.copyWith(contents: value));
     });
   }
+
+  @override
+  $VaultUrlCopyWith<$Res>? get url {
+    if (_value.url == null) {
+      return null;
+    }
+
+    return $VaultUrlCopyWith<$Res>(_value.url!, (value) {
+      return _then(_value.copyWith(url: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -462,12 +474,14 @@ abstract class _$$_VaultFileCopyWith<$Res> implements $VaultFileCopyWith<$Res> {
   $Res call(
       {VaultHeader header,
       EncryptedData<VaultContents> contents,
-      @JsonKey(ignore: true) String? path});
+      @JsonKey(ignore: true) VaultUrl? url});
 
   @override
   $VaultHeaderCopyWith<$Res> get header;
   @override
   $EncryptedDataCopyWith<VaultContents, $Res> get contents;
+  @override
+  $VaultUrlCopyWith<$Res>? get url;
 }
 
 /// @nodoc
@@ -484,7 +498,7 @@ class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
   $Res call({
     Object? header = freezed,
     Object? contents = freezed,
-    Object? path = freezed,
+    Object? url = freezed,
   }) {
     return _then(_$_VaultFile(
       header: header == freezed
@@ -495,10 +509,10 @@ class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultContents>,
-      path: path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
     ));
   }
 }
@@ -509,7 +523,7 @@ class _$_VaultFile extends _VaultFile {
   _$_VaultFile(
       {required this.header,
       required this.contents,
-      @JsonKey(ignore: true) this.path})
+      @JsonKey(ignore: true) this.url})
       : super._();
 
   factory _$_VaultFile.fromJson(Map<String, dynamic> json) =>
@@ -521,11 +535,11 @@ class _$_VaultFile extends _VaultFile {
   EncryptedData<VaultContents> contents;
   @override
   @JsonKey(ignore: true)
-  String? path;
+  VaultUrl? url;
 
   @override
   String toString() {
-    return 'VaultFile(header: $header, contents: $contents, path: $path)';
+    return 'VaultFile(header: $header, contents: $contents, url: $url)';
   }
 
   @JsonKey(ignore: true)
@@ -545,7 +559,7 @@ abstract class _VaultFile extends VaultFile {
   factory _VaultFile(
       {required VaultHeader header,
       required EncryptedData<VaultContents> contents,
-      @JsonKey(ignore: true) String? path}) = _$_VaultFile;
+      @JsonKey(ignore: true) VaultUrl? url}) = _$_VaultFile;
   _VaultFile._() : super._();
 
   factory _VaultFile.fromJson(Map<String, dynamic> json) =
@@ -559,9 +573,9 @@ abstract class _VaultFile extends VaultFile {
   set contents(EncryptedData<VaultContents> value);
   @override
   @JsonKey(ignore: true)
-  String? get path;
+  VaultUrl? get url;
   @JsonKey(ignore: true)
-  set path(String? value);
+  set url(VaultUrl? value);
   @override
   @JsonKey(ignore: true)
   _$$_VaultFileCopyWith<_$_VaultFile> get copyWith =>
@@ -2077,5 +2091,454 @@ abstract class _VaultPassword implements VaultPassword {
   @override
   @JsonKey(ignore: true)
   _$$_VaultPasswordCopyWith<_$_VaultPassword> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VaultUrl _$VaultUrlFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'file':
+      return FileVaultUrl.fromJson(json);
+    case 'ftp':
+      return FtpVaultUrl.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'VaultUrl',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
+/// @nodoc
+mixin _$VaultUrl {
+  String get path => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) file,
+    required TResult Function(
+            String host, String user, String password, String path)
+        ftp,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FileVaultUrl value) file,
+    required TResult Function(FtpVaultUrl value) ftp,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VaultUrlCopyWith<VaultUrl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VaultUrlCopyWith<$Res> {
+  factory $VaultUrlCopyWith(VaultUrl value, $Res Function(VaultUrl) then) =
+      _$VaultUrlCopyWithImpl<$Res>;
+  $Res call({String path});
+}
+
+/// @nodoc
+class _$VaultUrlCopyWithImpl<$Res> implements $VaultUrlCopyWith<$Res> {
+  _$VaultUrlCopyWithImpl(this._value, this._then);
+
+  final VaultUrl _value;
+  // ignore: unused_field
+  final $Res Function(VaultUrl) _then;
+
+  @override
+  $Res call({
+    Object? path = freezed,
+  }) {
+    return _then(_value.copyWith(
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$FileVaultUrlCopyWith<$Res>
+    implements $VaultUrlCopyWith<$Res> {
+  factory _$$FileVaultUrlCopyWith(
+          _$FileVaultUrl value, $Res Function(_$FileVaultUrl) then) =
+      __$$FileVaultUrlCopyWithImpl<$Res>;
+  @override
+  $Res call({String path});
+}
+
+/// @nodoc
+class __$$FileVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+    implements _$$FileVaultUrlCopyWith<$Res> {
+  __$$FileVaultUrlCopyWithImpl(
+      _$FileVaultUrl _value, $Res Function(_$FileVaultUrl) _then)
+      : super(_value, (v) => _then(v as _$FileVaultUrl));
+
+  @override
+  _$FileVaultUrl get _value => super._value as _$FileVaultUrl;
+
+  @override
+  $Res call({
+    Object? path = freezed,
+  }) {
+    return _then(_$FileVaultUrl(
+      path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FileVaultUrl implements FileVaultUrl {
+  const _$FileVaultUrl(this.path, {final String? $type})
+      : $type = $type ?? 'file';
+
+  factory _$FileVaultUrl.fromJson(Map<String, dynamic> json) =>
+      _$$FileVaultUrlFromJson(json);
+
+  @override
+  final String path;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'VaultUrl.file(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FileVaultUrl &&
+            const DeepCollectionEquality().equals(other.path, path));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$FileVaultUrlCopyWith<_$FileVaultUrl> get copyWith =>
+      __$$FileVaultUrlCopyWithImpl<_$FileVaultUrl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) file,
+    required TResult Function(
+            String host, String user, String password, String path)
+        ftp,
+  }) {
+    return file(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+  }) {
+    return file?.call(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+    required TResult orElse(),
+  }) {
+    if (file != null) {
+      return file(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FileVaultUrl value) file,
+    required TResult Function(FtpVaultUrl value) ftp,
+  }) {
+    return file(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+  }) {
+    return file?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+    required TResult orElse(),
+  }) {
+    if (file != null) {
+      return file(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FileVaultUrlToJson(
+      this,
+    );
+  }
+}
+
+abstract class FileVaultUrl implements VaultUrl {
+  const factory FileVaultUrl(final String path) = _$FileVaultUrl;
+
+  factory FileVaultUrl.fromJson(Map<String, dynamic> json) =
+      _$FileVaultUrl.fromJson;
+
+  @override
+  String get path;
+  @override
+  @JsonKey(ignore: true)
+  _$$FileVaultUrlCopyWith<_$FileVaultUrl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FtpVaultUrlCopyWith<$Res> implements $VaultUrlCopyWith<$Res> {
+  factory _$$FtpVaultUrlCopyWith(
+          _$FtpVaultUrl value, $Res Function(_$FtpVaultUrl) then) =
+      __$$FtpVaultUrlCopyWithImpl<$Res>;
+  @override
+  $Res call({String host, String user, String password, String path});
+}
+
+/// @nodoc
+class __$$FtpVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+    implements _$$FtpVaultUrlCopyWith<$Res> {
+  __$$FtpVaultUrlCopyWithImpl(
+      _$FtpVaultUrl _value, $Res Function(_$FtpVaultUrl) _then)
+      : super(_value, (v) => _then(v as _$FtpVaultUrl));
+
+  @override
+  _$FtpVaultUrl get _value => super._value as _$FtpVaultUrl;
+
+  @override
+  $Res call({
+    Object? host = freezed,
+    Object? user = freezed,
+    Object? password = freezed,
+    Object? path = freezed,
+  }) {
+    return _then(_$FtpVaultUrl(
+      host: host == freezed
+          ? _value.host
+          : host // ignore: cast_nullable_to_non_nullable
+              as String,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FtpVaultUrl implements FtpVaultUrl {
+  const _$FtpVaultUrl(
+      {required this.host,
+      required this.user,
+      required this.password,
+      required this.path,
+      final String? $type})
+      : $type = $type ?? 'ftp';
+
+  factory _$FtpVaultUrl.fromJson(Map<String, dynamic> json) =>
+      _$$FtpVaultUrlFromJson(json);
+
+  @override
+  final String host;
+  @override
+  final String user;
+  @override
+  final String password;
+  @override
+  final String path;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'VaultUrl.ftp(host: $host, user: $user, password: $password, path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FtpVaultUrl &&
+            const DeepCollectionEquality().equals(other.host, host) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality().equals(other.path, path));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(host),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(path));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$FtpVaultUrlCopyWith<_$FtpVaultUrl> get copyWith =>
+      __$$FtpVaultUrlCopyWithImpl<_$FtpVaultUrl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) file,
+    required TResult Function(
+            String host, String user, String password, String path)
+        ftp,
+  }) {
+    return ftp(host, user, password, path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+  }) {
+    return ftp?.call(host, user, password, path);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+    required TResult orElse(),
+  }) {
+    if (ftp != null) {
+      return ftp(host, user, password, path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FileVaultUrl value) file,
+    required TResult Function(FtpVaultUrl value) ftp,
+  }) {
+    return ftp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+  }) {
+    return ftp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+    required TResult orElse(),
+  }) {
+    if (ftp != null) {
+      return ftp(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FtpVaultUrlToJson(
+      this,
+    );
+  }
+}
+
+abstract class FtpVaultUrl implements VaultUrl {
+  const factory FtpVaultUrl(
+      {required final String host,
+      required final String user,
+      required final String password,
+      required final String path}) = _$FtpVaultUrl;
+
+  factory FtpVaultUrl.fromJson(Map<String, dynamic> json) =
+      _$FtpVaultUrl.fromJson;
+
+  String get host;
+  String get user;
+  String get password;
+  @override
+  String get path;
+  @override
+  @JsonKey(ignore: true)
+  _$$FtpVaultUrlCopyWith<_$FtpVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;
 }

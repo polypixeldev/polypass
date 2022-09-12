@@ -21,7 +21,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppSettings {
   VaultSettings get defaultVaultSettings => throw _privateConstructorUsedError;
-  String? get recentPath => throw _privateConstructorUsedError;
+  VaultUrl? get recentUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +34,10 @@ abstract class $AppSettingsCopyWith<$Res> {
   factory $AppSettingsCopyWith(
           AppSettings value, $Res Function(AppSettings) then) =
       _$AppSettingsCopyWithImpl<$Res>;
-  $Res call({VaultSettings defaultVaultSettings, String? recentPath});
+  $Res call({VaultSettings defaultVaultSettings, VaultUrl? recentUrl});
 
   $VaultSettingsCopyWith<$Res> get defaultVaultSettings;
+  $VaultUrlCopyWith<$Res>? get recentUrl;
 }
 
 /// @nodoc
@@ -50,17 +51,17 @@ class _$AppSettingsCopyWithImpl<$Res> implements $AppSettingsCopyWith<$Res> {
   @override
   $Res call({
     Object? defaultVaultSettings = freezed,
-    Object? recentPath = freezed,
+    Object? recentUrl = freezed,
   }) {
     return _then(_value.copyWith(
       defaultVaultSettings: defaultVaultSettings == freezed
           ? _value.defaultVaultSettings
           : defaultVaultSettings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      recentPath: recentPath == freezed
-          ? _value.recentPath
-          : recentPath // ignore: cast_nullable_to_non_nullable
-              as String?,
+      recentUrl: recentUrl == freezed
+          ? _value.recentUrl
+          : recentUrl // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
     ));
   }
 
@@ -68,6 +69,17 @@ class _$AppSettingsCopyWithImpl<$Res> implements $AppSettingsCopyWith<$Res> {
   $VaultSettingsCopyWith<$Res> get defaultVaultSettings {
     return $VaultSettingsCopyWith<$Res>(_value.defaultVaultSettings, (value) {
       return _then(_value.copyWith(defaultVaultSettings: value));
+    });
+  }
+
+  @override
+  $VaultUrlCopyWith<$Res>? get recentUrl {
+    if (_value.recentUrl == null) {
+      return null;
+    }
+
+    return $VaultUrlCopyWith<$Res>(_value.recentUrl!, (value) {
+      return _then(_value.copyWith(recentUrl: value));
     });
   }
 }
@@ -79,10 +91,12 @@ abstract class _$$_AppSettingsCopyWith<$Res>
           _$_AppSettings value, $Res Function(_$_AppSettings) then) =
       __$$_AppSettingsCopyWithImpl<$Res>;
   @override
-  $Res call({VaultSettings defaultVaultSettings, String? recentPath});
+  $Res call({VaultSettings defaultVaultSettings, VaultUrl? recentUrl});
 
   @override
   $VaultSettingsCopyWith<$Res> get defaultVaultSettings;
+  @override
+  $VaultUrlCopyWith<$Res>? get recentUrl;
 }
 
 /// @nodoc
@@ -98,17 +112,17 @@ class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? defaultVaultSettings = freezed,
-    Object? recentPath = freezed,
+    Object? recentUrl = freezed,
   }) {
     return _then(_$_AppSettings(
       defaultVaultSettings: defaultVaultSettings == freezed
           ? _value.defaultVaultSettings
           : defaultVaultSettings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      recentPath: recentPath == freezed
-          ? _value.recentPath
-          : recentPath // ignore: cast_nullable_to_non_nullable
-              as String?,
+      recentUrl: recentUrl == freezed
+          ? _value.recentUrl
+          : recentUrl // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
     ));
   }
 }
@@ -117,7 +131,7 @@ class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppSettings extends _AppSettings {
   const _$_AppSettings(
-      {required this.defaultVaultSettings, required this.recentPath})
+      {required this.defaultVaultSettings, required this.recentUrl})
       : super._();
 
   factory _$_AppSettings.fromJson(Map<String, dynamic> json) =>
@@ -126,11 +140,11 @@ class _$_AppSettings extends _AppSettings {
   @override
   final VaultSettings defaultVaultSettings;
   @override
-  final String? recentPath;
+  final VaultUrl? recentUrl;
 
   @override
   String toString() {
-    return 'AppSettings(defaultVaultSettings: $defaultVaultSettings, recentPath: $recentPath)';
+    return 'AppSettings(defaultVaultSettings: $defaultVaultSettings, recentUrl: $recentUrl)';
   }
 
   @override
@@ -140,8 +154,7 @@ class _$_AppSettings extends _AppSettings {
             other is _$_AppSettings &&
             const DeepCollectionEquality()
                 .equals(other.defaultVaultSettings, defaultVaultSettings) &&
-            const DeepCollectionEquality()
-                .equals(other.recentPath, recentPath));
+            const DeepCollectionEquality().equals(other.recentUrl, recentUrl));
   }
 
   @JsonKey(ignore: true)
@@ -149,7 +162,7 @@ class _$_AppSettings extends _AppSettings {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(defaultVaultSettings),
-      const DeepCollectionEquality().hash(recentPath));
+      const DeepCollectionEquality().hash(recentUrl));
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +180,7 @@ class _$_AppSettings extends _AppSettings {
 abstract class _AppSettings extends AppSettings {
   const factory _AppSettings(
       {required final VaultSettings defaultVaultSettings,
-      required final String? recentPath}) = _$_AppSettings;
+      required final VaultUrl? recentUrl}) = _$_AppSettings;
   const _AppSettings._() : super._();
 
   factory _AppSettings.fromJson(Map<String, dynamic> json) =
@@ -176,7 +189,7 @@ abstract class _AppSettings extends AppSettings {
   @override
   VaultSettings get defaultVaultSettings;
   @override
-  String? get recentPath;
+  VaultUrl? get recentUrl;
   @override
   @JsonKey(ignore: true)
   _$$_AppSettingsCopyWith<_$_AppSettings> get copyWith =>

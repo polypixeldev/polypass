@@ -152,7 +152,7 @@ class VaultFile with _$VaultFile {
   factory VaultFile(
       {required VaultHeader header,
       required EncryptedData<VaultContents> contents,
-      @JsonKey(ignore: true) String? path}) = _VaultFile;
+      @JsonKey(ignore: true) VaultUrl? url}) = _VaultFile;
 
   factory VaultFile.fromJson(Map<String, dynamic> json) =>
       _$VaultFileFromJson(json);
@@ -410,4 +410,45 @@ class VaultPassword extends ToJsonAble with _$VaultPassword {
 
   factory VaultPassword.fromJson(Map<String, dynamic> json) =>
       _$VaultPasswordFromJson(json);
+}
+
+@freezed
+class VaultUrl with _$VaultUrl {
+  const factory VaultUrl.file(String path) = FileVaultUrl;
+  const factory VaultUrl.ftp(
+      {required String host,
+      required String user,
+      required String password,
+      required String path}) = FtpVaultUrl;
+
+  factory VaultUrl.fromJson(Map<String, dynamic> json) =>
+      _$VaultUrlFromJson(json);
+
+  // factory VaultUrl.fromUrl(String url) {
+  //   if (url.startsWith('file://')) {
+  //     return VaultUrl.file(url.substring(7));
+  //   } else if (url.startsWith('ftp://')) {
+  //     final urlData = url.substring(6);
+  //     final user = urlData.split('@')[0].split(':')[0];
+  //     final password = urlData.split('@')[0].split(':')[1];
+  //     final host = urlData.split('@')[1].split('/')[0];
+  //     final path = urlData.split('@')[1].split('/')[1];
+
+  //     return VaultUrl.ftp(
+  //       host: host,
+  //       user: user,
+  //       password: password,
+  //       path: path
+  //     );
+  //   } else {
+  //     throw Exception('INVALID_URL: $url');
+  //   }
+  // }
+
+  // String toUrl() {
+  //   return map(
+  //     file: (url) => 'file://${url.path}',
+  //     ftp: (url) => 'ftp://${url.user}:${url.password}@${url.host}/${url.path}'
+  //   );
+  // }
 }

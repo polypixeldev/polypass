@@ -1000,7 +1000,7 @@ abstract class _Unlocked implements VaultState {
 mixin _$VaultEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1013,7 +1013,7 @@ mixin _$VaultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1026,7 +1026,7 @@ mixin _$VaultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1104,7 +1104,9 @@ abstract class _$$OpenedEventCopyWith<$Res> {
   factory _$$OpenedEventCopyWith(
           _$OpenedEvent value, $Res Function(_$OpenedEvent) then) =
       __$$OpenedEventCopyWithImpl<$Res>;
-  $Res call({String path});
+  $Res call({VaultUrl url});
+
+  $VaultUrlCopyWith<$Res> get url;
 }
 
 /// @nodoc
@@ -1119,28 +1121,35 @@ class __$$OpenedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? path = freezed,
+    Object? url = freezed,
   }) {
     return _then(_$OpenedEvent(
-      path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
+      url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl,
     ));
+  }
+
+  @override
+  $VaultUrlCopyWith<$Res> get url {
+    return $VaultUrlCopyWith<$Res>(_value.url, (value) {
+      return _then(_value.copyWith(url: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$OpenedEvent implements OpenedEvent {
-  const _$OpenedEvent(this.path);
+  const _$OpenedEvent(this.url);
 
   @override
-  final String path;
+  final VaultUrl url;
 
   @override
   String toString() {
-    return 'VaultEvent.opened(path: $path)';
+    return 'VaultEvent.opened(url: $url)';
   }
 
   @override
@@ -1148,12 +1157,12 @@ class _$OpenedEvent implements OpenedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OpenedEvent &&
-            const DeepCollectionEquality().equals(other.path, path));
+            const DeepCollectionEquality().equals(other.url, url));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(url));
 
   @JsonKey(ignore: true)
   @override
@@ -1163,7 +1172,7 @@ class _$OpenedEvent implements OpenedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1173,13 +1182,13 @@ class _$OpenedEvent implements OpenedEvent {
     required TResult Function() locked,
     required TResult Function() closed,
   }) {
-    return opened(path);
+    return opened(url);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1189,13 +1198,13 @@ class _$OpenedEvent implements OpenedEvent {
     TResult Function()? locked,
     TResult Function()? closed,
   }) {
-    return opened?.call(path);
+    return opened?.call(url);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1207,7 +1216,7 @@ class _$OpenedEvent implements OpenedEvent {
     required TResult orElse(),
   }) {
     if (opened != null) {
-      return opened(path);
+      return opened(url);
     }
     return orElse();
   }
@@ -1269,9 +1278,9 @@ class _$OpenedEvent implements OpenedEvent {
 }
 
 abstract class OpenedEvent implements VaultEvent {
-  const factory OpenedEvent(final String path) = _$OpenedEvent;
+  const factory OpenedEvent(final VaultUrl url) = _$OpenedEvent;
 
-  String get path;
+  VaultUrl get url;
   @JsonKey(ignore: true)
   _$$OpenedEventCopyWith<_$OpenedEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1341,7 +1350,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1357,7 +1366,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1373,7 +1382,7 @@ class _$UnlockedEvent implements UnlockedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1521,7 +1530,7 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1537,7 +1546,7 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1553,7 +1562,7 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1720,7 +1729,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1736,7 +1745,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1752,7 +1761,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1919,7 +1928,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -1935,7 +1944,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -1951,7 +1960,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2080,7 +2089,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -2096,7 +2105,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2112,7 +2121,7 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2272,7 +2281,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -2288,7 +2297,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2304,7 +2313,7 @@ class _$UpdatedEvent implements UpdatedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2428,7 +2437,7 @@ class _$LockedEvent implements LockedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -2444,7 +2453,7 @@ class _$LockedEvent implements LockedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2460,7 +2469,7 @@ class _$LockedEvent implements LockedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2577,7 +2586,7 @@ class _$ClosedEvent implements ClosedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String path) opened,
+    required TResult Function(VaultUrl url) opened,
     required TResult Function(Key masterKey) unlocked,
     required TResult Function(Key? masterKey) masterKeyChanged,
     required TResult Function(List<String>? path, bool deselect) groupSelected,
@@ -2593,7 +2602,7 @@ class _$ClosedEvent implements ClosedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,
@@ -2609,7 +2618,7 @@ class _$ClosedEvent implements ClosedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String path)? opened,
+    TResult Function(VaultUrl url)? opened,
     TResult Function(Key masterKey)? unlocked,
     TResult Function(Key? masterKey)? masterKeyChanged,
     TResult Function(List<String>? path, bool deselect)? groupSelected,

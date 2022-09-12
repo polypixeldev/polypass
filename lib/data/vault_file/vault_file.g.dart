@@ -135,3 +135,31 @@ Map<String, dynamic> _$$_VaultPasswordToJson(_$_VaultPassword instance) =>
     <String, dynamic>{
       'password': instance.password,
     };
+
+_$FileVaultUrl _$$FileVaultUrlFromJson(Map json) => _$FileVaultUrl(
+      json['path'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$FileVaultUrlToJson(_$FileVaultUrl instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'runtimeType': instance.$type,
+    };
+
+_$FtpVaultUrl _$$FtpVaultUrlFromJson(Map json) => _$FtpVaultUrl(
+      host: json['host'] as String,
+      user: json['user'] as String,
+      password: json['password'] as String,
+      path: json['path'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$FtpVaultUrlToJson(_$FtpVaultUrl instance) =>
+    <String, dynamic>{
+      'host': instance.host,
+      'user': instance.user,
+      'password': instance.password,
+      'path': instance.path,
+      'runtimeType': instance.$type,
+    };

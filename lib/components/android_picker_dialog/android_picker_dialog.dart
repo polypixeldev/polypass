@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:go_router/go_router.dart';
 
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
@@ -53,12 +53,32 @@ class AndroidPickerDialog extends StatelessWidget {
                   return ListView(
                     children: snap.hasData
                         ? [
+                            FtpButton(onCancel: onCancel),
                             ...snap.data as List<Widget>,
                             CancelButton(onCancel: onCancel)
                           ]
                         : [],
                   );
                 })));
+  }
+}
+
+class FtpButton extends StatelessWidget {
+  const FtpButton({Key? key, required this.onCancel}) : super(key: key);
+
+  final void Function() onCancel;
+
+  @override
+  Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: ElevatedButton(
+        child: const Text('Open via FTP'),
+        onPressed: () => router.go('/ftp'),
+      ),
+    );
   }
 }
 

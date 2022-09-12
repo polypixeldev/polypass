@@ -25,7 +25,7 @@ class VaultState with _$VaultState {
 
 @freezed
 class VaultEvent with _$VaultEvent {
-  const factory VaultEvent.opened(String path) = OpenedEvent;
+  const factory VaultEvent.opened(VaultUrl url) = OpenedEvent;
   const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
   const factory VaultEvent.masterKeyChanged(Key? masterKey) =
       MasterKeyChangedEvent;
@@ -67,10 +67,10 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     read<AppSettingsBloc>()
         .state
         .settings
-        .copyWith(recentPath: event.path)
+        .copyWith(recentUrl: event.url)
         .save();
 
-    emit(VaultState.locked(await read<VaultRepository>().getFile(event.path)));
+    emit(VaultState.locked(await read<VaultRepository>().getFile(event.url)));
   }
 
   Future<void> _onVaultUnlocked(
@@ -140,7 +140,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     final encryptedFile =
-        await read<VaultRepository>().getFile(unlockedState.vault.path!);
+        await read<VaultRepository>().getFile(unlockedState.vault.url!);
 
     emit(VaultState.locked(
         unlockedState.vault.copyWith(contents: encryptedFile.contents)));
@@ -148,7 +148,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
   Future<void> _onVaultClosed(
       ClosedEvent event, Emitter<VaultState> emit) async {
-    read<AppSettingsBloc>().state.settings.copyWith(recentPath: null).save();
+    read<AppSettingsBloc>().state.settings.copyWith(recentUrl: null).save();
 
     emit(const VaultState.none());
   }

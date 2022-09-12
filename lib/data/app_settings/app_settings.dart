@@ -13,7 +13,7 @@ class AppSettings with _$AppSettings {
   const AppSettings._();
   const factory AppSettings(
       {required VaultSettings defaultVaultSettings,
-      required String? recentPath}) = _AppSettings;
+      required VaultUrl? recentUrl}) = _AppSettings;
 
   static final documentsDir = Platform.isAndroid
       ? getExternalStorageDirectory()
@@ -45,8 +45,8 @@ class AppSettings with _$AppSettings {
         .writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() => AppSettings(
-      defaultVaultSettings: VaultSettings.empty(), recentPath: null);
+  factory AppSettings.empty() =>
+      AppSettings(defaultVaultSettings: VaultSettings.empty(), recentUrl: null);
   factory AppSettings.fromJson(Map<String, dynamic> json) =>
       _$AppSettingsFromJson(json);
 }
