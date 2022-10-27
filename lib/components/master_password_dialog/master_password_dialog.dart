@@ -110,13 +110,11 @@ class MasterPasswordDialog extends StatelessWidget {
                             autofocus: true,
                           ),
                         ),
-                        const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5)),
+                        const Padding(padding: EdgeInsets.only(bottom: 10)),
                         Row(
                           children: const [
                             CancelButton(),
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5)),
+                            Padding(padding: EdgeInsets.only(left: 10)),
                             SubmitButton()
                           ],
                           mainAxisAlignment: MainAxisAlignment.center,

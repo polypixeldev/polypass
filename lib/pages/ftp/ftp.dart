@@ -42,8 +42,7 @@ class FtpInput extends StatelessWidget {
                       Row(
                         children: [
                           const CancelButton(),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5)),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
                           SubmitButton(routerState: routerState)
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,

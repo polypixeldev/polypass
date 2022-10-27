@@ -149,16 +149,14 @@ class BaseRow extends StatelessWidget {
                                                   ? .40
                                                   : .35))),
                                   const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20)),
+                                      padding: EdgeInsets.only(left: 40)),
                                   SizedBox(
                                       width: rowWidth *
                                           (Platform.isAndroid ? .52 : .35),
                                       child: username(
                                           state, isSelected, rowWidth * .35)),
                                   const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20)),
+                                      padding: EdgeInsets.only(left: 40)),
                                   SizedBox(
                                       width: rowWidth *
                                           (Platform.isAndroid ? .10 : .3),
@@ -339,8 +337,7 @@ class ListItem extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                   ),
                           ),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20)),
+                          const Padding(padding: EdgeInsets.only(left: 40)),
                           SizedBox(
                             width: columnWidth * .35,
                             child: columnWidth > 600
@@ -398,8 +395,7 @@ class ListItem extends StatelessWidget {
 
                     if (path[0] != 'Search Results') {
                       actions.addAll([
-                        const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5)),
+                        const Padding(padding: EdgeInsets.only(left: 10)),
                         RichText(
                             text: TextSpan(
                                 text: 'Edit',
@@ -415,8 +411,7 @@ class ListItem extends StatelessWidget {
                                     GoRouter.of(context)
                                         .go('/vault/edit/${path.join('.')}');
                                   })),
-                        const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5)),
+                        const Padding(padding: EdgeInsets.only(left: 10)),
                         RichText(
                             text: TextSpan(
                                 text: 'Delete',

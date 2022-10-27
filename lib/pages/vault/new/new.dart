@@ -111,9 +111,7 @@ class NewItem extends StatelessWidget {
                           Row(
                             children: const [
                               BackToHomeButton(),
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10)),
+                              Padding(padding: EdgeInsets.only(left: 20)),
                               SubmitButton()
                             ],
                             mainAxisAlignment: MainAxisAlignment.center,

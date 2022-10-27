@@ -46,7 +46,7 @@ class VaultSettingsPage extends StatelessWidget {
                                             setting));
                                   }),
                               const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 5),
+                                padding: EdgeInsets.only(bottom: 10),
                               ),
                               TextSetting(
                                   title: 'KDF Iterations',
@@ -129,8 +129,7 @@ class VaultSettingsPage extends StatelessWidget {
                                 children: [
                                   const BackToHomeButton(),
                                   const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 5)),
+                                      padding: EdgeInsets.only(left: 10)),
                                   SaveButton(isFormValid: state.isFormValid)
                                 ],
                                 mainAxisAlignment: MainAxisAlignment.center,

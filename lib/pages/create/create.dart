@@ -59,15 +59,13 @@ class Create extends StatelessWidget {
                     children: [
                       Text('Create a vault',
                           style: theme.textTheme.titleMedium),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                      const Padding(padding: EdgeInsets.only(bottom: 10)),
                       Column(
                         children: [
                           const NameInput(),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(padding: EdgeInsets.only(bottom: 10)),
                           const MasterPasswordInput(),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(padding: EdgeInsets.only(bottom: 10)),
                           const FilePathWidget(),
                           Row(
                               children: [
@@ -111,9 +109,9 @@ class FilePathWidget extends StatelessWidget {
               "Current path: ${state.url != null ? state.url?.toHumanUrl() : 'None'}",
               style: theme.textTheme.bodyMedium);
         }),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+        const Padding(padding: EdgeInsets.only(bottom: 10)),
         const PathInput(),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 15))
+        const Padding(padding: EdgeInsets.only(bottom: 30))
       ],
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,

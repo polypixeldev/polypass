@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
                   child: Column(
                 children: [
                   const Icon(Icons.key, size: 200, color: Colors.green),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -39,8 +39,7 @@ class Home extends StatelessWidget {
                           const Text('PolyPass',
                               style:
                                   TextStyle(fontSize: 30, color: Colors.white)),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
                             child: const Padding(
                                 child: Text('Create a vault',
@@ -51,8 +50,7 @@ class Home extends StatelessWidget {
                               orElse: () => () => router.go('/create'),
                             ),
                           ),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
                               child: const Padding(
                                   child: Text('Open a vault',
@@ -78,8 +76,7 @@ class Home extends StatelessWidget {
                                                       Duration(days: 365)));
                                         }
                                       })),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5)),
+                          const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
                             child: const Padding(
                                 child: Text('Global Settings',
