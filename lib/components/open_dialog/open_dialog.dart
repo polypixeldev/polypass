@@ -22,8 +22,8 @@ class OpenDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final dirWidgetsFuture = AppSettings.documentsDir.then((dir) {
-      final entries = Directory('${dir?.absolute.path}/polypass').listSync();
+    final dirWidgetsFuture = AppSettings.getPolyPassDir().then((dir) {
+      final entries = Directory(dir).listSync();
       final vaultFiles = entries
           .whereType<File>()
           .where((file) => file.path.endsWith('.ppv.json'));

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:polypass/data/vault_file/vault_file.dart';
 
@@ -19,13 +20,20 @@ class AppSettings with _$AppSettings {
       ? getExternalStorageDirectory()
       : getApplicationDocumentsDirectory();
 
+  static getPolyPassDir() async {
+    final polyPassDir = Directory(
+        '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
+    if (!await polyPassDir.exists()) {
+      await polyPassDir.create();
+    }
+    return polyPassDir.absolute.path;
+  }
+
   static Future<AppSettings> load() async {
-    final file = File(
-        '${(await documentsDir)?.absolute.path}/polypass/.settings/settings.json');
+    final file = File('${await getPolyPassDir()}/.settings/settings.json');
 
     if (!(await file.exists())) {
-      final settingsDir = Directory(
-          '${(await documentsDir)?.absolute.path}/polypass/.settings');
+      final settingsDir = Directory('${await getPolyPassDir()}/.settings');
 
       if (!(await settingsDir.exists())) {
         await settingsDir.create(recursive: true);
@@ -40,8 +48,7 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File(
-            '${(await documentsDir)?.absolute.path}/polypass/.settings/settings.json')
+    await File('${await getPolyPassDir()}/.settings/settings.json')
         .writeAsString(jsonEncode(toJson()));
   }
 
