@@ -133,23 +133,23 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
     Object? created = freezed,
   }) {
     return _then(_$_CreateFormState(
-      name == freezed
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      masterPassword == freezed
+      masterPassword: masterPassword == freezed
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      url == freezed
+      url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
-      submitted == freezed
+      submitted: submitted == freezed
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      created == freezed
+      created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -161,7 +161,11 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
 
 class _$_CreateFormState extends _CreateFormState {
   const _$_CreateFormState(
-      this.name, this.masterPassword, this.url, this.submitted, this.created)
+      {required this.name,
+      required this.masterPassword,
+      required this.url,
+      required this.submitted,
+      required this.created})
       : super._();
 
   @override
@@ -210,11 +214,11 @@ class _$_CreateFormState extends _CreateFormState {
 
 abstract class _CreateFormState extends CreateFormState {
   const factory _CreateFormState(
-      final String name,
-      final String masterPassword,
-      final VaultUrl? url,
-      final bool submitted,
-      final bool created) = _$_CreateFormState;
+      {required final String name,
+      required final String masterPassword,
+      required final VaultUrl? url,
+      required final bool submitted,
+      required final bool created}) = _$_CreateFormState;
   const _CreateFormState._() : super._();
 
   @override

@@ -10,10 +10,12 @@ enum ExpandMode { expanded, collapsed }
 @freezed
 class ComponentState with _$ComponentState {
   const factory ComponentState(
-      bool inArea, ComponentMode mode, ExpandMode expand) = _ComponentState;
+      {required bool inArea,
+      required ComponentMode mode,
+      required ExpandMode expand}) = _ComponentState;
 
-  factory ComponentState.empty() =>
-      const ComponentState(false, ComponentMode.normal, ExpandMode.collapsed);
+  factory ComponentState.empty() => const ComponentState(
+      inArea: false, mode: ComponentMode.normal, expand: ExpandMode.collapsed);
 }
 
 @freezed

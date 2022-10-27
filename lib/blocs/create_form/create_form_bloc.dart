@@ -11,11 +11,19 @@ part 'create_form_bloc.freezed.dart';
 @freezed
 class CreateFormState with _$CreateFormState {
   const CreateFormState._();
-  const factory CreateFormState(String name, String masterPassword,
-      VaultUrl? url, bool submitted, bool created) = _CreateFormState;
+  const factory CreateFormState(
+      {required String name,
+      required String masterPassword,
+      required VaultUrl? url,
+      required bool submitted,
+      required bool created}) = _CreateFormState;
 
-  factory CreateFormState.empty() =>
-      const CreateFormState('', '', null, false, false);
+  factory CreateFormState.empty() => const CreateFormState(
+      name: '',
+      masterPassword: '',
+      url: null,
+      submitted: false,
+      created: false);
 
   bool get isFormValid =>
       (name != '') && (masterPassword != '') && (url != null);

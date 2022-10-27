@@ -93,15 +93,15 @@ class __$$_ComponentStateCopyWithImpl<$Res>
     Object? expand = freezed,
   }) {
     return _then(_$_ComponentState(
-      inArea == freezed
+      inArea: inArea == freezed
           ? _value.inArea
           : inArea // ignore: cast_nullable_to_non_nullable
               as bool,
-      mode == freezed
+      mode: mode == freezed
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ComponentMode,
-      expand == freezed
+      expand: expand == freezed
           ? _value.expand
           : expand // ignore: cast_nullable_to_non_nullable
               as ExpandMode,
@@ -112,7 +112,8 @@ class __$$_ComponentStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ComponentState implements _ComponentState {
-  const _$_ComponentState(this.inArea, this.mode, this.expand);
+  const _$_ComponentState(
+      {required this.inArea, required this.mode, required this.expand});
 
   @override
   final bool inArea;
@@ -150,8 +151,10 @@ class _$_ComponentState implements _ComponentState {
 }
 
 abstract class _ComponentState implements ComponentState {
-  const factory _ComponentState(final bool inArea, final ComponentMode mode,
-      final ExpandMode expand) = _$_ComponentState;
+  const factory _ComponentState(
+      {required final bool inArea,
+      required final ComponentMode mode,
+      required final ExpandMode expand}) = _$_ComponentState;
 
   @override
   bool get inArea;
