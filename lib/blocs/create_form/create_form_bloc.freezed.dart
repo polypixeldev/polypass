@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateFormState {
   String get name => throw _privateConstructorUsedError;
   String get masterPassword => throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
+  VaultUrl? get url => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
   bool get created => throw _privateConstructorUsedError;
 
@@ -35,9 +35,11 @@ abstract class $CreateFormStateCopyWith<$Res> {
   $Res call(
       {String name,
       String masterPassword,
-      String path,
+      VaultUrl? url,
       bool submitted,
       bool created});
+
+  $VaultUrlCopyWith<$Res>? get url;
 }
 
 /// @nodoc
@@ -53,7 +55,7 @@ class _$CreateFormStateCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? masterPassword = freezed,
-    Object? path = freezed,
+    Object? url = freezed,
     Object? submitted = freezed,
     Object? created = freezed,
   }) {
@@ -66,10 +68,10 @@ class _$CreateFormStateCopyWithImpl<$Res>
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
       submitted: submitted == freezed
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
@@ -79,6 +81,17 @@ class _$CreateFormStateCopyWithImpl<$Res>
           : created // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
+  }
+
+  @override
+  $VaultUrlCopyWith<$Res>? get url {
+    if (_value.url == null) {
+      return null;
+    }
+
+    return $VaultUrlCopyWith<$Res>(_value.url!, (value) {
+      return _then(_value.copyWith(url: value));
+    });
   }
 }
 
@@ -92,9 +105,12 @@ abstract class _$$_CreateFormStateCopyWith<$Res>
   $Res call(
       {String name,
       String masterPassword,
-      String path,
+      VaultUrl? url,
       bool submitted,
       bool created});
+
+  @override
+  $VaultUrlCopyWith<$Res>? get url;
 }
 
 /// @nodoc
@@ -112,7 +128,7 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? masterPassword = freezed,
-    Object? path = freezed,
+    Object? url = freezed,
     Object? submitted = freezed,
     Object? created = freezed,
   }) {
@@ -125,10 +141,10 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
+      url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
       submitted == freezed
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
@@ -145,7 +161,7 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
 
 class _$_CreateFormState extends _CreateFormState {
   const _$_CreateFormState(
-      this.name, this.masterPassword, this.path, this.submitted, this.created)
+      this.name, this.masterPassword, this.url, this.submitted, this.created)
       : super._();
 
   @override
@@ -153,7 +169,7 @@ class _$_CreateFormState extends _CreateFormState {
   @override
   final String masterPassword;
   @override
-  final String path;
+  final VaultUrl? url;
   @override
   final bool submitted;
   @override
@@ -161,7 +177,7 @@ class _$_CreateFormState extends _CreateFormState {
 
   @override
   String toString() {
-    return 'CreateFormState(name: $name, masterPassword: $masterPassword, path: $path, submitted: $submitted, created: $created)';
+    return 'CreateFormState(name: $name, masterPassword: $masterPassword, url: $url, submitted: $submitted, created: $created)';
   }
 
   @override
@@ -172,7 +188,7 @@ class _$_CreateFormState extends _CreateFormState {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.masterPassword, masterPassword) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
             const DeepCollectionEquality().equals(other.created, created));
   }
@@ -182,7 +198,7 @@ class _$_CreateFormState extends _CreateFormState {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(masterPassword),
-      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(submitted),
       const DeepCollectionEquality().hash(created));
 
@@ -196,7 +212,7 @@ abstract class _CreateFormState extends CreateFormState {
   const factory _CreateFormState(
       final String name,
       final String masterPassword,
-      final String path,
+      final VaultUrl? url,
       final bool submitted,
       final bool created) = _$_CreateFormState;
   const _CreateFormState._() : super._();
@@ -206,7 +222,7 @@ abstract class _CreateFormState extends CreateFormState {
   @override
   String get masterPassword;
   @override
-  String get path;
+  VaultUrl? get url;
   @override
   bool get submitted;
   @override
@@ -223,24 +239,27 @@ mixin _$CreateFormEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function(String path) pathChanged,
+    required TResult Function(VaultUrl url) urlChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -249,24 +268,27 @@ mixin _$CreateFormEvent {
     required TResult Function(NameChangedEvent value) nameChanged,
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
-    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -356,8 +378,9 @@ class _$NameChangedEvent implements NameChangedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function(String path) pathChanged,
+    required TResult Function(VaultUrl url) urlChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
   }) {
     return nameChanged(name);
   }
@@ -367,8 +390,9 @@ class _$NameChangedEvent implements NameChangedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
   }) {
     return nameChanged?.call(name);
   }
@@ -378,8 +402,9 @@ class _$NameChangedEvent implements NameChangedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
     required TResult orElse(),
   }) {
     if (nameChanged != null) {
@@ -394,8 +419,9 @@ class _$NameChangedEvent implements NameChangedEvent {
     required TResult Function(NameChangedEvent value) nameChanged,
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
-    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
   }) {
     return nameChanged(this);
   }
@@ -405,8 +431,9 @@ class _$NameChangedEvent implements NameChangedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
   }) {
     return nameChanged?.call(this);
   }
@@ -416,8 +443,9 @@ class _$NameChangedEvent implements NameChangedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
     required TResult orElse(),
   }) {
     if (nameChanged != null) {
@@ -508,8 +536,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function(String path) pathChanged,
+    required TResult Function(VaultUrl url) urlChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
   }) {
     return masterPasswordChanged(masterPassword);
   }
@@ -519,8 +548,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
   }) {
     return masterPasswordChanged?.call(masterPassword);
   }
@@ -530,8 +560,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
     required TResult orElse(),
   }) {
     if (masterPasswordChanged != null) {
@@ -546,8 +577,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
     required TResult Function(NameChangedEvent value) nameChanged,
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
-    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
   }) {
     return masterPasswordChanged(this);
   }
@@ -557,8 +589,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
   }) {
     return masterPasswordChanged?.call(this);
   }
@@ -568,8 +601,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
     required TResult orElse(),
   }) {
     if (masterPasswordChanged != null) {
@@ -590,76 +624,86 @@ abstract class MasterPasswordChangedEvent implements CreateFormEvent {
 }
 
 /// @nodoc
-abstract class _$$PathChangedEventCopyWith<$Res> {
-  factory _$$PathChangedEventCopyWith(
-          _$PathChangedEvent value, $Res Function(_$PathChangedEvent) then) =
-      __$$PathChangedEventCopyWithImpl<$Res>;
-  $Res call({String path});
+abstract class _$$UrlChangedEventCopyWith<$Res> {
+  factory _$$UrlChangedEventCopyWith(
+          _$UrlChangedEvent value, $Res Function(_$UrlChangedEvent) then) =
+      __$$UrlChangedEventCopyWithImpl<$Res>;
+  $Res call({VaultUrl url});
+
+  $VaultUrlCopyWith<$Res> get url;
 }
 
 /// @nodoc
-class __$$PathChangedEventCopyWithImpl<$Res>
+class __$$UrlChangedEventCopyWithImpl<$Res>
     extends _$CreateFormEventCopyWithImpl<$Res>
-    implements _$$PathChangedEventCopyWith<$Res> {
-  __$$PathChangedEventCopyWithImpl(
-      _$PathChangedEvent _value, $Res Function(_$PathChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$PathChangedEvent));
+    implements _$$UrlChangedEventCopyWith<$Res> {
+  __$$UrlChangedEventCopyWithImpl(
+      _$UrlChangedEvent _value, $Res Function(_$UrlChangedEvent) _then)
+      : super(_value, (v) => _then(v as _$UrlChangedEvent));
 
   @override
-  _$PathChangedEvent get _value => super._value as _$PathChangedEvent;
+  _$UrlChangedEvent get _value => super._value as _$UrlChangedEvent;
 
   @override
   $Res call({
-    Object? path = freezed,
+    Object? url = freezed,
   }) {
-    return _then(_$PathChangedEvent(
-      path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$UrlChangedEvent(
+      url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as VaultUrl,
     ));
+  }
+
+  @override
+  $VaultUrlCopyWith<$Res> get url {
+    return $VaultUrlCopyWith<$Res>(_value.url, (value) {
+      return _then(_value.copyWith(url: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$PathChangedEvent implements PathChangedEvent {
-  const _$PathChangedEvent(this.path);
+class _$UrlChangedEvent implements UrlChangedEvent {
+  const _$UrlChangedEvent(this.url);
 
   @override
-  final String path;
+  final VaultUrl url;
 
   @override
   String toString() {
-    return 'CreateFormEvent.pathChanged(path: $path)';
+    return 'CreateFormEvent.urlChanged(url: $url)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PathChangedEvent &&
-            const DeepCollectionEquality().equals(other.path, path));
+            other is _$UrlChangedEvent &&
+            const DeepCollectionEquality().equals(other.url, url));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(url));
 
   @JsonKey(ignore: true)
   @override
-  _$$PathChangedEventCopyWith<_$PathChangedEvent> get copyWith =>
-      __$$PathChangedEventCopyWithImpl<_$PathChangedEvent>(this, _$identity);
+  _$$UrlChangedEventCopyWith<_$UrlChangedEvent> get copyWith =>
+      __$$UrlChangedEventCopyWithImpl<_$UrlChangedEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function(String path) pathChanged,
+    required TResult Function(VaultUrl url) urlChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
   }) {
-    return pathChanged(path);
+    return urlChanged(url);
   }
 
   @override
@@ -667,10 +711,11 @@ class _$PathChangedEvent implements PathChangedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
   }) {
-    return pathChanged?.call(path);
+    return urlChanged?.call(url);
   }
 
   @override
@@ -678,12 +723,13 @@ class _$PathChangedEvent implements PathChangedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
     required TResult orElse(),
   }) {
-    if (pathChanged != null) {
-      return pathChanged(path);
+    if (urlChanged != null) {
+      return urlChanged(url);
     }
     return orElse();
   }
@@ -694,10 +740,11 @@ class _$PathChangedEvent implements PathChangedEvent {
     required TResult Function(NameChangedEvent value) nameChanged,
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
-    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
   }) {
-    return pathChanged(this);
+    return urlChanged(this);
   }
 
   @override
@@ -705,10 +752,11 @@ class _$PathChangedEvent implements PathChangedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
   }) {
-    return pathChanged?.call(this);
+    return urlChanged?.call(this);
   }
 
   @override
@@ -716,23 +764,24 @@ class _$PathChangedEvent implements PathChangedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
     required TResult orElse(),
   }) {
-    if (pathChanged != null) {
-      return pathChanged(this);
+    if (urlChanged != null) {
+      return urlChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class PathChangedEvent implements CreateFormEvent {
-  const factory PathChangedEvent(final String path) = _$PathChangedEvent;
+abstract class UrlChangedEvent implements CreateFormEvent {
+  const factory UrlChangedEvent(final VaultUrl url) = _$UrlChangedEvent;
 
-  String get path;
+  VaultUrl get url;
   @JsonKey(ignore: true)
-  _$$PathChangedEventCopyWith<_$PathChangedEvent> get copyWith =>
+  _$$UrlChangedEventCopyWith<_$UrlChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -779,8 +828,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameChanged,
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function(String path) pathChanged,
+    required TResult Function(VaultUrl url) urlChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
   }) {
     return formSubmitted();
   }
@@ -790,8 +840,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
   }) {
     return formSubmitted?.call();
   }
@@ -801,8 +852,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? nameChanged,
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function(String path)? pathChanged,
+    TResult Function(VaultUrl url)? urlChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -817,8 +869,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     required TResult Function(NameChangedEvent value) nameChanged,
     required TResult Function(MasterPasswordChangedEvent value)
         masterPasswordChanged,
-    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
     required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
   }) {
     return formSubmitted(this);
   }
@@ -828,8 +881,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
   }) {
     return formSubmitted?.call(this);
   }
@@ -839,8 +893,9 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NameChangedEvent value)? nameChanged,
     TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
     TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -852,4 +907,128 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 
 abstract class FormSubmittedEvent implements CreateFormEvent {
   const factory FormSubmittedEvent() = _$FormSubmittedEvent;
+}
+
+/// @nodoc
+abstract class _$$DataClearedEventCopyWith<$Res> {
+  factory _$$DataClearedEventCopyWith(
+          _$DataClearedEvent value, $Res Function(_$DataClearedEvent) then) =
+      __$$DataClearedEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DataClearedEventCopyWithImpl<$Res>
+    extends _$CreateFormEventCopyWithImpl<$Res>
+    implements _$$DataClearedEventCopyWith<$Res> {
+  __$$DataClearedEventCopyWithImpl(
+      _$DataClearedEvent _value, $Res Function(_$DataClearedEvent) _then)
+      : super(_value, (v) => _then(v as _$DataClearedEvent));
+
+  @override
+  _$DataClearedEvent get _value => super._value as _$DataClearedEvent;
+}
+
+/// @nodoc
+
+class _$DataClearedEvent implements DataClearedEvent {
+  const _$DataClearedEvent();
+
+  @override
+  String toString() {
+    return 'CreateFormEvent.dataCleared()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DataClearedEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) nameChanged,
+    required TResult Function(String masterPassword) masterPasswordChanged,
+    required TResult Function(VaultUrl url) urlChanged,
+    required TResult Function() formSubmitted,
+    required TResult Function() dataCleared,
+  }) {
+    return dataCleared();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String name)? nameChanged,
+    TResult Function(String masterPassword)? masterPasswordChanged,
+    TResult Function(VaultUrl url)? urlChanged,
+    TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
+  }) {
+    return dataCleared?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? nameChanged,
+    TResult Function(String masterPassword)? masterPasswordChanged,
+    TResult Function(VaultUrl url)? urlChanged,
+    TResult Function()? formSubmitted,
+    TResult Function()? dataCleared,
+    required TResult orElse(),
+  }) {
+    if (dataCleared != null) {
+      return dataCleared();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NameChangedEvent value) nameChanged,
+    required TResult Function(MasterPasswordChangedEvent value)
+        masterPasswordChanged,
+    required TResult Function(UrlChangedEvent value) urlChanged,
+    required TResult Function(FormSubmittedEvent value) formSubmitted,
+    required TResult Function(DataClearedEvent value) dataCleared,
+  }) {
+    return dataCleared(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
+  }) {
+    return dataCleared?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NameChangedEvent value)? nameChanged,
+    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult Function(UrlChangedEvent value)? urlChanged,
+    TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult Function(DataClearedEvent value)? dataCleared,
+    required TResult orElse(),
+  }) {
+    if (dataCleared != null) {
+      return dataCleared(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DataClearedEvent implements CreateFormEvent {
+  const factory DataClearedEvent() = _$DataClearedEvent;
 }

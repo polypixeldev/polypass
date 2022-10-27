@@ -6,13 +6,17 @@ import 'package:go_router/go_router.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
-class AndroidPickerDialog extends StatelessWidget {
-  const AndroidPickerDialog(
-      {Key? key, required this.onSuccess, required this.onCancel})
+class OpenDialog extends StatelessWidget {
+  const OpenDialog(
+      {Key? key,
+      required this.onSuccess,
+      required this.onCancel,
+      required this.redirect})
       : super(key: key);
 
   final void Function(String path) onSuccess;
   final void Function() onCancel;
+  final String redirect;
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +49,16 @@ class AndroidPickerDialog extends StatelessWidget {
                 border: Border.all(
                     color: theme.appBarTheme.backgroundColor!, width: 5),
                 borderRadius: BorderRadius.circular(10)),
-            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 700),
+            constraints: const BoxConstraints(maxHeight: 500, maxWidth: 700),
             padding: const EdgeInsets.all(10),
             child: FutureBuilder(
                 future: dirWidgetsFuture,
                 builder: (context, snap) {
                   return ListView(
+                    shrinkWrap: true,
                     children: snap.hasData
                         ? [
-                            FtpButton(onCancel: onCancel),
+                            FtpButton(onCancel: onCancel, redirect: redirect),
                             ...snap.data as List<Widget>,
                             CancelButton(onCancel: onCancel)
                           ]
@@ -64,9 +69,11 @@ class AndroidPickerDialog extends StatelessWidget {
 }
 
 class FtpButton extends StatelessWidget {
-  const FtpButton({Key? key, required this.onCancel}) : super(key: key);
+  const FtpButton({Key? key, required this.onCancel, required this.redirect})
+      : super(key: key);
 
   final void Function() onCancel;
+  final String redirect;
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +82,11 @@ class FtpButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
-        child: const Text('Open via FTP'),
-        onPressed: () => router.go('/ftp'),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        child:
+            Text('Open via FTP', style: Theme.of(context).textTheme.bodyMedium),
+        onPressed: () => router.go('/ftp?redirect=$redirect'),
       ),
     );
   }
@@ -105,7 +115,10 @@ class VaultListItem extends StatelessWidget {
             color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(5)),
         child: Row(
-          children: [Text(vault.header.name)],
+          children: [
+            Text(vault.header.name,
+                style: Theme.of(context).textTheme.bodyMedium)
+          ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),
       ),
@@ -123,27 +136,29 @@ class CancelButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
-        child: const Text('Cancel'),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
         onPressed: onCancel,
       ),
     );
   }
 }
 
-Future<String?> pickFileAndroid(BuildContext context) async {
+Future<String?> pickFileLocation(BuildContext context, String redirect) async {
   String? path;
 
   await showDialog(
       context: context,
-      builder: (context) => AndroidPickerDialog(
-            onSuccess: (dialogPath) {
-              path = dialogPath;
-              Navigator.of(context, rootNavigator: true).pop();
-            },
-            onCancel: () {
-              Navigator.of(context, rootNavigator: true).pop();
-            },
-          ));
+      builder: (context) => OpenDialog(
+          onSuccess: (dialogPath) {
+            path = dialogPath;
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          onCancel: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          redirect: redirect));
 
   return path;
 }

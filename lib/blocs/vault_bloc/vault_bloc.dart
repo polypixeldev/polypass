@@ -5,6 +5,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
+import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -71,6 +72,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         .save();
 
     emit(VaultState.locked(await read<VaultRepository>().getFile(event.url)));
+
+    read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
   }
 
   Future<void> _onVaultUnlocked(

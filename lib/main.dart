@@ -7,6 +7,7 @@ import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
+import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/ftp/ftp.dart';
@@ -36,7 +37,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final _router = GoRouter(routes: [
       GoRoute(path: '/', builder: (context, state) => const Home()),
-      GoRoute(path: '/ftp', builder: (context, state) => const FtpOpen()),
+      GoRoute(
+          path: '/ftp',
+          builder: (context, state) => FtpInput(routerState: state)),
       GoRoute(path: '/recent', builder: (context, state) => const Recent()),
       GoRoute(path: '/create', builder: (context, state) => const Create()),
       GoRoute(path: '/settings', builder: (context, state) => const Settings()),
@@ -57,17 +60,25 @@ class App extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return RepositoryProvider(
         create: (context) => const VaultRepository(),
-        child: BlocProvider(
-          create: (context) => AppSettingsBloc(initialSettings),
-          child: BlocProvider(
-            create: (context) => VaultBloc(read: context.read),
-            child: MaterialApp.router(
-                routeInformationParser: _router.routeInformationParser,
-                routerDelegate: _router.routerDelegate,
-                title: 'PolyPass',
-                debugShowCheckedModeBanner: false,
-                theme: appTheme),
-          ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => AppSettingsBloc(initialSettings),
+            ),
+            BlocProvider(
+                create: (context) => CreateFormBloc(
+                      vaultRepository: context.read<VaultRepository>(),
+                      appSettings:
+                          context.read<AppSettingsBloc>().state.settings,
+                    )),
+            BlocProvider(create: (context) => VaultBloc(read: context.read))
+          ],
+          child: MaterialApp.router(
+              routeInformationParser: _router.routeInformationParser,
+              routerDelegate: _router.routerDelegate,
+              title: 'PolyPass',
+              debugShowCheckedModeBanner: false,
+              theme: appTheme),
         ),
       );
     });

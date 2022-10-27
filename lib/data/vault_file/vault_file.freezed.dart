@@ -2221,9 +2221,10 @@ class __$$FileVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FileVaultUrl implements FileVaultUrl {
+class _$FileVaultUrl extends FileVaultUrl {
   const _$FileVaultUrl(this.path, {final String? $type})
-      : $type = $type ?? 'file';
+      : $type = $type ?? 'file',
+        super._();
 
   factory _$FileVaultUrl.fromJson(Map<String, dynamic> json) =>
       _$$FileVaultUrlFromJson(json);
@@ -2331,8 +2332,9 @@ class _$FileVaultUrl implements FileVaultUrl {
   }
 }
 
-abstract class FileVaultUrl implements VaultUrl {
+abstract class FileVaultUrl extends VaultUrl {
   const factory FileVaultUrl(final String path) = _$FileVaultUrl;
+  const FileVaultUrl._() : super._();
 
   factory FileVaultUrl.fromJson(Map<String, dynamic> json) =
       _$FileVaultUrl.fromJson;
@@ -2394,14 +2396,15 @@ class __$$FtpVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FtpVaultUrl implements FtpVaultUrl {
+class _$FtpVaultUrl extends FtpVaultUrl {
   const _$FtpVaultUrl(
       {required this.host,
       required this.user,
       required this.password,
       required this.path,
       final String? $type})
-      : $type = $type ?? 'ftp';
+      : $type = $type ?? 'ftp',
+        super._();
 
   factory _$FtpVaultUrl.fromJson(Map<String, dynamic> json) =>
       _$$FtpVaultUrlFromJson(json);
@@ -2522,12 +2525,13 @@ class _$FtpVaultUrl implements FtpVaultUrl {
   }
 }
 
-abstract class FtpVaultUrl implements VaultUrl {
+abstract class FtpVaultUrl extends VaultUrl {
   const factory FtpVaultUrl(
       {required final String host,
       required final String user,
       required final String password,
       required final String path}) = _$FtpVaultUrl;
+  const FtpVaultUrl._() : super._();
 
   factory FtpVaultUrl.fromJson(Map<String, dynamic> json) =
       _$FtpVaultUrl.fromJson;

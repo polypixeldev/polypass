@@ -3,13 +3,16 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
+import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 
 import 'package:polypass/pages/ftp/ftp_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
-class FtpOpen extends StatelessWidget {
-  const FtpOpen({Key? key}) : super(key: key);
+class FtpInput extends StatelessWidget {
+  const FtpInput({Key? key, required this.routerState}) : super(key: key);
+
+  final GoRouterState routerState;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,21 @@ class FtpOpen extends StatelessWidget {
                   child: BlocProvider(
                     create: (context) => FtpBloc(),
                     child: Column(children: [
-                      const Text('Open via FTP'),
+                      Text('FTP Connection Information',
+                          style: Theme.of(context).textTheme.titleMedium),
                       const HostInput(),
                       const UserInput(),
                       const PasswordInput(),
                       const PathInput(),
                       Row(
-                        children: const [CancelButton(), SubmitButton()],
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const CancelButton(),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5)),
+                          SubmitButton(routerState: routerState)
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                       ),
                     ], mainAxisSize: MainAxisSize.min),
                   ),
@@ -61,6 +71,7 @@ class HostInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
+      width: 500,
       child: TextField(
           decoration: InputDecoration(
               labelText: 'Host',
@@ -88,6 +99,7 @@ class UserInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
+      width: 500,
       child: TextField(
           decoration: InputDecoration(
               labelText: 'Username',
@@ -115,6 +127,7 @@ class PasswordInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
+      width: 500,
       child: TextField(
           decoration: InputDecoration(
               labelText: 'Password',
@@ -145,6 +158,7 @@ class PathInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
+      width: 500,
       child: TextField(
           decoration: InputDecoration(
               labelText: 'Path',
@@ -169,8 +183,7 @@ class CancelButton extends StatelessWidget {
 
     return BlocBuilder<FtpBloc, FtpState>(builder: (context, state) {
       return ElevatedButton(
-          child: const Text('Cancel',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+          child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
           onPressed: state.submitted ? null : () => router.go('/'));
@@ -179,14 +192,15 @@ class CancelButton extends StatelessWidget {
 }
 
 class SubmitButton extends StatelessWidget {
-  const SubmitButton({Key? key}) : super(key: key);
+  const SubmitButton({Key? key, required this.routerState}) : super(key: key);
+
+  final GoRouterState routerState;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FtpBloc, FtpState>(builder: (context, state) {
       return ElevatedButton(
-          child: const Text('Submit',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+          child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
           onPressed: state.submitted || !state.isFormValid
@@ -194,11 +208,24 @@ class SubmitButton extends StatelessWidget {
               : () {
                   final ftpBloc = context.read<FtpBloc>();
                   ftpBloc.add(const FtpEvent.submitted());
-                  context.read<VaultBloc>().add(VaultEvent.opened(VaultUrl.ftp(
+
+                  final ftpUrl = VaultUrl.ftp(
                       host: ftpBloc.state.host,
                       user: ftpBloc.state.user,
                       password: ftpBloc.state.password,
-                      path: ftpBloc.state.path)));
+                      path: ftpBloc.state.path);
+
+                  switch (routerState.queryParams['redirect']) {
+                    case 'create':
+                      final globalBloc = context.read<CreateFormBloc>();
+                      globalBloc.add(CreateFormEvent.urlChanged(ftpUrl));
+
+                      GoRouter.of(context).go('/create');
+                      break;
+                    case 'open':
+                      context.read<VaultBloc>().add(VaultEvent.opened(ftpUrl));
+                      break;
+                  }
                 });
     });
   }

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
-import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
-import 'package:polypass/data/app_settings/app_settings.dart';
-import 'package:polypass/pages/create/create_form_bloc.dart';
+import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
-import 'package:polypass/data/vault_repository.dart';
-import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
+import 'package:polypass/components/location_dialog/location_dialog.dart';
 
 class Create extends StatelessWidget {
   const Create({Key? key}) : super(key: key);
@@ -22,39 +17,38 @@ class Create extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AppWrapper(
-        child: BlocProvider(
-          create: (context) => CreateFormBloc(
-              vaultRepository: context.read<VaultRepository>(),
-              appSettings: context.read<AppSettingsBloc>().state.settings),
-          child: MultiBlocListener(
-            listeners: [
-              BlocListener<CreateFormBloc, CreateFormState>(
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<CreateFormBloc, CreateFormState>(
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Creating vault...'),
+                    duration: Duration(days: 365)));
+              },
+              listenWhen: (previous, current) =>
+                  previous.submitted != current.submitted &&
+                  current.submitted == true,
+            ),
+            BlocListener<CreateFormBloc, CreateFormState>(
                 listener: (context, state) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Creating vault...'),
+                      content: Text('Opening vault...'),
                       duration: Duration(days: 365)));
+
+                  context.read<VaultBloc>().add(VaultEvent.opened(state.url!));
                 },
                 listenWhen: (previous, current) =>
-                    previous.submitted != current.submitted,
-              ),
-              BlocListener<CreateFormBloc, CreateFormState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Opening vault...'),
-                        duration: Duration(days: 365)));
-
-                    context
-                        .read<VaultBloc>()
-                        .add(VaultEvent.opened(VaultUrl.file(state.path)));
-                  },
-                  listenWhen: (previous, current) =>
-                      previous.created != current.created)
-            ],
-            child: Column(
-              children: [
-                Container(
+                    previous.created != current.created &&
+                    current.created == true)
+          ],
+          child: Center(
+            child: ListView(shrinkWrap: true, children: [
+              Center(
+                child: Container(
                   decoration: BoxDecoration(
                       color: theme.cardColor,
                       borderRadius:
@@ -66,8 +60,7 @@ class Create extends StatelessWidget {
                       Text('Create a vault',
                           style: theme.textTheme.titleMedium),
                       const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                      Form(
-                          child: Column(
+                      Column(
                         children: [
                           const NameInput(),
                           const Padding(
@@ -89,15 +82,14 @@ class Create extends StatelessWidget {
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
-                      )),
+                      ),
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                   ),
                 ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
+              ),
+            ]),
           ),
         ),
         actions: false,
@@ -112,23 +104,20 @@ class FilePathWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Platform.isAndroid
-        ? Container()
-        : Column(
-            children: [
-              BlocBuilder<CreateFormBloc, CreateFormState>(
-                  builder: (context, state) {
-                return Text(
-                    "Current path: ${state.path != '' ? state.path : 'None'}",
-                    style: theme.textTheme.bodyMedium);
-              }),
-              const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-              const PathInput(),
-              const Padding(padding: EdgeInsets.symmetric(vertical: 15))
-            ],
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-          );
+    return Column(
+      children: [
+        BlocBuilder<CreateFormBloc, CreateFormState>(builder: (context, state) {
+          return Text(
+              "Current path: ${state.url != null ? state.url?.toHumanUrl() : 'None'}",
+              style: theme.textTheme.bodyMedium);
+        }),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+        const PathInput(),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 15))
+      ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+    );
   }
 }
 
@@ -201,19 +190,14 @@ class PathInput extends StatelessWidget {
             : () async {
                 final bloc = context.read<CreateFormBloc>();
 
-                final path = await FilePicker.platform.saveFile(
-                    initialDirectory:
-                        '${(await AppSettings.documentsDir)?.absolute.path}/polypass',
-                    dialogTitle: 'Set vault file location',
-                    fileName: bloc.state.name == '' ? 'passwords.ppv.json' : '${bloc.state.name}.ppv.json',
-                    type: FileType.custom,
-                    allowedExtensions: ['ppv.json']);
+                final url =
+                    await saveFileLocation(context, 'create', bloc.state.name);
 
-                if (path == null) {
+                if (url == null) {
                   return;
                 }
 
-                bloc.add(CreateFormEvent.pathChanged(path));
+                bloc.add(CreateFormEvent.urlChanged(url));
               },
       );
     });
@@ -229,6 +213,11 @@ class MasterPasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final controller = TextEditingController()
+      ..text = context.read<CreateFormBloc>().state.masterPassword;
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
+
     return BlocBuilder<CreateFormBloc, CreateFormState>(
       builder: ((context, state) {
         return Container(
@@ -236,8 +225,9 @@ class MasterPasswordInput extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: theme.colorScheme.secondary),
-            child: TextFormField(
+            child: TextField(
               enabled: !state.submitted,
+              controller: controller,
               decoration: InputDecoration(
                   labelText: 'Master Password',
                   contentPadding: const EdgeInsets.all(10),
@@ -269,6 +259,11 @@ class NameInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final controller = TextEditingController()
+      ..text = context.read<CreateFormBloc>().state.name;
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
+
     return BlocBuilder<CreateFormBloc, CreateFormState>(
         builder: ((context, state) {
       return Container(
@@ -276,8 +271,9 @@ class NameInput extends StatelessWidget {
           decoration: BoxDecoration(
               color: theme.colorScheme.secondary,
               borderRadius: BorderRadius.circular(5)),
-          child: TextFormField(
+          child: TextField(
             enabled: !state.submitted,
+            controller: controller,
             decoration: InputDecoration(
                 labelText: 'Name',
                 contentPadding: const EdgeInsets.all(10),

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
-import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
-import 'package:polypass/components/android_picker_dialog/android_picker_dialog.dart';
+import 'package:polypass/components/open_dialog/open_dialog.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -64,27 +61,9 @@ class Home extends StatelessWidget {
                               onPressed: state.maybeWhen(
                                   opening: () => null,
                                   orElse: () => () async {
-                                        final String? path;
-
-                                        if (Platform.isAndroid) {
-                                          path = await pickFileAndroid(context);
-                                        } else {
-                                          final result = await FilePicker
-                                              .platform
-                                              .pickFiles(
-                                                  initialDirectory:
-                                                      '${(await AppSettings.documentsDir)?.absolute.path}/polypass',
-                                                  dialogTitle: 'Open vault',
-                                                  type: Platform.isAndroid
-                                                      ? FileType.any
-                                                      : FileType.custom,
-                                                  allowedExtensions:
-                                                      Platform.isAndroid
-                                                          ? null
-                                                          : ['ppv.json']);
-
-                                          path = result?.paths.first;
-                                        }
+                                        final String? path =
+                                            await pickFileLocation(
+                                                context, 'open');
 
                                         if (path != null) {
                                           context.read<VaultBloc>().add(

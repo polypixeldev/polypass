@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
-import 'dart:io';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
@@ -12,16 +11,14 @@ part 'create_form_bloc.freezed.dart';
 @freezed
 class CreateFormState with _$CreateFormState {
   const CreateFormState._();
-  const factory CreateFormState(String name, String masterPassword, String path,
-      bool submitted, bool created) = _CreateFormState;
+  const factory CreateFormState(String name, String masterPassword,
+      VaultUrl? url, bool submitted, bool created) = _CreateFormState;
 
   factory CreateFormState.empty() =>
-      const CreateFormState('', '', '', false, false);
+      const CreateFormState('', '', null, false, false);
 
   bool get isFormValid =>
-      (name != '') &&
-      (masterPassword != '') &&
-      (path != '' || Platform.isAndroid);
+      (name != '') && (masterPassword != '') && (url != null);
 }
 
 @freezed
@@ -29,8 +26,9 @@ class CreateFormEvent with _$CreateFormEvent {
   const factory CreateFormEvent.nameChanged(String name) = NameChangedEvent;
   const factory CreateFormEvent.masterPasswordChanged(String masterPassword) =
       MasterPasswordChangedEvent;
-  const factory CreateFormEvent.pathChanged(String path) = PathChangedEvent;
+  const factory CreateFormEvent.urlChanged(VaultUrl url) = UrlChangedEvent;
   const factory CreateFormEvent.formSubmitted() = FormSubmittedEvent;
+  const factory CreateFormEvent.dataCleared() = DataClearedEvent;
 }
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
@@ -41,8 +39,9 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
           nameChanged: (event) => _onNameChanged(event, emit),
           masterPasswordChanged: (event) =>
               _onMasterPasswordChanged(event, emit),
-          pathChanged: (event) => _onPathChanged(event, emit),
-          formSubmitted: (event) => _onFormSubmitted(event, emit));
+          urlChanged: (event) => _onPathChanged(event, emit),
+          formSubmitted: (event) => _onFormSubmitted(event, emit),
+          dataCleared: (event) => _onDataCleared(event, emit));
     });
   }
 
@@ -60,8 +59,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
   }
 
   Future<void> _onPathChanged(
-      PathChangedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(path: event.path));
+      UrlChangedEvent event, Emitter<CreateFormState> emit) async {
+    emit(state.copyWith(url: event.url));
   }
 
   Future<void> _onFormSubmitted(
@@ -77,13 +76,6 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
-    String? androidPath;
-
-    if (Platform.isAndroid) {
-      androidPath =
-          '${(await AppSettings.documentsDir)?.absolute.path}/polypass/${state.name == '' ? 'passwords.ppv.json' : '${state.name}.ppv.json'}';
-    }
-
     await vaultRepository.updateFile(
         VaultFile(
             header: VaultHeader(
@@ -96,14 +88,16 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
                     .encrypt(masterKey.base64, iv: iv)
                     .base64,
                 salt: salt),
-            url: Platform.isAndroid
-                ? VaultUrl.file(androidPath!)
-                : VaultUrl.file(state.path),
+            url: state.url,
             contents: EncryptedData<VaultContents>.decrypted(
                 VaultContents(components: []), iv)),
         masterKey);
 
-    emit(state.copyWith(
-        created: true, path: Platform.isAndroid ? androidPath! : state.path));
+    emit(state.copyWith(created: true));
+  }
+
+  Future<void> _onDataCleared(
+      DataClearedEvent event, Emitter<CreateFormState> emit) async {
+    emit(CreateFormState.empty());
   }
 }
