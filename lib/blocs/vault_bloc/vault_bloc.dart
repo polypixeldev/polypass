@@ -13,7 +13,7 @@ part 'vault_bloc.freezed.dart';
 @freezed
 class VaultState with _$VaultState {
   const factory VaultState.none() = _None;
-  const factory VaultState.opening() = _Opening;
+  const factory VaultState.opening({@Default(0) int errorCount}) = _Opening;
   const factory VaultState.locked(VaultFile vault) = _Locked;
   const factory VaultState.unlocking(VaultFile vault) = _Unlocking;
   const factory VaultState.unlocked(
@@ -65,13 +65,24 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
 
+    final VaultFile file;
+
+    try {
+      file = await read<VaultRepository>().getFile(event.url);
+    } catch (_e) {
+      emit(VaultState.opening(
+          errorCount:
+              state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+      return;
+    }
+
     read<AppSettingsBloc>()
         .state
         .settings
         .copyWith(recentUrl: event.url)
         .save();
 
-    emit(VaultState.locked(await read<VaultRepository>().getFile(event.url)));
+    emit(VaultState.locked(file));
 
     read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
   }

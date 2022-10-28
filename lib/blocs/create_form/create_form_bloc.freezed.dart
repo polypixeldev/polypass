@@ -21,6 +21,7 @@ mixin _$CreateFormState {
   VaultUrl? get url => throw _privateConstructorUsedError;
   bool get submitted => throw _privateConstructorUsedError;
   bool get created => throw _privateConstructorUsedError;
+  bool get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateFormStateCopyWith<CreateFormState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $CreateFormStateCopyWith<$Res> {
       String masterPassword,
       VaultUrl? url,
       bool submitted,
-      bool created});
+      bool created,
+      bool error});
 
   $VaultUrlCopyWith<$Res>? get url;
 }
@@ -58,6 +60,7 @@ class _$CreateFormStateCopyWithImpl<$Res>
     Object? url = freezed,
     Object? submitted = freezed,
     Object? created = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -79,6 +82,10 @@ class _$CreateFormStateCopyWithImpl<$Res>
       created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -107,7 +114,8 @@ abstract class _$$_CreateFormStateCopyWith<$Res>
       String masterPassword,
       VaultUrl? url,
       bool submitted,
-      bool created});
+      bool created,
+      bool error});
 
   @override
   $VaultUrlCopyWith<$Res>? get url;
@@ -131,6 +139,7 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
     Object? url = freezed,
     Object? submitted = freezed,
     Object? created = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$_CreateFormState(
       name: name == freezed
@@ -153,6 +162,10 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$_CreateFormState extends _CreateFormState {
       required this.masterPassword,
       required this.url,
       required this.submitted,
-      required this.created})
+      required this.created,
+      required this.error})
       : super._();
 
   @override
@@ -178,10 +192,12 @@ class _$_CreateFormState extends _CreateFormState {
   final bool submitted;
   @override
   final bool created;
+  @override
+  final bool error;
 
   @override
   String toString() {
-    return 'CreateFormState(name: $name, masterPassword: $masterPassword, url: $url, submitted: $submitted, created: $created)';
+    return 'CreateFormState(name: $name, masterPassword: $masterPassword, url: $url, submitted: $submitted, created: $created, error: $error)';
   }
 
   @override
@@ -194,7 +210,8 @@ class _$_CreateFormState extends _CreateFormState {
                 .equals(other.masterPassword, masterPassword) &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality().equals(other.submitted, submitted) &&
-            const DeepCollectionEquality().equals(other.created, created));
+            const DeepCollectionEquality().equals(other.created, created) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
@@ -204,7 +221,8 @@ class _$_CreateFormState extends _CreateFormState {
       const DeepCollectionEquality().hash(masterPassword),
       const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(created));
+      const DeepCollectionEquality().hash(created),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +236,8 @@ abstract class _CreateFormState extends CreateFormState {
       required final String masterPassword,
       required final VaultUrl? url,
       required final bool submitted,
-      required final bool created}) = _$_CreateFormState;
+      required final bool created,
+      required final bool error}) = _$_CreateFormState;
   const _CreateFormState._() : super._();
 
   @override
@@ -231,6 +250,8 @@ abstract class _CreateFormState extends CreateFormState {
   bool get submitted;
   @override
   bool get created;
+  @override
+  bool get error;
   @override
   @JsonKey(ignore: true)
   _$$_CreateFormStateCopyWith<_$_CreateFormState> get copyWith =>

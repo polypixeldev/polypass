@@ -217,6 +217,7 @@ mixin _$FtpEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -226,6 +227,7 @@ mixin _$FtpEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -235,6 +237,7 @@ mixin _$FtpEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -245,6 +248,7 @@ mixin _$FtpEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -254,6 +258,7 @@ mixin _$FtpEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -263,6 +268,7 @@ mixin _$FtpEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -353,6 +359,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) {
     return hostChanged(host);
   }
@@ -365,6 +372,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) {
     return hostChanged?.call(host);
   }
@@ -377,6 +385,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) {
     if (hostChanged != null) {
@@ -393,6 +402,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) {
     return hostChanged(this);
   }
@@ -405,6 +415,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) {
     return hostChanged?.call(this);
   }
@@ -417,6 +428,7 @@ class _$HostChangedEvent implements HostChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) {
     if (hostChanged != null) {
@@ -505,6 +517,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) {
     return userChanged(user);
   }
@@ -517,6 +530,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) {
     return userChanged?.call(user);
   }
@@ -529,6 +543,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) {
     if (userChanged != null) {
@@ -545,6 +560,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) {
     return userChanged(this);
   }
@@ -557,6 +573,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) {
     return userChanged?.call(this);
   }
@@ -569,6 +586,7 @@ class _$UserChangedEvent implements UserChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) {
     if (userChanged != null) {
@@ -658,6 +676,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) {
     return passwordChanged(password);
   }
@@ -670,6 +689,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) {
     return passwordChanged?.call(password);
   }
@@ -682,6 +702,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -698,6 +719,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) {
     return passwordChanged(this);
   }
@@ -710,6 +732,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) {
     return passwordChanged?.call(this);
   }
@@ -722,6 +745,7 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -811,6 +835,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) {
     return pathChanged(path);
   }
@@ -823,6 +848,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) {
     return pathChanged?.call(path);
   }
@@ -835,6 +861,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) {
     if (pathChanged != null) {
@@ -851,6 +878,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) {
     return pathChanged(this);
   }
@@ -863,6 +891,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) {
     return pathChanged?.call(this);
   }
@@ -875,6 +904,7 @@ class _$PathChangedEvent implements PathChangedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) {
     if (pathChanged != null) {
@@ -938,6 +968,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function(String path) pathChanged,
     required TResult Function() submitted,
+    required TResult Function() errored,
   }) {
     return submitted();
   }
@@ -950,6 +981,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
   }) {
     return submitted?.call();
   }
@@ -962,6 +994,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function(String path)? pathChanged,
     TResult Function()? submitted,
+    TResult Function()? errored,
     required TResult orElse(),
   }) {
     if (submitted != null) {
@@ -978,6 +1011,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     required TResult Function(PasswordChangedEvent value) passwordChanged,
     required TResult Function(PathChangedEvent value) pathChanged,
     required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
   }) {
     return submitted(this);
   }
@@ -990,6 +1024,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
   }) {
     return submitted?.call(this);
   }
@@ -1002,6 +1037,7 @@ class _$SubmittedEvent implements SubmittedEvent {
     TResult Function(PasswordChangedEvent value)? passwordChanged,
     TResult Function(PathChangedEvent value)? pathChanged,
     TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
     required TResult orElse(),
   }) {
     if (submitted != null) {
@@ -1013,4 +1049,132 @@ class _$SubmittedEvent implements SubmittedEvent {
 
 abstract class SubmittedEvent implements FtpEvent {
   const factory SubmittedEvent() = _$SubmittedEvent;
+}
+
+/// @nodoc
+abstract class _$$ErroredEventCopyWith<$Res> {
+  factory _$$ErroredEventCopyWith(
+          _$ErroredEvent value, $Res Function(_$ErroredEvent) then) =
+      __$$ErroredEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ErroredEventCopyWithImpl<$Res> extends _$FtpEventCopyWithImpl<$Res>
+    implements _$$ErroredEventCopyWith<$Res> {
+  __$$ErroredEventCopyWithImpl(
+      _$ErroredEvent _value, $Res Function(_$ErroredEvent) _then)
+      : super(_value, (v) => _then(v as _$ErroredEvent));
+
+  @override
+  _$ErroredEvent get _value => super._value as _$ErroredEvent;
+}
+
+/// @nodoc
+
+class _$ErroredEvent implements ErroredEvent {
+  const _$ErroredEvent();
+
+  @override
+  String toString() {
+    return 'FtpEvent.errored()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ErroredEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String host) hostChanged,
+    required TResult Function(String user) userChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String path) pathChanged,
+    required TResult Function() submitted,
+    required TResult Function() errored,
+  }) {
+    return errored();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String host)? hostChanged,
+    TResult Function(String user)? userChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String path)? pathChanged,
+    TResult Function()? submitted,
+    TResult Function()? errored,
+  }) {
+    return errored?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String host)? hostChanged,
+    TResult Function(String user)? userChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String path)? pathChanged,
+    TResult Function()? submitted,
+    TResult Function()? errored,
+    required TResult orElse(),
+  }) {
+    if (errored != null) {
+      return errored();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HostChangedEvent value) hostChanged,
+    required TResult Function(UserChangedEvent value) userChanged,
+    required TResult Function(PasswordChangedEvent value) passwordChanged,
+    required TResult Function(PathChangedEvent value) pathChanged,
+    required TResult Function(SubmittedEvent value) submitted,
+    required TResult Function(ErroredEvent value) errored,
+  }) {
+    return errored(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(HostChangedEvent value)? hostChanged,
+    TResult Function(UserChangedEvent value)? userChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
+  }) {
+    return errored?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HostChangedEvent value)? hostChanged,
+    TResult Function(UserChangedEvent value)? userChanged,
+    TResult Function(PasswordChangedEvent value)? passwordChanged,
+    TResult Function(PathChangedEvent value)? pathChanged,
+    TResult Function(SubmittedEvent value)? submitted,
+    TResult Function(ErroredEvent value)? errored,
+    required TResult orElse(),
+  }) {
+    if (errored != null) {
+      return errored(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ErroredEvent implements FtpEvent {
+  const factory ErroredEvent() = _$ErroredEvent;
 }

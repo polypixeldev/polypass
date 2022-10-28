@@ -31,6 +31,7 @@ class FtpEvent with _$FtpEvent {
       PasswordChangedEvent;
   const factory FtpEvent.pathChanged(String path) = PathChangedEvent;
   const factory FtpEvent.submitted() = SubmittedEvent;
+  const factory FtpEvent.errored() = ErroredEvent;
 }
 
 class FtpBloc extends Bloc<FtpEvent, FtpState> {
@@ -41,7 +42,8 @@ class FtpBloc extends Bloc<FtpEvent, FtpState> {
           userChanged: (event) => _onUserChanged(event, emit),
           passwordChanged: (event) => _onPasswordChanged(event, emit),
           pathChanged: (event) => _onPathChanged(event, emit),
-          submitted: (event) => _onSubmitted(event, emit));
+          submitted: (event) => _onSubmitted(event, emit),
+          errored: (event) => _onErrored(event, emit));
     });
   }
 
@@ -63,5 +65,9 @@ class FtpBloc extends Bloc<FtpEvent, FtpState> {
 
   void _onSubmitted(SubmittedEvent event, Emitter<FtpState> emit) {
     emit(state.copyWith(submitted: true));
+  }
+
+  void _onErrored(ErroredEvent event, Emitter<FtpState> emit) {
+    emit(state.copyWith(submitted: false));
   }
 }

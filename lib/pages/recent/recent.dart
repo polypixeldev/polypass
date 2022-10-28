@@ -32,6 +32,11 @@ class Recent extends StatelessWidget {
       });
     }
 
-    return AppWrapper(child: Container());
+    return AppWrapper(
+        child: BlocListener<VaultBloc, VaultState>(
+            listener: (context, state) {
+              router.go('/');
+            },
+            child: Container()));
   }
 }

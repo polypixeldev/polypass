@@ -17,21 +17,38 @@ class FtpInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppWrapper(
-        actions: false,
-        icon: false,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: BlocProvider(
-                    create: (context) => FtpBloc(),
+      actions: false,
+      icon: false,
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: BlocProvider(
+                  create: (context) => FtpBloc(),
+                  child: BlocListener<VaultBloc, VaultState>(
+                    listener: (context, state) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              'Error when reading file - check connection information')));
+
+                      context.read<FtpBloc>().add(const FtpEvent.errored());
+                    },
+                    listenWhen: (previous, current) =>
+                        previous.maybeWhen(
+                            opening: (errorCount) => errorCount,
+                            orElse: () => 0) <
+                        current.maybeWhen(
+                            opening: (errorCount) => errorCount,
+                            orElse: () => 0),
                     child: Column(children: [
                       Text('FTP Connection Information',
                           style: Theme.of(context).textTheme.titleMedium),
@@ -52,9 +69,11 @@ class FtpInput extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

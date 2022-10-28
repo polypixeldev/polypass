@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
                                     style: TextStyle(fontSize: 25)),
                                 padding: EdgeInsets.all(5)),
                             onPressed: state.maybeWhen(
-                              opening: () => null,
+                              opening: (errorCount) => null,
                               orElse: () => () => router.go('/create'),
                             ),
                           ),
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
                                       style: TextStyle(fontSize: 25)),
                                   padding: EdgeInsets.all(5)),
                               onPressed: state.maybeWhen(
-                                  opening: () => null,
+                                  opening: (errorCount) => null,
                                   orElse: () => () async {
                                         final String? path =
                                             await pickFileLocation(
@@ -83,7 +83,7 @@ class Home extends StatelessWidget {
                                     style: TextStyle(fontSize: 25)),
                                 padding: EdgeInsets.all(5)),
                             onPressed: state.maybeWhen(
-                                opening: () => null,
+                                opening: (errorCount) => null,
                                 orElse: () => () async {
                                       router.go('/settings');
                                     }),

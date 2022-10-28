@@ -16,14 +16,16 @@ class CreateFormState with _$CreateFormState {
       required String masterPassword,
       required VaultUrl? url,
       required bool submitted,
-      required bool created}) = _CreateFormState;
+      required bool created,
+      required bool error}) = _CreateFormState;
 
   factory CreateFormState.empty() => const CreateFormState(
       name: '',
       masterPassword: '',
       url: null,
       submitted: false,
-      created: false);
+      created: false,
+      error: true);
 
   bool get isFormValid =>
       (name != '') && (masterPassword != '') && (url != null);
@@ -73,7 +75,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
   Future<void> _onFormSubmitted(
       FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(submitted: true));
+    emit(state.copyWith(submitted: true, error: false));
 
     final salt = EncryptedData.generateSalt();
     final derivedKey = EncryptedData.deriveDerivedKey(
@@ -84,22 +86,27 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
-    await vaultRepository.updateFile(
-        VaultFile(
-            header: VaultHeader(
-                name: state.name,
-                settings: appSettings.defaultVaultSettings,
-                magic: MagicValue(Encrypter(AES(derivedKey))
-                    .encrypt(MagicValue.decryptedValue.value, iv: iv)
-                    .base64),
-                key: Encrypter(AES(derivedKey))
-                    .encrypt(masterKey.base64, iv: iv)
-                    .base64,
-                salt: salt),
-            url: state.url,
-            contents: EncryptedData<VaultContents>.decrypted(
-                VaultContents(components: []), iv)),
-        masterKey);
+    try {
+      await vaultRepository.updateFile(
+          VaultFile(
+              header: VaultHeader(
+                  name: state.name,
+                  settings: appSettings.defaultVaultSettings,
+                  magic: MagicValue(Encrypter(AES(derivedKey))
+                      .encrypt(MagicValue.decryptedValue.value, iv: iv)
+                      .base64),
+                  key: Encrypter(AES(derivedKey))
+                      .encrypt(masterKey.base64, iv: iv)
+                      .base64,
+                  salt: salt),
+              url: state.url,
+              contents: EncryptedData<VaultContents>.decrypted(
+                  VaultContents(components: []), iv)),
+          masterKey);
+    } catch (_e) {
+      emit(state.copyWith(error: true, submitted: false));
+      return;
+    }
 
     emit(state.copyWith(created: true));
   }

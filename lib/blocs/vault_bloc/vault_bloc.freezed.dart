@@ -19,7 +19,7 @@ mixin _$VaultState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -34,7 +34,7 @@ mixin _$VaultState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -49,7 +49,7 @@ mixin _$VaultState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -147,7 +147,7 @@ class _$_None implements _None {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -165,7 +165,7 @@ class _$_None implements _None {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -183,7 +183,7 @@ class _$_None implements _None {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -251,6 +251,7 @@ abstract class _$$_OpeningCopyWith<$Res> {
   factory _$$_OpeningCopyWith(
           _$_Opening value, $Res Function(_$_Opening) then) =
       __$$_OpeningCopyWithImpl<$Res>;
+  $Res call({int errorCount});
 }
 
 /// @nodoc
@@ -261,32 +262,57 @@ class __$$_OpeningCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
 
   @override
   _$_Opening get _value => super._value as _$_Opening;
+
+  @override
+  $Res call({
+    Object? errorCount = freezed,
+  }) {
+    return _then(_$_Opening(
+      errorCount: errorCount == freezed
+          ? _value.errorCount
+          : errorCount // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Opening implements _Opening {
-  const _$_Opening();
+  const _$_Opening({this.errorCount = 0});
+
+  @override
+  @JsonKey()
+  final int errorCount;
 
   @override
   String toString() {
-    return 'VaultState.opening()';
+    return 'VaultState.opening(errorCount: $errorCount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Opening);
+        (other.runtimeType == runtimeType &&
+            other is _$_Opening &&
+            const DeepCollectionEquality()
+                .equals(other.errorCount, errorCount));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(errorCount));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_OpeningCopyWith<_$_Opening> get copyWith =>
+      __$$_OpeningCopyWithImpl<_$_Opening>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -297,14 +323,14 @@ class _$_Opening implements _Opening {
             Key? masterKey)
         unlocked,
   }) {
-    return opening();
+    return opening(errorCount);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -315,14 +341,14 @@ class _$_Opening implements _Opening {
             Key? masterKey)?
         unlocked,
   }) {
-    return opening?.call();
+    return opening?.call(errorCount);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -335,7 +361,7 @@ class _$_Opening implements _Opening {
     required TResult orElse(),
   }) {
     if (opening != null) {
-      return opening();
+      return opening(errorCount);
     }
     return orElse();
   }
@@ -382,7 +408,12 @@ class _$_Opening implements _Opening {
 }
 
 abstract class _Opening implements VaultState {
-  const factory _Opening() = _$_Opening;
+  const factory _Opening({final int errorCount}) = _$_Opening;
+
+  int get errorCount;
+  @JsonKey(ignore: true)
+  _$$_OpeningCopyWith<_$_Opening> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -457,7 +488,7 @@ class _$_Locked implements _Locked {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -475,7 +506,7 @@ class _$_Locked implements _Locked {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -493,7 +524,7 @@ class _$_Locked implements _Locked {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -635,7 +666,7 @@ class _$_Unlocking implements _Unlocking {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -653,7 +684,7 @@ class _$_Unlocking implements _Unlocking {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -671,7 +702,7 @@ class _$_Unlocking implements _Unlocking {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -880,7 +911,7 @@ class _$_Unlocked implements _Unlocked {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() none,
-    required TResult Function() opening,
+    required TResult Function(int errorCount) opening,
     required TResult Function(VaultFile vault) locked,
     required TResult Function(VaultFile vault) unlocking,
     required TResult Function(
@@ -899,7 +930,7 @@ class _$_Unlocked implements _Unlocked {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
@@ -918,7 +949,7 @@ class _$_Unlocked implements _Unlocked {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? none,
-    TResult Function()? opening,
+    TResult Function(int errorCount)? opening,
     TResult Function(VaultFile vault)? locked,
     TResult Function(VaultFile vault)? unlocking,
     TResult Function(
