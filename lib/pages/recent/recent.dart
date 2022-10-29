@@ -33,10 +33,13 @@ class Recent extends StatelessWidget {
     }
 
     return AppWrapper(
+        appBar: false,
         child: BlocListener<VaultBloc, VaultState>(
             listener: (context, state) {
               router.go('/');
             },
-            child: Container()));
+            child: Container(
+                color: Colors.black,
+                child: const Image(image: AssetImage('assets/polypass.png')))));
   }
 }

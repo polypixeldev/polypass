@@ -25,7 +25,10 @@ class Home extends StatelessWidget {
               Center(
                   child: Column(
                 children: [
-                  const Icon(Icons.key, size: 200, color: Colors.green),
+                  const Image(
+                      image: AssetImage('assets/polypass.png'),
+                      width: 175,
+                      height: 175),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
                   Container(
                     padding: const EdgeInsets.all(15),

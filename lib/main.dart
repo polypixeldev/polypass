@@ -28,15 +28,48 @@ void main() async {
   runApp(App(initialSettings: settings));
 }
 
-class App extends StatelessWidget {
-  const App({Key? key, required this.initialSettings}) : super(key: key);
+class App extends StatefulWidget {
+  const App({super.key, required this.initialSettings});
 
   final AppSettings initialSettings;
 
   @override
+  // ignore: no_logic_in_create_state
+  State<App> createState() => _AppState(initialSettings: initialSettings);
+}
+
+class _AppState extends State<App> with TickerProviderStateMixin {
+  _AppState({required this.initialSettings});
+
+  final AppSettings initialSettings;
+
+  late final fadeController =
+      AnimationController(vsync: this, duration: const Duration(seconds: 1))
+        ..forward();
+
+  late final Animation<double> fadeAnimation = CurvedAnimation(
+    parent: fadeController,
+    curve: Curves.ease,
+  );
+
+  @override
+  void dispose() {
+    fadeController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _router = GoRouter(routes: [
-      GoRoute(path: '/', builder: (context, state) => const Home()),
+      GoRoute(
+          path: '/',
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+                key: state.pageKey,
+                child: const Home(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(child: child, opacity: fadeAnimation),
+              )),
       GoRoute(
           path: '/ftp',
           builder: (context, state) => FtpInput(routerState: state)),

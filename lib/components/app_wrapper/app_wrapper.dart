@@ -8,12 +8,17 @@ import 'package:polypass/components/app_wrapper/app_bar.dart';
 
 class AppWrapper extends StatelessWidget {
   const AppWrapper(
-      {Key? key, required this.child, this.actions = true, this.icon = true})
+      {Key? key,
+      required this.child,
+      this.actions = true,
+      this.icon = true,
+      this.appBar = true})
       : super(key: key);
 
   final Widget child;
   final bool actions;
   final bool icon;
+  final bool appBar;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +58,10 @@ class AppWrapper extends StatelessWidget {
                     orElse: () => 0))
       ],
       child: Scaffold(
-          appBar: createAppBar(
-              context, context.watch<VaultBloc>().state, actions, icon),
+          appBar: appBar
+              ? createAppBar(
+                  context, context.watch<VaultBloc>().state, actions, icon)
+              : null,
           body: SizedBox.expand(
             child: Container(
                 color: Theme.of(context).backgroundColor, child: child),
