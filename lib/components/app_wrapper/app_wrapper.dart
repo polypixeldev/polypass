@@ -17,18 +17,41 @@ class AppWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<VaultBloc, VaultState>(
-      listener: (context, state) {
-        final router = GoRouter.of(context);
-        ScaffoldMessenger.of(context).clearSnackBars();
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<VaultBloc, VaultState>(
+          listener: (context, state) {
+            final router = GoRouter.of(context);
+            ScaffoldMessenger.of(context).clearSnackBars();
 
-        state.whenOrNull(
-            locked: (_vault) => router.go('/vault/locked'),
-            unlocked: (_vault, _selectedGroup, _selectedItem,
-                    _viewingSelectedItem, _masterKey) =>
-                router.go('/vault/home'),
-            none: () => router.go('/'));
-      },
+            state.whenOrNull(
+                locked: (_vault) => router.go('/vault/locked'),
+                unlocked: (_vault, _selectedGroup, _selectedItem,
+                        _viewingSelectedItem, _masterKey, _errorCount) =>
+                    router.go('/vault/home'),
+                none: () => router.go('/'));
+          },
+        ),
+        BlocListener<VaultBloc, VaultState>(
+            listener: (context, state) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                      'Failed to save changes to vault - please try again')));
+            },
+            listenWhen: (previous, current) =>
+                previous.maybeWhen(
+                    unlocked: (_vault, _selectedGroup, _selectedItem,
+                            _viewingSelectedItem, _masterKey, errorCount) =>
+                        errorCount,
+                    orElse: () => 0) <
+                current.maybeWhen(
+                    unlocked: (_vault, _selectedGroup, _selectedItem,
+                            _viewingSelectedItem, _masterKey, errorCount) =>
+                        errorCount,
+                    orElse: () => 0))
+      ],
       child: Scaffold(
           appBar: createAppBar(
               context, context.watch<VaultBloc>().state, actions, icon),

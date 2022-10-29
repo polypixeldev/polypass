@@ -21,7 +21,8 @@ class VaultState with _$VaultState {
       List<String>? selectedGroup,
       List<String>? selectedItem,
       @Default(false) bool viewingSelectedItem,
-      Key? masterKey}) = _Unlocked;
+      Key? masterKey,
+      @Default(0) int errorCounts}) = _Unlocked;
 }
 
 @freezed
@@ -145,7 +146,11 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
     emit(unlockedState.copyWith(vault: event.newVault));
 
-    read<VaultRepository>().updateFile(event.newVault, event.masterKey);
+    try {
+      read<VaultRepository>().updateFile(event.newVault, event.masterKey);
+    } catch (e) {
+      emit(unlockedState.copyWith(errorCounts: unlockedState.errorCounts + 1));
+    }
   }
 
   Future<void> _onVaultLocked(

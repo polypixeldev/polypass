@@ -27,7 +27,8 @@ mixin _$VaultState {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ mixin _$VaultState {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,7 +59,8 @@ mixin _$VaultState {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) =>
@@ -155,7 +158,8 @@ class _$_None implements _None {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) {
     return none();
@@ -173,7 +177,8 @@ class _$_None implements _None {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) {
     return none?.call();
@@ -191,7 +196,8 @@ class _$_None implements _None {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) {
@@ -320,7 +326,8 @@ class _$_Opening implements _Opening {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) {
     return opening(errorCount);
@@ -338,7 +345,8 @@ class _$_Opening implements _Opening {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) {
     return opening?.call(errorCount);
@@ -356,7 +364,8 @@ class _$_Opening implements _Opening {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) {
@@ -496,7 +505,8 @@ class _$_Locked implements _Locked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) {
     return locked(vault);
@@ -514,7 +524,8 @@ class _$_Locked implements _Locked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) {
     return locked?.call(vault);
@@ -532,7 +543,8 @@ class _$_Locked implements _Locked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) {
@@ -674,7 +686,8 @@ class _$_Unlocking implements _Unlocking {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) {
     return unlocking(vault);
@@ -692,7 +705,8 @@ class _$_Unlocking implements _Unlocking {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) {
     return unlocking?.call(vault);
@@ -710,7 +724,8 @@ class _$_Unlocking implements _Unlocking {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) {
@@ -780,7 +795,8 @@ abstract class _$$_UnlockedCopyWith<$Res> {
       List<String>? selectedGroup,
       List<String>? selectedItem,
       bool viewingSelectedItem,
-      Key? masterKey});
+      Key? masterKey,
+      int errorCounts});
 
   $VaultFileCopyWith<$Res> get vault;
 }
@@ -802,6 +818,7 @@ class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
     Object? selectedItem = freezed,
     Object? viewingSelectedItem = freezed,
     Object? masterKey = freezed,
+    Object? errorCounts = freezed,
   }) {
     return _then(_$_Unlocked(
       vault: vault == freezed
@@ -824,6 +841,10 @@ class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
+      errorCounts: errorCounts == freezed
+          ? _value.errorCounts
+          : errorCounts // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -843,7 +864,8 @@ class _$_Unlocked implements _Unlocked {
       final List<String>? selectedGroup,
       final List<String>? selectedItem,
       this.viewingSelectedItem = false,
-      this.masterKey})
+      this.masterKey,
+      this.errorCounts = 0})
       : _selectedGroup = selectedGroup,
         _selectedItem = selectedItem;
 
@@ -872,10 +894,13 @@ class _$_Unlocked implements _Unlocked {
   final bool viewingSelectedItem;
   @override
   final Key? masterKey;
+  @override
+  @JsonKey()
+  final int errorCounts;
 
   @override
   String toString() {
-    return 'VaultState.unlocked(vault: $vault, selectedGroup: $selectedGroup, selectedItem: $selectedItem, viewingSelectedItem: $viewingSelectedItem, masterKey: $masterKey)';
+    return 'VaultState.unlocked(vault: $vault, selectedGroup: $selectedGroup, selectedItem: $selectedItem, viewingSelectedItem: $viewingSelectedItem, masterKey: $masterKey, errorCounts: $errorCounts)';
   }
 
   @override
@@ -890,7 +915,9 @@ class _$_Unlocked implements _Unlocked {
                 .equals(other._selectedItem, _selectedItem) &&
             const DeepCollectionEquality()
                 .equals(other.viewingSelectedItem, viewingSelectedItem) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
+            const DeepCollectionEquality()
+                .equals(other.errorCounts, errorCounts));
   }
 
   @override
@@ -900,7 +927,8 @@ class _$_Unlocked implements _Unlocked {
       const DeepCollectionEquality().hash(_selectedGroup),
       const DeepCollectionEquality().hash(_selectedItem),
       const DeepCollectionEquality().hash(viewingSelectedItem),
-      const DeepCollectionEquality().hash(masterKey));
+      const DeepCollectionEquality().hash(masterKey),
+      const DeepCollectionEquality().hash(errorCounts));
 
   @JsonKey(ignore: true)
   @override
@@ -919,11 +947,12 @@ class _$_Unlocked implements _Unlocked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)
+            Key? masterKey,
+            int errorCounts)
         unlocked,
   }) {
-    return unlocked(
-        vault, selectedGroup, selectedItem, viewingSelectedItem, masterKey);
+    return unlocked(vault, selectedGroup, selectedItem, viewingSelectedItem,
+        masterKey, errorCounts);
   }
 
   @override
@@ -938,11 +967,12 @@ class _$_Unlocked implements _Unlocked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
   }) {
-    return unlocked?.call(
-        vault, selectedGroup, selectedItem, viewingSelectedItem, masterKey);
+    return unlocked?.call(vault, selectedGroup, selectedItem,
+        viewingSelectedItem, masterKey, errorCounts);
   }
 
   @override
@@ -957,13 +987,14 @@ class _$_Unlocked implements _Unlocked {
             List<String>? selectedGroup,
             List<String>? selectedItem,
             bool viewingSelectedItem,
-            Key? masterKey)?
+            Key? masterKey,
+            int errorCounts)?
         unlocked,
     required TResult orElse(),
   }) {
     if (unlocked != null) {
-      return unlocked(
-          vault, selectedGroup, selectedItem, viewingSelectedItem, masterKey);
+      return unlocked(vault, selectedGroup, selectedItem, viewingSelectedItem,
+          masterKey, errorCounts);
     }
     return orElse();
   }
@@ -1015,13 +1046,15 @@ abstract class _Unlocked implements VaultState {
       final List<String>? selectedGroup,
       final List<String>? selectedItem,
       final bool viewingSelectedItem,
-      final Key? masterKey}) = _$_Unlocked;
+      final Key? masterKey,
+      final int errorCounts}) = _$_Unlocked;
 
   VaultFile get vault;
   List<String>? get selectedGroup;
   List<String>? get selectedItem;
   bool get viewingSelectedItem;
   Key? get masterKey;
+  int get errorCounts;
   @JsonKey(ignore: true)
   _$$_UnlockedCopyWith<_$_Unlocked> get copyWith =>
       throw _privateConstructorUsedError;

@@ -31,8 +31,8 @@ AppBar createAppBar(
         splashRadius: 20,
       )
     ];
-  }, unlocked:
-      (vault, selectedGroup, _selectedItem, _viewingSelectedItem, _masterKey) {
+  }, unlocked: (vault, selectedGroup, _selectedItem, _viewingSelectedItem,
+      _masterKey, _errorCount) {
     name = ' - ${vault.header.name}';
 
     appBarIcon = IconButton(
