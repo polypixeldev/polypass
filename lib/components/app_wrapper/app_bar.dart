@@ -196,6 +196,25 @@ AppBar createAppBar(
           splashRadius: 20,
         ),
         IconButton(
+          icon: const Icon(Icons.save_sharp),
+          tooltip: 'Save the vault',
+          onPressed: () async {
+            final vaultBloc = context.read<VaultBloc>();
+            final unlockedState = vaultBloc.state.maybeMap(
+                unlocked: (state) => state, orElse: () => throw Error());
+
+            var masterKey = (await getMasterKey(context)).masterKey;
+
+            if (masterKey == null) {
+              return;
+            }
+
+            context
+                .read<VaultBloc>()
+                .add(VaultEvent.updated(unlockedState.vault, masterKey));
+          },
+        ),
+        IconButton(
           icon: const Icon(Icons.settings_sharp),
           tooltip: 'Vault settings',
           onPressed: () {
