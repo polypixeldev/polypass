@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:go_router/go_router.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
@@ -58,6 +59,8 @@ class OpenDialog extends StatelessWidget {
                     shrinkWrap: true,
                     children: snap.hasData
                         ? [
+                            LocalButton(
+                                onCancel: onCancel, onSuccess: onSuccess),
                             FtpButton(onCancel: onCancel, redirect: redirect),
                             ...snap.data as List<Widget>,
                             CancelButton(onCancel: onCancel)
@@ -65,6 +68,43 @@ class OpenDialog extends StatelessWidget {
                         : [],
                   );
                 })));
+  }
+}
+
+class LocalButton extends StatelessWidget {
+  const LocalButton({Key? key, required this.onCancel, required this.onSuccess})
+      : super(key: key);
+
+  final void Function() onCancel;
+  final void Function(String path) onSuccess;
+
+  @override
+  Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: ElevatedButton(
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        child:
+            Text('Open locally', style: Theme.of(context).textTheme.bodyMedium),
+        onPressed: () async {
+          final result = await FilePicker.platform.pickFiles(
+              dialogTitle: 'Open PolyPass Vault',
+              type: FileType.custom,
+              allowedExtensions: ['ppv.json']);
+
+          final filePath = result?.files.first.path;
+
+          if (filePath == null) {
+            onCancel();
+          } else {
+            onSuccess(filePath);
+          }
+        },
+      ),
+    );
   }
 }
 
