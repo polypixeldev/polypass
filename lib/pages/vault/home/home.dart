@@ -95,18 +95,21 @@ class TreeDivider extends StatelessWidget {
             SizedBox(
               height: 20,
               width: 20,
-              child: GestureDetector(
-                child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
-                    builder: (context, state) {
-                  return Text(
-                    state.treeVisible ? '<' : '>',
-                    style: TextStyle(fontSize: 10.sp),
-                    textAlign: TextAlign.center,
-                  );
-                }),
-                onTap: () => context
-                    .read<VaultHomeBloc>()
-                    .add(const VaultHomeEvent.treeToggled()),
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  child: BlocBuilder<VaultHomeBloc, VaultHomeState>(
+                      builder: (context, state) {
+                    return Text(
+                      state.treeVisible ? '<' : '>',
+                      style: TextStyle(fontSize: 10.sp),
+                      textAlign: TextAlign.center,
+                    );
+                  }),
+                  onTap: () => context
+                      .read<VaultHomeBloc>()
+                      .add(const VaultHomeEvent.treeToggled()),
+                ),
               ),
             ),
             SizedBox(

@@ -146,20 +146,23 @@ class VaultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onSelect(path),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(5)),
-        child: Row(
-          children: [
-            Text(vault.header.name,
-                style: Theme.of(context).textTheme.bodyMedium)
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => onSelect(path),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(5)),
+          child: Row(
+            children: [
+              Text(vault.header.name,
+                  style: Theme.of(context).textTheme.bodyMedium)
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
         ),
       ),
     );
