@@ -45,17 +45,16 @@ class Create extends StatelessWidget {
                     previous.created != current.created &&
                     current.created == true),
             BlocListener<CreateFormBloc, CreateFormState>(
-              listener: (context, state) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text(
-                        'Error creating vault - make sure the vault location is correct'),
-                    duration: Duration(days: 365)));
-              },
-              listenWhen: (previous, current) =>
-                  previous.error != current.error && current.error == true,
-            )
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          'Error creating vault - make sure the vault location is correct'),
+                      duration: Duration(days: 365)));
+                },
+                listenWhen: (previous, current) =>
+                    previous.errorCount < current.errorCount)
           ],
           child: Center(
             child: ListView(shrinkWrap: true, children: [

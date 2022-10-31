@@ -17,7 +17,7 @@ class CreateFormState with _$CreateFormState {
       required VaultUrl? url,
       required bool submitted,
       required bool created,
-      required bool error}) = _CreateFormState;
+      required int errorCount}) = _CreateFormState;
 
   factory CreateFormState.empty() => const CreateFormState(
       name: '',
@@ -25,7 +25,7 @@ class CreateFormState with _$CreateFormState {
       url: null,
       submitted: false,
       created: false,
-      error: true);
+      errorCount: 0);
 
   bool get isFormValid =>
       (name != '') && (masterPassword != '') && (url != null);
@@ -75,7 +75,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
   Future<void> _onFormSubmitted(
       FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(submitted: true, error: false));
+    emit(state.copyWith(submitted: true, errorCount: 0));
 
     final salt = EncryptedData.generateSalt();
     final derivedKey = EncryptedData.deriveDerivedKey(
@@ -104,7 +104,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
                   VaultContents(components: []), iv)),
           masterKey);
     } catch (_e) {
-      emit(state.copyWith(error: true, submitted: false));
+      emit(state.copyWith(errorCount: state.errorCount + 1, submitted: false));
       return;
     }
 
