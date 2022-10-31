@@ -40,8 +40,7 @@ class EditItem extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.all(10),
                   width: 700,
-                  child: Form(
-                      child: BlocProvider(
+                  child: BlocProvider(
                     create: (_context) => EditFormBloc(
                         name: item.name,
                         username: item.username,
@@ -161,7 +160,7 @@ class EditItem extends StatelessWidget {
                         );
                       },
                     ),
-                  )))),
+                  ))),
         ],
       ),
     ));
@@ -216,9 +215,6 @@ class ItemNameInput extends StatelessWidget {
                     border: InputBorder.none),
                 style: theme.textTheme.bodySmall,
                 cursorColor: Colors.black,
-                // obscureText: true,
-                // enableSuggestions: false,
-                // autocorrect: false,
                 onChanged: (name) {
                   context
                       .read<EditFormBloc>()
@@ -291,7 +287,7 @@ class ItemPasswordInput extends StatelessWidget {
                 color: theme.colorScheme.secondary,
                 borderRadius: BorderRadius.circular(5)),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: TextFormField(
+            child: TextField(
                 controller: controller,
                 enabled: !context.read<EditFormBloc>().state.submitted,
                 decoration: const InputDecoration(

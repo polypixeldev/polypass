@@ -20,43 +20,41 @@ class VaultLocked extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 600,
-      child: Form(
-        child: BlocProvider(
-          create: (context) =>
-              UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
-          child: MultiBlocListener(
-            listeners: [
-              BlocListener<UnlockFormBloc, UnlockFormState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Unlocking vault...'),
-                        duration: Duration(seconds: 3)));
-                  },
-                  listenWhen: (previous, current) => current.success == true),
-              BlocListener<UnlockFormBloc, UnlockFormState>(
-                  listener: (context, state) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                            'Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
-                        duration: Duration(seconds: 5)));
-                  },
-                  listenWhen: (previous, current) =>
-                      previous.fails != current.fails)
+      child: BlocProvider(
+        create: (context) =>
+            UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<UnlockFormBloc, UnlockFormState>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Unlocking vault...'),
+                      duration: Duration(seconds: 3)));
+                },
+                listenWhen: (previous, current) => current.success == true),
+            BlocListener<UnlockFormBloc, UnlockFormState>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          'Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
+                      duration: Duration(seconds: 5)));
+                },
+                listenWhen: (previous, current) =>
+                    previous.fails != current.fails)
+          ],
+          child: Column(
+            children: [
+              Text(
+                  'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
+                  style: const TextStyle(color: Colors.white, fontSize: 30)),
+              const MasterPasswordInput(),
+              const SubmitButton()
             ],
-            child: Column(
-              children: [
-                Text(
-                    'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
-                    style: const TextStyle(color: Colors.white, fontSize: 30)),
-                const MasterPasswordInput(),
-                const SubmitButton()
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-            ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
           ),
         ),
       ),

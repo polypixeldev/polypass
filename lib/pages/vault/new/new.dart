@@ -27,8 +27,7 @@ class NewItem extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.all(10),
                   width: 700,
-                  child: Form(
-                      child: BlocProvider(
+                  child: BlocProvider(
                     create: (_context) => NewFormBloc(),
                     child: MultiBlocListener(
                       listeners: [
@@ -120,7 +119,7 @@ class NewItem extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                       ),
                     ),
-                  )))),
+                  ))),
         ],
       ),
     ));
@@ -164,7 +163,7 @@ class ItemNameInput extends StatelessWidget {
                 color: theme.colorScheme.secondary,
                 borderRadius: BorderRadius.circular(5)),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: TextFormField(
+            child: TextField(
                 enabled: !context.read<NewFormBloc>().state.submitted,
                 decoration: const InputDecoration(
                     labelText: 'Item Name',
@@ -204,7 +203,7 @@ class ItemUsernameInput extends StatelessWidget {
                 color: theme.colorScheme.secondary,
                 borderRadius: BorderRadius.circular(5)),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: TextFormField(
+            child: TextField(
                 enabled: !context.read<NewFormBloc>().state.submitted,
                 decoration: const InputDecoration(
                     labelText: 'Item Username',
@@ -240,7 +239,7 @@ class ItemPasswordInput extends StatelessWidget {
                 color: theme.colorScheme.secondary,
                 borderRadius: BorderRadius.circular(5)),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: TextFormField(
+            child: TextField(
                 enabled: !context.read<NewFormBloc>().state.submitted,
                 decoration: const InputDecoration(
                     labelText: 'Item Password',
@@ -281,7 +280,7 @@ class ItemNotesInput extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             child: Container(
               constraints: const BoxConstraints(maxHeight: 200),
-              child: TextFormField(
+              child: TextField(
                   enabled: !context.read<NewFormBloc>().state.submitted,
                   decoration: const InputDecoration(
                       labelText: 'Item Notes',
