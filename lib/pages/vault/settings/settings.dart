@@ -92,6 +92,18 @@ class VaultSettingsPage extends StatelessWidget {
                                                   parsed));
                                     }
                                   }),
+                              TextSetting(
+                                  title: 'Vault Auto Lock Time (seconds)',
+                                  value: state.settings.vaultAutoLockSeconds
+                                      .toString(),
+                                  onChanged: (setting) {
+                                    final parsed = int.tryParse(setting);
+                                    if (parsed != null) {
+                                      context.read<SettingsBloc>().add(
+                                          SettingsEvent.setVaultAutoLockSeconds(
+                                              parsed));
+                                    }
+                                  }),
                               const Text('Change Master Password',
                                   style: TextStyle(
                                       fontSize: 30, color: Colors.white)),

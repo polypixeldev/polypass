@@ -353,14 +353,16 @@ class VaultSettings with _$VaultSettings {
       required int iterations,
       required int threads,
       required int memory,
-      required int clipboardClearSeconds}) = _VaultSettings;
+      required int clipboardClearSeconds,
+      required int vaultAutoLockSeconds}) = _VaultSettings;
 
   factory VaultSettings.empty() => VaultSettings(
       saveKeyInMemory: true,
       iterations: 30,
       threads: 2,
       memory: 1024,
-      clipboardClearSeconds: 10);
+      clipboardClearSeconds: 10,
+      vaultAutoLockSeconds: 120);
   factory VaultSettings.fromJson(Map<String, dynamic> json) =>
       _$VaultSettingsFromJson(json);
 }

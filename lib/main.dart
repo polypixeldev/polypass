@@ -8,6 +8,7 @@ import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
+import 'package:polypass/blocs/activity_bloc/activity_bloc.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/ftp/ftp.dart';
@@ -19,6 +20,7 @@ import 'package:polypass/pages/vault/locked/locked.dart';
 import 'package:polypass/pages/vault/new/new.dart';
 import 'package:polypass/pages/vault/edit/edit.dart';
 import 'package:polypass/pages/vault/settings/settings.dart';
+import 'package:polypass/components/activity_listener/activity_listener.dart';
 
 import 'package:polypass/theme.dart';
 
@@ -104,14 +106,19 @@ class _AppState extends State<App> with TickerProviderStateMixin {
                       appSettings:
                           context.read<AppSettingsBloc>().state.settings,
                     )),
-            BlocProvider(create: (context) => VaultBloc(read: context.read))
+            BlocProvider(create: (context) => VaultBloc(read: context.read)),
+            BlocProvider(
+                create: (context) => ActivityBloc(read: context.read)
+                  ..add(const ActivityEvent.started()))
           ],
-          child: MaterialApp.router(
-              routeInformationParser: _router.routeInformationParser,
-              routerDelegate: _router.routerDelegate,
-              title: 'PolyPass',
-              debugShowCheckedModeBanner: false,
-              theme: appTheme),
+          child: ActivityListener(
+            child: MaterialApp.router(
+                routeInformationParser: _router.routeInformationParser,
+                routerDelegate: _router.routerDelegate,
+                title: 'PolyPass',
+                debugShowCheckedModeBanner: false,
+                theme: appTheme),
+          ),
         ),
       );
     });

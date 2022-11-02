@@ -94,6 +94,20 @@ class Settings extends StatelessWidget {
                                             parsed));
                                   }
                                 }),
+                            TextSetting(
+                              title: 'Vault Auto Lock Time (seconds)',
+                              value: state.settings.defaultVaultSettings
+                                  .vaultAutoLockSeconds
+                                  .toString(),
+                              onChanged: (setting) {
+                                final parsed = int.tryParse(setting);
+                                if (parsed != null) {
+                                  context.read<SettingsBloc>().add(
+                                      SettingsEvent.setVaultAutoLockSeconds(
+                                          parsed));
+                                }
+                              },
+                            ),
                             Row(
                               children: const [
                                 BackToHomeButton(),

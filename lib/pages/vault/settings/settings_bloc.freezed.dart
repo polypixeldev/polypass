@@ -205,6 +205,7 @@ mixin _$SettingsEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -218,6 +219,7 @@ mixin _$SettingsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -231,6 +233,7 @@ mixin _$SettingsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -247,6 +250,8 @@ mixin _$SettingsEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -262,6 +267,8 @@ mixin _$SettingsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
@@ -277,6 +284,8 @@ mixin _$SettingsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) =>
@@ -376,6 +385,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setSaveKeyInMemory(setting);
@@ -392,6 +402,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
@@ -408,6 +419,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -430,6 +442,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setSaveKeyInMemory(this);
@@ -448,6 +462,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
@@ -466,6 +482,8 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -565,6 +583,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return newMasterPasswordChanged(newMasterPassword);
@@ -581,6 +600,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(newMasterPassword);
@@ -597,6 +617,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -619,6 +640,8 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return newMasterPasswordChanged(this);
@@ -637,6 +660,8 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(this);
@@ -655,6 +680,8 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -757,6 +784,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged(confirmNewMasterPassword);
@@ -773,6 +801,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(confirmNewMasterPassword);
@@ -789,6 +818,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -811,6 +841,8 @@ class _$ConfirmNewMasterPasswordChangedEvent
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged(this);
@@ -829,6 +861,8 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(this);
@@ -847,6 +881,8 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -944,6 +980,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setKDFIterations(setting);
@@ -960,6 +997,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFIterations?.call(setting);
@@ -976,6 +1014,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -998,6 +1037,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFIterations(this);
@@ -1016,6 +1057,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFIterations?.call(this);
@@ -1034,6 +1077,8 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1129,6 +1174,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setKDFThreads(setting);
@@ -1145,6 +1191,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFThreads?.call(setting);
@@ -1161,6 +1208,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1183,6 +1231,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFThreads(this);
@@ -1201,6 +1251,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFThreads?.call(this);
@@ -1219,6 +1271,8 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1312,6 +1366,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setKDFMemory(setting);
@@ -1328,6 +1383,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFMemory?.call(setting);
@@ -1344,6 +1400,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1366,6 +1423,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setKDFMemory(this);
@@ -1384,6 +1443,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFMemory?.call(this);
@@ -1402,6 +1463,8 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1499,6 +1562,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return setClipboardClearSeconds(setting);
@@ -1515,6 +1579,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(setting);
@@ -1531,6 +1596,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1553,6 +1619,8 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return setClipboardClearSeconds(this);
@@ -1571,6 +1639,8 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(this);
@@ -1589,6 +1659,8 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1606,6 +1678,203 @@ abstract class SetClipboardClearSecondsEvent implements SettingsEvent {
   int get setting;
   @JsonKey(ignore: true)
   _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
+  factory _$$SetVaultAutoLockSecondsEventCopyWith(
+          _$SetVaultAutoLockSecondsEvent value,
+          $Res Function(_$SetVaultAutoLockSecondsEvent) then) =
+      __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>;
+  $Res call({int setting});
+}
+
+/// @nodoc
+class __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
+  __$$SetVaultAutoLockSecondsEventCopyWithImpl(
+      _$SetVaultAutoLockSecondsEvent _value,
+      $Res Function(_$SetVaultAutoLockSecondsEvent) _then)
+      : super(_value, (v) => _then(v as _$SetVaultAutoLockSecondsEvent));
+
+  @override
+  _$SetVaultAutoLockSecondsEvent get _value =>
+      super._value as _$SetVaultAutoLockSecondsEvent;
+
+  @override
+  $Res call({
+    Object? setting = freezed,
+  }) {
+    return _then(_$SetVaultAutoLockSecondsEvent(
+      setting == freezed
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
+  const _$SetVaultAutoLockSecondsEvent(this.setting);
+
+  @override
+  final int setting;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setVaultAutoLockSeconds(setting: $setting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetVaultAutoLockSecondsEvent &&
+            const DeepCollectionEquality().equals(other.setting, setting));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetVaultAutoLockSecondsEventCopyWith<_$SetVaultAutoLockSecondsEvent>
+      get copyWith => __$$SetVaultAutoLockSecondsEventCopyWithImpl<
+          _$SetVaultAutoLockSecondsEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return setVaultAutoLockSeconds(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
+    TResult Function(BuildContext context)? settingsSaved,
+  }) {
+    return setVaultAutoLockSeconds?.call(setting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setVaultAutoLockSeconds != null) {
+      return setVaultAutoLockSeconds(setting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return setVaultAutoLockSeconds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return setVaultAutoLockSeconds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (setVaultAutoLockSeconds != null) {
+      return setVaultAutoLockSeconds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetVaultAutoLockSecondsEvent implements SettingsEvent {
+  const factory SetVaultAutoLockSecondsEvent(final int setting) =
+      _$SetVaultAutoLockSecondsEvent;
+
+  int get setting;
+  @JsonKey(ignore: true)
+  _$$SetVaultAutoLockSecondsEventCopyWith<_$SetVaultAutoLockSecondsEvent>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1684,6 +1953,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
     required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
     required TResult Function(BuildContext context) settingsSaved,
   }) {
     return settingsSaved(context);
@@ -1700,6 +1970,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
   }) {
     return settingsSaved?.call(context);
@@ -1716,6 +1987,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
     TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
     TResult Function(BuildContext context)? settingsSaved,
     required TResult orElse(),
   }) {
@@ -1738,6 +2010,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
     required TResult Function(SetClipboardClearSecondsEvent value)
         setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
     required TResult Function(SettingsSavedEvent value) settingsSaved,
   }) {
     return settingsSaved(this);
@@ -1756,6 +2030,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
@@ -1774,6 +2050,8 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
     TResult Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
     TResult Function(SettingsSavedEvent value)? settingsSaved,
     required TResult orElse(),
   }) {

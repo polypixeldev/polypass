@@ -21,6 +21,8 @@ class SettingsEvent with _$SettingsEvent {
   const factory SettingsEvent.setKDFMemory(int setting) = SetKDFMemoryEvent;
   const factory SettingsEvent.setClipboardClearSeconds(int setting) =
       SetClipboardClearSecondsEvent;
+  const factory SettingsEvent.setVaultAutoLockSeconds(int setting) =
+      SetVaultAutoLockSecondsEvent;
   const factory SettingsEvent.settingsSaved() = SettingsSavedEvent;
 }
 
@@ -35,6 +37,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           setKDFMemory: (event) => _onSetKDFMemory(event, emit),
           setClipboardClearSeconds: (event) =>
               _onSetClipboardClearSeconds(event, emit),
+          setVaultAutoLockSeconds: (event) =>
+              _onSetVaultAutoLockSeconds(event, emit),
           settingsSaved: (event) => _onSettingsSaved(event, emit));
     });
   }
@@ -77,6 +81,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         settings: state.settings.copyWith(
             defaultVaultSettings: state.settings.defaultVaultSettings
                 .copyWith(clipboardClearSeconds: event.setting))));
+  }
+
+  void _onSetVaultAutoLockSeconds(
+      SetVaultAutoLockSecondsEvent event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(
+        settings: state.settings.copyWith(
+            defaultVaultSettings: state.settings.defaultVaultSettings
+                .copyWith(vaultAutoLockSeconds: event.setting))));
   }
 
   void _onSettingsSaved(SettingsSavedEvent event, Emitter<SettingsState> emit) {
