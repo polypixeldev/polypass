@@ -30,15 +30,9 @@ class AppSettings with _$AppSettings {
   }
 
   static Future<AppSettings> load() async {
-    final file = File('${await getPolyPassDir()}/.settings/settings.json');
+    final file = File('${await getPolyPassDir()}/.settings.json');
 
     if (!(await file.exists())) {
-      final settingsDir = Directory('${await getPolyPassDir()}/.settings');
-
-      if (!(await settingsDir.exists())) {
-        await settingsDir.create(recursive: true);
-      }
-
       await file.writeAsString(jsonEncode(AppSettings.empty().toJson()));
       return AppSettings.empty();
     }
@@ -48,7 +42,7 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File('${await getPolyPassDir()}/.settings/settings.json')
+    await File('${await getPolyPassDir()}/.settings.json')
         .writeAsString(jsonEncode(toJson()));
   }
 
