@@ -590,6 +590,10 @@ VaultHeader _$VaultHeaderFromJson(Map<String, dynamic> json) {
 mixin _$VaultHeader {
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
+  String get uuid => throw _privateConstructorUsedError;
+  set uuid(String value) => throw _privateConstructorUsedError;
+  VaultUrl? get remoteUrl => throw _privateConstructorUsedError;
+  set remoteUrl(VaultUrl? value) => throw _privateConstructorUsedError;
   VaultSettings get settings => throw _privateConstructorUsedError;
   set settings(VaultSettings value) => throw _privateConstructorUsedError;
   MagicValue get magic => throw _privateConstructorUsedError;
@@ -612,11 +616,14 @@ abstract class $VaultHeaderCopyWith<$Res> {
       _$VaultHeaderCopyWithImpl<$Res>;
   $Res call(
       {String name,
+      String uuid,
+      VaultUrl? remoteUrl,
       VaultSettings settings,
       MagicValue magic,
       String key,
       List<int> salt});
 
+  $VaultUrlCopyWith<$Res>? get remoteUrl;
   $VaultSettingsCopyWith<$Res> get settings;
   $MagicValueCopyWith<$Res> get magic;
 }
@@ -632,6 +639,8 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? uuid = freezed,
+    Object? remoteUrl = freezed,
     Object? settings = freezed,
     Object? magic = freezed,
     Object? key = freezed,
@@ -642,6 +651,14 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      uuid: uuid == freezed
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      remoteUrl: remoteUrl == freezed
+          ? _value.remoteUrl
+          : remoteUrl // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -659,6 +676,17 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           : salt // ignore: cast_nullable_to_non_nullable
               as List<int>,
     ));
+  }
+
+  @override
+  $VaultUrlCopyWith<$Res>? get remoteUrl {
+    if (_value.remoteUrl == null) {
+      return null;
+    }
+
+    return $VaultUrlCopyWith<$Res>(_value.remoteUrl!, (value) {
+      return _then(_value.copyWith(remoteUrl: value));
+    });
   }
 
   @override
@@ -685,11 +713,15 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
   @override
   $Res call(
       {String name,
+      String uuid,
+      VaultUrl? remoteUrl,
       VaultSettings settings,
       MagicValue magic,
       String key,
       List<int> salt});
 
+  @override
+  $VaultUrlCopyWith<$Res>? get remoteUrl;
   @override
   $VaultSettingsCopyWith<$Res> get settings;
   @override
@@ -709,6 +741,8 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? uuid = freezed,
+    Object? remoteUrl = freezed,
     Object? settings = freezed,
     Object? magic = freezed,
     Object? key = freezed,
@@ -719,6 +753,14 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      uuid: uuid == freezed
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      remoteUrl: remoteUrl == freezed
+          ? _value.remoteUrl
+          : remoteUrl // ignore: cast_nullable_to_non_nullable
+              as VaultUrl?,
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -744,6 +786,8 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
 class _$_VaultHeader extends _VaultHeader {
   _$_VaultHeader(
       {required this.name,
+      required this.uuid,
+      required this.remoteUrl,
       required this.settings,
       required this.magic,
       required this.key,
@@ -756,6 +800,10 @@ class _$_VaultHeader extends _VaultHeader {
   @override
   String name;
   @override
+  String uuid;
+  @override
+  VaultUrl? remoteUrl;
+  @override
   VaultSettings settings;
   @override
   MagicValue magic;
@@ -766,7 +814,7 @@ class _$_VaultHeader extends _VaultHeader {
 
   @override
   String toString() {
-    return 'VaultHeader(name: $name, settings: $settings, magic: $magic, key: $key, salt: $salt)';
+    return 'VaultHeader(name: $name, uuid: $uuid, remoteUrl: $remoteUrl, settings: $settings, magic: $magic, key: $key, salt: $salt)';
   }
 
   @JsonKey(ignore: true)
@@ -785,6 +833,8 @@ class _$_VaultHeader extends _VaultHeader {
 abstract class _VaultHeader extends VaultHeader {
   factory _VaultHeader(
       {required String name,
+      required String uuid,
+      required VaultUrl? remoteUrl,
       required VaultSettings settings,
       required MagicValue magic,
       required String key,
@@ -797,6 +847,12 @@ abstract class _VaultHeader extends VaultHeader {
   @override
   String get name;
   set name(String value);
+  @override
+  String get uuid;
+  set uuid(String value);
+  @override
+  VaultUrl? get remoteUrl;
+  set remoteUrl(VaultUrl? value);
   @override
   VaultSettings get settings;
   set settings(VaultSettings value);
@@ -2121,6 +2177,8 @@ VaultUrl _$VaultUrlFromJson(Map<String, dynamic> json) {
       return FileVaultUrl.fromJson(json);
     case 'ftp':
       return FtpVaultUrl.fromJson(json);
+    case 'cached':
+      return CachedVaultUrl.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'VaultUrl',
@@ -2130,13 +2188,13 @@ VaultUrl _$VaultUrlFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$VaultUrl {
-  String get path => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String path) file,
     required TResult Function(
             String host, String user, String password, String path)
         ftp,
+    required TResult Function(String uuid) cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2144,6 +2202,7 @@ mixin _$VaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2151,6 +2210,7 @@ mixin _$VaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2158,32 +2218,31 @@ mixin _$VaultUrl {
   TResult map<TResult extends Object?>({
     required TResult Function(FileVaultUrl value) file,
     required TResult Function(FtpVaultUrl value) ftp,
+    required TResult Function(CachedVaultUrl value) cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $VaultUrlCopyWith<VaultUrl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VaultUrlCopyWith<$Res> {
   factory $VaultUrlCopyWith(VaultUrl value, $Res Function(VaultUrl) then) =
       _$VaultUrlCopyWithImpl<$Res>;
-  $Res call({String path});
 }
 
 /// @nodoc
@@ -2193,27 +2252,13 @@ class _$VaultUrlCopyWithImpl<$Res> implements $VaultUrlCopyWith<$Res> {
   final VaultUrl _value;
   // ignore: unused_field
   final $Res Function(VaultUrl) _then;
-
-  @override
-  $Res call({
-    Object? path = freezed,
-  }) {
-    return _then(_value.copyWith(
-      path: path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$$FileVaultUrlCopyWith<$Res>
-    implements $VaultUrlCopyWith<$Res> {
+abstract class _$$FileVaultUrlCopyWith<$Res> {
   factory _$$FileVaultUrlCopyWith(
           _$FileVaultUrl value, $Res Function(_$FileVaultUrl) then) =
       __$$FileVaultUrlCopyWithImpl<$Res>;
-  @override
   $Res call({String path});
 }
 
@@ -2286,6 +2331,7 @@ class _$FileVaultUrl extends FileVaultUrl {
     required TResult Function(
             String host, String user, String password, String path)
         ftp,
+    required TResult Function(String uuid) cached,
   }) {
     return file(path);
   }
@@ -2296,6 +2342,7 @@ class _$FileVaultUrl extends FileVaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
   }) {
     return file?.call(path);
   }
@@ -2306,6 +2353,7 @@ class _$FileVaultUrl extends FileVaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
     required TResult orElse(),
   }) {
     if (file != null) {
@@ -2319,6 +2367,7 @@ class _$FileVaultUrl extends FileVaultUrl {
   TResult map<TResult extends Object?>({
     required TResult Function(FileVaultUrl value) file,
     required TResult Function(FtpVaultUrl value) ftp,
+    required TResult Function(CachedVaultUrl value) cached,
   }) {
     return file(this);
   }
@@ -2328,6 +2377,7 @@ class _$FileVaultUrl extends FileVaultUrl {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
   }) {
     return file?.call(this);
   }
@@ -2337,6 +2387,7 @@ class _$FileVaultUrl extends FileVaultUrl {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
     required TResult orElse(),
   }) {
     if (file != null) {
@@ -2360,20 +2411,17 @@ abstract class FileVaultUrl extends VaultUrl {
   factory FileVaultUrl.fromJson(Map<String, dynamic> json) =
       _$FileVaultUrl.fromJson;
 
-  @override
   String get path;
-  @override
   @JsonKey(ignore: true)
   _$$FileVaultUrlCopyWith<_$FileVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FtpVaultUrlCopyWith<$Res> implements $VaultUrlCopyWith<$Res> {
+abstract class _$$FtpVaultUrlCopyWith<$Res> {
   factory _$$FtpVaultUrlCopyWith(
           _$FtpVaultUrl value, $Res Function(_$FtpVaultUrl) then) =
       __$$FtpVaultUrlCopyWithImpl<$Res>;
-  @override
   $Res call({String host, String user, String password, String path});
 }
 
@@ -2479,6 +2527,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
     required TResult Function(
             String host, String user, String password, String path)
         ftp,
+    required TResult Function(String uuid) cached,
   }) {
     return ftp(host, user, password, path);
   }
@@ -2489,6 +2538,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
   }) {
     return ftp?.call(host, user, password, path);
   }
@@ -2499,6 +2549,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
     TResult Function(String path)? file,
     TResult Function(String host, String user, String password, String path)?
         ftp,
+    TResult Function(String uuid)? cached,
     required TResult orElse(),
   }) {
     if (ftp != null) {
@@ -2512,6 +2563,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   TResult map<TResult extends Object?>({
     required TResult Function(FileVaultUrl value) file,
     required TResult Function(FtpVaultUrl value) ftp,
+    required TResult Function(CachedVaultUrl value) cached,
   }) {
     return ftp(this);
   }
@@ -2521,6 +2573,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
   }) {
     return ftp?.call(this);
   }
@@ -2530,6 +2583,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FileVaultUrl value)? file,
     TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
     required TResult orElse(),
   }) {
     if (ftp != null) {
@@ -2560,10 +2614,171 @@ abstract class FtpVaultUrl extends VaultUrl {
   String get host;
   String get user;
   String get password;
-  @override
   String get path;
-  @override
   @JsonKey(ignore: true)
   _$$FtpVaultUrlCopyWith<_$FtpVaultUrl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CachedVaultUrlCopyWith<$Res> {
+  factory _$$CachedVaultUrlCopyWith(
+          _$CachedVaultUrl value, $Res Function(_$CachedVaultUrl) then) =
+      __$$CachedVaultUrlCopyWithImpl<$Res>;
+  $Res call({String uuid});
+}
+
+/// @nodoc
+class __$$CachedVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+    implements _$$CachedVaultUrlCopyWith<$Res> {
+  __$$CachedVaultUrlCopyWithImpl(
+      _$CachedVaultUrl _value, $Res Function(_$CachedVaultUrl) _then)
+      : super(_value, (v) => _then(v as _$CachedVaultUrl));
+
+  @override
+  _$CachedVaultUrl get _value => super._value as _$CachedVaultUrl;
+
+  @override
+  $Res call({
+    Object? uuid = freezed,
+  }) {
+    return _then(_$CachedVaultUrl(
+      uuid: uuid == freezed
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CachedVaultUrl extends CachedVaultUrl {
+  const _$CachedVaultUrl({required this.uuid, final String? $type})
+      : $type = $type ?? 'cached',
+        super._();
+
+  factory _$CachedVaultUrl.fromJson(Map<String, dynamic> json) =>
+      _$$CachedVaultUrlFromJson(json);
+
+  @override
+  final String uuid;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'VaultUrl.cached(uuid: $uuid)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CachedVaultUrl &&
+            const DeepCollectionEquality().equals(other.uuid, uuid));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(uuid));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$CachedVaultUrlCopyWith<_$CachedVaultUrl> get copyWith =>
+      __$$CachedVaultUrlCopyWithImpl<_$CachedVaultUrl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String path) file,
+    required TResult Function(
+            String host, String user, String password, String path)
+        ftp,
+    required TResult Function(String uuid) cached,
+  }) {
+    return cached(uuid);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+    TResult Function(String uuid)? cached,
+  }) {
+    return cached?.call(uuid);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String path)? file,
+    TResult Function(String host, String user, String password, String path)?
+        ftp,
+    TResult Function(String uuid)? cached,
+    required TResult orElse(),
+  }) {
+    if (cached != null) {
+      return cached(uuid);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FileVaultUrl value) file,
+    required TResult Function(FtpVaultUrl value) ftp,
+    required TResult Function(CachedVaultUrl value) cached,
+  }) {
+    return cached(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
+  }) {
+    return cached?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FileVaultUrl value)? file,
+    TResult Function(FtpVaultUrl value)? ftp,
+    TResult Function(CachedVaultUrl value)? cached,
+    required TResult orElse(),
+  }) {
+    if (cached != null) {
+      return cached(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CachedVaultUrlToJson(
+      this,
+    );
+  }
+}
+
+abstract class CachedVaultUrl extends VaultUrl {
+  const factory CachedVaultUrl({required final String uuid}) = _$CachedVaultUrl;
+  const CachedVaultUrl._() : super._();
+
+  factory CachedVaultUrl.fromJson(Map<String, dynamic> json) =
+      _$CachedVaultUrl.fromJson;
+
+  String get uuid;
+  @JsonKey(ignore: true)
+  _$$CachedVaultUrlCopyWith<_$CachedVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;
 }

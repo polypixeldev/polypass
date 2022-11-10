@@ -6,6 +6,7 @@ import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
+import 'package:polypass/data/cache/cache.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -66,26 +67,79 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
 
-    final VaultFile file;
+    await event.url.maybeMap(file: (url) async {
+      final VaultFile file;
 
-    try {
-      file = await read<VaultRepository>().getFile(event.url);
-    } catch (_e) {
-      emit(VaultState.opening(
-          errorCount:
-              state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
-      return;
-    }
+      try {
+        file = await read<VaultRepository>().getFile(event.url);
+      } catch (_e) {
+        emit(VaultState.opening(
+            errorCount:
+                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        return;
+      }
 
-    read<AppSettingsBloc>()
-        .state
-        .settings
-        .copyWith(recentUrl: event.url)
-        .save();
+      read<AppSettingsBloc>()
+          .state
+          .settings
+          .copyWith(recentUrl: event.url)
+          .save();
 
-    emit(VaultState.locked(file));
+      emit(VaultState.locked(file.copyWith(url: event.url)));
 
-    read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
+      read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
+    }, cached: (url) async {
+      VaultFile file;
+
+      try {
+        file = await read<VaultRepository>().getFile(event.url);
+      } on MergeException catch (e) {
+        // TODO: Present user with prompt to merge files
+        file = e.local;
+      } catch (_e) {
+        emit(VaultState.opening(
+            errorCount:
+                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        return;
+      }
+
+      read<AppSettingsBloc>()
+          .state
+          .settings
+          .copyWith(recentUrl: event.url)
+          .save();
+
+      emit(VaultState.locked(file.copyWith(url: event.url)));
+
+      read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
+    }, orElse: () async {
+      VaultFile file;
+
+      try {
+        file = await read<VaultRepository>().getFile(event.url);
+      } catch (_e) {
+        emit(VaultState.opening(
+            errorCount:
+                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        return;
+      }
+
+      file = file.copyWith(
+          url: VaultUrl.cached(uuid: file.header.uuid),
+          header: file.header.copyWith(remoteUrl: event.url));
+
+      addToCache(file);
+
+      read<AppSettingsBloc>()
+          .state
+          .settings
+          .copyWith(recentUrl: event.url)
+          .save();
+
+      emit(VaultState.locked(file));
+
+      read<CreateFormBloc>().add(const CreateFormEvent.dataCleared());
+    });
   }
 
   Future<void> _onVaultUnlocked(

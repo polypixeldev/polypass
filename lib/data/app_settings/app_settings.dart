@@ -20,7 +20,7 @@ class AppSettings with _$AppSettings {
       ? getExternalStorageDirectory()
       : getApplicationDocumentsDirectory();
 
-  static getPolyPassDir() async {
+  static Future<String> getPolyPassDir() async {
     final polyPassDir = Directory(
         '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
     if (!await polyPassDir.exists()) {

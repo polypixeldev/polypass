@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
+import 'package:polypass/data/cache/cache.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'create_form_bloc.freezed.dart';
@@ -86,29 +88,37 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
+    final uuid = const Uuid().v4();
+
+    var newVaultFile = VaultFile(
+        header: VaultHeader(
+            name: state.name,
+            uuid: uuid,
+            remoteUrl: state.url,
+            settings: appSettings.defaultVaultSettings,
+            magic: MagicValue(Encrypter(AES(derivedKey))
+                .encrypt(MagicValue.decryptedValue.value, iv: iv)
+                .base64),
+            key: Encrypter(AES(derivedKey))
+                .encrypt(masterKey.base64, iv: iv)
+                .base64,
+            salt: salt),
+        url: null,
+        contents: EncryptedData<VaultContents>.decrypted(
+            VaultContents(components: []), iv));
+
+    await addToCache(newVaultFile);
+
+    newVaultFile = newVaultFile.copyWith(url: VaultUrl.cached(uuid: uuid));
+
     try {
-      await vaultRepository.updateFile(
-          VaultFile(
-              header: VaultHeader(
-                  name: state.name,
-                  settings: appSettings.defaultVaultSettings,
-                  magic: MagicValue(Encrypter(AES(derivedKey))
-                      .encrypt(MagicValue.decryptedValue.value, iv: iv)
-                      .base64),
-                  key: Encrypter(AES(derivedKey))
-                      .encrypt(masterKey.base64, iv: iv)
-                      .base64,
-                  salt: salt),
-              url: state.url,
-              contents: EncryptedData<VaultContents>.decrypted(
-                  VaultContents(components: []), iv)),
-          masterKey);
+      await vaultRepository.updateFile(newVaultFile, masterKey);
     } catch (_e) {
       emit(state.copyWith(errorCount: state.errorCount + 1, submitted: false));
       return;
     }
 
-    emit(state.copyWith(created: true));
+    emit(state.copyWith(created: true, url: newVaultFile.url));
   }
 
   Future<void> _onDataCleared(
