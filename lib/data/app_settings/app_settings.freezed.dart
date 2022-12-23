@@ -137,7 +137,7 @@ class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
           : recentUrl // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
       lastSyncMap: lastSyncMap == freezed
-          ? _value._lastSyncMap
+          ? _value.lastSyncMap
           : lastSyncMap // ignore: cast_nullable_to_non_nullable
               as Map<String, DateTime>,
     ));
@@ -147,12 +147,11 @@ class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AppSettings extends _AppSettings {
-  const _$_AppSettings(
+  _$_AppSettings(
       {required this.defaultVaultSettings,
       required this.recentUrl,
-      required final Map<String, DateTime> lastSyncMap})
-      : _lastSyncMap = lastSyncMap,
-        super._();
+      required this.lastSyncMap})
+      : super._();
 
   factory _$_AppSettings.fromJson(Map<String, dynamic> json) =>
       _$$_AppSettingsFromJson(json);
@@ -161,12 +160,8 @@ class _$_AppSettings extends _AppSettings {
   final VaultSettings defaultVaultSettings;
   @override
   final VaultUrl? recentUrl;
-  final Map<String, DateTime> _lastSyncMap;
   @override
-  Map<String, DateTime> get lastSyncMap {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_lastSyncMap);
-  }
+  final Map<String, DateTime> lastSyncMap;
 
   @override
   String toString() {
@@ -182,7 +177,7 @@ class _$_AppSettings extends _AppSettings {
                 .equals(other.defaultVaultSettings, defaultVaultSettings) &&
             const DeepCollectionEquality().equals(other.recentUrl, recentUrl) &&
             const DeepCollectionEquality()
-                .equals(other._lastSyncMap, _lastSyncMap));
+                .equals(other.lastSyncMap, lastSyncMap));
   }
 
   @JsonKey(ignore: true)
@@ -191,7 +186,7 @@ class _$_AppSettings extends _AppSettings {
       runtimeType,
       const DeepCollectionEquality().hash(defaultVaultSettings),
       const DeepCollectionEquality().hash(recentUrl),
-      const DeepCollectionEquality().hash(_lastSyncMap));
+      const DeepCollectionEquality().hash(lastSyncMap));
 
   @JsonKey(ignore: true)
   @override
@@ -207,11 +202,11 @@ class _$_AppSettings extends _AppSettings {
 }
 
 abstract class _AppSettings extends AppSettings {
-  const factory _AppSettings(
+  factory _AppSettings(
       {required final VaultSettings defaultVaultSettings,
       required final VaultUrl? recentUrl,
       required final Map<String, DateTime> lastSyncMap}) = _$_AppSettings;
-  const _AppSettings._() : super._();
+  _AppSettings._() : super._();
 
   factory _AppSettings.fromJson(Map<String, dynamic> json) =
       _$_AppSettings.fromJson;

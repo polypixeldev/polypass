@@ -23,7 +23,7 @@ class Recent extends StatelessWidget {
               appSettingsBloc.state.settings.copyWith(recentUrl: null)));
           router.go('/');
         } else {
-          context.read<VaultBloc>().add(VaultEvent.opened(recentUrl));
+          context.read<VaultBloc>().add(VaultEvent.opened(recentUrl, context));
         }
       });
     } else {

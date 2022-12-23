@@ -9,10 +9,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_settings.freezed.dart';
 part 'app_settings.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class AppSettings with _$AppSettings {
-  const AppSettings._();
-  const factory AppSettings(
+  AppSettings._();
+  factory AppSettings(
       {required VaultSettings defaultVaultSettings,
       required VaultUrl? recentUrl,
       required Map<String, DateTime> lastSyncMap}) = _AppSettings;

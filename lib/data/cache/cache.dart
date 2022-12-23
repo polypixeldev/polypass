@@ -56,7 +56,12 @@ VaultFile syncCachedAndRemote(
     required VaultFile remoteFile,
     required Map<String, DateTime> lastSyncMap,
     required String uuid}) {
-  var lastSync = lastSyncMap[uuid]!;
+  var lastSync = lastSyncMap[uuid];
+
+  if (lastSync == null) {
+    return remoteFile;
+  }
+
   final localUpdated = localFile.header.lastUpdate.isAfter(lastSync);
   final remoteUpdated = remoteFile.header.lastUpdate.isAfter(lastSync);
 

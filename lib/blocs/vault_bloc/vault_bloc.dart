@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart' show BuildContext;
 import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_repository.dart';
@@ -7,6 +8,7 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 import 'package:polypass/data/cache/cache.dart';
+import 'package:polypass/components/merge_conflict_dialog/merge_conflict_dialog.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -28,7 +30,8 @@ class VaultState with _$VaultState {
 
 @freezed
 class VaultEvent with _$VaultEvent {
-  const factory VaultEvent.opened(VaultUrl url) = OpenedEvent;
+  const factory VaultEvent.opened(VaultUrl url, BuildContext context) =
+      OpenedEvent;
   const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
   const factory VaultEvent.masterKeyChanged(Key? masterKey) =
       MasterKeyChangedEvent;
@@ -96,8 +99,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         file = await read<VaultRepository>()
             .getFile(event.url, read<AppSettingsBloc>());
       } on MergeException catch (e) {
-        // TODO: Present user with prompt to merge files
-        file = e.local;
+        file = await resolveConflict(event.context,
+            local: e.local, remote: e.remote);
       } catch (_e) {
         emit(VaultState.opening(
             errorCount:

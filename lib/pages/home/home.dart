@@ -69,7 +69,8 @@ class Home extends StatelessWidget {
                                         if (path != null) {
                                           context.read<VaultBloc>().add(
                                               VaultEvent.opened(
-                                                  VaultUrl.file(path)));
+                                                  VaultUrl.file(path),
+                                                  context));
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(
