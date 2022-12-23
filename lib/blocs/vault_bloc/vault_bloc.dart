@@ -71,7 +71,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       final VaultFile file;
 
       try {
-        file = await read<VaultRepository>().getFile(event.url);
+        file = await read<VaultRepository>()
+            .getFile(event.url, read<AppSettingsBloc>());
       } catch (_e) {
         emit(VaultState.opening(
             errorCount:
@@ -92,7 +93,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       VaultFile file;
 
       try {
-        file = await read<VaultRepository>().getFile(event.url);
+        file = await read<VaultRepository>()
+            .getFile(event.url, read<AppSettingsBloc>());
       } on MergeException catch (e) {
         // TODO: Present user with prompt to merge files
         file = e.local;
@@ -116,7 +118,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       VaultFile file;
 
       try {
-        file = await read<VaultRepository>().getFile(event.url);
+        file = await read<VaultRepository>()
+            .getFile(event.url, read<AppSettingsBloc>());
       } catch (_e) {
         emit(VaultState.opening(
             errorCount:
@@ -198,10 +201,13 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     final unlockedState =
         state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    emit(unlockedState.copyWith(vault: event.newVault));
+    final newVault = event.newVault.copyWith(
+        header: event.newVault.header.copyWith(lastUpdate: DateTime.now()));
+
+    emit(unlockedState.copyWith(vault: newVault));
 
     try {
-      read<VaultRepository>().updateFile(event.newVault, event.masterKey);
+      read<VaultRepository>().updateFile(newVault, event.masterKey);
     } catch (e) {
       emit(unlockedState.copyWith(errorCounts: unlockedState.errorCounts + 1));
     }
@@ -212,8 +218,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     final unlockedState =
         state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    final encryptedFile =
-        await read<VaultRepository>().getFile(unlockedState.vault.url!);
+    final encryptedFile = await read<VaultRepository>()
+        .getFile(unlockedState.vault.url!, read<AppSettingsBloc>());
 
     emit(VaultState.locked(
         unlockedState.vault.copyWith(contents: encryptedFile.contents)));

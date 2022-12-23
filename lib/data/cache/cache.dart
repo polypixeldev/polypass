@@ -51,6 +51,28 @@ Future<FileVaultUrl> cachedUrltoFileUrl(CachedVaultUrl cachedUrl) async {
   return VaultUrl.file(cachedFile.absolute.path).mapOrNull(file: (url) => url)!;
 }
 
+VaultFile syncCachedAndRemote(
+    {required VaultFile localFile,
+    required VaultFile remoteFile,
+    required Map<String, DateTime> lastSyncMap,
+    required String uuid}) {
+  var lastSync = lastSyncMap[uuid]!;
+  final localUpdated = localFile.header.lastUpdate.isAfter(lastSync);
+  final remoteUpdated = remoteFile.header.lastUpdate.isAfter(lastSync);
+
+  if (localUpdated) {
+    if (remoteUpdated) {
+      // TODO: dont forget to update the last sync after the MergeException
+      throw MergeException(local: localFile, remote: remoteFile);
+    } else {
+      // Local file has updates, remote file does not
+      return localFile;
+    }
+  } else {
+    return remoteFile;
+  }
+}
+
 class MergeException implements Exception {
   const MergeException({required this.local, required this.remote});
 

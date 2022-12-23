@@ -311,6 +311,7 @@ class VaultHeader with _$VaultHeader {
       required String uuid,
       required VaultUrl? remoteUrl,
       required VaultSettings settings,
+      required DateTime lastUpdate,
       required MagicValue magic,
       required String key,
       required List<int> salt}) = _VaultHeader;

@@ -28,6 +28,7 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
               Map<String, dynamic>.from(json['remoteUrl'] as Map)),
       settings: VaultSettings.fromJson(
           Map<String, dynamic>.from(json['settings'] as Map)),
+      lastUpdate: DateTime.parse(json['lastUpdate'] as String),
       magic:
           MagicValue.fromJson(Map<String, dynamic>.from(json['magic'] as Map)),
       key: json['key'] as String,
@@ -40,6 +41,7 @@ Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
       'uuid': instance.uuid,
       'remoteUrl': instance.remoteUrl?.toJson(),
       'settings': instance.settings.toJson(),
+      'lastUpdate': instance.lastUpdate.toIso8601String(),
       'magic': instance.magic.toJson(),
       'key': instance.key,
       'salt': instance.salt,

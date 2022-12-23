@@ -596,6 +596,8 @@ mixin _$VaultHeader {
   set remoteUrl(VaultUrl? value) => throw _privateConstructorUsedError;
   VaultSettings get settings => throw _privateConstructorUsedError;
   set settings(VaultSettings value) => throw _privateConstructorUsedError;
+  DateTime get lastUpdate => throw _privateConstructorUsedError;
+  set lastUpdate(DateTime value) => throw _privateConstructorUsedError;
   MagicValue get magic => throw _privateConstructorUsedError;
   set magic(MagicValue value) => throw _privateConstructorUsedError;
   String get key => throw _privateConstructorUsedError;
@@ -619,6 +621,7 @@ abstract class $VaultHeaderCopyWith<$Res> {
       String uuid,
       VaultUrl? remoteUrl,
       VaultSettings settings,
+      DateTime lastUpdate,
       MagicValue magic,
       String key,
       List<int> salt});
@@ -642,6 +645,7 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
     Object? uuid = freezed,
     Object? remoteUrl = freezed,
     Object? settings = freezed,
+    Object? lastUpdate = freezed,
     Object? magic = freezed,
     Object? key = freezed,
     Object? salt = freezed,
@@ -663,6 +667,10 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
+      lastUpdate: lastUpdate == freezed
+          ? _value.lastUpdate
+          : lastUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       magic: magic == freezed
           ? _value.magic
           : magic // ignore: cast_nullable_to_non_nullable
@@ -716,6 +724,7 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
       String uuid,
       VaultUrl? remoteUrl,
       VaultSettings settings,
+      DateTime lastUpdate,
       MagicValue magic,
       String key,
       List<int> salt});
@@ -744,6 +753,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
     Object? uuid = freezed,
     Object? remoteUrl = freezed,
     Object? settings = freezed,
+    Object? lastUpdate = freezed,
     Object? magic = freezed,
     Object? key = freezed,
     Object? salt = freezed,
@@ -765,6 +775,10 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
+      lastUpdate: lastUpdate == freezed
+          ? _value.lastUpdate
+          : lastUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       magic: magic == freezed
           ? _value.magic
           : magic // ignore: cast_nullable_to_non_nullable
@@ -789,6 +803,7 @@ class _$_VaultHeader extends _VaultHeader {
       required this.uuid,
       required this.remoteUrl,
       required this.settings,
+      required this.lastUpdate,
       required this.magic,
       required this.key,
       required this.salt})
@@ -806,6 +821,8 @@ class _$_VaultHeader extends _VaultHeader {
   @override
   VaultSettings settings;
   @override
+  DateTime lastUpdate;
+  @override
   MagicValue magic;
   @override
   String key;
@@ -814,7 +831,7 @@ class _$_VaultHeader extends _VaultHeader {
 
   @override
   String toString() {
-    return 'VaultHeader(name: $name, uuid: $uuid, remoteUrl: $remoteUrl, settings: $settings, magic: $magic, key: $key, salt: $salt)';
+    return 'VaultHeader(name: $name, uuid: $uuid, remoteUrl: $remoteUrl, settings: $settings, lastUpdate: $lastUpdate, magic: $magic, key: $key, salt: $salt)';
   }
 
   @JsonKey(ignore: true)
@@ -836,6 +853,7 @@ abstract class _VaultHeader extends VaultHeader {
       required String uuid,
       required VaultUrl? remoteUrl,
       required VaultSettings settings,
+      required DateTime lastUpdate,
       required MagicValue magic,
       required String key,
       required List<int> salt}) = _$_VaultHeader;
@@ -856,6 +874,9 @@ abstract class _VaultHeader extends VaultHeader {
   @override
   VaultSettings get settings;
   set settings(VaultSettings value);
+  @override
+  DateTime get lastUpdate;
+  set lastUpdate(DateTime value);
   @override
   MagicValue get magic;
   set magic(MagicValue value);

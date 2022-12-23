@@ -4,6 +4,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:polypass/data/vault_providers.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/data/cache/cache.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 
 class VaultRepository {
   const VaultRepository();
@@ -11,7 +12,8 @@ class VaultRepository {
   final FileProvider fileProvider = const FileProvider();
   final FtpProvider ftpProvider = const FtpProvider();
 
-  Future<VaultFile> getFile(VaultUrl url) async {
+  Future<VaultFile> getFile(
+      VaultUrl url, AppSettingsBloc appSettingsBloc) async {
     return await url.map(file: (fileUrl) async {
       final file = await fileProvider.readFile(fileUrl);
       return VaultFile.fromJson(jsonDecode(file)).copyWith(url: fileUrl);
@@ -24,19 +26,40 @@ class VaultRepository {
       if (cachedFile == null) {
         throw Exception('FILE_NOT_IN_CACHE');
       } else {
+        VaultFile remoteFile;
+
         try {
-          final file = await getFile(cachedFile.header.remoteUrl!);
-          if (jsonEncode(file.toJson()) !=
-              jsonEncode(cachedFile
-                  .copyWith(header: cachedFile.header.copyWith(remoteUrl: null))
-                  .toJson())) {
-            // TODO: Merge files
-            throw MergeException(local: cachedFile, remote: file);
-          }
-          return cachedFile;
+          remoteFile =
+              await getFile(cachedFile.header.remoteUrl!, appSettingsBloc);
         } catch (e) {
           return cachedFile;
         }
+
+        final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+
+        var syncFile = syncCachedAndRemote(
+            localFile: cachedFile,
+            remoteFile: remoteFile,
+            lastSyncMap: lastSyncMap,
+            uuid: cachedUrl.uuid);
+
+        syncFile = syncFile.copyWith(
+            url: cachedUrl,
+            header: syncFile.header
+                .copyWith(remoteUrl: cachedFile.header.remoteUrl));
+
+        updateEncryptedRemoteFile(syncFile);
+        updateEncryptedLocalFile(syncFile);
+
+        lastSyncMap[cachedUrl.uuid] = DateTime.now();
+
+        final newSettings =
+            appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+
+        appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+        newSettings.save();
+
+        return syncFile;
       }
     });
   }
@@ -57,6 +80,26 @@ class VaultRepository {
               url: file.header.remoteUrl,
               header: file.header.copyWith(remoteUrl: null)),
           key);
+    });
+  }
+
+  Future<void> updateEncryptedRemoteFile(VaultFile file) async {
+    final raw = file.toJson();
+
+    await file.header.remoteUrl!.mapOrNull(file: (fileUrl) async {
+      await fileProvider.updateFile(fileUrl, jsonEncode(raw));
+    }, ftp: (ftpUrl) async {
+      await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));
+    });
+  }
+
+  Future<void> updateEncryptedLocalFile(VaultFile file) async {
+    final raw = file.toJson();
+
+    await file.url!.mapOrNull(file: (fileUrl) async {
+      await fileProvider.updateFile(fileUrl, jsonEncode(raw));
+    }, ftp: (ftpUrl) async {
+      await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));
     });
   }
 

@@ -95,6 +95,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
             name: state.name,
             uuid: uuid,
             remoteUrl: state.url,
+            lastUpdate: DateTime.now(),
             settings: appSettings.defaultVaultSettings,
             magic: MagicValue(Encrypter(AES(derivedKey))
                 .encrypt(MagicValue.decryptedValue.value, iv: iv)
