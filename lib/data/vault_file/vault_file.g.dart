@@ -21,8 +21,14 @@ Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
 
 _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       name: json['name'] as String,
+      uuid: json['uuid'] as String,
+      remoteUrl: json['remoteUrl'] == null
+          ? null
+          : VaultUrl.fromJson(
+              Map<String, dynamic>.from(json['remoteUrl'] as Map)),
       settings: VaultSettings.fromJson(
           Map<String, dynamic>.from(json['settings'] as Map)),
+      lastUpdate: DateTime.parse(json['lastUpdate'] as String),
       magic:
           MagicValue.fromJson(Map<String, dynamic>.from(json['magic'] as Map)),
       key: json['key'] as String,
@@ -32,7 +38,10 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
 Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'uuid': instance.uuid,
+      'remoteUrl': instance.remoteUrl?.toJson(),
       'settings': instance.settings.toJson(),
+      'lastUpdate': instance.lastUpdate.toIso8601String(),
       'magic': instance.magic.toJson(),
       'key': instance.key,
       'salt': instance.salt,
@@ -163,5 +172,16 @@ Map<String, dynamic> _$$FtpVaultUrlToJson(_$FtpVaultUrl instance) =>
       'user': instance.user,
       'password': instance.password,
       'path': instance.path,
+      'runtimeType': instance.$type,
+    };
+
+_$CachedVaultUrl _$$CachedVaultUrlFromJson(Map json) => _$CachedVaultUrl(
+      uuid: json['uuid'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$CachedVaultUrlToJson(_$CachedVaultUrl instance) =>
+    <String, dynamic>{
+      'uuid': instance.uuid,
       'runtimeType': instance.$type,
     };

@@ -39,7 +39,9 @@ class Create extends StatelessWidget {
                       content: Text('Opening vault...'),
                       duration: Duration(days: 365)));
 
-                  context.read<VaultBloc>().add(VaultEvent.opened(state.url!));
+                  context
+                      .read<VaultBloc>()
+                      .add(VaultEvent.opened(state.url!, context));
                 },
                 listenWhen: (previous, current) =>
                     previous.created != current.created &&

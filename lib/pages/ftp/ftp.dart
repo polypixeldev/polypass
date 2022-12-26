@@ -241,7 +241,9 @@ class SubmitButton extends StatelessWidget {
                       GoRouter.of(context).go('/create');
                       break;
                     case 'open':
-                      context.read<VaultBloc>().add(VaultEvent.opened(ftpUrl));
+                      context
+                          .read<VaultBloc>()
+                          .add(VaultEvent.opened(ftpUrl, context));
                       break;
                   }
                 });

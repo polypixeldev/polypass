@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
-import 'package:polypass/data/vault_file/vault_file.dart';
+import 'package:polypass/blocs/recent_bloc/recent_bloc.dart';
 
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 import 'package:polypass/components/open_dialog/open_dialog.dart';
@@ -14,6 +14,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
+
+    final recentUrl = context.read<RecentBloc>().state.recentUrl;
+    if (recentUrl != null) {
+      context.read<VaultBloc>().add(VaultEvent.opened(recentUrl, context));
+      context.read<RecentBloc>().add(const RecentEvent.recentUrlChanged(null));
+    }
 
     return AppWrapper(
         actions: false,
@@ -62,14 +68,12 @@ class Home extends StatelessWidget {
                               onPressed: state.maybeWhen(
                                   opening: (errorCount) => null,
                                   orElse: () => () async {
-                                        final String? path =
-                                            await pickFileLocation(
-                                                context, 'open');
+                                        final url = await pickFileLocation(
+                                            context, 'open');
 
-                                        if (path != null) {
+                                        if (url != null) {
                                           context.read<VaultBloc>().add(
-                                              VaultEvent.opened(
-                                                  VaultUrl.file(path)));
+                                              VaultEvent.opened(url, context));
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(

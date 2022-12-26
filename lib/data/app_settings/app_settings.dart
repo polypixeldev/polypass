@@ -9,18 +9,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_settings.freezed.dart';
 part 'app_settings.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class AppSettings with _$AppSettings {
-  const AppSettings._();
-  const factory AppSettings(
+  AppSettings._();
+  factory AppSettings(
       {required VaultSettings defaultVaultSettings,
-      required VaultUrl? recentUrl}) = _AppSettings;
+      required VaultUrl? recentUrl,
+      required Map<String, DateTime> lastSyncMap}) = _AppSettings;
 
   static final documentsDir = Platform.isAndroid
       ? getExternalStorageDirectory()
       : getApplicationDocumentsDirectory();
 
-  static getPolyPassDir() async {
+  static Future<String> getPolyPassDir() async {
     final polyPassDir = Directory(
         '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
     if (!await polyPassDir.exists()) {
@@ -46,8 +47,10 @@ class AppSettings with _$AppSettings {
         .writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() =>
-      AppSettings(defaultVaultSettings: VaultSettings.empty(), recentUrl: null);
+  factory AppSettings.empty() => AppSettings(
+      defaultVaultSettings: VaultSettings.empty(),
+      recentUrl: null,
+      lastSyncMap: {});
   factory AppSettings.fromJson(Map<String, dynamic> json) =>
       _$AppSettingsFromJson(json);
 }

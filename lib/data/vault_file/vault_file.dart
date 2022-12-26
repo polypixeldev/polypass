@@ -308,7 +308,10 @@ class VaultHeader with _$VaultHeader {
   VaultHeader._();
   factory VaultHeader(
       {required String name,
+      required String uuid,
+      required VaultUrl? remoteUrl,
       required VaultSettings settings,
+      required DateTime lastUpdate,
       required MagicValue magic,
       required String key,
       required List<int> salt}) = _VaultHeader;
@@ -425,6 +428,7 @@ class VaultUrl with _$VaultUrl {
       required String user,
       required String password,
       required String path}) = FtpVaultUrl;
+  const factory VaultUrl.cached({required String uuid}) = CachedVaultUrl;
 
   factory VaultUrl.fromJson(Map<String, dynamic> json) =>
       _$VaultUrlFromJson(json);
@@ -432,6 +436,7 @@ class VaultUrl with _$VaultUrl {
   String toHumanUrl() {
     return map(
         file: (url) => 'Local file ${Platform.isAndroid ? '' : url.path}',
-        ftp: (url) => 'Remote file on ${url.host} at ${url.path}');
+        ftp: (url) => 'Remote file on ${url.host} at ${url.path}',
+        cached: (url) => 'Cached file ${url.uuid}');
   }
 }

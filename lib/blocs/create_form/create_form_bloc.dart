@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:polypass/data/vault_repository.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
+import 'package:polypass/data/cache/cache.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'create_form_bloc.freezed.dart';
@@ -42,7 +46,10 @@ class CreateFormEvent with _$CreateFormEvent {
 }
 
 class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
-  CreateFormBloc({required this.vaultRepository, required this.appSettings})
+  CreateFormBloc(
+      {required this.vaultRepository,
+      required this.appSettings,
+      required this.read})
       : super(CreateFormState.empty()) {
     on<CreateFormEvent>((event, emit) async {
       await event.map(
@@ -57,6 +64,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
   final VaultRepository vaultRepository;
   final AppSettings appSettings;
+  final Locator read;
 
   Future<void> _onNameChanged(
       NameChangedEvent event, Emitter<CreateFormState> emit) async {
@@ -86,29 +94,39 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
         appSettings.defaultVaultSettings);
     final iv = IV.fromSecureRandom(16);
 
+    final uuid = const Uuid().v4();
+
+    var newVaultFile = VaultFile(
+        header: VaultHeader(
+            name: state.name,
+            uuid: uuid,
+            remoteUrl: state.url,
+            lastUpdate: DateTime.now(),
+            settings: appSettings.defaultVaultSettings,
+            magic: MagicValue(Encrypter(AES(derivedKey))
+                .encrypt(MagicValue.decryptedValue.value, iv: iv)
+                .base64),
+            key: Encrypter(AES(derivedKey))
+                .encrypt(masterKey.base64, iv: iv)
+                .base64,
+            salt: salt),
+        url: null,
+        contents: EncryptedData<VaultContents>.decrypted(
+            VaultContents(components: []), iv));
+
+    await addToCache(newVaultFile);
+
+    newVaultFile = newVaultFile.copyWith(url: VaultUrl.cached(uuid: uuid));
+
     try {
       await vaultRepository.updateFile(
-          VaultFile(
-              header: VaultHeader(
-                  name: state.name,
-                  settings: appSettings.defaultVaultSettings,
-                  magic: MagicValue(Encrypter(AES(derivedKey))
-                      .encrypt(MagicValue.decryptedValue.value, iv: iv)
-                      .base64),
-                  key: Encrypter(AES(derivedKey))
-                      .encrypt(masterKey.base64, iv: iv)
-                      .base64,
-                  salt: salt),
-              url: state.url,
-              contents: EncryptedData<VaultContents>.decrypted(
-                  VaultContents(components: []), iv)),
-          masterKey);
+          newVaultFile, masterKey, read<AppSettingsBloc>());
     } catch (_e) {
       emit(state.copyWith(errorCount: state.errorCount + 1, submitted: false));
       return;
     }
 
-    emit(state.copyWith(created: true));
+    emit(state.copyWith(created: true, url: newVaultFile.url));
   }
 
   Future<void> _onDataCleared(
