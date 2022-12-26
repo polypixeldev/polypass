@@ -64,7 +64,8 @@ class VaultRepository {
     });
   }
 
-  Future<void> updateFile(VaultFile file, Key key) async {
+  Future<void> updateFile(
+      VaultFile file, Key key, AppSettingsBloc appSettingsBloc) async {
     var encryptedContents = file.contents.encrypt(key);
     final raw = file.copyWith(contents: encryptedContents).toJson();
 
@@ -79,7 +80,16 @@ class VaultRepository {
           file.copyWith(
               url: file.header.remoteUrl,
               header: file.header.copyWith(remoteUrl: null)),
-          key);
+          key,
+          appSettingsBloc);
+
+      final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+      lastSyncMap[cachedUrl.uuid] = DateTime.now();
+      final newSettings =
+          appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+
+      appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+      newSettings.save();
     });
   }
 

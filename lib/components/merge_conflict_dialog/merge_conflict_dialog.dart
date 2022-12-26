@@ -28,13 +28,26 @@ class MergeConflictDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
             constraints: const BoxConstraints(maxHeight: 200, maxWidth: 700),
             padding: const EdgeInsets.all(10),
-            child: Column(children: [
-              Text('Merge Conflict', style: theme.textTheme.titleMedium),
-              Row(children: [
-                LocalButton(onResolve: onResolve, localFile: localFile),
-                RemoteButton(onResolve: onResolve, remoteFile: remoteFile)
-              ])
-            ])));
+            child: Column(
+              children: [
+                Text('Merge Conflict', style: theme.textTheme.titleMedium),
+                Text(
+                  'There have been changes to this file on multiple devices since the last sync. Please select a version to keep.',
+                  style: TextStyle(
+                      fontSize: theme.textTheme.bodySmall!.fontSize,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                Row(
+                    children: [
+                      LocalButton(onResolve: onResolve, localFile: localFile),
+                      RemoteButton(onResolve: onResolve, remoteFile: remoteFile)
+                    ],
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly)
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            )));
   }
 }
 
@@ -50,7 +63,7 @@ class LocalButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: const Text('Local',
-          style: TextStyle(color: Colors.white, fontSize: 20)),
+          style: TextStyle(color: Colors.white, fontSize: 25)),
       onPressed: () {
         onResolve(localFile);
       },
@@ -69,8 +82,8 @@ class RemoteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: const Text('Local',
-          style: TextStyle(color: Colors.white, fontSize: 20)),
+      child: const Text('Remote',
+          style: TextStyle(color: Colors.white, fontSize: 25)),
       onPressed: () {
         onResolve(remoteFile);
       },

@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:polypass/data/vault_repository.dart';
-import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
-import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 import 'package:polypass/blocs/activity_bloc/activity_bloc.dart';
+import 'package:polypass/blocs/recent_bloc/recent_bloc.dart';
+import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 
 import 'package:polypass/pages/home/home.dart';
 import 'package:polypass/pages/ftp/ftp.dart';
@@ -102,14 +103,16 @@ class _AppState extends State<App> with TickerProviderStateMixin {
             ),
             BlocProvider(
                 create: (context) => CreateFormBloc(
-                      vaultRepository: context.read<VaultRepository>(),
-                      appSettings:
-                          context.read<AppSettingsBloc>().state.settings,
-                    )),
+                    vaultRepository: context.read<VaultRepository>(),
+                    appSettings: context.read<AppSettingsBloc>().state.settings,
+                    read: context.read)),
             BlocProvider(create: (context) => VaultBloc(read: context.read)),
             BlocProvider(
                 create: (context) => ActivityBloc(read: context.read)
-                  ..add(const ActivityEvent.started()))
+                  ..add(const ActivityEvent.started())),
+            BlocProvider(
+              create: (context) => RecentBloc(),
+            )
           ],
           child: ActivityListener(
             child: MaterialApp.router(

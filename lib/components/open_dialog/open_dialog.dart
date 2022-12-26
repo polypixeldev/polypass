@@ -15,7 +15,7 @@ class OpenDialog extends StatelessWidget {
       required this.redirect})
       : super(key: key);
 
-  final void Function(String path) onSuccess;
+  final void Function(String path, bool cached) onSuccess;
   final void Function() onCancel;
   final String redirect;
 
@@ -25,19 +25,22 @@ class OpenDialog extends StatelessWidget {
 
     final dirWidgetsFuture = AppSettings.getPolyPassDir().then((dir) {
       final entries = Directory(dir).listSync();
+      entries.addAll(Directory('$dir/.cache').listSync());
       final vaultFiles = entries
           .whereType<File>()
           .where((file) => file.path.endsWith('.ppv.json'));
       final vaults = vaultFiles.map((vaultFile) => {
             'path': vaultFile.absolute.path,
             'vault':
-                VaultFile.fromJson(jsonDecode(vaultFile.readAsStringSync()))
+                VaultFile.fromJson(jsonDecode(vaultFile.readAsStringSync())),
+            'cached': vaultFile.absolute.path.contains('.cache')
           });
 
       return vaults
           .map((vault) => VaultListItem(
               vault: vault['vault'] as VaultFile,
               path: vault['path'] as String,
+              cached: vault['cached'] as bool,
               onSelect: onSuccess))
           .toList();
     });
@@ -76,7 +79,7 @@ class LocalButton extends StatelessWidget {
       : super(key: key);
 
   final void Function() onCancel;
-  final void Function(String path) onSuccess;
+  final void Function(String path, bool cached) onSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +103,7 @@ class LocalButton extends StatelessWidget {
           if (filePath == null) {
             onCancel();
           } else {
-            onSuccess(filePath);
+            onSuccess(filePath, false);
           }
         },
       ),
@@ -137,19 +140,21 @@ class VaultListItem extends StatelessWidget {
       {Key? key,
       required this.vault,
       required this.path,
+      required this.cached,
       required this.onSelect})
       : super(key: key);
 
   final VaultFile vault;
   final String path;
-  final void Function(String) onSelect;
+  final bool cached;
+  final void Function(String path, bool cached) onSelect;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => onSelect(path),
+        onTap: () => onSelect(path, cached),
         child: Container(
           padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.all(10),
@@ -188,14 +193,17 @@ class CancelButton extends StatelessWidget {
   }
 }
 
-Future<String?> pickFileLocation(BuildContext context, String redirect) async {
+Future<VaultUrl?> pickFileLocation(
+    BuildContext context, String redirect) async {
   String? path;
+  bool cached = false;
 
   await showDialog(
       context: context,
       builder: (context) => OpenDialog(
-          onSuccess: (dialogPath) {
+          onSuccess: (dialogPath, dialogCached) {
             path = dialogPath;
+            cached = dialogCached;
             Navigator.of(context, rootNavigator: true).pop();
           },
           onCancel: () {
@@ -203,5 +211,15 @@ Future<String?> pickFileLocation(BuildContext context, String redirect) async {
           },
           redirect: redirect));
 
-  return path;
+  if (path == null) return null;
+
+  final VaultUrl url;
+
+  if (cached) {
+    url = VaultUrl.cached(uuid: path!.split('/').last.split('.').first);
+  } else {
+    url = VaultUrl.file(path!);
+  }
+
+  return url;
 }

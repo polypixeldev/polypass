@@ -5,6 +5,7 @@ import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/blocs/recent_bloc/recent_bloc.dart';
 import 'package:polypass/data/vault_repository.dart';
 
 class Recent extends StatelessWidget {
@@ -21,10 +22,13 @@ class Recent extends StatelessWidget {
         if (!exists) {
           appSettingsBloc.add(AppSettingsEvent.settingsUpdated(
               appSettingsBloc.state.settings.copyWith(recentUrl: null)));
-          router.go('/');
         } else {
-          context.read<VaultBloc>().add(VaultEvent.opened(recentUrl, context));
+          context
+              .read<RecentBloc>()
+              .add(RecentEvent.recentUrlChanged(recentUrl));
         }
+
+        router.go('/');
       });
     } else {
       Future.delayed(Duration.zero, () {
@@ -38,6 +42,8 @@ class Recent extends StatelessWidget {
             listener: (context, state) {
               router.go('/');
             },
+            listenWhen: (previous, current) =>
+                current.maybeWhen(locked: (vault) => true, orElse: () => false),
             child: Container(
                 color: Colors.black,
                 child: const Image(image: AssetImage('assets/polypass.png')))));

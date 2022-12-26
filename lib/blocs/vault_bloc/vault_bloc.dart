@@ -95,9 +95,11 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     }, cached: (url) async {
       VaultFile file;
 
+      final vaultRepository = read<VaultRepository>();
+      final appSettingsBloc = read<AppSettingsBloc>();
+
       try {
-        file = await read<VaultRepository>()
-            .getFile(event.url, read<AppSettingsBloc>());
+        file = await vaultRepository.getFile(event.url, appSettingsBloc);
       } on MergeException catch (e) {
         file = await resolveConflict(event.context,
             local: e.local, remote: e.remote);
@@ -107,6 +109,19 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
         return;
       }
+
+      file = file.copyWith(url: event.url);
+      vaultRepository.updateEncryptedLocalFile(file);
+      vaultRepository.updateEncryptedRemoteFile(file);
+
+      final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+      lastSyncMap[url.uuid] = DateTime.now();
+
+      final newSettings =
+          appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+
+      appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+      newSettings.save();
 
       read<AppSettingsBloc>()
           .state
@@ -210,7 +225,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     emit(unlockedState.copyWith(vault: newVault));
 
     try {
-      read<VaultRepository>().updateFile(newVault, event.masterKey);
+      read<VaultRepository>()
+          .updateFile(newVault, event.masterKey, read<AppSettingsBloc>());
     } catch (e) {
       emit(unlockedState.copyWith(errorCounts: unlockedState.errorCounts + 1));
     }

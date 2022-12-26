@@ -67,10 +67,8 @@ VaultFile syncCachedAndRemote(
 
   if (localUpdated) {
     if (remoteUpdated) {
-      // TODO: dont forget to update the last sync after the MergeException
       throw MergeException(local: localFile, remote: remoteFile);
     } else {
-      // Local file has updates, remote file does not
       return localFile;
     }
   } else {
