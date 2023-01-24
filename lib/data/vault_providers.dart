@@ -63,8 +63,8 @@ class FtpProvider {
       await disconnect();
     }
 
-    _connection = FTPConnect(url.host,
-        user: url.user, pass: url.password, timeout: 10, debug: true);
+    _connection =
+        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
     _host = url.host;
     _path = url.path;
 
