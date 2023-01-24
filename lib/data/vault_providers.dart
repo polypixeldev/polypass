@@ -45,17 +45,46 @@ class FileProvider {
 class FtpProvider {
   const FtpProvider();
 
-  Future<String> readFile(FtpVaultUrl url) async {
-    final connection =
-        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
+  static FTPConnect? _connection;
+  static String? _host;
+  static String? _path;
 
-    await connection.connect();
+  Future<void> checkConnection(FtpVaultUrl? url) async {
+    if (_connection == null) {
+      await connect(url!);
+    } else if (_path != url!.path || _host != url.host) {
+      await disconnect();
+      await connect(url);
+    }
+  }
+
+  Future<void> connect(FtpVaultUrl url) async {
+    if (_connection != null) {
+      await disconnect();
+    }
+
+    _connection = FTPConnect(url.host,
+        user: url.user, pass: url.password, timeout: 10, debug: true);
+    _host = url.host;
+    _path = url.path;
+
+    await _connection!.connect();
+  }
+
+  Future<void> disconnect() async {
+    await _connection!.disconnect();
+    _connection = null;
+    _host = null;
+    _path = null;
+  }
+
+  Future<String> readFile(FtpVaultUrl? url) async {
+    await checkConnection(url);
 
     final localFile =
         File('${(await getTemporaryDirectory()).absolute.path}/vault.ppv.json');
     final successful =
-        await connection.downloadFileWithRetry(url.path, localFile);
-    await connection.disconnect();
+        await _connection!.downloadFileWithRetry(_path!, localFile);
 
     if (successful) {
       final contents = await localFile.readAsString();
@@ -67,31 +96,24 @@ class FtpProvider {
     }
   }
 
-  Future<void> updateFile(FtpVaultUrl url, String contents) async {
-    final connection =
-        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
-
-    await connection.connect();
+  Future<void> updateFile(FtpVaultUrl? url, String contents) async {
+    await checkConnection(url);
 
     final localFile =
         File('${(await getTemporaryDirectory()).absolute.path}/vault.ppv.json');
     await localFile.writeAsString(contents);
     final successful =
-        await connection.uploadFileWithRetry(localFile, pRemoteName: url.path);
-    await connection.disconnect();
+        await _connection!.uploadFileWithRetry(localFile, pRemoteName: _path!);
 
     if (!successful) {
       throw Exception('FTP_UPLOAD_FAILED');
     }
   }
 
-  Future<void> deleteFile(FtpVaultUrl url) async {
-    final connection =
-        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
+  Future<void> deleteFile(FtpVaultUrl? url) async {
+    await checkConnection(url);
 
-    await connection.connect();
-    final successful = await connection.deleteFile(url.path);
-    await connection.disconnect();
+    final successful = await _connection!.deleteFile(_path!);
 
     if (successful) {
       final localFile = File(
@@ -102,13 +124,10 @@ class FtpProvider {
     }
   }
 
-  Future<bool> fileExists(FtpVaultUrl url) async {
-    final connection =
-        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
+  Future<bool> fileExists(FtpVaultUrl? url) async {
+    await checkConnection(url);
 
-    await connection.connect();
-    final exists = await connection.existFile(url.path);
-    await connection.disconnect();
+    final exists = await _connection!.existFile(_path!);
 
     if (exists) {
       return true;

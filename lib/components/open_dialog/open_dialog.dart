@@ -25,7 +25,11 @@ class OpenDialog extends StatelessWidget {
 
     final dirWidgetsFuture = AppSettings.getPolyPassDir().then((dir) {
       final entries = Directory(dir).listSync();
-      entries.addAll(Directory('$dir/.cache').listSync());
+      final cacheDir = Directory('$dir/.cache');
+      if (!cacheDir.existsSync()) {
+        cacheDir.createSync();
+      }
+      entries.addAll(cacheDir.listSync());
       final vaultFiles = entries
           .whereType<File>()
           .where((file) => file.path.endsWith('.ppv.json'));
@@ -68,7 +72,9 @@ class OpenDialog extends StatelessWidget {
                             ...snap.data as List<Widget>,
                             CancelButton(onCancel: onCancel)
                           ]
-                        : [],
+                        : const [
+                            Text('Loading...', textAlign: TextAlign.center)
+                          ],
                   );
                 })));
   }
