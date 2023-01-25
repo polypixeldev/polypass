@@ -24,6 +24,7 @@ import 'package:polypass/pages/vault/settings/settings.dart';
 import 'package:polypass/components/activity_listener/activity_listener.dart';
 
 import 'package:polypass/theme.dart';
+import 'package:polypass/ffi.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

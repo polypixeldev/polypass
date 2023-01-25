@@ -37,3 +37,6 @@ windows-install/data
 windows-install/polypass.exe
 windows-install/flutter_windows.dll
 windows-install/polypass.exe
+
+# Rust
+rust/target
