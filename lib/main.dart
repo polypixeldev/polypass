@@ -24,7 +24,6 @@ import 'package:polypass/pages/vault/settings/settings.dart';
 import 'package:polypass/components/activity_listener/activity_listener.dart';
 
 import 'package:polypass/theme.dart';
-import 'package:polypass/ffi.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +63,7 @@ class _AppState extends State<App> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final _router = GoRouter(routes: [
+    final router = GoRouter(routes: [
       GoRoute(
           path: '/',
           pageBuilder: (context, state) => CustomTransitionPage<void>(
@@ -72,7 +71,7 @@ class _AppState extends State<App> with TickerProviderStateMixin {
                 child: const Home(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(child: child, opacity: fadeAnimation),
+                        FadeTransition(opacity: fadeAnimation, child: child),
               )),
       GoRoute(
           path: '/ftp',
@@ -117,8 +116,8 @@ class _AppState extends State<App> with TickerProviderStateMixin {
           ],
           child: ActivityListener(
             child: MaterialApp.router(
-                routeInformationParser: _router.routeInformationParser,
-                routerDelegate: _router.routerDelegate,
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
                 title: 'PolyPass',
                 debugShowCheckedModeBanner: false,
                 theme: appTheme),

@@ -96,7 +96,7 @@ class BaseRow extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       return BlocProvider(
-        create: (_context) => ComponentBloc(),
+        create: (context) => ComponentBloc(),
         child: BlocBuilder<ComponentBloc, ComponentState>(
             builder: (context, state) {
           final bloc = context.read<ComponentBloc>();
@@ -117,69 +117,68 @@ class BaseRow extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: GestureDetector(
-                    child: MouseRegion(
-                      onEnter: (_event) {
-                        bloc.add(const ComponentEvent.entered());
-                      },
-                      onExit: (_event) {
-                        bloc.add(const ComponentEvent.exited());
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: path != null && isSelected
-                                ? theme.colorScheme.tertiary
-                                : (state.inArea && hoverEffect)
-                                    ? theme.colorScheme.primaryContainer
-                                    : theme.cardColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Row(children: [
-                                  SizedBox(
-                                      width: rowWidth *
-                                          (Platform.isAndroid ? .38 : .35),
-                                      child: name(
-                                          state,
-                                          isSelected,
-                                          rowWidth *
-                                              (Platform.isAndroid
-                                                  ? .40
-                                                  : .35))),
-                                  const Padding(
-                                      padding: EdgeInsets.only(left: 40)),
-                                  SizedBox(
-                                      width: rowWidth *
-                                          (Platform.isAndroid ? .52 : .35),
-                                      child: username(
-                                          state, isSelected, rowWidth * .35)),
-                                  const Padding(
-                                      padding: EdgeInsets.only(left: 40)),
-                                  SizedBox(
-                                      width: rowWidth *
-                                          (Platform.isAndroid ? .10 : .3),
-                                      child: actions(
-                                          state,
-                                          isSelected,
-                                          rowWidth *
-                                              (Platform.isAndroid ? .10 : .3)))
-                                ]),
-                                const Spacer()
-                              ],
-                            ),
-                            ...extras
-                          ],
-                        ),
+                  onTap: path == null
+                      ? null
+                      : () {
+                          vaultBloc
+                              .add(VaultEvent.itemSelected(path, isSelected));
+                        },
+                  child: MouseRegion(
+                    onEnter: (event) {
+                      bloc.add(const ComponentEvent.entered());
+                    },
+                    onExit: (event) {
+                      bloc.add(const ComponentEvent.exited());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: path != null && isSelected
+                              ? theme.colorScheme.tertiary
+                              : (state.inArea && hoverEffect)
+                                  ? theme.colorScheme.primaryContainer
+                                  : theme.cardColor,
+                          borderRadius: BorderRadius.circular(5)),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Row(children: [
+                                SizedBox(
+                                    width: rowWidth *
+                                        (Platform.isAndroid ? .38 : .35),
+                                    child: name(
+                                        state,
+                                        isSelected,
+                                        rowWidth *
+                                            (Platform.isAndroid ? .40 : .35))),
+                                const Padding(
+                                    padding: EdgeInsets.only(left: 40)),
+                                SizedBox(
+                                    width: rowWidth *
+                                        (Platform.isAndroid ? .52 : .35),
+                                    child: username(
+                                        state, isSelected, rowWidth * .35)),
+                                const Padding(
+                                    padding: EdgeInsets.only(left: 40)),
+                                SizedBox(
+                                    width: rowWidth *
+                                        (Platform.isAndroid ? .10 : .3),
+                                    child: actions(
+                                        state,
+                                        isSelected,
+                                        rowWidth *
+                                            (Platform.isAndroid ? .10 : .3)))
+                              ]),
+                              const Spacer()
+                            ],
+                          ),
+                          ...extras
+                        ],
                       ),
                     ),
-                    onTap: path == null
-                        ? null
-                        : () {
-                            vaultBloc
-                                .add(VaultEvent.itemSelected(path, isSelected));
-                          }),
+                  ),
+                ),
               )
             ],
           );
@@ -201,7 +200,7 @@ class ListItem extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (_context) => ListItemBloc(),
+      create: (context) => ListItemBloc(),
       child: BlocBuilder<VaultBloc, VaultState>(builder: (context, vaultState) {
         final unlockedVaultState = vaultState.maybeMap(
             unlocked: (state) => state, orElse: () => throw Error());
@@ -243,7 +242,7 @@ class ListItem extends StatelessWidget {
                 : item.password
                     .decrypt(masterKey)
                     .maybeWhen(
-                        decrypted: (data, _iv) => data,
+                        decrypted: (data, iv) => data,
                         orElse: () => throw Error())
                     .password;
           }
@@ -299,7 +298,7 @@ class ListItem extends StatelessWidget {
                                                   .header
                                                   .settings
                                                   .clipboardClearSeconds))
-                                          .then((_v) {
+                                          .then((v) {
                                         Clipboard.setData(
                                             const ClipboardData(text: ''));
                                       });
@@ -333,8 +332,8 @@ class ListItem extends StatelessWidget {
                                     children: passChildren,
                                   )
                                 : Column(
-                                    children: passChildren,
                                     mainAxisSize: MainAxisSize.min,
+                                    children: passChildren,
                                   ),
                           ),
                           const Padding(padding: EdgeInsets.only(left: 40)),
@@ -345,8 +344,8 @@ class ListItem extends StatelessWidget {
                                     children: notesChildren,
                                   )
                                 : Column(
-                                    children: notesChildren,
                                     mainAxisSize: MainAxisSize.min,
+                                    children: notesChildren,
                                   ),
                           )
                         ])));
@@ -465,22 +464,22 @@ class ListHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: BaseRow(
-          name: (_state, _isSelected, _columnWidth) {
+          name: (state, isSelected, columnWidth) {
             return Text('Item Name',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 12.5.sp,
                     fontWeight: FontWeight.w400));
           },
-          username: (_state, _isSelected, _columnWidth) {
+          username: (state, isSelected, columnWidth) {
             return Text('Item Username',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 12.5.sp,
                     fontWeight: FontWeight.w400));
           },
-          actions: (_state, _isSelected, _columnWidth) => null,
-          extra: (_state, _isSelected, _columnWidth) => null,
+          actions: (state, isSelected, columnWidth) => null,
+          extra: (state, isSelected, columnWidth) => null,
           hoverEffect: false),
     );
   }

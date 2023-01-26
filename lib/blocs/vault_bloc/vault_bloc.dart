@@ -76,7 +76,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       try {
         file = await read<VaultRepository>()
             .getFile(event.url, read<AppSettingsBloc>());
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
@@ -103,7 +103,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       } on MergeException catch (e) {
         file = await resolveConflict(event.context,
             local: e.local, remote: e.remote);
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
@@ -132,7 +132,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       try {
         file = await read<VaultRepository>()
             .getFile(event.url, read<AppSettingsBloc>());
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));

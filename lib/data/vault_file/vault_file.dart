@@ -325,7 +325,7 @@ class VaultHeader with _$VaultHeader {
     try {
       rawDecrypted =
           encrypter.decrypt(Encrypted.fromBase64(magic.value), iv: iv);
-    } catch (_e) {
+    } catch (e) {
       return false;
     }
 

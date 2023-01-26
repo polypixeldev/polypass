@@ -91,6 +91,8 @@ class TreeDivider extends StatelessWidget {
       return SizedBox(
         height: constraints.maxHeight,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 20,
@@ -117,8 +119,6 @@ class TreeDivider extends StatelessWidget {
                 height: constraints.maxHeight - 20,
                 child: const VerticalDivider()),
           ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
         ),
       );
     });
@@ -161,7 +161,7 @@ class SearchBar extends StatelessWidget {
           onChanged: (query) {
             vaultHomeBloc.add(VaultHomeEvent.queryChanged(query));
           },
-          onSubmitted: (_query) {
+          onSubmitted: (query) {
             vaultHomeBloc.add(const VaultHomeEvent.searchSubmitted());
           },
         ),

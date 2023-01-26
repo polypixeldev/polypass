@@ -30,9 +30,9 @@ class AppWrapper extends StatelessWidget {
             ScaffoldMessenger.of(context).clearSnackBars();
 
             state.whenOrNull(
-                locked: (_vault) => router.go('/vault/locked'),
-                unlocked: (_vault, _selectedGroup, _selectedItem,
-                        _viewingSelectedItem, _masterKey, _errorCount) =>
+                locked: (vault) => router.go('/vault/locked'),
+                unlocked: (vault, selectedGroup, selectedItem,
+                        viewingSelectedItem, masterKey, errorCount) =>
                     router.go('/vault/home'),
                 none: () => router.go('/'));
           },
@@ -47,13 +47,13 @@ class AppWrapper extends StatelessWidget {
             },
             listenWhen: (previous, current) =>
                 previous.maybeWhen(
-                    unlocked: (_vault, _selectedGroup, _selectedItem,
-                            _viewingSelectedItem, _masterKey, errorCount) =>
+                    unlocked: (vault, selectedGroup, selectedItem,
+                            viewingSelectedItem, masterKey, errorCount) =>
                         errorCount,
                     orElse: () => 0) <
                 current.maybeWhen(
-                    unlocked: (_vault, _selectedGroup, _selectedItem,
-                            _viewingSelectedItem, _masterKey, errorCount) =>
+                    unlocked: (vault, selectedGroup, selectedItem,
+                            viewingSelectedItem, masterKey, errorCount) =>
                         errorCount,
                     orElse: () => 0))
       ],

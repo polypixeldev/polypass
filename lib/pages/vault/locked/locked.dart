@@ -45,6 +45,9 @@ class VaultLocked extends StatelessWidget {
                     previous.fails != current.fails)
           ],
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                   'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
@@ -52,9 +55,6 @@ class VaultLocked extends StatelessWidget {
               const MasterPasswordInput(),
               const SubmitButton()
             ],
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
           ),
         ),
       ),
@@ -82,7 +82,7 @@ class MasterPasswordInput extends StatelessWidget {
               enabled: context
                   .read<VaultBloc>()
                   .state
-                  .maybeWhen(unlocking: (_vault) => false, orElse: () => true),
+                  .maybeWhen(unlocking: (vault) => false, orElse: () => true),
               decoration: const InputDecoration(
                   labelText: 'Master Password',
                   contentPadding: EdgeInsets.all(10),
@@ -121,12 +121,10 @@ class SubmitButton extends StatelessWidget {
     return BlocBuilder<UnlockFormBloc, UnlockFormState>(
         builder: (context, state) {
       return ElevatedButton(
-        child: const Text('Submit',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (_vault) => true, orElse: () => false) ||
+                    unlocking: (vault) => true, orElse: () => false) ||
                 !state.isFormValid
             ? null
             : () {
@@ -134,6 +132,8 @@ class SubmitButton extends StatelessWidget {
                     .read<UnlockFormBloc>()
                     .add(const UnlockFormEvent.formSubmitted());
               },
+        child: const Text('Submit',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       );
     });
   }

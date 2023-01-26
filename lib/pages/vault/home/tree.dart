@@ -60,15 +60,15 @@ class Tree extends StatelessWidget {
             componentData
           ])));
 
+          final vaultBloc = context.read<VaultBloc>();
+
           final masterKey = (await getMasterKey(context)).masterKey;
 
           if (masterKey == null) {
             return;
           }
 
-          context
-              .read<VaultBloc>()
-              .add(VaultEvent.updated(updatedVault, masterKey));
+          vaultBloc.add(VaultEvent.updated(updatedVault, masterKey));
         },
         onWillAccept: (pathStr) {
           if (unlockedState.selectedGroup?.join('.') == pathStr ||
@@ -95,7 +95,7 @@ class TreeGroup extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (_context) => ComponentBloc(),
+      create: (context) => ComponentBloc(),
       child: BlocBuilder<ComponentBloc, ComponentState>(
         builder: (context, componentState) {
           return BlocBuilder<VaultBloc, VaultState>(
@@ -172,6 +172,8 @@ class TreeGroup extends StatelessWidget {
                   final newVault = unlockedState.vault
                       .updateComponent(path: path, component: updatedComponent);
 
+                  final componentBloc = context.read<ComponentBloc>();
+
                   var masterKey = (await getMasterKey(context)).masterKey;
 
                   if (masterKey == null) {
@@ -180,9 +182,7 @@ class TreeGroup extends StatelessWidget {
 
                   vaultBloc.add(VaultEvent.updated(newVault, masterKey));
 
-                  context
-                      .read<ComponentBloc>()
-                      .add(const ComponentEvent.modeToggled());
+                  componentBloc.add(const ComponentEvent.modeToggled());
                 },
               );
             }
@@ -241,12 +241,12 @@ class TreeGroup extends StatelessWidget {
                                   ),
                                 )
                               ]),
-                              onEnter: (_event) {
+                              onEnter: (event) {
                                 context
                                     .read<ComponentBloc>()
                                     .add(const ComponentEvent.entered());
                               },
-                              onExit: (_event) {
+                              onExit: (event) {
                                 context
                                     .read<ComponentBloc>()
                                     .add(const ComponentEvent.exited());
@@ -279,15 +279,15 @@ class TreeGroup extends StatelessWidget {
                       component: VaultComponent.group(group.copyWith(
                           components: [...group.components, componentData])));
 
+                  final vaultBloc = context.read<VaultBloc>();
+
                   final masterKey = (await getMasterKey(context)).masterKey;
 
                   if (masterKey == null) {
                     return;
                   }
 
-                  context
-                      .read<VaultBloc>()
-                      .add(VaultEvent.updated(updatedVault, masterKey));
+                  vaultBloc.add(VaultEvent.updated(updatedVault, masterKey));
                 },
                 onWillAccept: (pathStr) {
                   if (unlockedState.selectedGroup?.join('.') == pathStr ||

@@ -9,3 +9,5 @@ linter:
 analyzer:
   errors:
     invalid_annotation_target: false
+  exclude:
+    - "**/*.g.dart"

@@ -121,7 +121,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
     try {
       await vaultRepository.updateFile(
           newVaultFile, masterKey, read<AppSettingsBloc>());
-    } catch (_e) {
+    } catch (e) {
       emit(state.copyWith(errorCount: state.errorCount + 1, submitted: false));
       return;
     }

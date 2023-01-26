@@ -26,7 +26,7 @@ class MasterPasswordDialog extends StatelessWidget {
         .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
     return BlocProvider(
-      create: (_context) =>
+      create: (context) =>
           MasterPasswordDialogBloc(vaultFile: unlockedState.vault),
       child: MultiBlocListener(
         listeners: [
@@ -71,6 +71,8 @@ class MasterPasswordDialog extends StatelessWidget {
                   return Center(
                     heightFactor: 1,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
                           decoration: BoxDecoration(
@@ -112,17 +114,15 @@ class MasterPasswordDialog extends StatelessWidget {
                         ),
                         const Padding(padding: EdgeInsets.only(bottom: 10)),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: const [
                             CancelButton(),
                             Padding(padding: EdgeInsets.only(left: 10)),
                             SubmitButton()
                           ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
                         )
                       ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
                     ),
                   );
                 }))),
@@ -141,18 +141,18 @@ class SubmitButton extends StatelessWidget {
     return BlocBuilder<MasterPasswordDialogBloc, MasterPasswordDialogState>(
         builder: (context, state) {
       return ElevatedButton(
-        child: const Text('Submit',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (_vault) => true, orElse: () => false) ||
+                    unlocking: (vault) => true, orElse: () => false) ||
                 !state.isFormValid
             ? null
             : () {
                 context.read<MasterPasswordDialogBloc>().add(
                     const MasterPasswordDialogEvent.masterPasswordSubmitted());
               },
+        child: const Text('Submit',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       );
     });
   }
@@ -168,12 +168,10 @@ class CancelButton extends StatelessWidget {
     return BlocBuilder<MasterPasswordDialogBloc, MasterPasswordDialogState>(
         builder: (context, state) {
       return ElevatedButton(
-        child: const Text('Cancel',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (_vault) => true, orElse: () => false) ||
+                    unlocking: (vault) => true, orElse: () => false) ||
                 !state.isFormValid
             ? null
             : () {
@@ -181,6 +179,8 @@ class CancelButton extends StatelessWidget {
                     .read<MasterPasswordDialogBloc>()
                     .add(const MasterPasswordDialogEvent.canceled());
               },
+        child: const Text('Cancel',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       );
     });
   }
