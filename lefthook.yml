@@ -6,8 +6,3 @@ pre-commit:
     format:
       glob: "*.dart"
       run: dart format {staged_files}; git add {staged_files}
-
-commit-msg:
-  commands:
-    lint:
-      run: dart run commit_check.dart
