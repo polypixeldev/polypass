@@ -40,3 +40,6 @@ windows-install/polypass.exe
 
 # Rust
 rust/target
+
+# Android libs
+jniLibs
