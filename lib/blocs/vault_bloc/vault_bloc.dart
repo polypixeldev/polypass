@@ -76,7 +76,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       try {
         file = await read<VaultRepository>()
             .getFile(event.url, read<AppSettingsBloc>());
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
@@ -103,7 +103,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       } on MergeException catch (e) {
         file = await resolveConflict(event.context,
             local: e.local, remote: e.remote);
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
@@ -117,17 +117,11 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
       lastSyncMap[url.uuid] = DateTime.now();
 
-      final newSettings =
-          appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+      final newSettings = appSettingsBloc.state.settings
+          .copyWith(lastSyncMap: lastSyncMap, recentUrl: event.url);
 
       appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
       newSettings.save();
-
-      read<AppSettingsBloc>()
-          .state
-          .settings
-          .copyWith(recentUrl: event.url)
-          .save();
 
       emit(VaultState.locked(file.copyWith(url: event.url)));
 
@@ -138,24 +132,30 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       try {
         file = await read<VaultRepository>()
             .getFile(event.url, read<AppSettingsBloc>());
-      } catch (_e) {
+      } catch (e) {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
         return;
       }
 
+      final cachedUrl = VaultUrl.cached(uuid: file.header.uuid);
+
       file = file.copyWith(
-          url: VaultUrl.cached(uuid: file.header.uuid),
-          header: file.header.copyWith(remoteUrl: event.url));
+          url: cachedUrl, header: file.header.copyWith(remoteUrl: event.url));
 
       addToCache(file);
 
-      read<AppSettingsBloc>()
-          .state
-          .settings
-          .copyWith(recentUrl: event.url)
-          .save();
+      final appSettingsBloc = read<AppSettingsBloc>();
+
+      final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+      lastSyncMap[file.header.uuid] = DateTime.now();
+
+      final newSettings = appSettingsBloc.state.settings
+          .copyWith(lastSyncMap: lastSyncMap, recentUrl: cachedUrl);
+
+      appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+      newSettings.save();
 
       emit(VaultState.locked(file));
 

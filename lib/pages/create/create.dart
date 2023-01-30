@@ -17,6 +17,8 @@ class Create extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AppWrapper(
+        actions: false,
+        icon: false,
         child: MultiBlocListener(
           listeners: [
             BlocListener<CreateFormBloc, CreateFormState>(
@@ -69,11 +71,15 @@ class Create extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text('Create a vault',
                           style: theme.textTheme.titleMedium),
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           const NameInput(),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
@@ -81,30 +87,24 @@ class Create extends StatelessWidget {
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           const FilePathWidget(),
                           Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 BackButton(router: router),
                                 const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 5)),
                                 const SubmitButton()
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min)
+                              ])
                         ],
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
                       ),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
                   ),
                 ),
               ),
             ]),
           ),
-        ),
-        actions: false,
-        icon: false);
+        ));
   }
 }
 
@@ -116,6 +116,8 @@ class FilePathWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         BlocBuilder<CreateFormBloc, CreateFormState>(builder: (context, state) {
           return Text(
@@ -126,8 +128,6 @@ class FilePathWidget extends StatelessWidget {
         const PathInput(),
         const Padding(padding: EdgeInsets.only(bottom: 30))
       ],
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
     );
   }
 }
@@ -142,7 +142,6 @@ class SubmitButton extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
         builder: (context, state) {
       return ElevatedButton(
-        child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: state.submitted || !state.isFormValid
@@ -152,6 +151,7 @@ class SubmitButton extends StatelessWidget {
                     .read<CreateFormBloc>()
                     .add(const CreateFormEvent.formSubmitted());
               },
+        child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium),
       );
     });
   }
@@ -170,14 +170,14 @@ class BackButton extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
         builder: (context, state) {
       return ElevatedButton(
-          child: Text('Back', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
           onPressed: state.submitted
               ? null
               : () {
                   router.go('/');
-                });
+                },
+          child: Text('Back', style: Theme.of(context).textTheme.bodyMedium));
     });
   }
 }
@@ -192,8 +192,6 @@ class PathInput extends StatelessWidget {
     return BlocBuilder<CreateFormBloc, CreateFormState>(
         builder: (context, state) {
       return ElevatedButton(
-        child: Text('Set vault file location',
-            style: Theme.of(context).textTheme.bodyMedium),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: state.submitted
@@ -210,6 +208,8 @@ class PathInput extends StatelessWidget {
 
                 bloc.add(CreateFormEvent.urlChanged(url));
               },
+        child: Text('Set vault file location',
+            style: Theme.of(context).textTheme.bodyMedium),
       );
     });
   }

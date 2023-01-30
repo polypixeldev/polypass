@@ -35,6 +35,8 @@ class LocationDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxHeight: 200, maxWidth: 800),
             padding: const EdgeInsets.all(10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 FtpButton(
                   redirect: redirect,
@@ -45,8 +47,6 @@ class LocationDialog extends StatelessWidget {
                 ),
                 CancelButton(onCancel: onCancel)
               ],
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
             )));
   }
 }
@@ -131,8 +131,8 @@ class CancelButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
           padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-      child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
       onPressed: onCancel,
+      child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
     );
   }
 }

@@ -30,6 +30,7 @@ class Home extends StatelessWidget {
             children: [
               Center(
                   child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Image(
                       image: AssetImage('assets/polypass.png'),
@@ -44,65 +45,69 @@ class Home extends StatelessWidget {
                     child: BlocBuilder<VaultBloc, VaultState>(
                         builder: ((context, state) {
                       return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           const Text('PolyPass',
                               style:
                                   TextStyle(fontSize: 30, color: Colors.white)),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                            child: const Padding(
-                                child: Text('Create a vault',
-                                    style: TextStyle(fontSize: 25)),
-                                padding: EdgeInsets.all(5)),
                             onPressed: state.maybeWhen(
                               opening: (errorCount) => null,
                               orElse: () => () => router.go('/create'),
                             ),
+                            child: const Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text('Create a vault',
+                                    style: TextStyle(fontSize: 25))),
                           ),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                              child: const Padding(
-                                  child: Text('Open a vault',
-                                      style: TextStyle(fontSize: 25)),
-                                  padding: EdgeInsets.all(5)),
                               onPressed: state.maybeWhen(
                                   opening: (errorCount) => null,
                                   orElse: () => () async {
+                                        final vaultBloc =
+                                            context.read<VaultBloc>();
+                                        final scaffoldManager =
+                                            ScaffoldMessenger.of(context);
                                         final url = await pickFileLocation(
                                             context, 'open');
 
                                         if (url != null) {
-                                          context.read<VaultBloc>().add(
+                                          vaultBloc.add(
+                                              // ignore: use_build_context_synchronously
                                               VaultEvent.opened(url, context));
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
+                                          scaffoldManager.showSnackBar(
+                                              const SnackBar(
                                                   content:
                                                       Text('Opening vault...'),
                                                   duration:
                                                       Duration(days: 365)));
                                         }
-                                      })),
+                                      }),
+                              child: const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Text('Open a vault',
+                                      style: TextStyle(fontSize: 25)))),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                            child: const Padding(
-                                child: Text('Global Settings',
-                                    style: TextStyle(fontSize: 25)),
-                                padding: EdgeInsets.all(5)),
                             onPressed: state.maybeWhen(
                                 opening: (errorCount) => null,
                                 orElse: () => () async {
                                       router.go('/settings');
                                     }),
+                            child: const Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text('Global Settings',
+                                    style: TextStyle(fontSize: 25))),
                           )
                         ],
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
                       );
                     })),
                   )
                 ],
-                mainAxisAlignment: MainAxisAlignment.center,
               )),
             ],
           ),

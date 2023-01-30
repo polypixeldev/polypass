@@ -25,7 +25,11 @@ class OpenDialog extends StatelessWidget {
 
     final dirWidgetsFuture = AppSettings.getPolyPassDir().then((dir) {
       final entries = Directory(dir).listSync();
-      entries.addAll(Directory('$dir/.cache').listSync());
+      final cacheDir = Directory('$dir/.cache');
+      if (!cacheDir.existsSync()) {
+        cacheDir.createSync();
+      }
+      entries.addAll(cacheDir.listSync());
       final vaultFiles = entries
           .whereType<File>()
           .where((file) => file.path.endsWith('.ppv.json'));
@@ -68,7 +72,9 @@ class OpenDialog extends StatelessWidget {
                             ...snap.data as List<Widget>,
                             CancelButton(onCancel: onCancel)
                           ]
-                        : [],
+                        : const [
+                            Text('Loading...', textAlign: TextAlign.center)
+                          ],
                   );
                 })));
   }
@@ -83,8 +89,6 @@ class LocalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
-
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
@@ -162,11 +166,11 @@ class VaultListItem extends StatelessWidget {
               color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(5)),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(vault.header.name,
                   style: Theme.of(context).textTheme.bodyMedium)
             ],
-            mainAxisAlignment: MainAxisAlignment.center,
           ),
         ),
       ),
@@ -186,8 +190,8 @@ class CancelButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
         onPressed: onCancel,
+        child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
       ),
     );
   }

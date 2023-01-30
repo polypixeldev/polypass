@@ -29,6 +29,7 @@ class MergeConflictDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxHeight: 200, maxWidth: 700),
             padding: const EdgeInsets.all(10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('Merge Conflict', style: theme.textTheme.titleMedium),
                 Text(
@@ -39,14 +40,13 @@ class MergeConflictDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       LocalButton(onResolve: onResolve, localFile: localFile),
                       RemoteButton(onResolve: onResolve, remoteFile: remoteFile)
-                    ],
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly)
+                    ])
               ],
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             )));
   }
 }

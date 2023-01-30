@@ -41,7 +41,7 @@ class EditItem extends StatelessWidget {
                   margin: const EdgeInsets.all(10),
                   width: 700,
                   child: BlocProvider(
-                    create: (_context) => EditFormBloc(
+                    create: (context) => EditFormBloc(
                         name: item.name,
                         username: item.username,
                         password: '',
@@ -138,6 +138,7 @@ class EditItem extends StatelessWidget {
                             )
                           ],
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               const Text('Edit Item',
                                   style: TextStyle(
@@ -147,15 +148,14 @@ class EditItem extends StatelessWidget {
                               ItemPasswordInput(item: item),
                               ItemNotesInput(item: item),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
                                   BackToHomeButton(),
                                   Padding(padding: EdgeInsets.only(left: 20)),
                                   SubmitButton()
                                 ],
-                                mainAxisAlignment: MainAxisAlignment.center,
                               )
                             ],
-                            mainAxisSize: MainAxisSize.min,
                           ),
                         );
                       },
@@ -174,8 +174,6 @@ class BackToHomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EditFormBloc, EditFormState>(builder: (context, state) {
       return ElevatedButton(
-        child: const Text('Back',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: state.submitted
@@ -183,6 +181,8 @@ class BackToHomeButton extends StatelessWidget {
             : () {
                 GoRouter.of(context).go('/vault/home');
               },
+        child: const Text('Back',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       );
     });
   }
@@ -362,23 +362,22 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EditFormBloc, EditFormState>(builder: (context, state) {
       return ElevatedButton(
-        child: const Text('Submit',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: !state.isFormValid || state.submitted
             ? null
             : () async {
+                final editFormBloc = context.read<EditFormBloc>();
                 var masterKey = (await getMasterKey(context)).masterKey;
 
                 if (masterKey == null) {
                   return;
                 }
 
-                context
-                    .read<EditFormBloc>()
-                    .add(EditFormEvent.formSubmitted(masterKey));
+                editFormBloc.add(EditFormEvent.formSubmitted(masterKey));
               },
+        child: const Text('Submit',
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       );
     });
   }

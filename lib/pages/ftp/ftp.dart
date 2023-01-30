@@ -49,7 +49,7 @@ class FtpInput extends StatelessWidget {
                         current.maybeWhen(
                             opening: (errorCount) => errorCount,
                             orElse: () => 0),
-                    child: Column(children: [
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Text('FTP Connection Information',
                           style: Theme.of(context).textTheme.titleMedium),
                       const HostInput(),
@@ -57,15 +57,15 @@ class FtpInput extends StatelessWidget {
                       const PasswordInput(),
                       const PathInput(),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           const CancelButton(),
                           const Padding(padding: EdgeInsets.only(left: 10)),
                           SubmitButton(routerState: routerState)
                         ],
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
                       ),
-                    ], mainAxisSize: MainAxisSize.min),
+                    ]),
                   ),
                 ),
               ),
@@ -201,10 +201,10 @@ class CancelButton extends StatelessWidget {
 
     return BlocBuilder<FtpBloc, FtpState>(builder: (context, state) {
       return ElevatedButton(
-          child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-          onPressed: state.submitted ? null : () => router.go('/'));
+          onPressed: state.submitted ? null : () => router.go('/'),
+          child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium));
     });
   }
 }
@@ -218,7 +218,6 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FtpBloc, FtpState>(builder: (context, state) {
       return ElevatedButton(
-          child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
           onPressed: state.submitted || !state.isFormValid
@@ -246,7 +245,8 @@ class SubmitButton extends StatelessWidget {
                           .add(VaultEvent.opened(ftpUrl, context));
                       break;
                   }
-                });
+                },
+          child: Text('Submit', style: Theme.of(context).textTheme.bodyMedium));
     });
   }
 }

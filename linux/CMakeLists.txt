@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "polypass")
@@ -68,6 +68,7 @@ set_target_properties(${BINARY_NAME}
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+include(./rust.cmake)
 
 # === Installation ===
 # By default, "installing" just makes a relocatable bundle in the build

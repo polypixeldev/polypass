@@ -31,8 +31,8 @@ AppBar createAppBar(
         splashRadius: 20,
       )
     ];
-  }, unlocked: (vault, selectedGroup, _selectedItem, _viewingSelectedItem,
-      _masterKey, _errorCount) {
+  }, unlocked: (vault, selectedGroup, selectedItem, viewingSelectedItem,
+      masterKey, errorCount) {
     name = ' - ${vault.header.name}';
 
     appBarIcon = IconButton(
@@ -209,9 +209,7 @@ AppBar createAppBar(
               return;
             }
 
-            context
-                .read<VaultBloc>()
-                .add(VaultEvent.updated(unlockedState.vault, masterKey));
+            vaultBloc.add(VaultEvent.updated(unlockedState.vault, masterKey));
           },
         ),
         IconButton(
