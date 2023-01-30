@@ -1,8 +1,7 @@
 import 'dart:io';
-import 'package:ftpconnect/ftpconnect.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:polypass/data/vault_file/vault_file.dart';
+import 'package:polypass/ffi.dart';
 
 class FileProvider {
   const FileProvider();
@@ -43,96 +42,48 @@ class FileProvider {
 }
 
 class FtpProvider {
-  const FtpProvider();
+  FtpProvider();
 
-  static FTPConnect? _connection;
-  static String? _host;
-  static String? _path;
+  RwLockFtpProvider providerLock = api.initializeLockedProvider();
 
-  Future<void> checkConnection(FtpVaultUrl? url) async {
-    if (_connection == null) {
-      await connect(url!);
-    } else if (_path != url!.path || _host != url.host) {
-      await disconnect();
-      await connect(url);
-    }
+  Future<void> checkConnection(FtpVaultUrl url) async {
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    await api.checkConnection(providerLock: providerLock, url: ftpUrl);
   }
 
   Future<void> connect(FtpVaultUrl url) async {
-    if (_connection != null) {
-      await disconnect();
-    }
-
-    _connection =
-        FTPConnect(url.host, user: url.user, pass: url.password, timeout: 10);
-    _host = url.host;
-    _path = url.path;
-
-    await _connection!.connect();
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    await api.connect(providerLock: providerLock, url: ftpUrl);
   }
 
   Future<void> disconnect() async {
-    await _connection!.disconnect();
-    _connection = null;
-    _host = null;
-    _path = null;
+    await api.disconnect(providerLock: providerLock);
   }
 
-  Future<String> readFile(FtpVaultUrl? url) async {
-    await checkConnection(url);
-
-    final localFile =
-        File('${(await getTemporaryDirectory()).absolute.path}/vault.ppv.json');
-    final successful =
-        await _connection!.downloadFileWithRetry(_path!, localFile);
-
-    if (successful) {
-      final contents = await localFile.readAsString();
-      await localFile.delete();
-
-      return contents;
-    } else {
-      throw Exception('FTP_DOWNLOAD_FAILED');
-    }
+  Future<String> readFile(FtpVaultUrl url) async {
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    return await api.readFile(providerLock: providerLock, url: ftpUrl);
   }
 
-  Future<void> updateFile(FtpVaultUrl? url, String contents) async {
-    await checkConnection(url);
-
-    final localFile =
-        File('${(await getTemporaryDirectory()).absolute.path}/vault.ppv.json');
-    await localFile.writeAsString(contents);
-    final successful =
-        await _connection!.uploadFileWithRetry(localFile, pRemoteName: _path!);
-
-    if (!successful) {
-      throw Exception('FTP_UPLOAD_FAILED');
-    }
+  Future<void> updateFile(FtpVaultUrl url, String contents) async {
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    await api.updateFile(
+        providerLock: providerLock, url: ftpUrl, contents: contents);
   }
 
-  Future<void> deleteFile(FtpVaultUrl? url) async {
-    await checkConnection(url);
-
-    final successful = await _connection!.deleteFile(_path!);
-
-    if (successful) {
-      final localFile = File(
-          '${(await getTemporaryDirectory()).absolute.path}/vault.ppv.json');
-      await localFile.delete();
-    } else {
-      throw Exception('FTP_DELETE_FAILED');
-    }
+  Future<void> deleteFile(FtpVaultUrl url) async {
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    await api.deleteFile(providerLock: providerLock, url: ftpUrl);
   }
 
-  Future<bool> fileExists(FtpVaultUrl? url) async {
-    await checkConnection(url);
-
-    final exists = await _connection!.existFile(_path!);
-
-    if (exists) {
-      return true;
-    } else {
-      return false;
-    }
+  Future<bool> fileExists(FtpVaultUrl url) async {
+    final ftpUrl = api.initializeFtpUrl(
+        path: url.path, host: url.host, user: url.user, pass: url.password);
+    return await api.fileExists(providerLock: providerLock, url: ftpUrl);
   }
 }

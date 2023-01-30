@@ -95,7 +95,7 @@ class _AppState extends State<App> with TickerProviderStateMixin {
 
     return Sizer(builder: (context, orientation, deviceType) {
       return RepositoryProvider(
-        create: (context) => const VaultRepository(),
+        create: (context) => VaultRepository(),
         child: MultiBlocProvider(
           providers: [
             BlocProvider(

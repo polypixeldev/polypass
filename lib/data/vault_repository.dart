@@ -7,10 +7,10 @@ import 'package:polypass/data/cache/cache.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 
 class VaultRepository {
-  const VaultRepository();
+  VaultRepository();
 
   final FileProvider fileProvider = const FileProvider();
-  final FtpProvider ftpProvider = const FtpProvider();
+  final FtpProvider ftpProvider = FtpProvider();
 
   Future<VaultFile> getFile(
       VaultUrl url, AppSettingsBloc appSettingsBloc) async {
