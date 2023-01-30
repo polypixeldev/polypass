@@ -50,12 +50,14 @@ class FtpProvider {
     final ftpUrl = api.initializeFtpUrl(
         path: url.path, host: url.host, user: url.user, pass: url.password);
     await api.checkConnection(providerLock: providerLock, url: ftpUrl);
+    ftpUrl.dispose();
   }
 
   Future<void> connect(FtpVaultUrl url) async {
     final ftpUrl = api.initializeFtpUrl(
         path: url.path, host: url.host, user: url.user, pass: url.password);
     await api.connect(providerLock: providerLock, url: ftpUrl);
+    ftpUrl.dispose();
   }
 
   Future<void> disconnect() async {
@@ -65,7 +67,10 @@ class FtpProvider {
   Future<String> readFile(FtpVaultUrl url) async {
     final ftpUrl = api.initializeFtpUrl(
         path: url.path, host: url.host, user: url.user, pass: url.password);
-    return await api.readFile(providerLock: providerLock, url: ftpUrl);
+    final contents =
+        await api.readFile(providerLock: providerLock, url: ftpUrl);
+    ftpUrl.dispose();
+    return contents;
   }
 
   Future<void> updateFile(FtpVaultUrl url, String contents) async {
@@ -73,17 +78,22 @@ class FtpProvider {
         path: url.path, host: url.host, user: url.user, pass: url.password);
     await api.updateFile(
         providerLock: providerLock, url: ftpUrl, contents: contents);
+    ftpUrl.dispose();
   }
 
   Future<void> deleteFile(FtpVaultUrl url) async {
     final ftpUrl = api.initializeFtpUrl(
         path: url.path, host: url.host, user: url.user, pass: url.password);
     await api.deleteFile(providerLock: providerLock, url: ftpUrl);
+    ftpUrl.dispose();
   }
 
   Future<bool> fileExists(FtpVaultUrl url) async {
     final ftpUrl = api.initializeFtpUrl(
         path: url.path, host: url.host, user: url.user, pass: url.password);
-    return await api.fileExists(providerLock: providerLock, url: ftpUrl);
+    final exists =
+        await api.fileExists(providerLock: providerLock, url: ftpUrl);
+    ftpUrl.dispose();
+    return exists;
   }
 }
