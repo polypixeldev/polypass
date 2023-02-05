@@ -43,7 +43,8 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
       fromJsonRegistry = {
     VaultContents: VaultContents.fromJson,
     VaultPassword: VaultPassword.fromJson,
-    MagicValue: MagicValue.fromJson
+    MagicValue: MagicValue.fromJson,
+    VaultUrl: VaultUrl.fromJson
   };
 
   EncryptedData<T> encrypt(Key key) {
@@ -309,7 +310,7 @@ class VaultHeader with _$VaultHeader {
   factory VaultHeader(
       {required String name,
       required String uuid,
-      required VaultUrl? remoteUrl,
+      required EncryptedData<VaultUrl>? remoteUrl,
       required VaultSettings settings,
       required DateTime lastUpdate,
       required MagicValue magic,
@@ -418,17 +419,17 @@ class VaultPassword extends ToJsonAble with _$VaultPassword {
       _$VaultPasswordFromJson(json);
 }
 
-@freezed
-class VaultUrl with _$VaultUrl {
-  const VaultUrl._();
+@unfreezed
+class VaultUrl extends ToJsonAble with _$VaultUrl {
+  VaultUrl._();
 
-  const factory VaultUrl.file(String path) = FileVaultUrl;
-  const factory VaultUrl.ftp(
+  factory VaultUrl.file(String path) = FileVaultUrl;
+  factory VaultUrl.ftp(
       {required String host,
       required String user,
       required String password,
       required String path}) = FtpVaultUrl;
-  const factory VaultUrl.cached({required String uuid}) = CachedVaultUrl;
+  factory VaultUrl.cached({required String uuid}) = CachedVaultUrl;
 
   factory VaultUrl.fromJson(Map<String, dynamic> json) =>
       _$VaultUrlFromJson(json);

@@ -24,7 +24,7 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       uuid: json['uuid'] as String,
       remoteUrl: json['remoteUrl'] == null
           ? null
-          : VaultUrl.fromJson(
+          : EncryptedData<VaultUrl>.fromJson(
               Map<String, dynamic>.from(json['remoteUrl'] as Map)),
       settings: VaultSettings.fromJson(
           Map<String, dynamic>.from(json['settings'] as Map)),

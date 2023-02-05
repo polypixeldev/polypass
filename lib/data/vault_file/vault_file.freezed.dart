@@ -592,8 +592,9 @@ mixin _$VaultHeader {
   set name(String value) => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
   set uuid(String value) => throw _privateConstructorUsedError;
-  VaultUrl? get remoteUrl => throw _privateConstructorUsedError;
-  set remoteUrl(VaultUrl? value) => throw _privateConstructorUsedError;
+  EncryptedData<VaultUrl>? get remoteUrl => throw _privateConstructorUsedError;
+  set remoteUrl(EncryptedData<VaultUrl>? value) =>
+      throw _privateConstructorUsedError;
   VaultSettings get settings => throw _privateConstructorUsedError;
   set settings(VaultSettings value) => throw _privateConstructorUsedError;
   DateTime get lastUpdate => throw _privateConstructorUsedError;
@@ -619,14 +620,14 @@ abstract class $VaultHeaderCopyWith<$Res> {
   $Res call(
       {String name,
       String uuid,
-      VaultUrl? remoteUrl,
+      EncryptedData<VaultUrl>? remoteUrl,
       VaultSettings settings,
       DateTime lastUpdate,
       MagicValue magic,
       String key,
       List<int> salt});
 
-  $VaultUrlCopyWith<$Res>? get remoteUrl;
+  $EncryptedDataCopyWith<VaultUrl, $Res>? get remoteUrl;
   $VaultSettingsCopyWith<$Res> get settings;
   $MagicValueCopyWith<$Res> get magic;
 }
@@ -662,7 +663,7 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
       remoteUrl: remoteUrl == freezed
           ? _value.remoteUrl
           : remoteUrl // ignore: cast_nullable_to_non_nullable
-              as VaultUrl?,
+              as EncryptedData<VaultUrl>?,
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -687,12 +688,12 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
   }
 
   @override
-  $VaultUrlCopyWith<$Res>? get remoteUrl {
+  $EncryptedDataCopyWith<VaultUrl, $Res>? get remoteUrl {
     if (_value.remoteUrl == null) {
       return null;
     }
 
-    return $VaultUrlCopyWith<$Res>(_value.remoteUrl!, (value) {
+    return $EncryptedDataCopyWith<VaultUrl, $Res>(_value.remoteUrl!, (value) {
       return _then(_value.copyWith(remoteUrl: value));
     });
   }
@@ -722,7 +723,7 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
   $Res call(
       {String name,
       String uuid,
-      VaultUrl? remoteUrl,
+      EncryptedData<VaultUrl>? remoteUrl,
       VaultSettings settings,
       DateTime lastUpdate,
       MagicValue magic,
@@ -730,7 +731,7 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
       List<int> salt});
 
   @override
-  $VaultUrlCopyWith<$Res>? get remoteUrl;
+  $EncryptedDataCopyWith<VaultUrl, $Res>? get remoteUrl;
   @override
   $VaultSettingsCopyWith<$Res> get settings;
   @override
@@ -770,7 +771,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
       remoteUrl: remoteUrl == freezed
           ? _value.remoteUrl
           : remoteUrl // ignore: cast_nullable_to_non_nullable
-              as VaultUrl?,
+              as EncryptedData<VaultUrl>?,
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -817,7 +818,7 @@ class _$_VaultHeader extends _VaultHeader {
   @override
   String uuid;
   @override
-  VaultUrl? remoteUrl;
+  EncryptedData<VaultUrl>? remoteUrl;
   @override
   VaultSettings settings;
   @override
@@ -851,7 +852,7 @@ abstract class _VaultHeader extends VaultHeader {
   factory _VaultHeader(
       {required String name,
       required String uuid,
-      required VaultUrl? remoteUrl,
+      required EncryptedData<VaultUrl>? remoteUrl,
       required VaultSettings settings,
       required DateTime lastUpdate,
       required MagicValue magic,
@@ -869,8 +870,8 @@ abstract class _VaultHeader extends VaultHeader {
   String get uuid;
   set uuid(String value);
   @override
-  VaultUrl? get remoteUrl;
-  set remoteUrl(VaultUrl? value);
+  EncryptedData<VaultUrl>? get remoteUrl;
+  set remoteUrl(EncryptedData<VaultUrl>? value);
   @override
   VaultSettings get settings;
   set settings(VaultSettings value);
@@ -2309,7 +2310,7 @@ class __$$FileVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$FileVaultUrl extends FileVaultUrl {
-  const _$FileVaultUrl(this.path, {final String? $type})
+  _$FileVaultUrl(this.path, {final String? $type})
       : $type = $type ?? 'file',
         super._();
 
@@ -2317,7 +2318,7 @@ class _$FileVaultUrl extends FileVaultUrl {
       _$$FileVaultUrlFromJson(json);
 
   @override
-  final String path;
+  String path;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -2326,19 +2327,6 @@ class _$FileVaultUrl extends FileVaultUrl {
   String toString() {
     return 'VaultUrl.file(path: $path)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FileVaultUrl &&
-            const DeepCollectionEquality().equals(other.path, path));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
 
   @JsonKey(ignore: true)
   @override
@@ -2426,13 +2414,14 @@ class _$FileVaultUrl extends FileVaultUrl {
 }
 
 abstract class FileVaultUrl extends VaultUrl {
-  const factory FileVaultUrl(final String path) = _$FileVaultUrl;
-  const FileVaultUrl._() : super._();
+  factory FileVaultUrl(String path) = _$FileVaultUrl;
+  FileVaultUrl._() : super._();
 
   factory FileVaultUrl.fromJson(Map<String, dynamic> json) =
       _$FileVaultUrl.fromJson;
 
   String get path;
+  set path(String value);
   @JsonKey(ignore: true)
   _$$FileVaultUrlCopyWith<_$FileVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2487,7 +2476,7 @@ class __$$FtpVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$FtpVaultUrl extends FtpVaultUrl {
-  const _$FtpVaultUrl(
+  _$FtpVaultUrl(
       {required this.host,
       required this.user,
       required this.password,
@@ -2500,13 +2489,13 @@ class _$FtpVaultUrl extends FtpVaultUrl {
       _$$FtpVaultUrlFromJson(json);
 
   @override
-  final String host;
+  String host;
   @override
-  final String user;
+  String user;
   @override
-  final String password;
+  String password;
   @override
-  final String path;
+  String path;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -2515,26 +2504,6 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   String toString() {
     return 'VaultUrl.ftp(host: $host, user: $user, password: $password, path: $path)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FtpVaultUrl &&
-            const DeepCollectionEquality().equals(other.host, host) &&
-            const DeepCollectionEquality().equals(other.user, user) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.path, path));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(host),
-      const DeepCollectionEquality().hash(user),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(path));
 
   @JsonKey(ignore: true)
   @override
@@ -2622,20 +2591,24 @@ class _$FtpVaultUrl extends FtpVaultUrl {
 }
 
 abstract class FtpVaultUrl extends VaultUrl {
-  const factory FtpVaultUrl(
-      {required final String host,
-      required final String user,
-      required final String password,
-      required final String path}) = _$FtpVaultUrl;
-  const FtpVaultUrl._() : super._();
+  factory FtpVaultUrl(
+      {required String host,
+      required String user,
+      required String password,
+      required String path}) = _$FtpVaultUrl;
+  FtpVaultUrl._() : super._();
 
   factory FtpVaultUrl.fromJson(Map<String, dynamic> json) =
       _$FtpVaultUrl.fromJson;
 
   String get host;
+  set host(String value);
   String get user;
+  set user(String value);
   String get password;
+  set password(String value);
   String get path;
+  set path(String value);
   @JsonKey(ignore: true)
   _$$FtpVaultUrlCopyWith<_$FtpVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2675,7 +2648,7 @@ class __$$CachedVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CachedVaultUrl extends CachedVaultUrl {
-  const _$CachedVaultUrl({required this.uuid, final String? $type})
+  _$CachedVaultUrl({required this.uuid, final String? $type})
       : $type = $type ?? 'cached',
         super._();
 
@@ -2683,7 +2656,7 @@ class _$CachedVaultUrl extends CachedVaultUrl {
       _$$CachedVaultUrlFromJson(json);
 
   @override
-  final String uuid;
+  String uuid;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -2692,19 +2665,6 @@ class _$CachedVaultUrl extends CachedVaultUrl {
   String toString() {
     return 'VaultUrl.cached(uuid: $uuid)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CachedVaultUrl &&
-            const DeepCollectionEquality().equals(other.uuid, uuid));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(uuid));
 
   @JsonKey(ignore: true)
   @override
@@ -2792,13 +2752,14 @@ class _$CachedVaultUrl extends CachedVaultUrl {
 }
 
 abstract class CachedVaultUrl extends VaultUrl {
-  const factory CachedVaultUrl({required final String uuid}) = _$CachedVaultUrl;
-  const CachedVaultUrl._() : super._();
+  factory CachedVaultUrl({required String uuid}) = _$CachedVaultUrl;
+  CachedVaultUrl._() : super._();
 
   factory CachedVaultUrl.fromJson(Map<String, dynamic> json) =
       _$CachedVaultUrl.fromJson;
 
   String get uuid;
+  set uuid(String value);
   @JsonKey(ignore: true)
   _$$CachedVaultUrlCopyWith<_$CachedVaultUrl> get copyWith =>
       throw _privateConstructorUsedError;

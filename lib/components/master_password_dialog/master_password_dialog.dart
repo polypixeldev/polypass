@@ -3,31 +3,43 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/components/master_password_dialog/master_password_dialog_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
 class MasterPasswordDialog extends StatelessWidget {
   const MasterPasswordDialog(
-      {Key? key, required this.onSuccess, required this.onCancel})
+      {Key? key,
+      required this.onSuccess,
+      required this.onCancel,
+      this.customFile})
       : super(key: key);
 
   final void Function(
           encrypt.Key masterKey, encrypt.Key derivedKey, String masterPassword)
       onSuccess;
   final void Function() onCancel;
+  final VaultFile? customFile;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final unlockedState = context
-        .read<VaultBloc>()
-        .state
-        .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
+    final VaultFile file;
+
+    if (customFile == null) {
+      final unlockedState = context
+          .read<VaultBloc>()
+          .state
+          .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
+
+      file = unlockedState.vault;
+    } else {
+      file = customFile!;
+    }
 
     return BlocProvider(
-      create: (context) =>
-          MasterPasswordDialogBloc(vaultFile: unlockedState.vault),
+      create: (context) => MasterPasswordDialogBloc(vaultFile: file),
       child: MultiBlocListener(
         listeners: [
           BlocListener<MasterPasswordDialogBloc, MasterPasswordDialogState>(
@@ -195,9 +207,14 @@ class MasterKeys {
 }
 
 Future<MasterKeys> getMasterKey(BuildContext context,
-    {bool forceDialog = false}) async {
-  var masterKey = context.read<VaultBloc>().state.maybeMap(
-      unlocked: (state) => state.masterKey, orElse: () => throw Error());
+    {bool forceDialog = false, VaultFile? customFile}) async {
+  encrypt.Key? masterKey;
+
+  if (customFile == null) {
+    masterKey = context.read<VaultBloc>().state.maybeMap(
+        unlocked: (state) => state.masterKey, orElse: () => throw Error());
+  }
+
   encrypt.Key? derivedKey;
   String? masterPassword;
 
@@ -217,6 +234,7 @@ Future<MasterKeys> getMasterKey(BuildContext context,
                 Navigator.of(context, rootNavigator: true).pop();
                 GoRouter.of(context).go('/vault/home');
               },
+              customFile: customFile,
             ));
   }
 
