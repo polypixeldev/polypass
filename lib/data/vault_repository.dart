@@ -12,8 +12,8 @@ class VaultRepository {
   final FileProvider fileProvider = const FileProvider();
   final FtpProvider ftpProvider = FtpProvider();
 
-  Future<VaultFile> getFile(
-      VaultUrl url, AppSettingsBloc appSettingsBloc) async {
+  Future<VaultFile> getFile(VaultUrl url, AppSettingsBloc appSettingsBloc,
+      Future<Key?> Function(VaultFile) getRemoteUrlKey) async {
     return await url.map(file: (fileUrl) async {
       final file = await fileProvider.readFile(fileUrl);
       return VaultFile.fromJson(jsonDecode(file)).copyWith(url: fileUrl);
@@ -27,10 +27,21 @@ class VaultRepository {
         throw Exception('FILE_NOT_IN_CACHE');
       } else {
         VaultFile remoteFile;
+        final VaultUrl decryptedUrl;
 
         try {
+          final key = await getRemoteUrlKey(cachedFile);
+
+          if (key == null) {
+            return cachedFile;
+          }
+
+          decryptedUrl = cachedFile.header.remoteUrl!
+              .decrypt(key)
+              .mapOrNull(decrypted: (value) => value.data)!;
+
           remoteFile =
-              await getFile(cachedFile.header.remoteUrl!, appSettingsBloc);
+              await getFile(decryptedUrl, appSettingsBloc, getRemoteUrlKey);
         } catch (e) {
           return cachedFile;
         }
@@ -45,10 +56,11 @@ class VaultRepository {
 
         syncFile = syncFile.copyWith(
             url: cachedUrl,
-            header: syncFile.header
-                .copyWith(remoteUrl: cachedFile.header.remoteUrl));
+            header: syncFile.header.copyWith(
+                remoteUrl: cachedFile.header.remoteUrl,
+                lastUpdate: DateTime.now()));
 
-        updateEncryptedRemoteFile(syncFile);
+        updateEncryptedRemoteFile(syncFile, decryptedUrl);
         updateEncryptedLocalFile(syncFile);
 
         lastSyncMap[cachedUrl.uuid] = DateTime.now();
@@ -64,6 +76,23 @@ class VaultRepository {
     });
   }
 
+  Future<VaultFile> getLocalFile(VaultUrl url) async {
+    return await url.maybeMap(file: (fileUrl) async {
+      final file = await fileProvider.readFile(fileUrl);
+      return VaultFile.fromJson(jsonDecode(file)).copyWith(url: fileUrl);
+    }, cached: (cachedUrl) async {
+      final cachedFile = await getFromCache(cachedUrl.uuid);
+
+      if (cachedFile == null) {
+        throw Exception('FILE_NOT_IN_CACHE');
+      } else {
+        return cachedFile;
+      }
+    }, orElse: () {
+      throw Exception('NOT_LOCAL_URL');
+    });
+  }
+
   Future<void> updateFile(
       VaultFile file, Key key, AppSettingsBloc appSettingsBloc) async {
     var encryptedContents = file.contents.encrypt(key);
@@ -76,9 +105,12 @@ class VaultRepository {
     }, cached: (cachedUrl) async {
       await fileProvider.updateFile(
           await cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
+
       await updateFile(
           file.copyWith(
-              url: file.header.remoteUrl,
+              url: file.header.remoteUrl!
+                  .decrypt(key)
+                  .mapOrNull(decrypted: (value) => value.data),
               header: file.header.copyWith(remoteUrl: null)),
           key,
           appSettingsBloc);
@@ -93,10 +125,11 @@ class VaultRepository {
     });
   }
 
-  Future<void> updateEncryptedRemoteFile(VaultFile file) async {
+  Future<void> updateEncryptedRemoteFile(
+      VaultFile file, VaultUrl decryptedUrl) async {
     final raw = file.toJson();
 
-    await file.header.remoteUrl!.mapOrNull(file: (fileUrl) async {
+    await decryptedUrl.mapOrNull(file: (fileUrl) async {
       await fileProvider.updateFile(fileUrl, jsonEncode(raw));
     }, ftp: (ftpUrl) async {
       await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));

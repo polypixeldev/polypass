@@ -96,11 +96,26 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
     final uuid = const Uuid().v4();
 
+    EncryptedData<VaultUrl>? remoteUrl;
+    VaultUrl? url;
+
+    state.url!.maybeMap(file: (value) {
+      remoteUrl = null;
+      url = value;
+    }, cached: (value) {
+      remoteUrl = null;
+      url = value;
+    }, orElse: () {
+      remoteUrl = EncryptedData.decrypted(state.url!, IV.fromSecureRandom(16))
+          .encrypt(masterKey);
+      url = VaultUrl.cached(uuid: uuid);
+    });
+
     var newVaultFile = VaultFile(
         header: VaultHeader(
             name: state.name,
             uuid: uuid,
-            remoteUrl: state.url,
+            remoteUrl: remoteUrl,
             lastUpdate: DateTime.now(),
             settings: appSettings.defaultVaultSettings,
             magic: MagicValue(Encrypter(AES(derivedKey))
@@ -110,13 +125,13 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
                 .encrypt(masterKey.base64, iv: iv)
                 .base64,
             salt: salt),
-        url: null,
+        url: url,
         contents: EncryptedData<VaultContents>.decrypted(
             VaultContents(components: []), iv));
 
-    await addToCache(newVaultFile);
-
-    newVaultFile = newVaultFile.copyWith(url: VaultUrl.cached(uuid: uuid));
+    if (remoteUrl != null) {
+      await addToCache(newVaultFile);
+    }
 
     try {
       await vaultRepository.updateFile(

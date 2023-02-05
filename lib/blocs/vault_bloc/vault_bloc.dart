@@ -8,7 +8,9 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 import 'package:polypass/data/cache/cache.dart';
+
 import 'package:polypass/components/merge_conflict_dialog/merge_conflict_dialog.dart';
+import 'package:polypass/components/master_password_dialog/master_password_dialog.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_bloc.freezed.dart';
@@ -66,6 +68,15 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
   final Locator read;
 
+  Future<Key?> Function(VaultFile) _getRemoteUrlKeyFunction(
+      BuildContext context) {
+    return (VaultFile file) async {
+      final keys =
+          await getMasterKey(context, forceDialog: true, customFile: file);
+      return keys.masterKey;
+    };
+  }
+
   Future<void> _onVaultOpened(
       OpenedEvent event, Emitter<VaultState> emit) async {
     emit(const VaultState.opening());
@@ -74,8 +85,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       final VaultFile file;
 
       try {
-        file = await read<VaultRepository>()
-            .getFile(event.url, read<AppSettingsBloc>());
+        file = await read<VaultRepository>().getFile(event.url,
+            read<AppSettingsBloc>(), _getRemoteUrlKeyFunction(event.context));
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
@@ -99,7 +110,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       final appSettingsBloc = read<AppSettingsBloc>();
 
       try {
-        file = await vaultRepository.getFile(event.url, appSettingsBloc);
+        file = await vaultRepository.getFile(event.url, appSettingsBloc,
+            _getRemoteUrlKeyFunction(event.context));
       } on MergeException catch (e) {
         file = await resolveConflict(event.context,
             local: e.local, remote: e.remote);
@@ -109,10 +121,6 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
         return;
       }
-
-      file = file.copyWith(url: event.url);
-      vaultRepository.updateEncryptedLocalFile(file);
-      vaultRepository.updateEncryptedRemoteFile(file);
 
       final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
       lastSyncMap[url.uuid] = DateTime.now();
@@ -129,9 +137,11 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     }, orElse: () async {
       VaultFile file;
 
+      final getFunc = _getRemoteUrlKeyFunction(event.context);
+
       try {
-        file = await read<VaultRepository>()
-            .getFile(event.url, read<AppSettingsBloc>());
+        file = await read<VaultRepository>().getFile(event.url,
+            read<AppSettingsBloc>(), _getRemoteUrlKeyFunction(event.context));
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
@@ -141,8 +151,21 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
       final cachedUrl = VaultUrl.cached(uuid: file.header.uuid);
 
+      final key = await getFunc(file);
+
+      if (key == null) {
+        emit(VaultState.opening(
+            errorCount:
+                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        return;
+      }
+
       file = file.copyWith(
-          url: cachedUrl, header: file.header.copyWith(remoteUrl: event.url));
+          url: cachedUrl,
+          header: file.header.copyWith(
+              remoteUrl:
+                  EncryptedData.decrypted(event.url, IV.fromSecureRandom(16))
+                      .encrypt(key)));
 
       addToCache(file);
 
@@ -237,8 +260,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     final unlockedState =
         state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    final encryptedFile = await read<VaultRepository>()
-        .getFile(unlockedState.vault.url!, read<AppSettingsBloc>());
+    final encryptedFile =
+        await read<VaultRepository>().getLocalFile(unlockedState.vault.url!);
 
     emit(VaultState.locked(
         unlockedState.vault.copyWith(contents: encryptedFile.contents)));
