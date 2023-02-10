@@ -16,6 +16,8 @@ class FtpInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isCreate = routerState.queryParams['redirect'] == 'create';
+
     return AppWrapper(
       actions: false,
       icon: false,
@@ -52,10 +54,14 @@ class FtpInput extends StatelessWidget {
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Text('FTP Connection Information',
                           style: Theme.of(context).textTheme.titleMedium),
-                      const HostInput(),
-                      const UserInput(),
-                      const PasswordInput(),
-                      const PathInput(),
+                      HostInput(isCreate: isCreate),
+                      UserInput(
+                        isCreate: isCreate,
+                      ),
+                      PasswordInput(
+                        isCreate: isCreate,
+                      ),
+                      PathInput(isCreate: isCreate),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -78,7 +84,9 @@ class FtpInput extends StatelessWidget {
 }
 
 class HostInput extends StatelessWidget {
-  const HostInput({Key? key}) : super(key: key);
+  const HostInput({Key? key, required this.isCreate}) : super(key: key);
+
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +98,15 @@ class HostInput extends StatelessWidget {
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
       width: 500,
-      child: TextField(
+      child: TextFormField(
+          initialValue: isCreate
+              ? context
+                      .read<CreateFormBloc>()
+                      .state
+                      .url
+                      ?.mapOrNull(ftp: (url) => url.host) ??
+                  ''
+              : '',
           decoration: InputDecoration(
               labelText: 'Host',
               contentPadding: const EdgeInsets.all(10),
@@ -106,7 +122,9 @@ class HostInput extends StatelessWidget {
 }
 
 class UserInput extends StatelessWidget {
-  const UserInput({Key? key}) : super(key: key);
+  const UserInput({Key? key, required this.isCreate}) : super(key: key);
+
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +136,15 @@ class UserInput extends StatelessWidget {
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
       width: 500,
-      child: TextField(
+      child: TextFormField(
+          initialValue: isCreate
+              ? context
+                      .read<CreateFormBloc>()
+                      .state
+                      .url
+                      ?.mapOrNull(ftp: (url) => url.user) ??
+                  ''
+              : '',
           decoration: InputDecoration(
               labelText: 'Username',
               contentPadding: const EdgeInsets.all(10),
@@ -134,7 +160,9 @@ class UserInput extends StatelessWidget {
 }
 
 class PasswordInput extends StatelessWidget {
-  const PasswordInput({Key? key}) : super(key: key);
+  const PasswordInput({Key? key, required this.isCreate}) : super(key: key);
+
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +174,15 @@ class PasswordInput extends StatelessWidget {
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
       width: 500,
-      child: TextField(
+      child: TextFormField(
+          initialValue: isCreate
+              ? context
+                      .read<CreateFormBloc>()
+                      .state
+                      .url
+                      ?.mapOrNull(ftp: (url) => url.password) ??
+                  ''
+              : '',
           decoration: InputDecoration(
               labelText: 'Password',
               contentPadding: const EdgeInsets.all(10),
@@ -165,7 +201,9 @@ class PasswordInput extends StatelessWidget {
 }
 
 class PathInput extends StatelessWidget {
-  const PathInput({Key? key}) : super(key: key);
+  const PathInput({Key? key, required this.isCreate}) : super(key: key);
+
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +215,15 @@ class PathInput extends StatelessWidget {
           color: theme.colorScheme.secondary),
       margin: const EdgeInsets.all(10),
       width: 500,
-      child: TextField(
+      child: TextFormField(
+          initialValue: isCreate
+              ? context
+                      .read<CreateFormBloc>()
+                      .state
+                      .url
+                      ?.mapOrNull(ftp: (url) => url.path) ??
+                  ''
+              : '',
           decoration: InputDecoration(
               labelText: 'Path',
               contentPadding: const EdgeInsets.all(10),
