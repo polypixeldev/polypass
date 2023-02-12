@@ -309,6 +309,7 @@ class VaultHeader with _$VaultHeader {
   VaultHeader._();
   factory VaultHeader(
       {required String name,
+      required int version,
       required String uuid,
       required EncryptedData<VaultUrl>? remoteUrl,
       required VaultSettings settings,

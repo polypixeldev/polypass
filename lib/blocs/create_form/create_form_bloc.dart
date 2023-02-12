@@ -113,6 +113,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
     var newVaultFile = VaultFile(
         header: VaultHeader(
+            version: 2,
             name: state.name,
             uuid: uuid,
             remoteUrl: remoteUrl,
