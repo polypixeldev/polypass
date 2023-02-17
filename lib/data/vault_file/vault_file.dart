@@ -23,16 +23,15 @@ abstract class ToJsonAble<T> {
 @unfreezed
 class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
   EncryptedData._();
-  factory EncryptedData.encrypted(String data, IV iv) = _Encrypted;
-  factory EncryptedData.decrypted(@EncTypeConverter() T data, IV iv) =
-      _Decrypted;
+  factory EncryptedData.encrypted(String data, IV iv, int version) = _Encrypted;
+  factory EncryptedData.decrypted(T data, IV iv, int version) = _Decrypted;
 
-  static final Map<Type, dynamic Function(Map<String, dynamic>)>
+  static final Map<Type, dynamic Function(Map<String, dynamic>, int, int)>
       fromJsonRegistry = {
-    VaultContents: VaultContents.fromJson,
-    VaultPassword: VaultPassword.fromJson,
-    MagicValue: MagicValue.fromJson,
-    VaultUrl: VaultUrl.fromJson
+    VaultContents: migrateContents,
+    VaultPassword: migratePassword,
+    MagicValue: migrateMagicValue,
+    VaultUrl: migrateUrl
   };
 
   EncryptedData<T> encrypt(Key key) {
@@ -42,12 +41,13 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
 
     final encrypter = Encrypter(AES(key));
     final encrypted = encrypter.encrypt(decryptedData, iv: iv);
-    return EncryptedData<T>.encrypted(encrypted.base64, iv);
+    return EncryptedData<T>.encrypted(encrypted.base64, iv, version);
   }
 
   EncryptedData<T> decrypt(Key key) {
     var encryptedData = when(
-        decrypted: (data, iv) => throw Error(), encrypted: (data, iv) => data);
+        decrypted: (data, iv, version) => throw Error(),
+        encrypted: (data, iv, version) => data);
 
     final encrypter = Encrypter(AES(key));
     final rawDecrypted =
@@ -59,19 +59,22 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
       throw Exception('No fromJson for encrypted data type $T');
     }
 
-    var decrypted = EncryptedData.fromJsonRegistry[T]!(decryptedMap);
+    var decrypted = EncryptedData.fromJsonRegistry[T]!(
+        decryptedMap, version, polypassMajorVersion);
 
-    return EncryptedData<T>.decrypted(decrypted, iv);
+    return EncryptedData<T>.decrypted(decrypted, iv, version);
   }
 
   factory EncryptedData.fromJson(Map<String, dynamic> map) {
-    return EncryptedData<T>.encrypted(map['data'], IV.fromBase64(map['iv']));
+    return EncryptedData<T>.encrypted(
+        map['data'], IV.fromBase64(map['iv']), map['version'] ?? 1);
   }
 
   Map<String, dynamic> toJson() {
     return when(
-        decrypted: (data, iv) => data.toJson(),
-        encrypted: (data, iv) => {'data': data, 'iv': iv.base64});
+        decrypted: (data, iv, version) => data.toJson(),
+        encrypted: (data, iv, version) =>
+            {'data': data, 'iv': iv.base64, 'version': version});
   }
 
   static Key deriveDerivedKey(
@@ -114,24 +117,6 @@ class EncryptedData<T extends ToJsonAble> with _$EncryptedData<T> {
     }
 
     return Uint8List.fromList(salts);
-  }
-}
-
-class EncTypeConverter<T extends ToJsonAble>
-    extends JsonConverter<T, Map<String, dynamic>> {
-  const EncTypeConverter();
-
-  @override
-  T fromJson(Map<String, dynamic> json) {
-    if (!EncryptedData.fromJsonRegistry.containsKey(T)) {
-      throw Exception('No fromJson for encrypted data type $T');
-    }
-    return EncryptedData.fromJsonRegistry[T]!(json);
-  }
-
-  @override
-  Map<String, dynamic> toJson(T object) {
-    return object.toJson();
   }
 }
 

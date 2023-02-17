@@ -8,6 +8,7 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
 import 'package:polypass/blocs/create_form/create_form_bloc.dart';
 import 'package:polypass/data/cache/cache.dart';
+import 'package:polypass/main.dart' show polypassMajorVersion;
 
 import 'package:polypass/components/merge_conflict_dialog/merge_conflict_dialog.dart';
 import 'package:polypass/components/master_password_dialog/master_password_dialog.dart';
@@ -163,9 +164,9 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       file = file.copyWith(
           url: cachedUrl,
           header: file.header.copyWith(
-              remoteUrl:
-                  EncryptedData.decrypted(event.url, IV.fromSecureRandom(16))
-                      .encrypt(key)));
+              remoteUrl: EncryptedData.decrypted(
+                      event.url, IV.fromSecureRandom(16), polypassMajorVersion)
+                  .encrypt(key)));
 
       addToCache(file);
 

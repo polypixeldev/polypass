@@ -242,7 +242,7 @@ class ListItem extends StatelessWidget {
                 : item.password
                     .decrypt(masterKey)
                     .maybeWhen(
-                        decrypted: (data, iv) => data,
+                        decrypted: (data, iv, version) => data,
                         orElse: () => throw Error())
                     .password;
           }

@@ -18,22 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
   IV get iv => throw _privateConstructorUsedError;
   set iv(IV value) => throw _privateConstructorUsedError;
+  int get version => throw _privateConstructorUsedError;
+  set version(int value) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data, IV iv) encrypted,
-    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
+    required TResult Function(String data, IV iv, int version) encrypted,
+    required TResult Function(T data, IV iv, int version) decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +69,7 @@ abstract class $EncryptedDataCopyWith<T extends ToJsonAble<dynamic>, $Res> {
   factory $EncryptedDataCopyWith(
           EncryptedData<T> value, $Res Function(EncryptedData<T>) then) =
       _$EncryptedDataCopyWithImpl<T, $Res>;
-  $Res call({IV iv});
+  $Res call({IV iv, int version});
 }
 
 /// @nodoc
@@ -82,12 +84,17 @@ class _$EncryptedDataCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
   @override
   $Res call({
     Object? iv = freezed,
+    Object? version = freezed,
   }) {
     return _then(_value.copyWith(
       iv: iv == freezed
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -99,7 +106,7 @@ abstract class _$$_EncryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
           _$_Encrypted<T> value, $Res Function(_$_Encrypted<T>) then) =
       __$$_EncryptedCopyWithImpl<T, $Res>;
   @override
-  $Res call({String data, IV iv});
+  $Res call({String data, IV iv, int version});
 }
 
 /// @nodoc
@@ -117,6 +124,7 @@ class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
   $Res call({
     Object? data = freezed,
     Object? iv = freezed,
+    Object? version = freezed,
   }) {
     return _then(_$_Encrypted<T>(
       data == freezed
@@ -127,6 +135,10 @@ class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
+      version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -134,16 +146,18 @@ class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
 /// @nodoc
 
 class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
-  _$_Encrypted(this.data, this.iv) : super._();
+  _$_Encrypted(this.data, this.iv, this.version) : super._();
 
   @override
   String data;
   @override
   IV iv;
+  @override
+  int version;
 
   @override
   String toString() {
-    return 'EncryptedData<$T>.encrypted(data: $data, iv: $iv)';
+    return 'EncryptedData<$T>.encrypted(data: $data, iv: $iv, version: $version)';
   }
 
   @JsonKey(ignore: true)
@@ -154,30 +168,30 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data, IV iv) encrypted,
-    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
+    required TResult Function(String data, IV iv, int version) encrypted,
+    required TResult Function(T data, IV iv, int version) decrypted,
   }) {
-    return encrypted(data, iv);
+    return encrypted(data, iv, version);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
   }) {
-    return encrypted?.call(data, iv);
+    return encrypted?.call(data, iv, version);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
     required TResult orElse(),
   }) {
     if (encrypted != null) {
-      return encrypted(data, iv);
+      return encrypted(data, iv, version);
     }
     return orElse();
   }
@@ -216,7 +230,7 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
 
 abstract class _Encrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  factory _Encrypted(String data, IV iv) = _$_Encrypted<T>;
+  factory _Encrypted(String data, IV iv, int version) = _$_Encrypted<T>;
   _Encrypted._() : super._();
 
   String get data;
@@ -224,6 +238,9 @@ abstract class _Encrypted<T extends ToJsonAble<dynamic>>
   @override
   IV get iv;
   set iv(IV value);
+  @override
+  int get version;
+  set version(int value);
   @override
   @JsonKey(ignore: true)
   _$$_EncryptedCopyWith<T, _$_Encrypted<T>> get copyWith =>
@@ -237,7 +254,7 @@ abstract class _$$_DecryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
           _$_Decrypted<T> value, $Res Function(_$_Decrypted<T>) then) =
       __$$_DecryptedCopyWithImpl<T, $Res>;
   @override
-  $Res call({@EncTypeConverter() T data, IV iv});
+  $Res call({T data, IV iv, int version});
 }
 
 /// @nodoc
@@ -255,6 +272,7 @@ class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
   $Res call({
     Object? data = freezed,
     Object? iv = freezed,
+    Object? version = freezed,
   }) {
     return _then(_$_Decrypted<T>(
       data == freezed
@@ -265,6 +283,10 @@ class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
+      version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -272,17 +294,18 @@ class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
 /// @nodoc
 
 class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
-  _$_Decrypted(@EncTypeConverter() this.data, this.iv) : super._();
+  _$_Decrypted(this.data, this.iv, this.version) : super._();
 
   @override
-  @EncTypeConverter()
   T data;
   @override
   IV iv;
+  @override
+  int version;
 
   @override
   String toString() {
-    return 'EncryptedData<$T>.decrypted(data: $data, iv: $iv)';
+    return 'EncryptedData<$T>.decrypted(data: $data, iv: $iv, version: $version)';
   }
 
   @JsonKey(ignore: true)
@@ -293,30 +316,30 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String data, IV iv) encrypted,
-    required TResult Function(@EncTypeConverter() T data, IV iv) decrypted,
+    required TResult Function(String data, IV iv, int version) encrypted,
+    required TResult Function(T data, IV iv, int version) decrypted,
   }) {
-    return decrypted(data, iv);
+    return decrypted(data, iv, version);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
   }) {
-    return decrypted?.call(data, iv);
+    return decrypted?.call(data, iv, version);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String data, IV iv)? encrypted,
-    TResult Function(@EncTypeConverter() T data, IV iv)? decrypted,
+    TResult Function(String data, IV iv, int version)? encrypted,
+    TResult Function(T data, IV iv, int version)? decrypted,
     required TResult orElse(),
   }) {
     if (decrypted != null) {
-      return decrypted(data, iv);
+      return decrypted(data, iv, version);
     }
     return orElse();
   }
@@ -355,16 +378,17 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
 
 abstract class _Decrypted<T extends ToJsonAble<dynamic>>
     extends EncryptedData<T> {
-  factory _Decrypted(@EncTypeConverter() T data, IV iv) = _$_Decrypted<T>;
+  factory _Decrypted(T data, IV iv, int version) = _$_Decrypted<T>;
   _Decrypted._() : super._();
 
-  @EncTypeConverter()
   T get data;
-  @EncTypeConverter()
   set data(T value);
   @override
   IV get iv;
   set iv(IV value);
+  @override
+  int get version;
+  set version(int value);
   @override
   @JsonKey(ignore: true)
   _$$_DecryptedCopyWith<T, _$_Decrypted<T>> get copyWith =>

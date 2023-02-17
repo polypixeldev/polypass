@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
 
 import 'package:polypass/data/vault_file/vault_file.dart';
+import 'package:polypass/main.dart' show polypassMajorVersion;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'new_bloc.freezed.dart';
@@ -81,7 +82,9 @@ class NewFormBloc extends Bloc<NewFormEvent, NewFormState> {
             name: state.name,
             username: state.username,
             password: EncryptedData<VaultPassword>.decrypted(
-                    VaultPassword(state.password), IV.fromSecureRandom(16))
+                    VaultPassword(state.password),
+                    IV.fromSecureRandom(16),
+                    polypassMajorVersion)
                 .encrypt(event.masterKey),
             notes: state.notes)));
   }
