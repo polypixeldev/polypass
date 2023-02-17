@@ -16,10 +16,26 @@ class VaultRepository {
       Future<Key?> Function(VaultFile) getRemoteUrlKey) async {
     return await url.map(file: (fileUrl) async {
       final file = await fileProvider.readFile(fileUrl);
-      return VaultFile.fromJson(jsonDecode(file)).copyWith(url: fileUrl);
+
+      final result = initVaultFile(jsonDecode(file));
+
+      if (result.migrated) {
+        await fileProvider.updateFile(
+            fileUrl, jsonEncode(result.vaultFile.toJson()));
+      }
+
+      return result.vaultFile.copyWith(url: fileUrl);
     }, ftp: (ftpUrl) async {
       final file = await ftpProvider.readFile(ftpUrl);
-      return VaultFile.fromJson(jsonDecode(file)).copyWith(url: ftpUrl);
+
+      final result = initVaultFile(jsonDecode(file));
+
+      if (result.migrated) {
+        await ftpProvider.updateFile(
+            ftpUrl, jsonEncode(result.vaultFile.toJson()));
+      }
+
+      return result.vaultFile.copyWith(url: ftpUrl);
     }, cached: (cachedUrl) async {
       final cachedFile = await getFromCache(cachedUrl.uuid);
 
@@ -79,7 +95,15 @@ class VaultRepository {
   Future<VaultFile> getLocalFile(VaultUrl url) async {
     return await url.maybeMap(file: (fileUrl) async {
       final file = await fileProvider.readFile(fileUrl);
-      return VaultFile.fromJson(jsonDecode(file)).copyWith(url: fileUrl);
+
+      final result = initVaultFile(jsonDecode(file));
+
+      if (result.migrated) {
+        await fileProvider.updateFile(
+            fileUrl, jsonEncode(result.vaultFile.toJson()));
+      }
+
+      return result.vaultFile.copyWith(url: fileUrl);
     }, cached: (cachedUrl) async {
       final cachedFile = await getFromCache(cachedUrl.uuid);
 
@@ -104,7 +128,7 @@ class VaultRepository {
       await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));
     }, cached: (cachedUrl) async {
       await fileProvider.updateFile(
-          await cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
+          cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
 
       await updateFile(
           file.copyWith(
@@ -152,7 +176,7 @@ class VaultRepository {
     }, ftp: (ftpUrl) async {
       await ftpProvider.deleteFile(ftpUrl);
     }, cached: (cachedUrl) async {
-      await fileProvider.deleteFile(await cachedUrltoFileUrl(cachedUrl));
+      await fileProvider.deleteFile(cachedUrltoFileUrl(cachedUrl));
     });
   }
 
@@ -162,7 +186,7 @@ class VaultRepository {
     }, ftp: (ftpUrl) async {
       return await ftpProvider.fileExists(ftpUrl);
     }, cached: (cachedUrl) async {
-      return await fileProvider.fileExists(await cachedUrltoFileUrl(cachedUrl));
+      return await fileProvider.fileExists(cachedUrltoFileUrl(cachedUrl));
     });
   }
 }

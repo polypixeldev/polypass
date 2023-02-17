@@ -23,31 +23,29 @@ class OpenDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final dirWidgetsFuture = AppSettings.getPolyPassDir().then((dir) {
-      final entries = Directory(dir).listSync();
-      final cacheDir = Directory('$dir/.cache');
-      if (!cacheDir.existsSync()) {
-        cacheDir.createSync();
-      }
-      entries.addAll(cacheDir.listSync());
-      final vaultFiles = entries
-          .whereType<File>()
-          .where((file) => file.path.endsWith('.ppv.json'));
-      final vaults = vaultFiles.map((vaultFile) => {
-            'path': vaultFile.absolute.path,
-            'vault':
-                VaultFile.fromJson(jsonDecode(vaultFile.readAsStringSync())),
-            'cached': vaultFile.absolute.path.contains('.cache')
-          });
+    final entries = Directory(AppSettings.polypassDir).listSync();
+    final cacheDir = Directory('${AppSettings.polypassDir}/.cache');
+    if (!cacheDir.existsSync()) {
+      cacheDir.createSync();
+    }
+    entries.addAll(cacheDir.listSync());
+    final vaultFiles = entries.whereType<File>().where((file) =>
+        file.path.endsWith('.ppv.json') && !file.path.contains('.backup'));
 
-      return vaults
-          .map((vault) => VaultListItem(
-              vault: vault['vault'] as VaultFile,
-              path: vault['path'] as String,
-              cached: vault['cached'] as bool,
-              onSelect: onSuccess))
-          .toList();
-    });
+    final vaults = vaultFiles.map((vaultFile) => {
+          'path': vaultFile.absolute.path,
+          'vault':
+              initVaultFile(jsonDecode(vaultFile.readAsStringSync())).vaultFile,
+          'cached': vaultFile.absolute.path.contains('.cache')
+        });
+
+    final dirWidgets = vaults
+        .map((vault) => VaultListItem(
+            vault: vault['vault'] as VaultFile,
+            path: vault['path'] as String,
+            cached: vault['cached'] as bool,
+            onSelect: onSuccess))
+        .toList();
 
     return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -59,24 +57,12 @@ class OpenDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
             constraints: const BoxConstraints(maxHeight: 500, maxWidth: 700),
             padding: const EdgeInsets.all(10),
-            child: FutureBuilder(
-                future: dirWidgetsFuture,
-                builder: (context, snap) {
-                  return ListView(
-                    shrinkWrap: true,
-                    children: snap.hasData
-                        ? [
-                            LocalButton(
-                                onCancel: onCancel, onSuccess: onSuccess),
-                            FtpButton(onCancel: onCancel, redirect: redirect),
-                            ...snap.data as List<Widget>,
-                            CancelButton(onCancel: onCancel)
-                          ]
-                        : const [
-                            Text('Loading...', textAlign: TextAlign.center)
-                          ],
-                  );
-                })));
+            child: ListView(shrinkWrap: true, children: [
+              LocalButton(onCancel: onCancel, onSuccess: onSuccess),
+              FtpButton(onCancel: onCancel, redirect: redirect),
+              ...dirWidgets,
+              CancelButton(onCancel: onCancel)
+            ])));
   }
 }
 

@@ -25,6 +25,8 @@ import 'package:polypass/components/activity_listener/activity_listener.dart';
 
 import 'package:polypass/theme.dart';
 
+const polypassMajorVersion = 2;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final settings = await AppSettings.load();
