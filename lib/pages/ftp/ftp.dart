@@ -33,7 +33,27 @@ class FtpInput extends StatelessWidget {
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: BlocProvider(
-                  create: (context) => FtpBloc(),
+                  create: (context) => FtpBloc(
+                      host: context
+                          .read<CreateFormBloc>()
+                          .state
+                          .url
+                          ?.mapOrNull(ftp: (url) => url.host),
+                      user: context
+                          .read<CreateFormBloc>()
+                          .state
+                          .url
+                          ?.mapOrNull(ftp: (url) => url.user),
+                      password: context
+                          .read<CreateFormBloc>()
+                          .state
+                          .url
+                          ?.mapOrNull(ftp: (url) => url.password),
+                      path: context
+                          .read<CreateFormBloc>()
+                          .state
+                          .url
+                          ?.mapOrNull(ftp: (url) => url.path)),
                   child: BlocListener<VaultBloc, VaultState>(
                     listener: (context, state) {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();

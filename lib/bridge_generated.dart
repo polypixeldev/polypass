@@ -75,6 +75,11 @@ abstract class Libpolypass {
 
   FlutterRustBridgeTaskConstMeta get kFileExistsConstMeta;
 
+  Future<void> clearPoison(
+      {required RwLockFtpProvider providerLock, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kClearPoisonConstMeta;
+
   DropFnType get dropOpaqueFtpProvider;
   ShareFnType get shareOpaqueFtpProvider;
   OpaqueTypeFinalizer get FtpProviderFinalizer;
@@ -344,6 +349,24 @@ class LibpolypassImpl implements Libpolypass {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "file_exists",
         argNames: ["providerLock", "url"],
+      );
+
+  Future<void> clearPoison(
+      {required RwLockFtpProvider providerLock, dynamic hint}) {
+    var arg0 = _platform.api2wire_RwLockFtpProvider(providerLock);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_clear_poison(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kClearPoisonConstMeta,
+      argValues: [providerLock],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kClearPoisonConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "clear_poison",
+        argNames: ["providerLock"],
       );
 
   DropFnType get dropOpaqueFtpProvider =>
@@ -742,6 +765,23 @@ class LibpolypassWire implements FlutterRustBridgeWireBase {
               wire_FtpUrl)>>('wire_file_exists');
   late final _wire_file_exists = _wire_file_existsPtr
       .asFunction<void Function(int, wire_RwLockFtpProvider, wire_FtpUrl)>();
+
+  void wire_clear_poison(
+    int port_,
+    wire_RwLockFtpProvider provider_lock,
+  ) {
+    return _wire_clear_poison(
+      port_,
+      provider_lock,
+    );
+  }
+
+  late final _wire_clear_poisonPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, wire_RwLockFtpProvider)>>('wire_clear_poison');
+  late final _wire_clear_poison = _wire_clear_poisonPtr
+      .asFunction<void Function(int, wire_RwLockFtpProvider)>();
 
   wire_FtpUrl new_FtpUrl() {
     return _new_FtpUrl();

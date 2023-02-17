@@ -96,4 +96,8 @@ class FtpProvider {
     ftpUrl.dispose();
     return exists;
   }
+
+  Future<void> clearPoison() async {
+    await api.clearPoison(providerLock: providerLock);
+  }
 }

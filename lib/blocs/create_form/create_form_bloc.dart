@@ -84,7 +84,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
   Future<void> _onFormSubmitted(
       FormSubmittedEvent event, Emitter<CreateFormState> emit) async {
-    emit(state.copyWith(submitted: true, errorCount: 0));
+    emit(state.copyWith(submitted: true));
 
     final salt = EncryptedData.generateSalt();
     final derivedKey = EncryptedData.deriveDerivedKey(
@@ -141,6 +141,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
           newVaultFile, masterKey, read<AppSettingsBloc>());
     } catch (e) {
       emit(state.copyWith(errorCount: state.errorCount + 1, submitted: false));
+      await vaultRepository.clearPoison(url!);
       return;
     }
 

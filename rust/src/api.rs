@@ -1,6 +1,3 @@
-// Learn rust
-// Learn how the ffi works
-
 use flutter_rust_bridge::{RustOpaque, SyncReturn};
 use std::io::Cursor;
 pub use std::sync::RwLock;
@@ -202,4 +199,8 @@ pub fn file_exists(
         .expect("Expect connection property to not be None after connection checked");
 
     stream.size(url.path.as_str()).is_ok()
+}
+
+pub fn clear_poison(provider_lock: RustOpaque<RwLock<FtpProvider>>) {
+    provider_lock.clear_poison();
 }

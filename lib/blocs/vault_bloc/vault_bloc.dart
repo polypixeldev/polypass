@@ -92,6 +92,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        await read<VaultRepository>().clearPoison(event.url);
         return;
       }
 
@@ -120,6 +121,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        await read<VaultRepository>().clearPoison(event.url);
         return;
       }
 
@@ -147,6 +149,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         emit(VaultState.opening(
             errorCount:
                 state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        await read<VaultRepository>().clearPoison(event.url);
         return;
       }
 

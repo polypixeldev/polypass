@@ -35,7 +35,13 @@ class FtpEvent with _$FtpEvent {
 }
 
 class FtpBloc extends Bloc<FtpEvent, FtpState> {
-  FtpBloc() : super(FtpState.empty()) {
+  FtpBloc({String? host, String? user, String? password, String? path})
+      : super(FtpState(
+            host: host ?? '',
+            user: user ?? '',
+            password: password ?? '',
+            path: path ?? '',
+            submitted: false)) {
     on<FtpEvent>((event, emit) {
       event.map(
           hostChanged: (event) => _onHostChanged(event, emit),

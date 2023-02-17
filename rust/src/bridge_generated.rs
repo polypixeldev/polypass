@@ -188,6 +188,22 @@ fn wire_file_exists_impl(
         },
     )
 }
+fn wire_clear_poison_impl(
+    port_: MessagePort,
+    provider_lock: impl Wire2Api<RustOpaque<RwLock<FtpProvider>>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "clear_poison",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_provider_lock = provider_lock.wire2api();
+            move |task_callback| Ok(clear_poison(api_provider_lock))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks

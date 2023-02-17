@@ -81,6 +81,11 @@ pub extern "C" fn wire_file_exists(
     wire_file_exists_impl(port_, provider_lock, url)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_clear_poison(port_: i64, provider_lock: wire_RwLockFtpProvider) {
+    wire_clear_poison_impl(port_, provider_lock)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

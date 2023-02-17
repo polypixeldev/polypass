@@ -189,4 +189,13 @@ class VaultRepository {
       return await fileProvider.fileExists(cachedUrltoFileUrl(cachedUrl));
     });
   }
+
+  Future<void> clearPoison(VaultUrl url) async {
+    await url.mapOrNull(cached: (url) async {
+      // Assume ftp provider. Add support for other providers when they are added
+      await ftpProvider.clearPoison();
+    }, ftp: (url) async {
+      await ftpProvider.clearPoison();
+    });
+  }
 }
