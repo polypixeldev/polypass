@@ -4,21 +4,21 @@ import 'dart:convert';
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
-Future<void> addToCache(VaultFile vaultFile) async {
-  final cacheDir = Directory('${await AppSettings.getPolyPassDir()}/.cache');
+void addToCache(VaultFile vaultFile) {
+  final cacheDir = Directory('${AppSettings.polypassDir}/.cache');
 
-  if (!(await cacheDir.exists())) {
-    await cacheDir.create();
+  if (!cacheDir.existsSync()) {
+    cacheDir.createSync();
   }
 
   final file =
       File('${cacheDir.absolute.path}/${vaultFile.header.uuid}.ppv.json');
 
-  await file.writeAsString(jsonEncode(vaultFile.toJson()));
+  file.writeAsStringSync(jsonEncode(vaultFile.toJson()));
 }
 
 Future<VaultFile?> getFromCache(String uuid) async {
-  final cacheDir = Directory('${await AppSettings.getPolyPassDir()}/.cache');
+  final cacheDir = Directory('${AppSettings.polypassDir}/.cache');
 
   if (!(await cacheDir.exists())) {
     await cacheDir.create();
@@ -37,14 +37,20 @@ Future<VaultFile?> getFromCache(String uuid) async {
 
   final contents = await cachedFile.readAsString();
 
-  return VaultFile.fromJson(jsonDecode(contents));
+  final result = initVaultFile(jsonDecode(contents));
+
+  if (result.migrated) {
+    await cachedFile.writeAsString(jsonEncode(result.vaultFile.toJson()));
+  }
+
+  return result.vaultFile;
 }
 
-Future<FileVaultUrl> cachedUrltoFileUrl(CachedVaultUrl cachedUrl) async {
-  final cachedFile = File(
-      '${await AppSettings.getPolyPassDir()}/.cache/${cachedUrl.uuid}.ppv.json');
+FileVaultUrl cachedUrltoFileUrl(CachedVaultUrl cachedUrl) {
+  final cachedFile =
+      File('${AppSettings.polypassDir}/.cache/${cachedUrl.uuid}.ppv.json');
 
-  if (!(await cachedFile.exists())) {
+  if (!(cachedFile.existsSync())) {
     throw Exception('FILE_NOT_IN_CACHE');
   }
 

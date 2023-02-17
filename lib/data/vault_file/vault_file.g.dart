@@ -21,6 +21,7 @@ Map<String, dynamic> _$$_VaultFileToJson(_$_VaultFile instance) =>
 
 _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
       name: json['name'] as String,
+      majorVersion: json['majorVersion'] as int,
       uuid: json['uuid'] as String,
       remoteUrl: json['remoteUrl'] == null
           ? null
@@ -38,6 +39,7 @@ _$_VaultHeader _$$_VaultHeaderFromJson(Map json) => _$_VaultHeader(
 Map<String, dynamic> _$$_VaultHeaderToJson(_$_VaultHeader instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'majorVersion': instance.majorVersion,
       'uuid': instance.uuid,
       'remoteUrl': instance.remoteUrl?.toJson(),
       'settings': instance.settings.toJson(),

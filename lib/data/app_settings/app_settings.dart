@@ -21,17 +21,20 @@ class AppSettings with _$AppSettings {
       ? getExternalStorageDirectory()
       : getApplicationDocumentsDirectory();
 
-  static Future<String> getPolyPassDir() async {
+  static late final String polypassDir;
+
+  static Future<void> loadPolyPassDir() async {
     final polyPassDir = Directory(
         '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
     if (!await polyPassDir.exists()) {
       await polyPassDir.create();
     }
-    return polyPassDir.absolute.path;
+    polypassDir = polyPassDir.absolute.path;
   }
 
   static Future<AppSettings> load() async {
-    final file = File('${await getPolyPassDir()}/.settings.json');
+    await loadPolyPassDir();
+    final file = File('$polypassDir/.settings.json');
 
     if (!(await file.exists())) {
       await file.writeAsString(jsonEncode(AppSettings.empty().toJson()));
@@ -43,7 +46,7 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File('${await getPolyPassDir()}/.settings.json')
+    await File('$polypassDir/.settings.json')
         .writeAsString(jsonEncode(toJson()));
   }
 

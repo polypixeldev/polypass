@@ -8,6 +8,7 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 import 'package:polypass/data/app_settings/app_settings.dart';
 import 'package:polypass/data/cache/cache.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
+import 'package:polypass/main.dart' show polypassMajorVersion;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'create_form_bloc.freezed.dart';
@@ -113,6 +114,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
 
     var newVaultFile = VaultFile(
         header: VaultHeader(
+            majorVersion: polypassMajorVersion,
             name: state.name,
             uuid: uuid,
             remoteUrl: remoteUrl,
@@ -130,7 +132,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
             VaultContents(components: []), iv));
 
     if (remoteUrl != null) {
-      await addToCache(newVaultFile);
+      addToCache(newVaultFile);
     }
 
     try {

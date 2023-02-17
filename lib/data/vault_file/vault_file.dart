@@ -9,24 +9,12 @@ import 'package:pointycastle/key_derivators/argon2_native_int_impl.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 import 'package:hash/hash.dart';
 
+import 'package:polypass/main.dart' show polypassMajorVersion;
+import 'package:polypass/data/migration.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'vault_file.freezed.dart';
 part 'vault_file.g.dart';
-
-// Vault file schema (.ppv.json)
-//
-// {
-//    header: {
-//        name: String,
-//        description: String,
-//        settings: VaultSettings,
-//        magic: String
-//    },
-//    contents: {
-//        data: String,
-//        iv: String
-//    }
-// }
 
 abstract class ToJsonAble<T> {
   Map<String, dynamic> toJson();
@@ -144,6 +132,29 @@ class EncTypeConverter<T extends ToJsonAble>
   @override
   Map<String, dynamic> toJson(T object) {
     return object.toJson();
+  }
+}
+
+class InitResult {
+  const InitResult(this.vaultFile, this.migrated);
+
+  final VaultFile vaultFile;
+  final bool migrated;
+}
+
+InitResult initVaultFile(Map<String, dynamic> json) {
+  if (json['header'] == null) {
+    throw Exception('Invalid vault file');
+  } else {
+    int? majorVersion = json['header']['majorVersion'];
+    majorVersion ??= 1;
+
+    if (majorVersion != polypassMajorVersion) {
+      return InitResult(
+          migrateFile(json, majorVersion, polypassMajorVersion), true);
+    } else {
+      return InitResult(VaultFile.fromJson(json), false);
+    }
   }
 }
 
@@ -309,6 +320,7 @@ class VaultHeader with _$VaultHeader {
   VaultHeader._();
   factory VaultHeader(
       {required String name,
+      required int majorVersion,
       required String uuid,
       required EncryptedData<VaultUrl>? remoteUrl,
       required VaultSettings settings,

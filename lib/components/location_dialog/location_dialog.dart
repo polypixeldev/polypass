@@ -91,7 +91,7 @@ class LocalButton extends StatelessWidget {
         child:
             Text('Save locally', style: Theme.of(context).textTheme.bodyMedium),
         onPressed: () async {
-          final vaultDir = await AppSettings.getPolyPassDir();
+          final vaultDir = AppSettings.polypassDir;
           final VaultUrl path;
 
           if (Platform.isAndroid) {

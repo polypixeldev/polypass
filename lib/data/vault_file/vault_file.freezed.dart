@@ -590,6 +590,8 @@ VaultHeader _$VaultHeaderFromJson(Map<String, dynamic> json) {
 mixin _$VaultHeader {
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
+  int get majorVersion => throw _privateConstructorUsedError;
+  set majorVersion(int value) => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
   set uuid(String value) => throw _privateConstructorUsedError;
   EncryptedData<VaultUrl>? get remoteUrl => throw _privateConstructorUsedError;
@@ -619,6 +621,7 @@ abstract class $VaultHeaderCopyWith<$Res> {
       _$VaultHeaderCopyWithImpl<$Res>;
   $Res call(
       {String name,
+      int majorVersion,
       String uuid,
       EncryptedData<VaultUrl>? remoteUrl,
       VaultSettings settings,
@@ -643,6 +646,7 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? majorVersion = freezed,
     Object? uuid = freezed,
     Object? remoteUrl = freezed,
     Object? settings = freezed,
@@ -656,6 +660,10 @@ class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      majorVersion: majorVersion == freezed
+          ? _value.majorVersion
+          : majorVersion // ignore: cast_nullable_to_non_nullable
+              as int,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -722,6 +730,7 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
   @override
   $Res call(
       {String name,
+      int majorVersion,
       String uuid,
       EncryptedData<VaultUrl>? remoteUrl,
       VaultSettings settings,
@@ -751,6 +760,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? majorVersion = freezed,
     Object? uuid = freezed,
     Object? remoteUrl = freezed,
     Object? settings = freezed,
@@ -764,6 +774,10 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      majorVersion: majorVersion == freezed
+          ? _value.majorVersion
+          : majorVersion // ignore: cast_nullable_to_non_nullable
+              as int,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -801,6 +815,7 @@ class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
 class _$_VaultHeader extends _VaultHeader {
   _$_VaultHeader(
       {required this.name,
+      required this.majorVersion,
       required this.uuid,
       required this.remoteUrl,
       required this.settings,
@@ -815,6 +830,8 @@ class _$_VaultHeader extends _VaultHeader {
 
   @override
   String name;
+  @override
+  int majorVersion;
   @override
   String uuid;
   @override
@@ -832,7 +849,7 @@ class _$_VaultHeader extends _VaultHeader {
 
   @override
   String toString() {
-    return 'VaultHeader(name: $name, uuid: $uuid, remoteUrl: $remoteUrl, settings: $settings, lastUpdate: $lastUpdate, magic: $magic, key: $key, salt: $salt)';
+    return 'VaultHeader(name: $name, majorVersion: $majorVersion, uuid: $uuid, remoteUrl: $remoteUrl, settings: $settings, lastUpdate: $lastUpdate, magic: $magic, key: $key, salt: $salt)';
   }
 
   @JsonKey(ignore: true)
@@ -851,6 +868,7 @@ class _$_VaultHeader extends _VaultHeader {
 abstract class _VaultHeader extends VaultHeader {
   factory _VaultHeader(
       {required String name,
+      required int majorVersion,
       required String uuid,
       required EncryptedData<VaultUrl>? remoteUrl,
       required VaultSettings settings,
@@ -866,6 +884,9 @@ abstract class _VaultHeader extends VaultHeader {
   @override
   String get name;
   set name(String value);
+  @override
+  int get majorVersion;
+  set majorVersion(int value);
   @override
   String get uuid;
   set uuid(String value);
