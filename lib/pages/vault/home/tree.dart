@@ -95,7 +95,7 @@ class TreeGroup extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => ComponentBloc(group.open),
+      create: (context) => ComponentBloc(group.expanded),
       child: BlocBuilder<ComponentBloc, ComponentState>(
         builder: (context, componentState) {
           return BlocBuilder<VaultBloc, VaultState>(
@@ -241,8 +241,9 @@ class TreeGroup extends StatelessWidget {
 
                                     final updatedComponent = component.copyWith(
                                         group: component.group.copyWith(
-                                            open: componentBloc.state.expand !=
-                                                ExpandMode.expanded));
+                                            expanded:
+                                                componentBloc.state.expand !=
+                                                    ExpandMode.expanded));
 
                                     componentBloc.add(
                                         const ComponentEvent.expandToggled());

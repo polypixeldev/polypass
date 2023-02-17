@@ -120,7 +120,7 @@ List<Map<String, dynamic>> addOpenToGroup(
 
   for (int i = 0; i < migratedContents.length; i++) {
     if (migratedContents[i].containsKey('components')) {
-      migratedContents[i]['open'] = false;
+      migratedContents[i]['expanded'] = false;
       migratedContents[i]['components'] =
           addOpenToGroup(migratedContents[i]['components']);
     }

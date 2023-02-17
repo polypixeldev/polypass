@@ -1781,8 +1781,8 @@ VaultGroup _$VaultGroupFromJson(Map<String, dynamic> json) {
 mixin _$VaultGroup {
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
-  dynamic get open => throw _privateConstructorUsedError;
-  set open(dynamic value) => throw _privateConstructorUsedError;
+  dynamic get expanded => throw _privateConstructorUsedError;
+  set expanded(dynamic value) => throw _privateConstructorUsedError;
   List<VaultComponent> get components => throw _privateConstructorUsedError;
   set components(List<VaultComponent> value) =>
       throw _privateConstructorUsedError;
@@ -1798,7 +1798,7 @@ abstract class $VaultGroupCopyWith<$Res> {
   factory $VaultGroupCopyWith(
           VaultGroup value, $Res Function(VaultGroup) then) =
       _$VaultGroupCopyWithImpl<$Res>;
-  $Res call({String name, dynamic open, List<VaultComponent> components});
+  $Res call({String name, dynamic expanded, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1812,7 +1812,7 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? open = freezed,
+    Object? expanded = freezed,
     Object? components = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1820,9 +1820,9 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      open: open == freezed
-          ? _value.open
-          : open // ignore: cast_nullable_to_non_nullable
+      expanded: expanded == freezed
+          ? _value.expanded
+          : expanded // ignore: cast_nullable_to_non_nullable
               as dynamic,
       components: components == freezed
           ? _value.components
@@ -1839,7 +1839,7 @@ abstract class _$$_VaultGroupCopyWith<$Res>
           _$_VaultGroup value, $Res Function(_$_VaultGroup) then) =
       __$$_VaultGroupCopyWithImpl<$Res>;
   @override
-  $Res call({String name, dynamic open, List<VaultComponent> components});
+  $Res call({String name, dynamic expanded, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1855,7 +1855,7 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? open = freezed,
+    Object? expanded = freezed,
     Object? components = freezed,
   }) {
     return _then(_$_VaultGroup(
@@ -1863,7 +1863,7 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      open: open == freezed ? _value.open : open,
+      expanded: expanded == freezed ? _value.expanded : expanded,
       components: components == freezed
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -1876,7 +1876,7 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VaultGroup implements _VaultGroup {
   _$_VaultGroup(
-      {required this.name, this.open = false, this.components = const []});
+      {required this.name, this.expanded = false, this.components = const []});
 
   factory _$_VaultGroup.fromJson(Map<String, dynamic> json) =>
       _$$_VaultGroupFromJson(json);
@@ -1885,14 +1885,14 @@ class _$_VaultGroup implements _VaultGroup {
   String name;
   @override
   @JsonKey()
-  dynamic open;
+  dynamic expanded;
   @override
   @JsonKey()
   List<VaultComponent> components;
 
   @override
   String toString() {
-    return 'VaultGroup(name: $name, open: $open, components: $components)';
+    return 'VaultGroup(name: $name, expanded: $expanded, components: $components)';
   }
 
   @JsonKey(ignore: true)
@@ -1911,7 +1911,7 @@ class _$_VaultGroup implements _VaultGroup {
 abstract class _VaultGroup implements VaultGroup {
   factory _VaultGroup(
       {required String name,
-      dynamic open,
+      dynamic expanded,
       List<VaultComponent> components}) = _$_VaultGroup;
 
   factory _VaultGroup.fromJson(Map<String, dynamic> json) =
@@ -1921,8 +1921,8 @@ abstract class _VaultGroup implements VaultGroup {
   String get name;
   set name(String value);
   @override
-  dynamic get open;
-  set open(dynamic value);
+  dynamic get expanded;
+  set expanded(dynamic value);
   @override
   List<VaultComponent> get components;
   set components(List<VaultComponent> value);
