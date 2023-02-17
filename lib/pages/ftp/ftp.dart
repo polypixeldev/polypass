@@ -86,7 +86,7 @@ class FtpInput extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const CancelButton(),
+                          CancelButton(routerState: routerState),
                           const Padding(padding: EdgeInsets.only(left: 10)),
                           SubmitButton(routerState: routerState)
                         ],
@@ -259,7 +259,9 @@ class PathInput extends StatelessWidget {
 }
 
 class CancelButton extends StatelessWidget {
-  const CancelButton({Key? key}) : super(key: key);
+  const CancelButton({Key? key, required this.routerState}) : super(key: key);
+
+  final GoRouterState routerState;
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +271,18 @@ class CancelButton extends StatelessWidget {
       return ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-          onPressed: state.submitted ? null : () => router.go('/'),
+          onPressed: state.submitted
+              ? null
+              : () {
+                  switch (routerState.queryParams['redirect']) {
+                    case 'create':
+                      router.go('/create');
+                      break;
+                    case 'open':
+                      router.go('/');
+                      break;
+                  }
+                },
           child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium));
     });
   }
