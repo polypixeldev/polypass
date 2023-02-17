@@ -96,7 +96,7 @@ class BaseRow extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       return BlocProvider(
-        create: (context) => ComponentBloc(),
+        create: (context) => ComponentBloc(false),
         child: BlocBuilder<ComponentBloc, ComponentState>(
             builder: (context, state) {
           final bloc = context.read<ComponentBloc>();
