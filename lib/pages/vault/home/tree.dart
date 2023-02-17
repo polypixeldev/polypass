@@ -95,7 +95,7 @@ class TreeGroup extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => ComponentBloc(),
+      create: (context) => ComponentBloc(group.expanded),
       child: BlocBuilder<ComponentBloc, ComponentState>(
         builder: (context, componentState) {
           return BlocBuilder<VaultBloc, VaultState>(
@@ -228,9 +228,40 @@ class TreeGroup extends StatelessWidget {
                                           ExpandMode.collapsed
                                       ? Icons.expand_more_sharp
                                       : Icons.expand_less_sharp),
-                                  onPressed: () {
-                                    context.read<ComponentBloc>().add(
+                                  onPressed: () async {
+                                    final componentBloc =
+                                        context.read<ComponentBloc>();
+                                    final vaultBloc = context.read<VaultBloc>();
+
+                                    final component = unlockedState.vault
+                                        .getComponent(path)
+                                        .maybeMap(
+                                            group: (group) => group,
+                                            orElse: () => throw Error());
+
+                                    final updatedComponent = component.copyWith(
+                                        group: component.group.copyWith(
+                                            expanded:
+                                                componentBloc.state.expand !=
+                                                    ExpandMode.expanded));
+
+                                    componentBloc.add(
                                         const ComponentEvent.expandToggled());
+
+                                    final newVault = unlockedState.vault
+                                        .updateComponent(
+                                            path: path,
+                                            component: updatedComponent);
+
+                                    var masterKey =
+                                        (await getMasterKey(context)).masterKey;
+
+                                    if (masterKey == null) {
+                                      return;
+                                    }
+
+                                    vaultBloc.add(VaultEvent.updated(
+                                        newVault, masterKey));
                                   },
                                 ),
                                 Expanded(

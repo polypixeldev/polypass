@@ -14,8 +14,10 @@ class ComponentState with _$ComponentState {
       required ComponentMode mode,
       required ExpandMode expand}) = _ComponentState;
 
-  factory ComponentState.empty() => const ComponentState(
-      inArea: false, mode: ComponentMode.normal, expand: ExpandMode.collapsed);
+  factory ComponentState.empty(bool expanded) => ComponentState(
+      inArea: false,
+      mode: ComponentMode.normal,
+      expand: expanded ? ExpandMode.expanded : ExpandMode.collapsed);
 }
 
 @freezed
@@ -27,7 +29,7 @@ class ComponentEvent with _$ComponentEvent {
 }
 
 class ComponentBloc extends Bloc<ComponentEvent, ComponentState> {
-  ComponentBloc() : super(ComponentState.empty()) {
+  ComponentBloc(bool expanded) : super(ComponentState.empty(expanded)) {
     on<ComponentEvent>((event, emit) {
       event.map(
           entered: (event) => _onEntered(event, emit),

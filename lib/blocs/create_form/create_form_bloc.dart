@@ -107,7 +107,8 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
       remoteUrl = null;
       url = value;
     }, orElse: () {
-      remoteUrl = EncryptedData.decrypted(state.url!, IV.fromSecureRandom(16))
+      remoteUrl = EncryptedData.decrypted(
+              state.url!, IV.fromSecureRandom(16), polypassMajorVersion)
           .encrypt(masterKey);
       url = VaultUrl.cached(uuid: uuid);
     });
@@ -129,7 +130,7 @@ class CreateFormBloc extends Bloc<CreateFormEvent, CreateFormState> {
             salt: salt),
         url: url,
         contents: EncryptedData<VaultContents>.decrypted(
-            VaultContents(components: []), iv));
+            VaultContents(components: []), iv, polypassMajorVersion));
 
     if (remoteUrl != null) {
       addToCache(newVaultFile);
