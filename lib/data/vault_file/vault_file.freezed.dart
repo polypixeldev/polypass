@@ -1757,6 +1757,8 @@ VaultGroup _$VaultGroupFromJson(Map<String, dynamic> json) {
 mixin _$VaultGroup {
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
+  dynamic get open => throw _privateConstructorUsedError;
+  set open(dynamic value) => throw _privateConstructorUsedError;
   List<VaultComponent> get components => throw _privateConstructorUsedError;
   set components(List<VaultComponent> value) =>
       throw _privateConstructorUsedError;
@@ -1772,7 +1774,7 @@ abstract class $VaultGroupCopyWith<$Res> {
   factory $VaultGroupCopyWith(
           VaultGroup value, $Res Function(VaultGroup) then) =
       _$VaultGroupCopyWithImpl<$Res>;
-  $Res call({String name, List<VaultComponent> components});
+  $Res call({String name, dynamic open, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1786,6 +1788,7 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? open = freezed,
     Object? components = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1793,6 +1796,10 @@ class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      open: open == freezed
+          ? _value.open
+          : open // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       components: components == freezed
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -1808,7 +1815,7 @@ abstract class _$$_VaultGroupCopyWith<$Res>
           _$_VaultGroup value, $Res Function(_$_VaultGroup) then) =
       __$$_VaultGroupCopyWithImpl<$Res>;
   @override
-  $Res call({String name, List<VaultComponent> components});
+  $Res call({String name, dynamic open, List<VaultComponent> components});
 }
 
 /// @nodoc
@@ -1824,6 +1831,7 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? open = freezed,
     Object? components = freezed,
   }) {
     return _then(_$_VaultGroup(
@@ -1831,6 +1839,7 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      open: open == freezed ? _value.open : open,
       components: components == freezed
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -1842,7 +1851,8 @@ class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VaultGroup implements _VaultGroup {
-  _$_VaultGroup({required this.name, this.components = const []});
+  _$_VaultGroup(
+      {required this.name, this.open = false, this.components = const []});
 
   factory _$_VaultGroup.fromJson(Map<String, dynamic> json) =>
       _$$_VaultGroupFromJson(json);
@@ -1851,11 +1861,14 @@ class _$_VaultGroup implements _VaultGroup {
   String name;
   @override
   @JsonKey()
+  dynamic open;
+  @override
+  @JsonKey()
   List<VaultComponent> components;
 
   @override
   String toString() {
-    return 'VaultGroup(name: $name, components: $components)';
+    return 'VaultGroup(name: $name, open: $open, components: $components)';
   }
 
   @JsonKey(ignore: true)
@@ -1872,8 +1885,10 @@ class _$_VaultGroup implements _VaultGroup {
 }
 
 abstract class _VaultGroup implements VaultGroup {
-  factory _VaultGroup({required String name, List<VaultComponent> components}) =
-      _$_VaultGroup;
+  factory _VaultGroup(
+      {required String name,
+      dynamic open,
+      List<VaultComponent> components}) = _$_VaultGroup;
 
   factory _VaultGroup.fromJson(Map<String, dynamic> json) =
       _$_VaultGroup.fromJson;
@@ -1881,6 +1896,9 @@ abstract class _VaultGroup implements VaultGroup {
   @override
   String get name;
   set name(String value);
+  @override
+  dynamic get open;
+  set open(dynamic value);
   @override
   List<VaultComponent> get components;
   set components(List<VaultComponent> value);

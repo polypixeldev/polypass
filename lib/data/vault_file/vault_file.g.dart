@@ -111,6 +111,7 @@ Map<String, dynamic> _$$ItemToJson(_$Item instance) => <String, dynamic>{
 
 _$_VaultGroup _$$_VaultGroupFromJson(Map json) => _$_VaultGroup(
       name: json['name'] as String,
+      open: json['open'] ?? false,
       components: (json['components'] as List<dynamic>?)
               ?.map((e) =>
                   VaultComponent.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -121,6 +122,7 @@ _$_VaultGroup _$$_VaultGroupFromJson(Map json) => _$_VaultGroup(
 Map<String, dynamic> _$$_VaultGroupToJson(_$_VaultGroup instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'open': instance.open,
       'components': instance.components.map((e) => e.toJson()).toList(),
     };
 

@@ -405,6 +405,7 @@ class VaultComponent with _$VaultComponent {
 class VaultGroup with _$VaultGroup {
   factory VaultGroup(
       {required String name,
+      @Default(false) open,
       @Default([]) List<VaultComponent> components}) = _VaultGroup;
 
   factory VaultGroup.fromJson(Map<String, dynamic> json) =>
