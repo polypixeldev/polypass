@@ -158,7 +158,7 @@ class TreeGroup extends StatelessWidget {
                       .isNotEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
-                            'A group or item with this name already exists in the selected group')));
+                            'A group or item with this name already exists in the parent group')));
                     return;
                   }
 
@@ -181,6 +181,8 @@ class TreeGroup extends StatelessWidget {
                   }
 
                   vaultBloc.add(VaultEvent.updated(newVault, masterKey));
+                  vaultBloc.add(VaultEvent.groupSelected(
+                      [...path.sublist(0, path.length - 1), newName], false));
 
                   componentBloc.add(const ComponentEvent.modeToggled());
                 },
