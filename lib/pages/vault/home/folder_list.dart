@@ -465,17 +465,17 @@ class ListHeader extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15),
       child: BaseRow(
           name: (state, isSelected, columnWidth) {
-            return Text('Item Name',
+            return const Text('Item Name',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12.5.sp,
+                    fontSize: 25,
                     fontWeight: FontWeight.w400));
           },
           username: (state, isSelected, columnWidth) {
-            return Text('Item Username',
+            return const Text('Item Username',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12.5.sp,
+                    fontSize: 25,
                     fontWeight: FontWeight.w400));
           },
           actions: (state, isSelected, columnWidth) => null,
