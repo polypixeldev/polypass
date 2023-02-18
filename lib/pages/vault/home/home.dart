@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 import 'package:polypass/pages/vault/home/vault_home_bloc/vault_home_bloc.dart';
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
@@ -95,7 +94,7 @@ class TreeDivider extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 20,
+              height: 25,
               width: 20,
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
@@ -104,7 +103,7 @@ class TreeDivider extends StatelessWidget {
                       builder: (context, state) {
                     return Text(
                       state.treeVisible ? '<' : '>',
-                      style: TextStyle(fontSize: 10.sp),
+                      style: const TextStyle(fontSize: 25),
                       textAlign: TextAlign.center,
                     );
                   }),
@@ -116,7 +115,7 @@ class TreeDivider extends StatelessWidget {
             ),
             SizedBox(
                 width: 20,
-                height: constraints.maxHeight - 20,
+                height: constraints.maxHeight - 30,
                 child: const VerticalDivider()),
           ],
         ),
