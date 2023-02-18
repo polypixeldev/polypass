@@ -129,13 +129,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final unlockedState = vaultBloc.state
         .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
-    var masterKeys = await getMasterKey(event.context, forceDialog: true);
-    final masterKey = masterKeys.masterKey;
-    final masterPassword = masterKeys.masterPassword;
-
-    if (masterKey == null || masterPassword == null) {
-      return;
-    }
+    Key? masterKey;
+    String? masterPassword;
 
     final encSettingsChanged = state.newMasterPassword != '' ||
         state.settings.iterations !=
@@ -147,6 +142,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     String key;
 
     if (encSettingsChanged) {
+      final masterKeys = await getMasterKey(event.context, forceDialog: true);
+      masterKey = masterKeys.masterKey;
+      masterPassword = masterKeys.masterPassword;
+
+      if (masterKey == null || masterPassword == null) {
+        return;
+      }
+
       final encrypter = Encrypter(AES(EncryptedData.deriveDerivedKey(
           state.newMasterPassword == ''
               ? masterPassword
@@ -163,6 +166,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           .encrypt(masterKey.base64, iv: unlockedState.vault.contents.iv)
           .base64;
     } else {
+      final masterKeys = await getMasterKey(event.context, forceDialog: false);
+      masterKey = masterKeys.masterKey;
+      masterPassword = masterKeys.masterPassword;
+
+      if (masterKey == null) {
+        return;
+      }
+
       magic = MagicValue(unlockedState.vault.header.magic.value);
       key = unlockedState.vault.header.key;
     }
