@@ -182,9 +182,10 @@ class CancelButton extends StatelessWidget {
       return ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (vault) => true, orElse: () => false) ||
-                !state.isFormValid
+        onPressed: context
+                .read<VaultBloc>()
+                .state
+                .maybeWhen(unlocking: (vault) => true, orElse: () => false)
             ? null
             : () {
                 context
