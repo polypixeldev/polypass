@@ -150,7 +150,8 @@ class SearchBar extends StatelessWidget {
                 vaultHomeBloc.add(const VaultHomeEvent.searchSubmitted());
               },
             ),
-            label: const Text('Search passwords'),
+            label: Text(
+                'Search ${context.read<VaultBloc>().state.mapOrNull(unlocked: (state) => state.vault.header.name)!}'),
             floatingLabelStyle: theme.textTheme.bodySmall,
             labelStyle: theme.textTheme.bodySmall,
             border: InputBorder.none,
