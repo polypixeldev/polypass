@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
-import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/blocs/recent_bloc/recent_bloc.dart';
 import 'package:polypass/data/vault_repository.dart';
 
@@ -38,14 +37,8 @@ class Recent extends StatelessWidget {
 
     return AppWrapper(
         appBar: false,
-        child: BlocListener<VaultBloc, VaultState>(
-            listener: (context, state) {
-              router.go('/');
-            },
-            listenWhen: (previous, current) =>
-                current.maybeWhen(locked: (vault) => true, orElse: () => false),
-            child: Container(
-                color: Colors.black,
-                child: const Image(image: AssetImage('assets/polypass.png')))));
+        child: Container(
+            color: Colors.black,
+            child: const Image(image: AssetImage('assets/polypass.png'))));
   }
 }
