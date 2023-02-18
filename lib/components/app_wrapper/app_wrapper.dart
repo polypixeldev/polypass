@@ -64,7 +64,7 @@ class AppWrapper extends StatelessWidget {
               : null,
           body: SizedBox.expand(
             child: Container(
-                color: Theme.of(context).backgroundColor, child: child),
+                color: Theme.of(context).colorScheme.background, child: child),
           )),
     );
   }
