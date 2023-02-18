@@ -38,7 +38,7 @@ class VaultLocked extends StatelessWidget {
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
-                          'Decryption failed. Either the vault has been corrupted, or invalid credentials were provided. Try again.'),
+                          'Decryption failed. Check your credentials and try again.'),
                       duration: Duration(seconds: 5)));
                 },
                 listenWhen: (previous, current) =>
