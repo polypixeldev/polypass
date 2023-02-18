@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
 import 'dart:io';
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
@@ -271,17 +270,21 @@ class ListItem extends StatelessWidget {
                       Text('Password: ',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10.sp,
+                              fontSize:
+                                  theme.textTheme.bodyMedium!.fontSize! * 0.8,
                               fontWeight: FontWeight.bold)),
                       Flexible(
+                        flex: 1,
                         child: Tooltip(
                           message: 'Click to copy password',
                           child: RichText(
+                              textAlign: TextAlign.left,
                               text: TextSpan(
                                   text: decryptedPassword,
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 10.sp,
+                                      fontSize:
+                                          theme.textTheme.bodyMedium!.fontSize!,
                                       fontWeight: FontWeight.w300),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
@@ -311,13 +314,14 @@ class ListItem extends StatelessWidget {
                       Text('Notes: ',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10.sp,
+                              fontSize:
+                                  theme.textTheme.bodyMedium!.fontSize! * 0.8,
                               fontWeight: FontWeight.bold)),
                       Flexible(
                         child: Text(item.notes,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 10.sp,
+                                fontSize: theme.textTheme.bodyMedium!.fontSize!,
                                 fontWeight: FontWeight.w300)),
                       ),
                     ];
@@ -333,6 +337,8 @@ class ListItem extends StatelessWidget {
                                   )
                                 : Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: passChildren,
                                   ),
                           ),
@@ -345,6 +351,8 @@ class ListItem extends StatelessWidget {
                                   )
                                 : Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: notesChildren,
                                   ),
                           )
