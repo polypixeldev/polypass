@@ -51,7 +51,8 @@ class VaultLocked extends StatelessWidget {
             children: [
               Text(
                   'Unlock ${context.read<VaultBloc>().state.mapOrNull(locked: (state) => state.vault.header.name)}',
-                  style: const TextStyle(color: Colors.white, fontSize: 30)),
+                  style: const TextStyle(color: Colors.white, fontSize: 30),
+                  textAlign: TextAlign.center),
               const MasterPasswordInput(),
               const SubmitButton()
             ],
