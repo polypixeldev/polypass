@@ -204,13 +204,27 @@ class ListItem extends StatelessWidget {
         final unlockedVaultState = vaultState.maybeMap(
             unlocked: (state) => state, orElse: () => throw Error());
 
-        if (unlockedVaultState.viewingSelectedItem &&
-            unlockedVaultState.selectedItem?.join('.') == path.join('.')) {
+        final isSelectedItem =
+            unlockedVaultState.selectedItem?.join('.') == path.join('.');
+
+        if (unlockedVaultState.viewingSelectedItem && isSelectedItem) {
           context
               .read<ListItemBloc>()
               .add(const ListItemEvent.modeToggled(newMode: ListItemMode.view));
-        } else if (!unlockedVaultState.viewingSelectedItem &&
-            unlockedVaultState.selectedItem?.join('.') == path.join('.')) {
+        } else if (!unlockedVaultState.viewingSelectedItem && isSelectedItem) {
+          context.read<ListItemBloc>().add(
+              const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
+        }
+
+        if (unlockedVaultState.selectedGroup?[0] == 'Search Results' &&
+            isSelectedItem &&
+            Platform.isAndroid) {
+          context
+              .read<ListItemBloc>()
+              .add(const ListItemEvent.modeToggled(newMode: ListItemMode.view));
+        } else if (unlockedVaultState.selectedGroup?[0] == 'Search Results' &&
+            !isSelectedItem &&
+            Platform.isAndroid) {
           context.read<ListItemBloc>().add(
               const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
         }
