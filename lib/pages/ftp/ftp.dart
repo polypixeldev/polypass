@@ -71,27 +71,31 @@ class FtpInput extends StatelessWidget {
                         current.maybeWhen(
                             opening: (errorCount) => errorCount,
                             orElse: () => 0),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Text('FTP Connection Information',
-                          style: Theme.of(context).textTheme.titleMedium),
-                      HostInput(isCreate: isCreate),
-                      UserInput(
-                        isCreate: isCreate,
-                      ),
-                      PasswordInput(
-                        isCreate: isCreate,
-                      ),
-                      PathInput(isCreate: isCreate),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CancelButton(routerState: routerState),
-                          const Padding(padding: EdgeInsets.only(left: 10)),
-                          SubmitButton(routerState: routerState)
-                        ],
-                      ),
-                    ]),
+                          Text('FTP Connection Information',
+                              style: Theme.of(context).textTheme.titleMedium,
+                              textAlign: TextAlign.center),
+                          HostInput(isCreate: isCreate),
+                          UserInput(
+                            isCreate: isCreate,
+                          ),
+                          PasswordInput(
+                            isCreate: isCreate,
+                          ),
+                          PathInput(isCreate: isCreate),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CancelButton(routerState: routerState),
+                              const Padding(padding: EdgeInsets.only(left: 10)),
+                              SubmitButton(routerState: routerState)
+                            ],
+                          ),
+                        ]),
                   ),
                 ),
               ),
