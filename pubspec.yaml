@@ -37,6 +37,18 @@ dev_dependencies:
   freezed: ^2.0.3+1
   json_serializable: ^6.2.0
   ffigen: ^7.2.4
+  flutter_launcher_icons: "^0.11.0"
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/polypass.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  windows:
+    generate: true
+    image_path: "assets/polypass.png"
+    icon_size: 48 # min:48, max:256, default: 48
+
 
 flutter:
   uses-material-design: true
