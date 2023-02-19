@@ -12,8 +12,8 @@ class VaultRepository {
   final FileProvider fileProvider = const FileProvider();
   final FtpProvider ftpProvider = FtpProvider();
 
-  Future<VaultFile> getFile(VaultUrl url, AppSettingsBloc appSettingsBloc,
-      Future<Key?> Function(VaultFile) getRemoteUrlKey) async {
+  Future<VaultFile> getFile(
+      VaultUrl url, AppSettingsBloc appSettingsBloc) async {
     return await url.map(file: (fileUrl) async {
       final file = await fileProvider.readFile(fileUrl);
 
@@ -42,54 +42,48 @@ class VaultRepository {
       if (cachedFile == null) {
         throw Exception('FILE_NOT_IN_CACHE');
       } else {
-        VaultFile remoteFile;
-        final VaultUrl decryptedUrl;
-
-        try {
-          final key = await getRemoteUrlKey(cachedFile);
-
-          if (key == null) {
-            return cachedFile;
-          }
-
-          decryptedUrl = cachedFile.header.remoteUrl!
-              .decrypt(key)
-              .mapOrNull(decrypted: (value) => value.data)!;
-
-          remoteFile =
-              await getFile(decryptedUrl, appSettingsBloc, getRemoteUrlKey);
-        } catch (e) {
-          return cachedFile;
-        }
-
-        final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
-
-        var syncFile = syncCachedAndRemote(
-            localFile: cachedFile,
-            remoteFile: remoteFile,
-            lastSyncMap: lastSyncMap,
-            uuid: cachedUrl.uuid);
-
-        syncFile = syncFile.copyWith(
-            url: cachedUrl,
-            header: syncFile.header.copyWith(
-                remoteUrl: cachedFile.header.remoteUrl,
-                lastUpdate: DateTime.now()));
-
-        updateEncryptedRemoteFile(syncFile, decryptedUrl);
-        updateEncryptedLocalFile(syncFile);
-
-        lastSyncMap[cachedUrl.uuid] = DateTime.now();
-
-        final newSettings =
-            appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
-
-        appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
-        newSettings.save();
-
-        return syncFile;
+        return cachedFile;
       }
     });
+  }
+
+  Future<VaultFile> syncFiles({
+    required AppSettingsBloc appSettingsBloc,
+    required CachedVaultUrl cachedUrl,
+    required VaultUrl decryptedRemoteUrl,
+    required VaultFile cachedFile,
+    required VaultFile remoteFile,
+  }) async {
+    final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+
+    var syncFile = syncCachedAndRemote(
+        localFile: cachedFile,
+        remoteFile: remoteFile,
+        lastSyncMap: lastSyncMap,
+        uuid: cachedUrl.uuid);
+
+    syncFile = syncFile.copyWith(
+        url: decryptedRemoteUrl,
+        header: syncFile.header.copyWith(lastUpdate: DateTime.now()));
+
+    updateEncryptedRemoteFile(syncFile, decryptedRemoteUrl);
+
+    syncFile = syncFile.copyWith(
+        url: cachedUrl,
+        header:
+            syncFile.header.copyWith(remoteUrl: cachedFile.header.remoteUrl));
+
+    updateEncryptedLocalFile(syncFile);
+
+    lastSyncMap[cachedUrl.uuid] = DateTime.now();
+
+    final newSettings =
+        appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+
+    appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+    newSettings.save();
+
+    return syncFile;
   }
 
   Future<VaultFile> getLocalFile(VaultUrl url) async {
