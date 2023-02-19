@@ -55,7 +55,7 @@ class OpenDialog extends StatelessWidget {
                 border: Border.all(
                     color: theme.appBarTheme.backgroundColor!, width: 5),
                 borderRadius: BorderRadius.circular(10)),
-            constraints: const BoxConstraints(maxHeight: 500, maxWidth: 700),
+            constraints: const BoxConstraints(maxHeight: 700, maxWidth: 700),
             padding: const EdgeInsets.all(10),
             child: ListView(shrinkWrap: true, children: [
               LocalButton(onCancel: onCancel, onSuccess: onSuccess),
