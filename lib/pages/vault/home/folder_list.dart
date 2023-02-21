@@ -490,14 +490,14 @@ class ListHeader extends StatelessWidget {
             return const Text('Item Name',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 23,
                     fontWeight: FontWeight.w400));
           },
           username: (state, isSelected, columnWidth) {
             return const Text('Item Username',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 23,
                     fontWeight: FontWeight.w400));
           },
           actions: (state, isSelected, columnWidth) => null,

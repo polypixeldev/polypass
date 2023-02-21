@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "polypass")
-set(APPLICATION_ID "com.example.polypass")
+set(APPLICATION_ID "com.polypixeldev.polypass")
 
 cmake_policy(SET CMP0063 NEW)
 

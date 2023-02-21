@@ -1,4 +1,4 @@
-package com.example.polypass
+package com.polypixeldev.polypass
 
 import io.flutter.embedding.android.FlutterActivity
 
