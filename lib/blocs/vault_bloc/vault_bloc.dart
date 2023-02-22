@@ -202,8 +202,15 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
           .mapOrNull(decrypted: (value) => value)!
           .data;
 
-      final remoteFile = await read<VaultRepository>()
-          .getFile(decryptedRemoteUrl, read<AppSettingsBloc>());
+      final VaultFile remoteFile;
+
+      try {
+        remoteFile = await read<VaultRepository>()
+            .getFile(decryptedRemoteUrl, read<AppSettingsBloc>());
+      } catch (e) {
+        await read<VaultRepository>().clearPoison(decryptedRemoteUrl);
+        return;
+      }
 
       lockedVault = await read<VaultRepository>().syncFiles(
           appSettingsBloc: read<AppSettingsBloc>(),
