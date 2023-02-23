@@ -85,8 +85,8 @@ class LocalButton extends StatelessWidget {
         onPressed: () async {
           final result = await FilePicker.platform.pickFiles(
               dialogTitle: 'Open PolyPass Vault',
-              type: FileType.custom,
-              allowedExtensions: ['ppv.json']);
+              type: Platform.isAndroid ? FileType.any : FileType.custom,
+              allowedExtensions: Platform.isAndroid ? null : ['ppv.json']);
 
           final filePath = result?.files.first.path;
 
