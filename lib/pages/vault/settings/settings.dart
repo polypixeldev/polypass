@@ -112,6 +112,7 @@ class VaultSettingsPage extends StatelessWidget {
                                         }
                                       }),
                                   const Text('Change Master Password',
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 30, color: Colors.white)),
                                   Padding(
