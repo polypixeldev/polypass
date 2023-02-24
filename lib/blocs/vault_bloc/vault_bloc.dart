@@ -69,11 +69,13 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
   final Locator read;
 
-  Future<Key?> Function(VaultFile) _getRemoteUrlKeyFunction(
+  Future<Key?> Function(VaultFile, bool) _getRemoteUrlKeyFunction(
       BuildContext context) {
-    return (VaultFile file) async {
-      final keys =
-          await getMasterKey(context, forceDialog: true, customFile: file);
+    return (VaultFile file, bool cancelMain) async {
+      final keys = await getMasterKey(context,
+          forceDialog: true,
+          customFile: file,
+          cancelUrl: cancelMain ? '/' : '/vault/home');
       return keys.masterKey;
     };
   }
@@ -154,12 +156,10 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
       final cachedUrl = VaultUrl.cached(uuid: file.header.uuid);
 
-      final key = await getFunc(file);
+      final key = await getFunc(file, true);
 
       if (key == null) {
-        emit(VaultState.opening(
-            errorCount:
-                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+        emit(const VaultState.none());
         return;
       }
 

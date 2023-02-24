@@ -208,7 +208,9 @@ class MasterKeys {
 }
 
 Future<MasterKeys> getMasterKey(BuildContext context,
-    {bool forceDialog = false, VaultFile? customFile}) async {
+    {bool forceDialog = false,
+    VaultFile? customFile,
+    String cancelUrl = '/vault/home'}) async {
   encrypt.Key? masterKey;
 
   if (customFile == null) {
@@ -233,7 +235,7 @@ Future<MasterKeys> getMasterKey(BuildContext context,
               },
               onCancel: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                GoRouter.of(context).go('/vault/home');
+                GoRouter.of(context).go(cancelUrl);
               },
               customFile: customFile,
             ));
