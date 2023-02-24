@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$UnlockFormState {
+mixin _$LockedFormState {
 // Raw master password that user enters
   String get masterPassword =>
       throw _privateConstructorUsedError; // Derived master key from master password
@@ -25,14 +25,14 @@ mixin _$UnlockFormState {
   int get fails => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UnlockFormStateCopyWith<UnlockFormState> get copyWith =>
+  $UnlockFormStateCopyWith<LockedFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $UnlockFormStateCopyWith<$Res> {
   factory $UnlockFormStateCopyWith(
-          UnlockFormState value, $Res Function(UnlockFormState) then) =
+          LockedFormState value, $Res Function(LockedFormState) then) =
       _$UnlockFormStateCopyWithImpl<$Res>;
   $Res call(
       {String masterPassword,
@@ -47,9 +47,9 @@ class _$UnlockFormStateCopyWithImpl<$Res>
     implements $UnlockFormStateCopyWith<$Res> {
   _$UnlockFormStateCopyWithImpl(this._value, this._then);
 
-  final UnlockFormState _value;
+  final LockedFormState _value;
   // ignore: unused_field
-  final $Res Function(UnlockFormState) _then;
+  final $Res Function(LockedFormState) _then;
 
   @override
   $Res call({
@@ -200,7 +200,7 @@ class _$_UnlockFormState extends _UnlockFormState {
       __$$_UnlockFormStateCopyWithImpl<_$_UnlockFormState>(this, _$identity);
 }
 
-abstract class _UnlockFormState extends UnlockFormState {
+abstract class _UnlockFormState extends LockedFormState {
   const factory _UnlockFormState(
       {required final String masterPassword,
       required final Key? masterKey,
@@ -226,7 +226,7 @@ abstract class _UnlockFormState extends UnlockFormState {
 }
 
 /// @nodoc
-mixin _$UnlockFormEvent {
+mixin _$LockedFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
@@ -271,7 +271,7 @@ mixin _$UnlockFormEvent {
 /// @nodoc
 abstract class $UnlockFormEventCopyWith<$Res> {
   factory $UnlockFormEventCopyWith(
-          UnlockFormEvent value, $Res Function(UnlockFormEvent) then) =
+          LockedFormEvent value, $Res Function(LockedFormEvent) then) =
       _$UnlockFormEventCopyWithImpl<$Res>;
 }
 
@@ -280,9 +280,9 @@ class _$UnlockFormEventCopyWithImpl<$Res>
     implements $UnlockFormEventCopyWith<$Res> {
   _$UnlockFormEventCopyWithImpl(this._value, this._then);
 
-  final UnlockFormEvent _value;
+  final LockedFormEvent _value;
   // ignore: unused_field
-  final $Res Function(UnlockFormEvent) _then;
+  final $Res Function(LockedFormEvent) _then;
 }
 
 /// @nodoc
@@ -416,7 +416,7 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   }
 }
 
-abstract class MasterPasswordChangedEvent implements UnlockFormEvent {
+abstract class MasterPasswordChangedEvent implements LockedFormEvent {
   const factory MasterPasswordChangedEvent(final String masterPassword) =
       _$MasterPasswordChangedEvent;
 
@@ -528,6 +528,6 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   }
 }
 
-abstract class FormSubmittedEvent implements UnlockFormEvent {
+abstract class FormSubmittedEvent implements LockedFormEvent {
   const factory FormSubmittedEvent() = _$FormSubmittedEvent;
 }

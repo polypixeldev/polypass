@@ -21,11 +21,10 @@ class VaultLocked extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 600,
       child: BlocProvider(
-        create: (context) =>
-            UnlockFormBloc(vaultBloc: context.read<VaultBloc>()),
+        create: (context) => LockedFormBloc(read: context.read),
         child: MultiBlocListener(
           listeners: [
-            BlocListener<UnlockFormBloc, UnlockFormState>(
+            BlocListener<LockedFormBloc, LockedFormState>(
                 listener: (context, state) {
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -33,7 +32,7 @@ class VaultLocked extends StatelessWidget {
                       duration: Duration(seconds: 3)));
                 },
                 listenWhen: (previous, current) => current.success == true),
-            BlocListener<UnlockFormBloc, UnlockFormState>(
+            BlocListener<LockedFormBloc, LockedFormState>(
                 listener: (context, state) {
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -72,7 +71,7 @@ class MasterPasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<UnlockFormBloc, UnlockFormState>(
+    return BlocBuilder<LockedFormBloc, LockedFormState>(
       builder: (context, state) {
         return Container(
             decoration: BoxDecoration(
@@ -97,13 +96,13 @@ class MasterPasswordInput extends StatelessWidget {
               autocorrect: false,
               onChanged: (masterPassword) {
                 context
-                    .read<UnlockFormBloc>()
-                    .add(UnlockFormEvent.masterPasswordChanged(masterPassword));
+                    .read<LockedFormBloc>()
+                    .add(LockedFormEvent.masterPasswordChanged(masterPassword));
               },
               onFieldSubmitted: (masterPassword) {
                 context
-                    .read<UnlockFormBloc>()
-                    .add(const UnlockFormEvent.formSubmitted());
+                    .read<LockedFormBloc>()
+                    .add(const LockedFormEvent.formSubmitted());
               },
               autofocus: true,
             ));
@@ -119,7 +118,7 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UnlockFormBloc, UnlockFormState>(
+    return BlocBuilder<LockedFormBloc, LockedFormState>(
         builder: (context, state) {
       return ElevatedButton(
         style: ButtonStyle(
@@ -130,8 +129,8 @@ class SubmitButton extends StatelessWidget {
             ? null
             : () {
                 context
-                    .read<UnlockFormBloc>()
-                    .add(const UnlockFormEvent.formSubmitted());
+                    .read<LockedFormBloc>()
+                    .add(const LockedFormEvent.formSubmitted());
               },
         child: const Text('Submit',
             style: TextStyle(color: Colors.white, fontSize: 20)),

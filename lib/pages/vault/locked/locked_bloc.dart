@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:provider/provider.dart';
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
@@ -9,9 +10,9 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 part 'locked_bloc.freezed.dart';
 
 @freezed
-class UnlockFormState with _$UnlockFormState {
-  const UnlockFormState._();
-  const factory UnlockFormState(
+class LockedFormState with _$LockedFormState {
+  const LockedFormState._();
+  const factory LockedFormState(
       {
       // Raw master password that user enters
       required String masterPassword,
@@ -21,7 +22,7 @@ class UnlockFormState with _$UnlockFormState {
       required bool success,
       required int fails}) = _UnlockFormState;
 
-  factory UnlockFormState.empty() => const UnlockFormState(
+  factory LockedFormState.empty() => const LockedFormState(
       masterPassword: '',
       masterKey: null,
       submitted: false,
@@ -32,15 +33,15 @@ class UnlockFormState with _$UnlockFormState {
 }
 
 @freezed
-class UnlockFormEvent with _$UnlockFormEvent {
-  const factory UnlockFormEvent.masterPasswordChanged(String masterPassword) =
+class LockedFormEvent with _$LockedFormEvent {
+  const factory LockedFormEvent.masterPasswordChanged(String masterPassword) =
       MasterPasswordChangedEvent;
-  const factory UnlockFormEvent.formSubmitted() = FormSubmittedEvent;
+  const factory LockedFormEvent.formSubmitted() = FormSubmittedEvent;
 }
 
-class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
-  UnlockFormBloc({required this.vaultBloc}) : super(UnlockFormState.empty()) {
-    on<UnlockFormEvent>((event, emit) {
+class LockedFormBloc extends Bloc<LockedFormEvent, LockedFormState> {
+  LockedFormBloc({required this.read}) : super(LockedFormState.empty()) {
+    on<LockedFormEvent>((event, emit) {
       event.map(
           masterPasswordChanged: (event) =>
               _onMasterPasswordChanged(event, emit),
@@ -48,16 +49,18 @@ class UnlockFormBloc extends Bloc<UnlockFormEvent, UnlockFormState> {
     });
   }
 
-  final VaultBloc vaultBloc;
+  final Locator read;
 
   void _onMasterPasswordChanged(
-      MasterPasswordChangedEvent event, Emitter<UnlockFormState> emit) {
+      MasterPasswordChangedEvent event, Emitter<LockedFormState> emit) {
     emit(state.copyWith(masterPassword: event.masterPassword));
   }
 
   void _onFormSubmitted(
-      FormSubmittedEvent event, Emitter<UnlockFormState> emit) {
+      FormSubmittedEvent event, Emitter<LockedFormState> emit) {
     emit(state.copyWith(submitted: true));
+
+    final vaultBloc = read<VaultBloc>();
 
     final lockedState = vaultBloc.state
         .maybeMap(locked: (state) => state, orElse: () => throw Error());
