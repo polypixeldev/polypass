@@ -4,9 +4,9 @@ flutter_app:
 
 control:
   Package: PolyPass
-  Version: 1.0.0
+  Version: 2.0.0
   Architecture: amd64
   Essential: no
   Priority: optional
-  Maintainer: Poly-Pixel
+  Maintainer: polypixeldev
   Description: A simple, secure, and easy to use password manager
