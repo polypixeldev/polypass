@@ -285,7 +285,7 @@ class ListItem extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize:
-                                  theme.textTheme.bodyMedium!.fontSize! * 0.8,
+                                  theme.textTheme.bodyMedium!.fontSize! * 0.75,
                               fontWeight: FontWeight.bold)),
                       Flexible(
                         flex: 1,
@@ -329,7 +329,7 @@ class ListItem extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize:
-                                  theme.textTheme.bodyMedium!.fontSize! * 0.8,
+                                  theme.textTheme.bodyMedium!.fontSize! * 0.75,
                               fontWeight: FontWeight.bold)),
                       Flexible(
                         child: Text(item.notes,
@@ -342,35 +342,37 @@ class ListItem extends StatelessWidget {
 
                     extra.add(Padding(
                         padding: const EdgeInsets.only(top: 15),
-                        child: Row(children: [
-                          SizedBox(
-                            width: columnWidth * .35,
-                            child: columnWidth > 600
-                                ? Row(
-                                    children: passChildren,
-                                  )
-                                : Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: passChildren,
-                                  ),
-                          ),
-                          const Padding(padding: EdgeInsets.only(left: 40)),
-                          SizedBox(
-                            width: columnWidth * .35,
-                            child: columnWidth > 600
-                                ? Row(
-                                    children: notesChildren,
-                                  )
-                                : Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: notesChildren,
-                                  ),
-                          )
-                        ])));
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: columnWidth * .35,
+                                child: columnWidth > 600
+                                    ? Row(
+                                        children: passChildren,
+                                      )
+                                    : Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: passChildren,
+                                      ),
+                              ),
+                              const Padding(padding: EdgeInsets.only(left: 40)),
+                              SizedBox(
+                                width: columnWidth * .35,
+                                child: columnWidth > 600
+                                    ? Row(
+                                        children: notesChildren,
+                                      )
+                                    : Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: notesChildren,
+                                      ),
+                              )
+                            ])));
                   }
 
                   return extra;
