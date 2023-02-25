@@ -53,7 +53,7 @@ VaultPassword migratePassword(
   Map<String, dynamic> json = originalJson;
 
   for (int i = fromVersion; i < toVersion; i++) {
-    json = contentsMigrationMap[i + 1]!(json);
+    json = passwordMigrationMap[i + 1]!(json);
   }
 
   return VaultPassword.fromJson(json);
@@ -68,7 +68,7 @@ MagicValue migrateMagicValue(
   Map<String, dynamic> json = originalJson;
 
   for (int i = fromVersion; i < toVersion; i++) {
-    json = contentsMigrationMap[i + 1]!(json);
+    json = magicValueMigrationMap[i + 1]!(json);
   }
 
   return MagicValue.fromJson(json);
@@ -83,7 +83,7 @@ VaultUrl migrateUrl(
   Map<String, dynamic> json = originalJson;
 
   for (int i = fromVersion; i < toVersion; i++) {
-    json = contentsMigrationMap[i + 1]!(json);
+    json = urlMigrationMap[i + 1]!(json);
   }
 
   return VaultUrl.fromJson(json);
