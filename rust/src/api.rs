@@ -1,5 +1,5 @@
 use flutter_rust_bridge::{RustOpaque, SyncReturn};
-use std::io::Cursor;
+use std::{io::Cursor, time::Duration, net::{SocketAddr, IpAddr, Ipv4Addr}};
 pub use std::sync::RwLock;
 use suppaftp::FtpStream;
 
@@ -52,8 +52,11 @@ fn connect_internal(provider: &mut FtpProvider, url: &FtpUrl) {
         disconnect_internal(provider);
     }
 
+    let addr_str: Vec<&str> = url.host.split('.').collect();
+    let addr_nums: Vec<u8> = addr_str.iter().map(|x| x.parse().unwrap()).collect();
+
     let mut stream =
-        FtpStream::connect(url.host.clone() + ":21").expect("Failed to connect to host");
+        FtpStream::connect_timeout(SocketAddr::new(IpAddr::V4(Ipv4Addr::new(addr_nums[0], addr_nums[1], addr_nums[2], addr_nums[3])), 21), Duration::from_secs(5)).expect("Failed to connect to host");
     stream.login(&url.user, &url.pass).expect("Failed to login");
 
     provider.connection = Some(Box::new(stream));
