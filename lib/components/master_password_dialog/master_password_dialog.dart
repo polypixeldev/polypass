@@ -155,8 +155,8 @@ class SubmitButton extends StatelessWidget {
       return ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (vault) => true, orElse: () => false) ||
+        onPressed: context.read<VaultBloc>().state.maybeMap(
+                    unlocking: (state) => true, orElse: () => false) ||
                 !state.isFormValid
             ? null
             : () {
@@ -185,7 +185,7 @@ class CancelButton extends StatelessWidget {
         onPressed: context
                 .read<VaultBloc>()
                 .state
-                .maybeWhen(unlocking: (vault) => true, orElse: () => false)
+                .maybeMap(unlocking: (state) => true, orElse: () => false)
             ? null
             : () {
                 context

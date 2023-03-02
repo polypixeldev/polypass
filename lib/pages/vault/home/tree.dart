@@ -145,15 +145,17 @@ class TreeGroup extends StatelessWidget {
                       ? unlockedState.vault.toGroup()
                       : unlockedState.vault
                           .getComponent(path.take(path.length - 1).toList())
-                          .maybeWhen(
-                              group: (group) => group,
+                          .maybeMap(
+                              group: (groupComponent) => groupComponent.group,
                               orElse: () => throw Error());
 
                   if (parentGroup.components
                       .where((component) =>
-                          component.when(
-                              group: (group) => group.name,
-                              item: (item) => item.name) ==
+                          component.map(
+                              group: (groupComponent) =>
+                                  groupComponent.group.name,
+                              item: (itemComponent) =>
+                                  itemComponent.item.name) ==
                           newName)
                       .isNotEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

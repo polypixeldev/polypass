@@ -65,11 +65,11 @@ class FtpInput extends StatelessWidget {
                       context.read<FtpBloc>().add(const FtpEvent.errored());
                     },
                     listenWhen: (previous, current) =>
-                        previous.maybeWhen(
-                            opening: (errorCount) => errorCount,
+                        previous.maybeMap(
+                            opening: (state) => state.errorCount,
                             orElse: () => 0) <
-                        current.maybeWhen(
-                            opening: (errorCount) => errorCount,
+                        current.maybeMap(
+                            opening: (state) => state.errorCount,
                             orElse: () => 0),
                     child: Column(
                         mainAxisSize: MainAxisSize.min,

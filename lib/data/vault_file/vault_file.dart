@@ -173,8 +173,9 @@ class VaultFile with _$VaultFile {
       final pathPart = path[i];
       if (i == path.length - 1) {
         index = currentGroup.components.toList().indexWhere((component) =>
-            component.when(
-                group: (group) => group.name, item: (item) => item.name) ==
+            component.map(
+                group: (groupComponent) => groupComponent.group.name,
+                item: (itemComponent) => itemComponent.item.name) ==
             pathPart);
         break;
       }
@@ -214,10 +215,12 @@ class VaultFile with _$VaultFile {
 
       final pathedIndex = currentPathedGroup.components.toList().indexWhere(
           (component) =>
-              component.when(
-                  group: (group) => group.name, item: (item) => item.name) ==
-              updatedComponent.when(
-                  group: (group) => group.name, item: (item) => item.name));
+              component.map(
+                  group: (groupComponent) => groupComponent.group.name,
+                  item: (itemComponent) => itemComponent.item.name) ==
+              updatedComponent.map(
+                  group: (groupComponent) => groupComponent.group.name,
+                  item: (itemComponent) => itemComponent.item.name));
 
       currentPathedGroup.components[pathedIndex] = updatedComponent;
       updatedComponent = VaultComponent.group(currentPathedGroup);
@@ -228,8 +231,8 @@ class VaultFile with _$VaultFile {
     final newVault = copyWith(
         contents: decryptedContents.copyWith(
             data: decryptedContents.data.copyWith(
-                components: updatedComponent.maybeWhen(
-                    group: (group) => group.components,
+                components: updatedComponent.maybeMap(
+                    group: (groupComponent) => groupComponent.group.components,
                     orElse: () => throw Error()))));
 
     return newVault;
@@ -243,8 +246,9 @@ class VaultFile with _$VaultFile {
       final root = toGroup();
 
       root.components.removeWhere((component) =>
-          component.when(
-              group: (group) => group.name, item: (item) => item.name) ==
+          component.map(
+              group: (groupComponent) => groupComponent.group.name,
+              item: (itemComponent) => itemComponent.item.name) ==
           path.last);
 
       final newVault = copyWith(
@@ -265,8 +269,9 @@ class VaultFile with _$VaultFile {
     }
 
     currentGroup.components.removeWhere((component) =>
-        component.when(
-            group: (group) => group.name, item: (item) => item.name) ==
+        component.map(
+            group: (groupComponent) => groupComponent.group.name,
+            item: (itemComponent) => itemComponent.item.name) ==
         path.last);
 
     return updateComponent(
@@ -282,9 +287,9 @@ class VaultFile with _$VaultFile {
           group: (group) {
             component = group.group.components
                 .where((component) =>
-                    component.when(
-                        group: (group) => group.name,
-                        item: (item) => item.name) ==
+                    component.map(
+                        group: (groupComponent) => groupComponent.group.name,
+                        item: (itemComponent) => itemComponent.item.name) ==
                     pathPart)
                 .toList()[0];
             return null;

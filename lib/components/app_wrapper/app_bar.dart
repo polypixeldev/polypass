@@ -16,8 +16,8 @@ AppBar createAppBar(
   List<IconButton>? appBarActions;
   String name = '';
 
-  state.whenOrNull(locked: (vault) {
-    name = ' - ${vault.header.name}';
+  state.mapOrNull(locked: (state) {
+    name = ' - ${state.vault.header.name}';
 
     appBarIcon = const Icon(Icons.lock);
 
@@ -31,9 +31,8 @@ AppBar createAppBar(
         splashRadius: 20,
       )
     ];
-  }, unlocked: (vault, selectedGroup, selectedItem, viewingSelectedItem,
-      masterKey, errorCount) {
-    name = ' - ${vault.header.name}';
+  }, unlocked: (state) {
+    name = ' - ${state.vault.header.name}';
 
     appBarIcon = IconButton(
       icon: const Icon(Icons.lock_open),
@@ -44,7 +43,7 @@ AppBar createAppBar(
       splashRadius: 20,
     );
 
-    if (selectedGroup?[0] != 'Search Results') {
+    if (state.selectedGroup?[0] != 'Search Results') {
       appBarActions = [
         IconButton(
             icon: const Icon(Icons.create_new_folder_sharp),
@@ -60,8 +59,9 @@ AppBar createAppBar(
               final selectedPath = vaultState.selectedGroup;
 
               final selectedComponents = selectedPath != null
-                  ? vaultState.vault.getComponent(selectedPath).maybeWhen(
-                      group: (group) => group.components,
+                  ? vaultState.vault.getComponent(selectedPath).maybeMap(
+                      group: (groupComponent) =>
+                          groupComponent.group.components,
                       orElse: () => throw Error())
                   : decryptedContents.data.components;
 
@@ -69,9 +69,9 @@ AppBar createAppBar(
               var number = 2;
               while (selectedComponents
                   .where((component) =>
-                      component.when(
-                          group: (group) => group.name,
-                          item: (item) => item.name) ==
+                      component.map(
+                          group: (groupComponent) => groupComponent.group.name,
+                          item: (itemComponent) => itemComponent.item.name) ==
                       testName)
                   .toList()
                   .isNotEmpty) {

@@ -82,7 +82,7 @@ class MasterPasswordInput extends StatelessWidget {
               enabled: context
                   .read<VaultBloc>()
                   .state
-                  .maybeWhen(unlocking: (vault) => false, orElse: () => true),
+                  .maybeMap(unlocking: (state) => false, orElse: () => true),
               decoration: const InputDecoration(
                   labelText: 'Master Password',
                   contentPadding: EdgeInsets.all(10),
@@ -123,8 +123,8 @@ class SubmitButton extends StatelessWidget {
       return ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        onPressed: context.read<VaultBloc>().state.maybeWhen(
-                    unlocking: (vault) => true, orElse: () => false) ||
+        onPressed: context.read<VaultBloc>().state.maybeMap(
+                    unlocking: (state) => true, orElse: () => false) ||
                 !state.isFormValid
             ? null
             : () {

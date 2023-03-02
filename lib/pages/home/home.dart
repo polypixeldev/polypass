@@ -53,8 +53,8 @@ class Home extends StatelessWidget {
                                   TextStyle(fontSize: 30, color: Colors.white)),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                            onPressed: state.maybeWhen(
-                              opening: (errorCount) => null,
+                            onPressed: state.maybeMap(
+                              opening: (state) => null,
                               orElse: () => () => router.go('/create'),
                             ),
                             child: const Padding(
@@ -64,8 +64,8 @@ class Home extends StatelessWidget {
                           ),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                              onPressed: state.maybeWhen(
-                                  opening: (errorCount) => null,
+                              onPressed: state.maybeMap(
+                                  opening: (state) => null,
                                   orElse: () => () async {
                                         final vaultBloc =
                                             context.read<VaultBloc>();
@@ -93,8 +93,8 @@ class Home extends StatelessWidget {
                                       style: TextStyle(fontSize: 25)))),
                           const Padding(padding: EdgeInsets.only(bottom: 10)),
                           ElevatedButton(
-                            onPressed: state.maybeWhen(
-                                opening: (errorCount) => null,
+                            onPressed: state.maybeMap(
+                                opening: (state) => null,
                                 orElse: () => () async {
                                       router.go('/settings');
                                     }),

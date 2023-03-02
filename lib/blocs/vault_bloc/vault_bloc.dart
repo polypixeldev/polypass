@@ -93,7 +93,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
-                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+                state.mapOrNull(opening: (state) => state.errorCount + 1)!));
         await read<VaultRepository>().clearPoison(event.url);
         return;
       }
@@ -121,7 +121,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
-                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+                state.mapOrNull(opening: (state) => state.errorCount + 1)!));
         await read<VaultRepository>().clearPoison(event.url);
         return;
       }
@@ -149,7 +149,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
-                state.whenOrNull(opening: (errorCount) => errorCount + 1)!));
+                state.mapOrNull(opening: (state) => state.errorCount + 1)!));
         await read<VaultRepository>().clearPoison(event.url);
         return;
       }
@@ -191,8 +191,8 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
   Future<void> _onVaultUnlocked(
       UnlockedEvent event, Emitter<VaultState> emit) async {
-    var lockedVault =
-        state.maybeWhen(locked: (vault) => vault, orElse: () => throw Error());
+    var lockedVault = state.maybeMap(
+        locked: (state) => state.vault, orElse: () => throw Error());
 
     emit(VaultState.unlocking(lockedVault));
 

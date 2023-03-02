@@ -25,15 +25,15 @@ mixin _$LockedFormState {
   int get fails => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UnlockFormStateCopyWith<LockedFormState> get copyWith =>
+  $LockedFormStateCopyWith<LockedFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UnlockFormStateCopyWith<$Res> {
-  factory $UnlockFormStateCopyWith(
+abstract class $LockedFormStateCopyWith<$Res> {
+  factory $LockedFormStateCopyWith(
           LockedFormState value, $Res Function(LockedFormState) then) =
-      _$UnlockFormStateCopyWithImpl<$Res>;
+      _$LockedFormStateCopyWithImpl<$Res>;
   $Res call(
       {String masterPassword,
       Key? masterKey,
@@ -43,9 +43,9 @@ abstract class $UnlockFormStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UnlockFormStateCopyWithImpl<$Res>
-    implements $UnlockFormStateCopyWith<$Res> {
-  _$UnlockFormStateCopyWithImpl(this._value, this._then);
+class _$LockedFormStateCopyWithImpl<$Res>
+    implements $LockedFormStateCopyWith<$Res> {
+  _$LockedFormStateCopyWithImpl(this._value, this._then);
 
   final LockedFormState _value;
   // ignore: unused_field
@@ -86,7 +86,7 @@ class _$UnlockFormStateCopyWithImpl<$Res>
 
 /// @nodoc
 abstract class _$$_UnlockFormStateCopyWith<$Res>
-    implements $UnlockFormStateCopyWith<$Res> {
+    implements $LockedFormStateCopyWith<$Res> {
   factory _$$_UnlockFormStateCopyWith(
           _$_UnlockFormState value, $Res Function(_$_UnlockFormState) then) =
       __$$_UnlockFormStateCopyWithImpl<$Res>;
@@ -101,7 +101,7 @@ abstract class _$$_UnlockFormStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_UnlockFormStateCopyWithImpl<$Res>
-    extends _$UnlockFormStateCopyWithImpl<$Res>
+    extends _$LockedFormStateCopyWithImpl<$Res>
     implements _$$_UnlockFormStateCopyWith<$Res> {
   __$$_UnlockFormStateCopyWithImpl(
       _$_UnlockFormState _value, $Res Function(_$_UnlockFormState) _then)
@@ -169,7 +169,7 @@ class _$_UnlockFormState extends _UnlockFormState {
 
   @override
   String toString() {
-    return 'UnlockFormState(masterPassword: $masterPassword, masterKey: $masterKey, submitted: $submitted, success: $success, fails: $fails)';
+    return 'LockedFormState(masterPassword: $masterPassword, masterKey: $masterKey, submitted: $submitted, success: $success, fails: $fails)';
   }
 
   @override
@@ -269,16 +269,16 @@ mixin _$LockedFormEvent {
 }
 
 /// @nodoc
-abstract class $UnlockFormEventCopyWith<$Res> {
-  factory $UnlockFormEventCopyWith(
+abstract class $LockedFormEventCopyWith<$Res> {
+  factory $LockedFormEventCopyWith(
           LockedFormEvent value, $Res Function(LockedFormEvent) then) =
-      _$UnlockFormEventCopyWithImpl<$Res>;
+      _$LockedFormEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$UnlockFormEventCopyWithImpl<$Res>
-    implements $UnlockFormEventCopyWith<$Res> {
-  _$UnlockFormEventCopyWithImpl(this._value, this._then);
+class _$LockedFormEventCopyWithImpl<$Res>
+    implements $LockedFormEventCopyWith<$Res> {
+  _$LockedFormEventCopyWithImpl(this._value, this._then);
 
   final LockedFormEvent _value;
   // ignore: unused_field
@@ -296,7 +296,7 @@ abstract class _$$MasterPasswordChangedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$MasterPasswordChangedEventCopyWithImpl<$Res>
-    extends _$UnlockFormEventCopyWithImpl<$Res>
+    extends _$LockedFormEventCopyWithImpl<$Res>
     implements _$$MasterPasswordChangedEventCopyWith<$Res> {
   __$$MasterPasswordChangedEventCopyWithImpl(
       _$MasterPasswordChangedEvent _value,
@@ -330,7 +330,7 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
 
   @override
   String toString() {
-    return 'UnlockFormEvent.masterPasswordChanged(masterPassword: $masterPassword)';
+    return 'LockedFormEvent.masterPasswordChanged(masterPassword: $masterPassword)';
   }
 
   @override
@@ -435,7 +435,7 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$FormSubmittedEventCopyWithImpl<$Res>
-    extends _$UnlockFormEventCopyWithImpl<$Res>
+    extends _$LockedFormEventCopyWithImpl<$Res>
     implements _$$FormSubmittedEventCopyWith<$Res> {
   __$$FormSubmittedEventCopyWithImpl(
       _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
@@ -452,7 +452,7 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 
   @override
   String toString() {
-    return 'UnlockFormEvent.formSubmitted()';
+    return 'LockedFormEvent.formSubmitted()';
   }
 
   @override

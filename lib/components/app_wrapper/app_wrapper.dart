@@ -29,12 +29,10 @@ class AppWrapper extends StatelessWidget {
             final router = GoRouter.of(context);
             ScaffoldMessenger.of(context).clearSnackBars();
 
-            state.whenOrNull(
-                locked: (vault) => router.go('/vault/locked'),
-                unlocked: (vault, selectedGroup, selectedItem,
-                        viewingSelectedItem, masterKey, errorCount) =>
-                    router.go('/vault/home'),
-                none: () => router.go('/'));
+            state.mapOrNull(
+                locked: (state) => router.go('/vault/locked'),
+                unlocked: (state) => router.go('/vault/home'),
+                none: (state) => router.go('/'));
           },
         ),
         BlocListener<VaultBloc, VaultState>(
@@ -46,16 +44,10 @@ class AppWrapper extends StatelessWidget {
                       'Failed to save changes to vault - please try again')));
             },
             listenWhen: (previous, current) =>
-                previous.maybeWhen(
-                    unlocked: (vault, selectedGroup, selectedItem,
-                            viewingSelectedItem, masterKey, errorCount) =>
-                        errorCount,
-                    orElse: () => 0) <
-                current.maybeWhen(
-                    unlocked: (vault, selectedGroup, selectedItem,
-                            viewingSelectedItem, masterKey, errorCount) =>
-                        errorCount,
-                    orElse: () => 0))
+                previous.maybeMap(
+                    unlocked: (state) => state.errorCounts, orElse: () => 0) <
+                current.maybeMap(
+                    unlocked: (state) => state.errorCounts, orElse: () => 0))
       ],
       child: Scaffold(
           appBar: appBar

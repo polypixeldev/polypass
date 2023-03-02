@@ -22,8 +22,8 @@ class EditItem extends StatelessWidget {
         .state
         .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
     final component = unlockedState.vault.getComponent(path);
-    final item =
-        component.maybeWhen(item: (item) => item, orElse: () => throw Error());
+    final item = component.maybeMap(
+        item: (state) => state.item, orElse: () => throw Error());
 
     Future<MasterKeys>? dialog;
 
@@ -84,14 +84,17 @@ class EditItem extends StatelessWidget {
                                 final parent = unlockedState.vault
                                     .getComponent(
                                         path.take(path.length - 1).toList())
-                                    .maybeWhen(
-                                        group: (group) => group,
+                                    .maybeMap(
+                                        group: (groupComponent) =>
+                                            groupComponent.group,
                                         orElse: () => throw Error());
                                 final exists =
                                     parent.components.where((component) {
-                                  final componentName = component.when(
-                                      group: (group) => group.name,
-                                      item: (item) => item.name);
+                                  final componentName = component.map(
+                                      group: (groupComponent) =>
+                                          groupComponent.group.name,
+                                      item: (itemComponent) =>
+                                          itemComponent.item.name);
                                   return componentName ==
                                           state.editedItem!.name &&
                                       componentName != item.name;

@@ -43,8 +43,9 @@ class FolderList extends StatelessWidget {
               .map((path) => unlockedState.vault.getComponent(path))
               .toList();
         } else {
-          components = unlockedState.vault.getComponent(paths).maybeWhen(
-              group: (group) => group.components, orElse: () => throw Error());
+          components = unlockedState.vault.getComponent(paths).maybeMap(
+              group: (groupComponent) => groupComponent.group.components,
+              orElse: () => throw Error());
         }
 
         final items = components.whereType<Item>().toList();
@@ -254,8 +255,8 @@ class ListItem extends StatelessWidget {
                 ? '-'
                 : item.password
                     .decrypt(masterKey)
-                    .maybeWhen(
-                        decrypted: (data, iv, version) => data,
+                    .maybeMap(
+                        decrypted: (state) => state.data,
                         orElse: () => throw Error())
                     .password;
           }

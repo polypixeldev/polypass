@@ -53,16 +53,19 @@ class NewItem extends StatelessWidget {
                             final selectedGroup = selectedPath != null
                                 ? unlockedState.vault
                                     .getComponent(selectedPath)
-                                    .maybeWhen(
-                                        group: (group) => group,
+                                    .maybeMap(
+                                        group: (groupComponent) =>
+                                            groupComponent.group,
                                         orElse: () => throw Error())
                                 : unlockedState.vault.toGroup();
 
                             final exists = selectedGroup.components.where(
                                 (component) =>
-                                    component.when(
-                                        group: (group) => group.name,
-                                        item: (item) => item.name) ==
+                                    component.map(
+                                        group: (groupComponent) =>
+                                            groupComponent.group.name,
+                                        item: (itemComponent) =>
+                                            itemComponent.item.name) ==
                                     state.createdItem!.name);
 
                             if (exists.isNotEmpty) {
