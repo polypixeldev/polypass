@@ -8,4 +8,4 @@ Type=Application
 Categories=Utility
 Keywords=passwords;security;
 Icon=PolyPass.png
-StartupWMClass=PolyPass
+StartupWMClass=polypass
