@@ -6,6 +6,8 @@
 
 include(FetchContent)
 
+set(Rust_TOOLCHAIN "nightly")
+
 FetchContent_Declare(
     Corrosion
     GIT_REPOSITORY https://github.com/AndrewGaspar/corrosion.git

@@ -35,6 +35,7 @@ Output
 # Built files
 windows-install/data
 windows-install/polypass.exe
+windows-install/libpolypass.dll
 windows-install/flutter_windows.dll
 windows-install/polypass.exe
 
