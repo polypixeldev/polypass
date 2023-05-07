@@ -4,7 +4,7 @@
 ;CHANGE THIS TO THE PATH OF THE REPOSITORY
 #define RepoPath "CHANGE_THIS"
 
-#define MyAppName "PolyPass"
+#define MyAppName "Polypass"
 #define MyAppVersion "2.0.0"
 #define MyAppExeName "polypass.exe"
 #define MyAppAssocName MyAppName + " Vault"

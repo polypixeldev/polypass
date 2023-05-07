@@ -3,7 +3,7 @@ flutter_app:
   arch: x64
 
 control:
-  Package: PolyPass
+  Package: Polypass
   Version: 2.0.0
   Architecture: amd64
   Essential: no

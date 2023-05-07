@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=PolyPass
-GenericName=PolyPass
+Name=Polypass
+GenericName=Polypass
 Comment=A simple, secure, and easy to use password manager
 Terminal=false
 Type=Application
 Categories=Utility
 Keywords=passwords;security;
-Icon=PolyPass.png
+Icon=Polypass.png
 StartupWMClass=polypass

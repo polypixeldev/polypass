@@ -48,9 +48,8 @@ class _AppState extends State<App> with TickerProviderStateMixin {
 
   final AppSettings initialSettings;
 
-  late final fadeController =
-      AnimationController(vsync: this, duration: const Duration(seconds: 1))
-        ..forward();
+  late final fadeController = AnimationController(vsync: this, duration: const Duration(seconds: 1))
+    ..forward();
 
   late final Animation<double> fadeAnimation = CurvedAnimation(
     parent: fadeController,
@@ -71,28 +70,18 @@ class _AppState extends State<App> with TickerProviderStateMixin {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: const Home(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(opacity: fadeAnimation, child: child),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: fadeAnimation, child: child),
               )),
-      GoRoute(
-          path: '/ftp',
-          builder: (context, state) => FtpInput(routerState: state)),
+      GoRoute(path: '/ftp', builder: (context, state) => FtpInput(routerState: state)),
       GoRoute(path: '/recent', builder: (context, state) => const Recent()),
       GoRoute(path: '/create', builder: (context, state) => const Create()),
       GoRoute(path: '/settings', builder: (context, state) => const Settings()),
-      GoRoute(
-          path: '/vault/home', builder: (context, state) => const VaultHome()),
-      GoRoute(
-          path: '/vault/locked',
-          builder: (context, state) => const VaultLocked()),
+      GoRoute(path: '/vault/home', builder: (context, state) => const VaultHome()),
+      GoRoute(path: '/vault/locked', builder: (context, state) => const VaultLocked()),
       GoRoute(path: '/vault/new', builder: (context, state) => const NewItem()),
-      GoRoute(
-          path: '/vault/edit/:path',
-          builder: (context, state) => EditItem(routerState: state)),
-      GoRoute(
-          path: '/vault/settings',
-          builder: (context, state) => const VaultSettingsPage())
+      GoRoute(path: '/vault/edit/:path', builder: (context, state) => EditItem(routerState: state)),
+      GoRoute(path: '/vault/settings', builder: (context, state) => const VaultSettingsPage())
     ], initialLocation: '/recent');
 
     return Sizer(builder: (context, orientation, deviceType) {
@@ -110,8 +99,8 @@ class _AppState extends State<App> with TickerProviderStateMixin {
                     read: context.read)),
             BlocProvider(create: (context) => VaultBloc(read: context.read)),
             BlocProvider(
-                create: (context) => ActivityBloc(read: context.read)
-                  ..add(const ActivityEvent.started())),
+                create: (context) =>
+                    ActivityBloc(read: context.read)..add(const ActivityEvent.started())),
             BlocProvider(
               create: (context) => RecentBloc(),
             )
@@ -120,7 +109,7 @@ class _AppState extends State<App> with TickerProviderStateMixin {
             child: MaterialApp.router(
                 routeInformationParser: router.routeInformationParser,
                 routerDelegate: router.routerDelegate,
-                title: 'PolyPass',
+                title: 'Polypass',
                 debugShowCheckedModeBanner: false,
                 theme: appTheme),
           ),

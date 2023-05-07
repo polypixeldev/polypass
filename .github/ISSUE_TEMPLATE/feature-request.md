@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest a feature for PolyPass
+about: Suggest a feature for Polypass
 title: "[FR]"
 labels: enhancement
 assignees: ''

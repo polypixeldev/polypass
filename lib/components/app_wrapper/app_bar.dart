@@ -7,8 +7,7 @@ import 'package:polypass/components/master_password_dialog/master_password_dialo
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
-AppBar createAppBar(
-    BuildContext context, VaultState state, bool actions, bool icon) {
+AppBar createAppBar(BuildContext context, VaultState state, bool actions, bool icon) {
   final vaultBloc = context.read<VaultBloc>();
   final router = GoRouter.of(context);
 
@@ -50,18 +49,16 @@ AppBar createAppBar(
             tooltip: 'Create a group',
             onPressed: () async {
               final vaultBloc = context.read<VaultBloc>();
-              final vaultState = vaultBloc.state.maybeMap(
-                  unlocked: (state) => state, orElse: () => throw Error());
-              final decryptedContents = vaultState.vault.contents.maybeMap(
-                  decrypted: (contents) => contents,
-                  orElse: () => throw Error());
+              final vaultState =
+                  vaultBloc.state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
+              final decryptedContents = vaultState.vault.contents
+                  .maybeMap(decrypted: (contents) => contents, orElse: () => throw Error());
 
               final selectedPath = vaultState.selectedGroup;
 
               final selectedComponents = selectedPath != null
                   ? vaultState.vault.getComponent(selectedPath).maybeMap(
-                      group: (groupComponent) =>
-                          groupComponent.group.components,
+                      group: (groupComponent) => groupComponent.group.components,
                       orElse: () => throw Error())
                   : decryptedContents.data.components;
 
@@ -86,9 +83,7 @@ AppBar createAppBar(
               }
 
               final newVault = vaultState.vault.updateComponent(
-                  path: selectedPath == null
-                      ? [testName]
-                      : [...selectedPath, testName],
+                  path: selectedPath == null ? [testName] : [...selectedPath, testName],
                   component: VaultComponent.group(VaultGroup(
                     name: testName,
                     components: [],
@@ -102,14 +97,14 @@ AppBar createAppBar(
           tooltip: 'Delete the selected group',
           onPressed: () async {
             final vaultBloc = context.read<VaultBloc>();
-            final unlockedState = vaultBloc.state.maybeMap(
-                unlocked: (state) => state, orElse: () => throw Error());
+            final unlockedState =
+                vaultBloc.state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
             final selectedGroup = unlockedState.selectedGroup;
             if (selectedGroup == null) {
               ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an group to delete first')));
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Select an group to delete first')));
 
               return;
             }
@@ -139,14 +134,16 @@ AppBar createAppBar(
           icon: const Icon(Icons.edit),
           tooltip: 'Edit the selected item',
           onPressed: () {
-            final unlockedState = context.read<VaultBloc>().state.maybeMap(
-                unlocked: (state) => state, orElse: () => throw Error());
+            final unlockedState = context
+                .read<VaultBloc>()
+                .state
+                .maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
             final selectedItem = unlockedState.selectedItem;
             if (selectedItem == null) {
               ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an item to edit first')));
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Select an item to edit first')));
 
               return;
             }
@@ -160,14 +157,14 @@ AppBar createAppBar(
           tooltip: 'Delete the selected item',
           onPressed: () async {
             final vaultBloc = context.read<VaultBloc>();
-            final unlockedState = vaultBloc.state.maybeMap(
-                unlocked: (state) => state, orElse: () => throw Error());
+            final unlockedState =
+                vaultBloc.state.maybeMap(unlocked: (state) => state, orElse: () => throw Error());
 
             final selectedItem = unlockedState.selectedItem;
             if (selectedItem == null) {
               ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Select an item to delete first')));
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Select an item to delete first')));
 
               return;
             }
@@ -189,9 +186,7 @@ AppBar createAppBar(
           icon: const Icon(Icons.preview_outlined),
           tooltip: 'View the selected item',
           onPressed: () {
-            context
-                .read<VaultBloc>()
-                .add(const VaultEvent.selectedItemViewToggled());
+            context.read<VaultBloc>().add(const VaultEvent.selectedItemViewToggled());
           },
           splashRadius: 20,
         ),
@@ -219,7 +214,7 @@ AppBar createAppBar(
   });
 
   final polyPassAppBar = AppBar(
-      title: Text('PolyPass$name'),
+      title: Text('Polypass$name'),
       centerTitle: true,
       leading: icon == true && appBarIcon != null ? appBarIcon : null,
       actions: actions == true && appBarActions != null ? appBarActions : null);

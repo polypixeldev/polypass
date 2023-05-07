@@ -17,13 +17,12 @@ class AppSettings with _$AppSettings {
       required VaultUrl? recentUrl,
       required Map<String, DateTime> lastSyncMap}) = _AppSettings;
 
-  static final documentsDir = Platform.isAndroid
-      ? getExternalStorageDirectory()
-      : getApplicationDocumentsDirectory();
+  static final documentsDir =
+      Platform.isAndroid ? getExternalStorageDirectory() : getApplicationDocumentsDirectory();
 
   static late final String polypassDir;
 
-  static Future<void> loadPolyPassDir() async {
+  static Future<void> loadPolypassDir() async {
     final polyPassDir = Directory(
         '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
     if (!await polyPassDir.exists()) {
@@ -33,7 +32,7 @@ class AppSettings with _$AppSettings {
   }
 
   static Future<AppSettings> load() async {
-    await loadPolyPassDir();
+    await loadPolypassDir();
     final file = File('$polypassDir/.settings.json');
 
     if (!(await file.exists())) {
@@ -46,14 +45,10 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File('$polypassDir/.settings.json')
-        .writeAsString(jsonEncode(toJson()));
+    await File('$polypassDir/.settings.json').writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() => AppSettings(
-      defaultVaultSettings: VaultSettings.empty(),
-      recentUrl: null,
-      lastSyncMap: {});
-  factory AppSettings.fromJson(Map<String, dynamic> json) =>
-      _$AppSettingsFromJson(json);
+  factory AppSettings.empty() =>
+      AppSettings(defaultVaultSettings: VaultSettings.empty(), recentUrl: null, lastSyncMap: {});
+  factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 }
