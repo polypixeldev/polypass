@@ -44,3 +44,6 @@ rust/target
 
 # Android libs
 jniLibs
+
+.flatpak-builder
+build-dir
