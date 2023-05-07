@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.polypixeldev.Polypass</id>
+
+  <name>Polypass</name>
+  <summary>A simple, secure, and easy to use password manager</summary>
+  <url type="homepage">https://github.com/polypixeldev/polypass</url>
+  <url type="bugtracker">https://github.com/polypixeldev/polypass/issues</url>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <developer_name>polypixeldev</developer_name>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>
+      Polypass is a simple, secure, and easy to use password manager
+    </p>
+  </description>
+
+  <launchable type="desktop-id">io.github.polypixeldev.Polypass.desktop</launchable>
+  <content_rating type="oars-1.0"/>
+  <releases>
+    <release version="1.0.0" date="2022-08-03">
+	  <description>
+		<p>
+		  Initial release
+		</p>
+	  </description>
+	</release>
+  </releases>
+  <release version="2.0.0" date="2023-03-12">
+  <description>
+  	Version 2.0.0 of PolyPass brings many big improvements to PolyPass, including:
+
+	<ul>
+		<li>Android builds</li>
+		<li>Remote files via FTP</li>
+		<li>Offline access</li>
+		<li>Auto locking</li>
+		<li>Auto clipboard clearing</li>
+		<li>and more!</li>
+	</ul>
+
+  </description>
+  </release>
+</component>
