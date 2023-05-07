@@ -32,10 +32,9 @@ modules:
         dest: Polypass
         archive-type: tar-gzip
         strip-components: 0
-        url: https://github.com/polypixeldev/polypass/releases/download/v2.0.0/polypass-linux-x64.tar.gz
-        sha256: b9c497f4d19f9fd7f2e577eef5b9f867affe90ea44c35637c2819e586df33e66
+        url: https://github.com/polypixeldev/polypass/releases/download/v2.2.0/polypass-linux-x64.tar.gz
+        sha256: 30305c88bfa0eb2959425bc19a30c1b080cee00be0e47db8866da6f0226ad179
       - type: git
         dest: git_repo
         url: https://github.com/polypixeldev/polypass
-        tag: v2.0.0
-        commit: 74b50fb2b80e4811cb8dbfcf0db57cd45c52ee7d
+        tag: v2.2.0
