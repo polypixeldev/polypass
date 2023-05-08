@@ -16,7 +16,7 @@ class FtpInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCreate = routerState.queryParams['redirect'] == 'create';
+    final isCreate = routerState.queryParameters['redirect'] == 'create';
 
     return AppWrapper(
       actions: false,
@@ -278,7 +278,7 @@ class CancelButton extends StatelessWidget {
           onPressed: state.submitted
               ? null
               : () {
-                  switch (routerState.queryParams['redirect']) {
+                  switch (routerState.queryParameters['redirect']) {
                     case 'create':
                       router.go('/create');
                       break;
@@ -315,7 +315,7 @@ class SubmitButton extends StatelessWidget {
                       password: ftpBloc.state.password,
                       path: ftpBloc.state.path);
 
-                  switch (routerState.queryParams['redirect']) {
+                  switch (routerState.queryParameters['redirect']) {
                     case 'create':
                       final globalBloc = context.read<CreateFormBloc>();
                       globalBloc.add(CreateFormEvent.urlChanged(ftpUrl));

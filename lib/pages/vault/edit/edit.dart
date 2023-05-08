@@ -16,7 +16,7 @@ class EditItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final path = routerState.params['path']!.split('.');
+    final path = routerState.pathParameters['path']!.split('.');
     final unlockedState = context
         .read<VaultBloc>()
         .state
