@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'ftp_bloc.dart';
 
@@ -30,49 +30,53 @@ mixin _$FtpState {
 /// @nodoc
 abstract class $FtpStateCopyWith<$Res> {
   factory $FtpStateCopyWith(FtpState value, $Res Function(FtpState) then) =
-      _$FtpStateCopyWithImpl<$Res>;
+      _$FtpStateCopyWithImpl<$Res, FtpState>;
+  @useResult
   $Res call(
       {String host, String user, String password, String path, bool submitted});
 }
 
 /// @nodoc
-class _$FtpStateCopyWithImpl<$Res> implements $FtpStateCopyWith<$Res> {
+class _$FtpStateCopyWithImpl<$Res, $Val extends FtpState>
+    implements $FtpStateCopyWith<$Res> {
   _$FtpStateCopyWithImpl(this._value, this._then);
 
-  final FtpState _value;
   // ignore: unused_field
-  final $Res Function(FtpState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? host = freezed,
-    Object? user = freezed,
-    Object? password = freezed,
-    Object? path = freezed,
-    Object? submitted = freezed,
+    Object? host = null,
+    Object? user = null,
+    Object? password = null,
+    Object? path = null,
+    Object? submitted = null,
   }) {
     return _then(_value.copyWith(
-      host: host == freezed
+      host: null == host
           ? _value.host
           : host // ignore: cast_nullable_to_non_nullable
               as String,
-      user: user == freezed
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,46 +86,46 @@ abstract class _$$_FtpStateCopyWith<$Res> implements $FtpStateCopyWith<$Res> {
           _$_FtpState value, $Res Function(_$_FtpState) then) =
       __$$_FtpStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String host, String user, String password, String path, bool submitted});
 }
 
 /// @nodoc
-class __$$_FtpStateCopyWithImpl<$Res> extends _$FtpStateCopyWithImpl<$Res>
+class __$$_FtpStateCopyWithImpl<$Res>
+    extends _$FtpStateCopyWithImpl<$Res, _$_FtpState>
     implements _$$_FtpStateCopyWith<$Res> {
   __$$_FtpStateCopyWithImpl(
       _$_FtpState _value, $Res Function(_$_FtpState) _then)
-      : super(_value, (v) => _then(v as _$_FtpState));
+      : super(_value, _then);
 
-  @override
-  _$_FtpState get _value => super._value as _$_FtpState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? host = freezed,
-    Object? user = freezed,
-    Object? password = freezed,
-    Object? path = freezed,
-    Object? submitted = freezed,
+    Object? host = null,
+    Object? user = null,
+    Object? password = null,
+    Object? path = null,
+    Object? submitted = null,
   }) {
     return _then(_$_FtpState(
-      host: host == freezed
+      host: null == host
           ? _value.host
           : host // ignore: cast_nullable_to_non_nullable
               as String,
-      user: user == freezed
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -161,24 +165,22 @@ class _$_FtpState extends _FtpState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FtpState &&
-            const DeepCollectionEquality().equals(other.host, host) &&
-            const DeepCollectionEquality().equals(other.user, user) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality().equals(other.submitted, submitted));
+            (identical(other.host, host) || other.host == host) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.submitted, submitted) ||
+                other.submitted == submitted));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(host),
-      const DeepCollectionEquality().hash(user),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(submitted));
+  int get hashCode =>
+      Object.hash(runtimeType, host, user, password, path, submitted);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FtpStateCopyWith<_$_FtpState> get copyWith =>
       __$$_FtpStateCopyWithImpl<_$_FtpState>(this, _$identity);
 }
@@ -222,12 +224,12 @@ mixin _$FtpEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -253,12 +255,12 @@ mixin _$FtpEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -277,16 +279,18 @@ mixin _$FtpEvent {
 /// @nodoc
 abstract class $FtpEventCopyWith<$Res> {
   factory $FtpEventCopyWith(FtpEvent value, $Res Function(FtpEvent) then) =
-      _$FtpEventCopyWithImpl<$Res>;
+      _$FtpEventCopyWithImpl<$Res, FtpEvent>;
 }
 
 /// @nodoc
-class _$FtpEventCopyWithImpl<$Res> implements $FtpEventCopyWith<$Res> {
+class _$FtpEventCopyWithImpl<$Res, $Val extends FtpEvent>
+    implements $FtpEventCopyWith<$Res> {
   _$FtpEventCopyWithImpl(this._value, this._then);
 
-  final FtpEvent _value;
   // ignore: unused_field
-  final $Res Function(FtpEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -294,26 +298,25 @@ abstract class _$$HostChangedEventCopyWith<$Res> {
   factory _$$HostChangedEventCopyWith(
           _$HostChangedEvent value, $Res Function(_$HostChangedEvent) then) =
       __$$HostChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String host});
 }
 
 /// @nodoc
 class __$$HostChangedEventCopyWithImpl<$Res>
-    extends _$FtpEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$HostChangedEvent>
     implements _$$HostChangedEventCopyWith<$Res> {
   __$$HostChangedEventCopyWithImpl(
       _$HostChangedEvent _value, $Res Function(_$HostChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$HostChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$HostChangedEvent get _value => super._value as _$HostChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? host = freezed,
+    Object? host = null,
   }) {
     return _then(_$HostChangedEvent(
-      host == freezed
+      null == host
           ? _value.host
           : host // ignore: cast_nullable_to_non_nullable
               as String,
@@ -339,15 +342,15 @@ class _$HostChangedEvent implements HostChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HostChangedEvent &&
-            const DeepCollectionEquality().equals(other.host, host));
+            (identical(other.host, host) || other.host == host));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(host));
+  int get hashCode => Object.hash(runtimeType, host);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$HostChangedEventCopyWith<_$HostChangedEvent> get copyWith =>
       __$$HostChangedEventCopyWithImpl<_$HostChangedEvent>(this, _$identity);
 
@@ -367,12 +370,12 @@ class _$HostChangedEvent implements HostChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return hostChanged?.call(host);
   }
@@ -410,12 +413,12 @@ class _$HostChangedEvent implements HostChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return hostChanged?.call(this);
   }
@@ -452,26 +455,25 @@ abstract class _$$UserChangedEventCopyWith<$Res> {
   factory _$$UserChangedEventCopyWith(
           _$UserChangedEvent value, $Res Function(_$UserChangedEvent) then) =
       __$$UserChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String user});
 }
 
 /// @nodoc
 class __$$UserChangedEventCopyWithImpl<$Res>
-    extends _$FtpEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$UserChangedEvent>
     implements _$$UserChangedEventCopyWith<$Res> {
   __$$UserChangedEventCopyWithImpl(
       _$UserChangedEvent _value, $Res Function(_$UserChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$UserChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$UserChangedEvent get _value => super._value as _$UserChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_$UserChangedEvent(
-      user == freezed
+      null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
@@ -497,15 +499,15 @@ class _$UserChangedEvent implements UserChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserChangedEvent &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UserChangedEventCopyWith<_$UserChangedEvent> get copyWith =>
       __$$UserChangedEventCopyWithImpl<_$UserChangedEvent>(this, _$identity);
 
@@ -525,12 +527,12 @@ class _$UserChangedEvent implements UserChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return userChanged?.call(user);
   }
@@ -568,12 +570,12 @@ class _$UserChangedEvent implements UserChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return userChanged?.call(this);
   }
@@ -610,26 +612,25 @@ abstract class _$$PasswordChangedEventCopyWith<$Res> {
   factory _$$PasswordChangedEventCopyWith(_$PasswordChangedEvent value,
           $Res Function(_$PasswordChangedEvent) then) =
       __$$PasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String password});
 }
 
 /// @nodoc
 class __$$PasswordChangedEventCopyWithImpl<$Res>
-    extends _$FtpEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$PasswordChangedEvent>
     implements _$$PasswordChangedEventCopyWith<$Res> {
   __$$PasswordChangedEventCopyWithImpl(_$PasswordChangedEvent _value,
       $Res Function(_$PasswordChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$PasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$PasswordChangedEvent get _value => super._value as _$PasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? password = freezed,
+    Object? password = null,
   }) {
     return _then(_$PasswordChangedEvent(
-      password == freezed
+      null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
@@ -655,15 +656,16 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PasswordChangedEvent &&
-            const DeepCollectionEquality().equals(other.password, password));
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(password));
+  int get hashCode => Object.hash(runtimeType, password);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PasswordChangedEventCopyWith<_$PasswordChangedEvent> get copyWith =>
       __$$PasswordChangedEventCopyWithImpl<_$PasswordChangedEvent>(
           this, _$identity);
@@ -684,12 +686,12 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return passwordChanged?.call(password);
   }
@@ -727,12 +729,12 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return passwordChanged?.call(this);
   }
@@ -770,26 +772,25 @@ abstract class _$$PathChangedEventCopyWith<$Res> {
   factory _$$PathChangedEventCopyWith(
           _$PathChangedEvent value, $Res Function(_$PathChangedEvent) then) =
       __$$PathChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String path});
 }
 
 /// @nodoc
 class __$$PathChangedEventCopyWithImpl<$Res>
-    extends _$FtpEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$PathChangedEvent>
     implements _$$PathChangedEventCopyWith<$Res> {
   __$$PathChangedEventCopyWithImpl(
       _$PathChangedEvent _value, $Res Function(_$PathChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$PathChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$PathChangedEvent get _value => super._value as _$PathChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = freezed,
+    Object? path = null,
   }) {
     return _then(_$PathChangedEvent(
-      path == freezed
+      null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
@@ -815,15 +816,15 @@ class _$PathChangedEvent implements PathChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PathChangedEvent &&
-            const DeepCollectionEquality().equals(other.path, path));
+            (identical(other.path, path) || other.path == path));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+  int get hashCode => Object.hash(runtimeType, path);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PathChangedEventCopyWith<_$PathChangedEvent> get copyWith =>
       __$$PathChangedEventCopyWithImpl<_$PathChangedEvent>(this, _$identity);
 
@@ -843,12 +844,12 @@ class _$PathChangedEvent implements PathChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return pathChanged?.call(path);
   }
@@ -886,12 +887,12 @@ class _$PathChangedEvent implements PathChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return pathChanged?.call(this);
   }
@@ -931,14 +932,12 @@ abstract class _$$SubmittedEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SubmittedEventCopyWithImpl<$Res> extends _$FtpEventCopyWithImpl<$Res>
+class __$$SubmittedEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$SubmittedEvent>
     implements _$$SubmittedEventCopyWith<$Res> {
   __$$SubmittedEventCopyWithImpl(
       _$SubmittedEvent _value, $Res Function(_$SubmittedEvent) _then)
-      : super(_value, (v) => _then(v as _$SubmittedEvent));
-
-  @override
-  _$SubmittedEvent get _value => super._value as _$SubmittedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -976,12 +975,12 @@ class _$SubmittedEvent implements SubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return submitted?.call();
   }
@@ -1019,12 +1018,12 @@ class _$SubmittedEvent implements SubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return submitted?.call(this);
   }
@@ -1059,14 +1058,12 @@ abstract class _$$ErroredEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ErroredEventCopyWithImpl<$Res> extends _$FtpEventCopyWithImpl<$Res>
+class __$$ErroredEventCopyWithImpl<$Res>
+    extends _$FtpEventCopyWithImpl<$Res, _$ErroredEvent>
     implements _$$ErroredEventCopyWith<$Res> {
   __$$ErroredEventCopyWithImpl(
       _$ErroredEvent _value, $Res Function(_$ErroredEvent) _then)
-      : super(_value, (v) => _then(v as _$ErroredEvent));
-
-  @override
-  _$ErroredEvent get _value => super._value as _$ErroredEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1104,12 +1101,12 @@ class _$ErroredEvent implements ErroredEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String host)? hostChanged,
-    TResult Function(String user)? userChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String path)? pathChanged,
-    TResult Function()? submitted,
-    TResult Function()? errored,
+    TResult? Function(String host)? hostChanged,
+    TResult? Function(String user)? userChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String path)? pathChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? errored,
   }) {
     return errored?.call();
   }
@@ -1147,12 +1144,12 @@ class _$ErroredEvent implements ErroredEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(HostChangedEvent value)? hostChanged,
-    TResult Function(UserChangedEvent value)? userChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(PathChangedEvent value)? pathChanged,
-    TResult Function(SubmittedEvent value)? submitted,
-    TResult Function(ErroredEvent value)? errored,
+    TResult? Function(HostChangedEvent value)? hostChanged,
+    TResult? Function(UserChangedEvent value)? userChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(PathChangedEvent value)? pathChanged,
+    TResult? Function(SubmittedEvent value)? submitted,
+    TResult? Function(ErroredEvent value)? errored,
   }) {
     return errored?.call(this);
   }

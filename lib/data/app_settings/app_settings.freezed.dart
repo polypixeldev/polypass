@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_settings.dart';
 
@@ -34,7 +34,8 @@ mixin _$AppSettings {
 abstract class $AppSettingsCopyWith<$Res> {
   factory $AppSettingsCopyWith(
           AppSettings value, $Res Function(AppSettings) then) =
-      _$AppSettingsCopyWithImpl<$Res>;
+      _$AppSettingsCopyWithImpl<$Res, AppSettings>;
+  @useResult
   $Res call(
       {VaultSettings defaultVaultSettings,
       VaultUrl? recentUrl,
@@ -45,50 +46,55 @@ abstract class $AppSettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppSettingsCopyWithImpl<$Res> implements $AppSettingsCopyWith<$Res> {
+class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
+    implements $AppSettingsCopyWith<$Res> {
   _$AppSettingsCopyWithImpl(this._value, this._then);
 
-  final AppSettings _value;
   // ignore: unused_field
-  final $Res Function(AppSettings) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? defaultVaultSettings = freezed,
+    Object? defaultVaultSettings = null,
     Object? recentUrl = freezed,
-    Object? lastSyncMap = freezed,
+    Object? lastSyncMap = null,
   }) {
     return _then(_value.copyWith(
-      defaultVaultSettings: defaultVaultSettings == freezed
+      defaultVaultSettings: null == defaultVaultSettings
           ? _value.defaultVaultSettings
           : defaultVaultSettings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      recentUrl: recentUrl == freezed
+      recentUrl: freezed == recentUrl
           ? _value.recentUrl
           : recentUrl // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
-      lastSyncMap: lastSyncMap == freezed
+      lastSyncMap: null == lastSyncMap
           ? _value.lastSyncMap
           : lastSyncMap // ignore: cast_nullable_to_non_nullable
               as Map<String, DateTime>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultSettingsCopyWith<$Res> get defaultVaultSettings {
     return $VaultSettingsCopyWith<$Res>(_value.defaultVaultSettings, (value) {
-      return _then(_value.copyWith(defaultVaultSettings: value));
+      return _then(_value.copyWith(defaultVaultSettings: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultUrlCopyWith<$Res>? get recentUrl {
     if (_value.recentUrl == null) {
       return null;
     }
 
     return $VaultUrlCopyWith<$Res>(_value.recentUrl!, (value) {
-      return _then(_value.copyWith(recentUrl: value));
+      return _then(_value.copyWith(recentUrl: value) as $Val);
     });
   }
 }
@@ -100,6 +106,7 @@ abstract class _$$_AppSettingsCopyWith<$Res>
           _$_AppSettings value, $Res Function(_$_AppSettings) then) =
       __$$_AppSettingsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {VaultSettings defaultVaultSettings,
       VaultUrl? recentUrl,
@@ -112,31 +119,30 @@ abstract class _$$_AppSettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
+class __$$_AppSettingsCopyWithImpl<$Res>
+    extends _$AppSettingsCopyWithImpl<$Res, _$_AppSettings>
     implements _$$_AppSettingsCopyWith<$Res> {
   __$$_AppSettingsCopyWithImpl(
       _$_AppSettings _value, $Res Function(_$_AppSettings) _then)
-      : super(_value, (v) => _then(v as _$_AppSettings));
+      : super(_value, _then);
 
-  @override
-  _$_AppSettings get _value => super._value as _$_AppSettings;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? defaultVaultSettings = freezed,
+    Object? defaultVaultSettings = null,
     Object? recentUrl = freezed,
-    Object? lastSyncMap = freezed,
+    Object? lastSyncMap = null,
   }) {
     return _then(_$_AppSettings(
-      defaultVaultSettings: defaultVaultSettings == freezed
+      defaultVaultSettings: null == defaultVaultSettings
           ? _value.defaultVaultSettings
           : defaultVaultSettings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      recentUrl: recentUrl == freezed
+      recentUrl: freezed == recentUrl
           ? _value.recentUrl
           : recentUrl // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
-      lastSyncMap: lastSyncMap == freezed
+      lastSyncMap: null == lastSyncMap
           ? _value.lastSyncMap
           : lastSyncMap // ignore: cast_nullable_to_non_nullable
               as Map<String, DateTime>,
@@ -146,7 +152,7 @@ class __$$_AppSettingsCopyWithImpl<$Res> extends _$AppSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppSettings extends _AppSettings {
+class _$_AppSettings extends _AppSettings with DiagnosticableTreeMixin {
   _$_AppSettings(
       {required this.defaultVaultSettings,
       required this.recentUrl,
@@ -164,8 +170,18 @@ class _$_AppSettings extends _AppSettings {
   final Map<String, DateTime> lastSyncMap;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AppSettings(defaultVaultSettings: $defaultVaultSettings, recentUrl: $recentUrl, lastSyncMap: $lastSyncMap)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AppSettings'))
+      ..add(DiagnosticsProperty('defaultVaultSettings', defaultVaultSettings))
+      ..add(DiagnosticsProperty('recentUrl', recentUrl))
+      ..add(DiagnosticsProperty('lastSyncMap', lastSyncMap));
   }
 
   @override
@@ -173,23 +189,22 @@ class _$_AppSettings extends _AppSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppSettings &&
-            const DeepCollectionEquality()
-                .equals(other.defaultVaultSettings, defaultVaultSettings) &&
-            const DeepCollectionEquality().equals(other.recentUrl, recentUrl) &&
+            (identical(other.defaultVaultSettings, defaultVaultSettings) ||
+                other.defaultVaultSettings == defaultVaultSettings) &&
+            (identical(other.recentUrl, recentUrl) ||
+                other.recentUrl == recentUrl) &&
             const DeepCollectionEquality()
                 .equals(other.lastSyncMap, lastSyncMap));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(defaultVaultSettings),
-      const DeepCollectionEquality().hash(recentUrl),
+  int get hashCode => Object.hash(runtimeType, defaultVaultSettings, recentUrl,
       const DeepCollectionEquality().hash(lastSyncMap));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppSettingsCopyWith<_$_AppSettings> get copyWith =>
       __$$_AppSettingsCopyWithImpl<_$_AppSettings>(this, _$identity);
 

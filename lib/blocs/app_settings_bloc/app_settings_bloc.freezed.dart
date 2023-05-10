@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_settings_bloc.dart';
 
@@ -27,37 +27,41 @@ mixin _$AppSettingsState {
 abstract class $AppSettingsStateCopyWith<$Res> {
   factory $AppSettingsStateCopyWith(
           AppSettingsState value, $Res Function(AppSettingsState) then) =
-      _$AppSettingsStateCopyWithImpl<$Res>;
+      _$AppSettingsStateCopyWithImpl<$Res, AppSettingsState>;
+  @useResult
   $Res call({AppSettings settings});
 
   $AppSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
-class _$AppSettingsStateCopyWithImpl<$Res>
+class _$AppSettingsStateCopyWithImpl<$Res, $Val extends AppSettingsState>
     implements $AppSettingsStateCopyWith<$Res> {
   _$AppSettingsStateCopyWithImpl(this._value, this._then);
 
-  final AppSettingsState _value;
   // ignore: unused_field
-  final $Res Function(AppSettingsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
+    Object? settings = null,
   }) {
     return _then(_value.copyWith(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AppSettingsCopyWith<$Res> get settings {
     return $AppSettingsCopyWith<$Res>(_value.settings, (value) {
-      return _then(_value.copyWith(settings: value));
+      return _then(_value.copyWith(settings: value) as $Val);
     });
   }
 }
@@ -69,6 +73,7 @@ abstract class _$$_AppSettingsStateCopyWith<$Res>
           _$_AppSettingsState value, $Res Function(_$_AppSettingsState) then) =
       __$$_AppSettingsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AppSettings settings});
 
   @override
@@ -77,21 +82,19 @@ abstract class _$$_AppSettingsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_AppSettingsStateCopyWithImpl<$Res>
-    extends _$AppSettingsStateCopyWithImpl<$Res>
+    extends _$AppSettingsStateCopyWithImpl<$Res, _$_AppSettingsState>
     implements _$$_AppSettingsStateCopyWith<$Res> {
   __$$_AppSettingsStateCopyWithImpl(
       _$_AppSettingsState _value, $Res Function(_$_AppSettingsState) _then)
-      : super(_value, (v) => _then(v as _$_AppSettingsState));
+      : super(_value, _then);
 
-  @override
-  _$_AppSettingsState get _value => super._value as _$_AppSettingsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
+    Object? settings = null,
   }) {
     return _then(_$_AppSettingsState(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
@@ -117,15 +120,16 @@ class _$_AppSettingsState implements _AppSettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppSettingsState &&
-            const DeepCollectionEquality().equals(other.settings, settings));
+            (identical(other.settings, settings) ||
+                other.settings == settings));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(settings));
+  int get hashCode => Object.hash(runtimeType, settings);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppSettingsStateCopyWith<_$_AppSettingsState> get copyWith =>
       __$$_AppSettingsStateCopyWithImpl<_$_AppSettingsState>(this, _$identity);
 }
@@ -152,7 +156,7 @@ mixin _$AppSettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AppSettings newSettings)? settingsUpdated,
+    TResult? Function(AppSettings newSettings)? settingsUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -168,7 +172,7 @@ mixin _$AppSettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SettingsUpdatedEvent value)? settingsUpdated,
+    TResult? Function(SettingsUpdatedEvent value)? settingsUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -187,37 +191,41 @@ mixin _$AppSettingsEvent {
 abstract class $AppSettingsEventCopyWith<$Res> {
   factory $AppSettingsEventCopyWith(
           AppSettingsEvent value, $Res Function(AppSettingsEvent) then) =
-      _$AppSettingsEventCopyWithImpl<$Res>;
+      _$AppSettingsEventCopyWithImpl<$Res, AppSettingsEvent>;
+  @useResult
   $Res call({AppSettings newSettings});
 
   $AppSettingsCopyWith<$Res> get newSettings;
 }
 
 /// @nodoc
-class _$AppSettingsEventCopyWithImpl<$Res>
+class _$AppSettingsEventCopyWithImpl<$Res, $Val extends AppSettingsEvent>
     implements $AppSettingsEventCopyWith<$Res> {
   _$AppSettingsEventCopyWithImpl(this._value, this._then);
 
-  final AppSettingsEvent _value;
   // ignore: unused_field
-  final $Res Function(AppSettingsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newSettings = freezed,
+    Object? newSettings = null,
   }) {
     return _then(_value.copyWith(
-      newSettings: newSettings == freezed
+      newSettings: null == newSettings
           ? _value.newSettings
           : newSettings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AppSettingsCopyWith<$Res> get newSettings {
     return $AppSettingsCopyWith<$Res>(_value.newSettings, (value) {
-      return _then(_value.copyWith(newSettings: value));
+      return _then(_value.copyWith(newSettings: value) as $Val);
     });
   }
 }
@@ -229,6 +237,7 @@ abstract class _$$SettingsUpdatedEventCopyWith<$Res>
           $Res Function(_$SettingsUpdatedEvent) then) =
       __$$SettingsUpdatedEventCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AppSettings newSettings});
 
   @override
@@ -237,21 +246,19 @@ abstract class _$$SettingsUpdatedEventCopyWith<$Res>
 
 /// @nodoc
 class __$$SettingsUpdatedEventCopyWithImpl<$Res>
-    extends _$AppSettingsEventCopyWithImpl<$Res>
+    extends _$AppSettingsEventCopyWithImpl<$Res, _$SettingsUpdatedEvent>
     implements _$$SettingsUpdatedEventCopyWith<$Res> {
   __$$SettingsUpdatedEventCopyWithImpl(_$SettingsUpdatedEvent _value,
       $Res Function(_$SettingsUpdatedEvent) _then)
-      : super(_value, (v) => _then(v as _$SettingsUpdatedEvent));
+      : super(_value, _then);
 
-  @override
-  _$SettingsUpdatedEvent get _value => super._value as _$SettingsUpdatedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newSettings = freezed,
+    Object? newSettings = null,
   }) {
     return _then(_$SettingsUpdatedEvent(
-      newSettings == freezed
+      null == newSettings
           ? _value.newSettings
           : newSettings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
@@ -277,16 +284,16 @@ class _$SettingsUpdatedEvent implements SettingsUpdatedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingsUpdatedEvent &&
-            const DeepCollectionEquality()
-                .equals(other.newSettings, newSettings));
+            (identical(other.newSettings, newSettings) ||
+                other.newSettings == newSettings));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(newSettings));
+  int get hashCode => Object.hash(runtimeType, newSettings);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SettingsUpdatedEventCopyWith<_$SettingsUpdatedEvent> get copyWith =>
       __$$SettingsUpdatedEventCopyWithImpl<_$SettingsUpdatedEvent>(
           this, _$identity);
@@ -302,7 +309,7 @@ class _$SettingsUpdatedEvent implements SettingsUpdatedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AppSettings newSettings)? settingsUpdated,
+    TResult? Function(AppSettings newSettings)? settingsUpdated,
   }) {
     return settingsUpdated?.call(newSettings);
   }
@@ -330,7 +337,7 @@ class _$SettingsUpdatedEvent implements SettingsUpdatedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SettingsUpdatedEvent value)? settingsUpdated,
+    TResult? Function(SettingsUpdatedEvent value)? settingsUpdated,
   }) {
     return settingsUpdated?.call(this);
   }

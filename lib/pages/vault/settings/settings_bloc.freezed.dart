@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'settings_bloc.dart';
 
@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingsState {
   VaultSettings get settings => throw _privateConstructorUsedError;
+  String get vaultName => throw _privateConstructorUsedError;
   String get newMasterPassword => throw _privateConstructorUsedError;
   String get confirmNewMasterPassword => throw _privateConstructorUsedError;
 
@@ -29,9 +30,11 @@ mixin _$SettingsState {
 abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
-      _$SettingsStateCopyWithImpl<$Res>;
+      _$SettingsStateCopyWithImpl<$Res, SettingsState>;
+  @useResult
   $Res call(
       {VaultSettings settings,
+      String vaultName,
       String newMasterPassword,
       String confirmNewMasterPassword});
 
@@ -39,40 +42,48 @@ abstract class $SettingsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res>
+class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     implements $SettingsStateCopyWith<$Res> {
   _$SettingsStateCopyWithImpl(this._value, this._then);
 
-  final SettingsState _value;
   // ignore: unused_field
-  final $Res Function(SettingsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
-    Object? newMasterPassword = freezed,
-    Object? confirmNewMasterPassword = freezed,
+    Object? settings = null,
+    Object? vaultName = null,
+    Object? newMasterPassword = null,
+    Object? confirmNewMasterPassword = null,
   }) {
     return _then(_value.copyWith(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      newMasterPassword: newMasterPassword == freezed
+      vaultName: null == vaultName
+          ? _value.vaultName
+          : vaultName // ignore: cast_nullable_to_non_nullable
+              as String,
+      newMasterPassword: null == newMasterPassword
           ? _value.newMasterPassword
           : newMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      confirmNewMasterPassword: confirmNewMasterPassword == freezed
+      confirmNewMasterPassword: null == confirmNewMasterPassword
           ? _value.confirmNewMasterPassword
           : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultSettingsCopyWith<$Res> get settings {
     return $VaultSettingsCopyWith<$Res>(_value.settings, (value) {
-      return _then(_value.copyWith(settings: value));
+      return _then(_value.copyWith(settings: value) as $Val);
     });
   }
 }
@@ -84,8 +95,10 @@ abstract class _$$_SettingsStateCopyWith<$Res>
           _$_SettingsState value, $Res Function(_$_SettingsState) then) =
       __$$_SettingsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {VaultSettings settings,
+      String vaultName,
       String newMasterPassword,
       String confirmNewMasterPassword});
 
@@ -95,31 +108,34 @@ abstract class _$$_SettingsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_SettingsStateCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$_SettingsState>
     implements _$$_SettingsStateCopyWith<$Res> {
   __$$_SettingsStateCopyWithImpl(
       _$_SettingsState _value, $Res Function(_$_SettingsState) _then)
-      : super(_value, (v) => _then(v as _$_SettingsState));
+      : super(_value, _then);
 
-  @override
-  _$_SettingsState get _value => super._value as _$_SettingsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
-    Object? newMasterPassword = freezed,
-    Object? confirmNewMasterPassword = freezed,
+    Object? settings = null,
+    Object? vaultName = null,
+    Object? newMasterPassword = null,
+    Object? confirmNewMasterPassword = null,
   }) {
     return _then(_$_SettingsState(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      newMasterPassword: newMasterPassword == freezed
+      vaultName: null == vaultName
+          ? _value.vaultName
+          : vaultName // ignore: cast_nullable_to_non_nullable
+              as String,
+      newMasterPassword: null == newMasterPassword
           ? _value.newMasterPassword
           : newMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      confirmNewMasterPassword: confirmNewMasterPassword == freezed
+      confirmNewMasterPassword: null == confirmNewMasterPassword
           ? _value.confirmNewMasterPassword
           : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
@@ -132,6 +148,7 @@ class __$$_SettingsStateCopyWithImpl<$Res>
 class _$_SettingsState extends _SettingsState {
   const _$_SettingsState(
       {required this.settings,
+      required this.vaultName,
       required this.newMasterPassword,
       required this.confirmNewMasterPassword})
       : super._();
@@ -139,13 +156,15 @@ class _$_SettingsState extends _SettingsState {
   @override
   final VaultSettings settings;
   @override
+  final String vaultName;
+  @override
   final String newMasterPassword;
   @override
   final String confirmNewMasterPassword;
 
   @override
   String toString() {
-    return 'SettingsState(settings: $settings, newMasterPassword: $newMasterPassword, confirmNewMasterPassword: $confirmNewMasterPassword)';
+    return 'SettingsState(settings: $settings, vaultName: $vaultName, newMasterPassword: $newMasterPassword, confirmNewMasterPassword: $confirmNewMasterPassword)';
   }
 
   @override
@@ -153,22 +172,24 @@ class _$_SettingsState extends _SettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SettingsState &&
-            const DeepCollectionEquality().equals(other.settings, settings) &&
-            const DeepCollectionEquality()
-                .equals(other.newMasterPassword, newMasterPassword) &&
-            const DeepCollectionEquality().equals(
-                other.confirmNewMasterPassword, confirmNewMasterPassword));
+            (identical(other.settings, settings) ||
+                other.settings == settings) &&
+            (identical(other.vaultName, vaultName) ||
+                other.vaultName == vaultName) &&
+            (identical(other.newMasterPassword, newMasterPassword) ||
+                other.newMasterPassword == newMasterPassword) &&
+            (identical(
+                    other.confirmNewMasterPassword, confirmNewMasterPassword) ||
+                other.confirmNewMasterPassword == confirmNewMasterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(settings),
-      const DeepCollectionEquality().hash(newMasterPassword),
-      const DeepCollectionEquality().hash(confirmNewMasterPassword));
+  int get hashCode => Object.hash(runtimeType, settings, vaultName,
+      newMasterPassword, confirmNewMasterPassword);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
       __$$_SettingsStateCopyWithImpl<_$_SettingsState>(this, _$identity);
 }
@@ -176,12 +197,15 @@ class _$_SettingsState extends _SettingsState {
 abstract class _SettingsState extends SettingsState {
   const factory _SettingsState(
       {required final VaultSettings settings,
+      required final String vaultName,
       required final String newMasterPassword,
       required final String confirmNewMasterPassword}) = _$_SettingsState;
   const _SettingsState._() : super._();
 
   @override
   VaultSettings get settings;
+  @override
+  String get vaultName;
   @override
   String get newMasterPassword;
   @override
@@ -201,6 +225,7 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -211,16 +236,17 @@ mixin _$SettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -229,6 +255,7 @@ mixin _$SettingsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -245,6 +272,7 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -257,19 +285,20 @@ mixin _$SettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -279,6 +308,7 @@ mixin _$SettingsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -296,17 +326,18 @@ mixin _$SettingsEvent {
 abstract class $SettingsEventCopyWith<$Res> {
   factory $SettingsEventCopyWith(
           SettingsEvent value, $Res Function(SettingsEvent) then) =
-      _$SettingsEventCopyWithImpl<$Res>;
+      _$SettingsEventCopyWithImpl<$Res, SettingsEvent>;
 }
 
 /// @nodoc
-class _$SettingsEventCopyWithImpl<$Res>
+class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
     implements $SettingsEventCopyWith<$Res> {
   _$SettingsEventCopyWithImpl(this._value, this._then);
 
-  final SettingsEvent _value;
   // ignore: unused_field
-  final $Res Function(SettingsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -314,27 +345,25 @@ abstract class _$$SetSaveKeyInMemoryEventCopyWith<$Res> {
   factory _$$SetSaveKeyInMemoryEventCopyWith(_$SetSaveKeyInMemoryEvent value,
           $Res Function(_$SetSaveKeyInMemoryEvent) then) =
       __$$SetSaveKeyInMemoryEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({bool setting});
 }
 
 /// @nodoc
 class __$$SetSaveKeyInMemoryEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetSaveKeyInMemoryEvent>
     implements _$$SetSaveKeyInMemoryEventCopyWith<$Res> {
   __$$SetSaveKeyInMemoryEventCopyWithImpl(_$SetSaveKeyInMemoryEvent _value,
       $Res Function(_$SetSaveKeyInMemoryEvent) _then)
-      : super(_value, (v) => _then(v as _$SetSaveKeyInMemoryEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetSaveKeyInMemoryEvent get _value =>
-      super._value as _$SetSaveKeyInMemoryEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetSaveKeyInMemoryEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -360,15 +389,15 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetSaveKeyInMemoryEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetSaveKeyInMemoryEventCopyWith<_$SetSaveKeyInMemoryEvent> get copyWith =>
       __$$SetSaveKeyInMemoryEventCopyWithImpl<_$SetSaveKeyInMemoryEvent>(
           this, _$identity);
@@ -381,6 +410,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -394,16 +424,17 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
   }
@@ -415,6 +446,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -437,6 +469,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -452,19 +485,20 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
   }
@@ -477,6 +511,7 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -510,28 +545,26 @@ abstract class _$$NewMasterPasswordChangedEventCopyWith<$Res> {
           _$NewMasterPasswordChangedEvent value,
           $Res Function(_$NewMasterPasswordChangedEvent) then) =
       __$$NewMasterPasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String newMasterPassword});
 }
 
 /// @nodoc
 class __$$NewMasterPasswordChangedEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$NewMasterPasswordChangedEvent>
     implements _$$NewMasterPasswordChangedEventCopyWith<$Res> {
   __$$NewMasterPasswordChangedEventCopyWithImpl(
       _$NewMasterPasswordChangedEvent _value,
       $Res Function(_$NewMasterPasswordChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$NewMasterPasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$NewMasterPasswordChangedEvent get _value =>
-      super._value as _$NewMasterPasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newMasterPassword = freezed,
+    Object? newMasterPassword = null,
   }) {
     return _then(_$NewMasterPasswordChangedEvent(
-      newMasterPassword == freezed
+      null == newMasterPassword
           ? _value.newMasterPassword
           : newMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
@@ -557,16 +590,16 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NewMasterPasswordChangedEvent &&
-            const DeepCollectionEquality()
-                .equals(other.newMasterPassword, newMasterPassword));
+            (identical(other.newMasterPassword, newMasterPassword) ||
+                other.newMasterPassword == newMasterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(newMasterPassword));
+  int get hashCode => Object.hash(runtimeType, newMasterPassword);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$NewMasterPasswordChangedEventCopyWith<_$NewMasterPasswordChangedEvent>
       get copyWith => __$$NewMasterPasswordChangedEventCopyWithImpl<
           _$NewMasterPasswordChangedEvent>(this, _$identity);
@@ -579,6 +612,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -592,16 +626,17 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(newMasterPassword);
   }
@@ -613,6 +648,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -635,6 +671,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -650,19 +687,20 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return newMasterPasswordChanged?.call(this);
   }
@@ -675,6 +713,7 @@ class _$NewMasterPasswordChangedEvent implements NewMasterPasswordChangedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -708,29 +747,27 @@ abstract class _$$ConfirmNewMasterPasswordChangedEventCopyWith<$Res> {
           _$ConfirmNewMasterPasswordChangedEvent value,
           $Res Function(_$ConfirmNewMasterPasswordChangedEvent) then) =
       __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String confirmNewMasterPassword});
 }
 
 /// @nodoc
 class __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res,
+        _$ConfirmNewMasterPasswordChangedEvent>
     implements _$$ConfirmNewMasterPasswordChangedEventCopyWith<$Res> {
   __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl(
       _$ConfirmNewMasterPasswordChangedEvent _value,
       $Res Function(_$ConfirmNewMasterPasswordChangedEvent) _then)
-      : super(
-            _value, (v) => _then(v as _$ConfirmNewMasterPasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$ConfirmNewMasterPasswordChangedEvent get _value =>
-      super._value as _$ConfirmNewMasterPasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? confirmNewMasterPassword = freezed,
+    Object? confirmNewMasterPassword = null,
   }) {
     return _then(_$ConfirmNewMasterPasswordChangedEvent(
-      confirmNewMasterPassword == freezed
+      null == confirmNewMasterPassword
           ? _value.confirmNewMasterPassword
           : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
@@ -757,16 +794,17 @@ class _$ConfirmNewMasterPasswordChangedEvent
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ConfirmNewMasterPasswordChangedEvent &&
-            const DeepCollectionEquality().equals(
-                other.confirmNewMasterPassword, confirmNewMasterPassword));
+            (identical(
+                    other.confirmNewMasterPassword, confirmNewMasterPassword) ||
+                other.confirmNewMasterPassword == confirmNewMasterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(confirmNewMasterPassword));
+  int get hashCode => Object.hash(runtimeType, confirmNewMasterPassword);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ConfirmNewMasterPasswordChangedEventCopyWith<
           _$ConfirmNewMasterPasswordChangedEvent>
       get copyWith => __$$ConfirmNewMasterPasswordChangedEventCopyWithImpl<
@@ -780,6 +818,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -793,16 +832,17 @@ class _$ConfirmNewMasterPasswordChangedEvent
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(confirmNewMasterPassword);
   }
@@ -814,6 +854,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -836,6 +877,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -851,19 +893,20 @@ class _$ConfirmNewMasterPasswordChangedEvent
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return confirmNewMasterPasswordChanged?.call(this);
   }
@@ -876,6 +919,7 @@ class _$ConfirmNewMasterPasswordChangedEvent
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -906,30 +950,230 @@ abstract class ConfirmNewMasterPasswordChangedEvent implements SettingsEvent {
 }
 
 /// @nodoc
+abstract class _$$NewVaultNameChangedEventCopyWith<$Res> {
+  factory _$$NewVaultNameChangedEventCopyWith(_$NewVaultNameChangedEvent value,
+          $Res Function(_$NewVaultNameChangedEvent) then) =
+      __$$NewVaultNameChangedEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String vaultName});
+}
+
+/// @nodoc
+class __$$NewVaultNameChangedEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$NewVaultNameChangedEvent>
+    implements _$$NewVaultNameChangedEventCopyWith<$Res> {
+  __$$NewVaultNameChangedEventCopyWithImpl(_$NewVaultNameChangedEvent _value,
+      $Res Function(_$NewVaultNameChangedEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? vaultName = null,
+  }) {
+    return _then(_$NewVaultNameChangedEvent(
+      null == vaultName
+          ? _value.vaultName
+          : vaultName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NewVaultNameChangedEvent implements NewVaultNameChangedEvent {
+  const _$NewVaultNameChangedEvent(this.vaultName);
+
+  @override
+  final String vaultName;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.vaultNameChanged(vaultName: $vaultName)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NewVaultNameChangedEvent &&
+            (identical(other.vaultName, vaultName) ||
+                other.vaultName == vaultName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, vaultName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NewVaultNameChangedEventCopyWith<_$NewVaultNameChangedEvent>
+      get copyWith =>
+          __$$NewVaultNameChangedEventCopyWithImpl<_$NewVaultNameChangedEvent>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool setting) setSaveKeyInMemory,
+    required TResult Function(String newMasterPassword)
+        newMasterPasswordChanged,
+    required TResult Function(String confirmNewMasterPassword)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
+    required TResult Function(int setting) setKDFIterations,
+    required TResult Function(int setting) setKDFThreads,
+    required TResult Function(int setting) setKDFMemory,
+    required TResult Function(int setting) setClipboardClearSeconds,
+    required TResult Function(int setting) setVaultAutoLockSeconds,
+    required TResult Function(BuildContext context) settingsSaved,
+  }) {
+    return vaultNameChanged(vaultName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
+  }) {
+    return vaultNameChanged?.call(vaultName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool setting)? setSaveKeyInMemory,
+    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult Function(String confirmNewMasterPassword)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
+    TResult Function(int setting)? setKDFIterations,
+    TResult Function(int setting)? setKDFThreads,
+    TResult Function(int setting)? setKDFMemory,
+    TResult Function(int setting)? setClipboardClearSeconds,
+    TResult Function(int setting)? setVaultAutoLockSeconds,
+    TResult Function(BuildContext context)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (vaultNameChanged != null) {
+      return vaultNameChanged(vaultName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetSaveKeyInMemoryEvent value) setSaveKeyInMemory,
+    required TResult Function(NewMasterPasswordChangedEvent value)
+        newMasterPasswordChanged,
+    required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
+        confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
+    required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
+    required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
+    required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
+    required TResult Function(SetClipboardClearSecondsEvent value)
+        setClipboardClearSeconds,
+    required TResult Function(SetVaultAutoLockSecondsEvent value)
+        setVaultAutoLockSeconds,
+    required TResult Function(SettingsSavedEvent value) settingsSaved,
+  }) {
+    return vaultNameChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
+  }) {
+    return vaultNameChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult Function(NewMasterPasswordChangedEvent value)?
+        newMasterPasswordChanged,
+    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+        confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult Function(SetClipboardClearSecondsEvent value)?
+        setClipboardClearSeconds,
+    TResult Function(SetVaultAutoLockSecondsEvent value)?
+        setVaultAutoLockSeconds,
+    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    required TResult orElse(),
+  }) {
+    if (vaultNameChanged != null) {
+      return vaultNameChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NewVaultNameChangedEvent implements SettingsEvent {
+  const factory NewVaultNameChangedEvent(final String vaultName) =
+      _$NewVaultNameChangedEvent;
+
+  String get vaultName;
+  @JsonKey(ignore: true)
+  _$$NewVaultNameChangedEventCopyWith<_$NewVaultNameChangedEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$SetKDFIterationsEventCopyWith<$Res> {
   factory _$$SetKDFIterationsEventCopyWith(_$SetKDFIterationsEvent value,
           $Res Function(_$SetKDFIterationsEvent) then) =
       __$$SetKDFIterationsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFIterationsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFIterationsEvent>
     implements _$$SetKDFIterationsEventCopyWith<$Res> {
   __$$SetKDFIterationsEventCopyWithImpl(_$SetKDFIterationsEvent _value,
       $Res Function(_$SetKDFIterationsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFIterationsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFIterationsEvent get _value => super._value as _$SetKDFIterationsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFIterationsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -955,15 +1199,15 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFIterationsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFIterationsEventCopyWith<_$SetKDFIterationsEvent> get copyWith =>
       __$$SetKDFIterationsEventCopyWithImpl<_$SetKDFIterationsEvent>(
           this, _$identity);
@@ -976,6 +1220,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -989,16 +1234,17 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFIterations?.call(setting);
   }
@@ -1010,6 +1256,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -1032,6 +1279,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -1047,19 +1295,20 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFIterations?.call(this);
   }
@@ -1072,6 +1321,7 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -1104,26 +1354,25 @@ abstract class _$$SetKDFThreadsEventCopyWith<$Res> {
   factory _$$SetKDFThreadsEventCopyWith(_$SetKDFThreadsEvent value,
           $Res Function(_$SetKDFThreadsEvent) then) =
       __$$SetKDFThreadsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFThreadsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFThreadsEvent>
     implements _$$SetKDFThreadsEventCopyWith<$Res> {
   __$$SetKDFThreadsEventCopyWithImpl(
       _$SetKDFThreadsEvent _value, $Res Function(_$SetKDFThreadsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFThreadsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFThreadsEvent get _value => super._value as _$SetKDFThreadsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFThreadsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1149,15 +1398,15 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFThreadsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFThreadsEventCopyWith<_$SetKDFThreadsEvent> get copyWith =>
       __$$SetKDFThreadsEventCopyWithImpl<_$SetKDFThreadsEvent>(
           this, _$identity);
@@ -1170,6 +1419,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -1183,16 +1433,17 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFThreads?.call(setting);
   }
@@ -1204,6 +1455,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -1226,6 +1478,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -1241,19 +1494,20 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFThreads?.call(this);
   }
@@ -1266,6 +1520,7 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -1297,26 +1552,25 @@ abstract class _$$SetKDFMemoryEventCopyWith<$Res> {
   factory _$$SetKDFMemoryEventCopyWith(
           _$SetKDFMemoryEvent value, $Res Function(_$SetKDFMemoryEvent) then) =
       __$$SetKDFMemoryEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFMemoryEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFMemoryEvent>
     implements _$$SetKDFMemoryEventCopyWith<$Res> {
   __$$SetKDFMemoryEventCopyWithImpl(
       _$SetKDFMemoryEvent _value, $Res Function(_$SetKDFMemoryEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFMemoryEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFMemoryEvent get _value => super._value as _$SetKDFMemoryEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFMemoryEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1342,15 +1596,15 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFMemoryEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
       __$$SetKDFMemoryEventCopyWithImpl<_$SetKDFMemoryEvent>(this, _$identity);
 
@@ -1362,6 +1616,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -1375,16 +1630,17 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setKDFMemory?.call(setting);
   }
@@ -1396,6 +1652,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -1418,6 +1675,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -1433,19 +1691,20 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFMemory?.call(this);
   }
@@ -1458,6 +1717,7 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -1490,28 +1750,26 @@ abstract class _$$SetClipboardClearSecondsEventCopyWith<$Res> {
           _$SetClipboardClearSecondsEvent value,
           $Res Function(_$SetClipboardClearSecondsEvent) then) =
       __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetClipboardClearSecondsEvent>
     implements _$$SetClipboardClearSecondsEventCopyWith<$Res> {
   __$$SetClipboardClearSecondsEventCopyWithImpl(
       _$SetClipboardClearSecondsEvent _value,
       $Res Function(_$SetClipboardClearSecondsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetClipboardClearSecondsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetClipboardClearSecondsEvent get _value =>
-      super._value as _$SetClipboardClearSecondsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetClipboardClearSecondsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1537,15 +1795,15 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetClipboardClearSecondsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
       get copyWith => __$$SetClipboardClearSecondsEventCopyWithImpl<
           _$SetClipboardClearSecondsEvent>(this, _$identity);
@@ -1558,6 +1816,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -1571,16 +1830,17 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(setting);
   }
@@ -1592,6 +1852,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -1614,6 +1875,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -1629,19 +1891,20 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(this);
   }
@@ -1654,6 +1917,7 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -1687,28 +1951,26 @@ abstract class _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
           _$SetVaultAutoLockSecondsEvent value,
           $Res Function(_$SetVaultAutoLockSecondsEvent) then) =
       __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetVaultAutoLockSecondsEvent>
     implements _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
   __$$SetVaultAutoLockSecondsEventCopyWithImpl(
       _$SetVaultAutoLockSecondsEvent _value,
       $Res Function(_$SetVaultAutoLockSecondsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetVaultAutoLockSecondsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetVaultAutoLockSecondsEvent get _value =>
-      super._value as _$SetVaultAutoLockSecondsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetVaultAutoLockSecondsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1734,15 +1996,15 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetVaultAutoLockSecondsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetVaultAutoLockSecondsEventCopyWith<_$SetVaultAutoLockSecondsEvent>
       get copyWith => __$$SetVaultAutoLockSecondsEventCopyWithImpl<
           _$SetVaultAutoLockSecondsEvent>(this, _$identity);
@@ -1755,6 +2017,7 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -1768,16 +2031,17 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return setVaultAutoLockSeconds?.call(setting);
   }
@@ -1789,6 +2053,7 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -1811,6 +2076,7 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -1826,19 +2092,20 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setVaultAutoLockSeconds?.call(this);
   }
@@ -1851,6 +2118,7 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
@@ -1883,26 +2151,25 @@ abstract class _$$SettingsSavedEventCopyWith<$Res> {
   factory _$$SettingsSavedEventCopyWith(_$SettingsSavedEvent value,
           $Res Function(_$SettingsSavedEvent) then) =
       __$$SettingsSavedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({BuildContext context});
 }
 
 /// @nodoc
 class __$$SettingsSavedEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsSavedEvent>
     implements _$$SettingsSavedEventCopyWith<$Res> {
   __$$SettingsSavedEventCopyWithImpl(
       _$SettingsSavedEvent _value, $Res Function(_$SettingsSavedEvent) _then)
-      : super(_value, (v) => _then(v as _$SettingsSavedEvent));
+      : super(_value, _then);
 
-  @override
-  _$SettingsSavedEvent get _value => super._value as _$SettingsSavedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? context = freezed,
+    Object? context = null,
   }) {
     return _then(_$SettingsSavedEvent(
-      context == freezed
+      null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
@@ -1928,15 +2195,15 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingsSavedEvent &&
-            const DeepCollectionEquality().equals(other.context, context));
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(context));
+  int get hashCode => Object.hash(runtimeType, context);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SettingsSavedEventCopyWith<_$SettingsSavedEvent> get copyWith =>
       __$$SettingsSavedEventCopyWithImpl<_$SettingsSavedEvent>(
           this, _$identity);
@@ -1949,6 +2216,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     required TResult Function(String confirmNewMasterPassword)
         confirmNewMasterPasswordChanged,
+    required TResult Function(String vaultName) vaultNameChanged,
     required TResult Function(int setting) setKDFIterations,
     required TResult Function(int setting) setKDFThreads,
     required TResult Function(int setting) setKDFMemory,
@@ -1962,16 +2230,17 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(String newMasterPassword)? newMasterPasswordChanged,
-    TResult Function(String confirmNewMasterPassword)?
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(String newMasterPassword)? newMasterPasswordChanged,
+    TResult? Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function(BuildContext context)? settingsSaved,
+    TResult? Function(String vaultName)? vaultNameChanged,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function(BuildContext context)? settingsSaved,
   }) {
     return settingsSaved?.call(context);
   }
@@ -1983,6 +2252,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
     TResult Function(String newMasterPassword)? newMasterPasswordChanged,
     TResult Function(String confirmNewMasterPassword)?
         confirmNewMasterPasswordChanged,
+    TResult Function(String vaultName)? vaultNameChanged,
     TResult Function(int setting)? setKDFIterations,
     TResult Function(int setting)? setKDFThreads,
     TResult Function(int setting)? setKDFMemory,
@@ -2005,6 +2275,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     required TResult Function(ConfirmNewMasterPasswordChangedEvent value)
         confirmNewMasterPasswordChanged,
+    required TResult Function(NewVaultNameChangedEvent value) vaultNameChanged,
     required TResult Function(SetKDFIterationsEvent value) setKDFIterations,
     required TResult Function(SetKDFThreadsEvent value) setKDFThreads,
     required TResult Function(SetKDFMemoryEvent value) setKDFMemory,
@@ -2020,19 +2291,20 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(NewMasterPasswordChangedEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(NewMasterPasswordChangedEvent value)?
         newMasterPasswordChanged,
-    TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
+    TResult? Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(NewVaultNameChangedEvent value)? vaultNameChanged,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
   }
@@ -2045,6 +2317,7 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
         newMasterPasswordChanged,
     TResult Function(ConfirmNewMasterPasswordChangedEvent value)?
         confirmNewMasterPasswordChanged,
+    TResult Function(NewVaultNameChangedEvent value)? vaultNameChanged,
     TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
     TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
     TResult Function(SetKDFMemoryEvent value)? setKDFMemory,

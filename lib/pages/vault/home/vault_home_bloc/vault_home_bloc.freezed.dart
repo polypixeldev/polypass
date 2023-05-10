@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'vault_home_bloc.dart';
 
@@ -30,7 +30,8 @@ mixin _$VaultHomeState {
 abstract class $VaultHomeStateCopyWith<$Res> {
   factory $VaultHomeStateCopyWith(
           VaultHomeState value, $Res Function(VaultHomeState) then) =
-      _$VaultHomeStateCopyWithImpl<$Res>;
+      _$VaultHomeStateCopyWithImpl<$Res, VaultHomeState>;
+  @useResult
   $Res call(
       {String query,
       bool submitted,
@@ -39,39 +40,41 @@ abstract class $VaultHomeStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VaultHomeStateCopyWithImpl<$Res>
+class _$VaultHomeStateCopyWithImpl<$Res, $Val extends VaultHomeState>
     implements $VaultHomeStateCopyWith<$Res> {
   _$VaultHomeStateCopyWithImpl(this._value, this._then);
 
-  final VaultHomeState _value;
   // ignore: unused_field
-  final $Res Function(VaultHomeState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
-    Object? submitted = freezed,
-    Object? results = freezed,
-    Object? treeVisible = freezed,
+    Object? query = null,
+    Object? submitted = null,
+    Object? results = null,
+    Object? treeVisible = null,
   }) {
     return _then(_value.copyWith(
-      query: query == freezed
+      query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      results: results == freezed
+      results: null == results
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
               as List<List<String>>,
-      treeVisible: treeVisible == freezed
+      treeVisible: null == treeVisible
           ? _value.treeVisible
           : treeVisible // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,6 +85,7 @@ abstract class _$$_VaultHomeStateCopyWith<$Res>
           _$_VaultHomeState value, $Res Function(_$_VaultHomeState) then) =
       __$$_VaultHomeStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String query,
       bool submitted,
@@ -91,36 +95,34 @@ abstract class _$$_VaultHomeStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_VaultHomeStateCopyWithImpl<$Res>
-    extends _$VaultHomeStateCopyWithImpl<$Res>
+    extends _$VaultHomeStateCopyWithImpl<$Res, _$_VaultHomeState>
     implements _$$_VaultHomeStateCopyWith<$Res> {
   __$$_VaultHomeStateCopyWithImpl(
       _$_VaultHomeState _value, $Res Function(_$_VaultHomeState) _then)
-      : super(_value, (v) => _then(v as _$_VaultHomeState));
+      : super(_value, _then);
 
-  @override
-  _$_VaultHomeState get _value => super._value as _$_VaultHomeState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
-    Object? submitted = freezed,
-    Object? results = freezed,
-    Object? treeVisible = freezed,
+    Object? query = null,
+    Object? submitted = null,
+    Object? results = null,
+    Object? treeVisible = null,
   }) {
     return _then(_$_VaultHomeState(
-      query: query == freezed
+      query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      results: results == freezed
+      results: null == results
           ? _value._results
           : results // ignore: cast_nullable_to_non_nullable
               as List<List<String>>,
-      treeVisible: treeVisible == freezed
+      treeVisible: null == treeVisible
           ? _value.treeVisible
           : treeVisible // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -145,6 +147,7 @@ class _$_VaultHomeState implements _VaultHomeState {
   final List<List<String>> _results;
   @override
   List<List<String>> get results {
+    if (_results is EqualUnmodifiableListView) return _results;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_results);
   }
@@ -162,23 +165,21 @@ class _$_VaultHomeState implements _VaultHomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_VaultHomeState &&
-            const DeepCollectionEquality().equals(other.query, query) &&
-            const DeepCollectionEquality().equals(other.submitted, submitted) &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.submitted, submitted) ||
+                other.submitted == submitted) &&
             const DeepCollectionEquality().equals(other._results, _results) &&
-            const DeepCollectionEquality()
-                .equals(other.treeVisible, treeVisible));
+            (identical(other.treeVisible, treeVisible) ||
+                other.treeVisible == treeVisible));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(query),
-      const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(_results),
-      const DeepCollectionEquality().hash(treeVisible));
+  int get hashCode => Object.hash(runtimeType, query, submitted,
+      const DeepCollectionEquality().hash(_results), treeVisible);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultHomeStateCopyWith<_$_VaultHomeState> get copyWith =>
       __$$_VaultHomeStateCopyWithImpl<_$_VaultHomeState>(this, _$identity);
 }
@@ -215,9 +216,9 @@ mixin _$VaultHomeEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? queryChanged,
-    TResult Function()? searchSubmitted,
-    TResult Function()? treeToggled,
+    TResult? Function(String query)? queryChanged,
+    TResult? Function()? searchSubmitted,
+    TResult? Function()? treeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -237,9 +238,9 @@ mixin _$VaultHomeEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(QueryChangedEvent value)? queryChanged,
-    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
-    TResult Function(TreeToggledEvent value)? treeToggled,
+    TResult? Function(QueryChangedEvent value)? queryChanged,
+    TResult? Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult? Function(TreeToggledEvent value)? treeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -256,17 +257,18 @@ mixin _$VaultHomeEvent {
 abstract class $VaultHomeEventCopyWith<$Res> {
   factory $VaultHomeEventCopyWith(
           VaultHomeEvent value, $Res Function(VaultHomeEvent) then) =
-      _$VaultHomeEventCopyWithImpl<$Res>;
+      _$VaultHomeEventCopyWithImpl<$Res, VaultHomeEvent>;
 }
 
 /// @nodoc
-class _$VaultHomeEventCopyWithImpl<$Res>
+class _$VaultHomeEventCopyWithImpl<$Res, $Val extends VaultHomeEvent>
     implements $VaultHomeEventCopyWith<$Res> {
   _$VaultHomeEventCopyWithImpl(this._value, this._then);
 
-  final VaultHomeEvent _value;
   // ignore: unused_field
-  final $Res Function(VaultHomeEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -274,26 +276,25 @@ abstract class _$$QueryChangedEventCopyWith<$Res> {
   factory _$$QueryChangedEventCopyWith(
           _$QueryChangedEvent value, $Res Function(_$QueryChangedEvent) then) =
       __$$QueryChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String query});
 }
 
 /// @nodoc
 class __$$QueryChangedEventCopyWithImpl<$Res>
-    extends _$VaultHomeEventCopyWithImpl<$Res>
+    extends _$VaultHomeEventCopyWithImpl<$Res, _$QueryChangedEvent>
     implements _$$QueryChangedEventCopyWith<$Res> {
   __$$QueryChangedEventCopyWithImpl(
       _$QueryChangedEvent _value, $Res Function(_$QueryChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$QueryChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$QueryChangedEvent get _value => super._value as _$QueryChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
+    Object? query = null,
   }) {
     return _then(_$QueryChangedEvent(
-      query == freezed
+      null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
@@ -319,15 +320,15 @@ class _$QueryChangedEvent implements QueryChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QueryChangedEvent &&
-            const DeepCollectionEquality().equals(other.query, query));
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(query));
+  int get hashCode => Object.hash(runtimeType, query);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$QueryChangedEventCopyWith<_$QueryChangedEvent> get copyWith =>
       __$$QueryChangedEventCopyWithImpl<_$QueryChangedEvent>(this, _$identity);
 
@@ -344,9 +345,9 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? queryChanged,
-    TResult Function()? searchSubmitted,
-    TResult Function()? treeToggled,
+    TResult? Function(String query)? queryChanged,
+    TResult? Function()? searchSubmitted,
+    TResult? Function()? treeToggled,
   }) {
     return queryChanged?.call(query);
   }
@@ -378,9 +379,9 @@ class _$QueryChangedEvent implements QueryChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(QueryChangedEvent value)? queryChanged,
-    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
-    TResult Function(TreeToggledEvent value)? treeToggled,
+    TResult? Function(QueryChangedEvent value)? queryChanged,
+    TResult? Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult? Function(TreeToggledEvent value)? treeToggled,
   }) {
     return queryChanged?.call(this);
   }
@@ -418,14 +419,11 @@ abstract class _$$SearchSubmittedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$SearchSubmittedEventCopyWithImpl<$Res>
-    extends _$VaultHomeEventCopyWithImpl<$Res>
+    extends _$VaultHomeEventCopyWithImpl<$Res, _$SearchSubmittedEvent>
     implements _$$SearchSubmittedEventCopyWith<$Res> {
   __$$SearchSubmittedEventCopyWithImpl(_$SearchSubmittedEvent _value,
       $Res Function(_$SearchSubmittedEvent) _then)
-      : super(_value, (v) => _then(v as _$SearchSubmittedEvent));
-
-  @override
-  _$SearchSubmittedEvent get _value => super._value as _$SearchSubmittedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -460,9 +458,9 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? queryChanged,
-    TResult Function()? searchSubmitted,
-    TResult Function()? treeToggled,
+    TResult? Function(String query)? queryChanged,
+    TResult? Function()? searchSubmitted,
+    TResult? Function()? treeToggled,
   }) {
     return searchSubmitted?.call();
   }
@@ -494,9 +492,9 @@ class _$SearchSubmittedEvent implements SearchSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(QueryChangedEvent value)? queryChanged,
-    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
-    TResult Function(TreeToggledEvent value)? treeToggled,
+    TResult? Function(QueryChangedEvent value)? queryChanged,
+    TResult? Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult? Function(TreeToggledEvent value)? treeToggled,
   }) {
     return searchSubmitted?.call(this);
   }
@@ -529,14 +527,11 @@ abstract class _$$TreeToggledEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$TreeToggledEventCopyWithImpl<$Res>
-    extends _$VaultHomeEventCopyWithImpl<$Res>
+    extends _$VaultHomeEventCopyWithImpl<$Res, _$TreeToggledEvent>
     implements _$$TreeToggledEventCopyWith<$Res> {
   __$$TreeToggledEventCopyWithImpl(
       _$TreeToggledEvent _value, $Res Function(_$TreeToggledEvent) _then)
-      : super(_value, (v) => _then(v as _$TreeToggledEvent));
-
-  @override
-  _$TreeToggledEvent get _value => super._value as _$TreeToggledEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -571,9 +566,9 @@ class _$TreeToggledEvent implements TreeToggledEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? queryChanged,
-    TResult Function()? searchSubmitted,
-    TResult Function()? treeToggled,
+    TResult? Function(String query)? queryChanged,
+    TResult? Function()? searchSubmitted,
+    TResult? Function()? treeToggled,
   }) {
     return treeToggled?.call();
   }
@@ -605,9 +600,9 @@ class _$TreeToggledEvent implements TreeToggledEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(QueryChangedEvent value)? queryChanged,
-    TResult Function(SearchSubmittedEvent value)? searchSubmitted,
-    TResult Function(TreeToggledEvent value)? treeToggled,
+    TResult? Function(QueryChangedEvent value)? queryChanged,
+    TResult? Function(SearchSubmittedEvent value)? searchSubmitted,
+    TResult? Function(TreeToggledEvent value)? treeToggled,
   }) {
     return treeToggled?.call(this);
   }

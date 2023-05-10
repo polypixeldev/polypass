@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'list_item_bloc.dart';
 
@@ -28,34 +28,37 @@ mixin _$ListItemState {
 abstract class $ListItemStateCopyWith<$Res> {
   factory $ListItemStateCopyWith(
           ListItemState value, $Res Function(ListItemState) then) =
-      _$ListItemStateCopyWithImpl<$Res>;
+      _$ListItemStateCopyWithImpl<$Res, ListItemState>;
+  @useResult
   $Res call({ListItemMode mode, Key? masterKey});
 }
 
 /// @nodoc
-class _$ListItemStateCopyWithImpl<$Res>
+class _$ListItemStateCopyWithImpl<$Res, $Val extends ListItemState>
     implements $ListItemStateCopyWith<$Res> {
   _$ListItemStateCopyWithImpl(this._value, this._then);
 
-  final ListItemState _value;
   // ignore: unused_field
-  final $Res Function(ListItemState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? masterKey = freezed,
   }) {
     return _then(_value.copyWith(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ListItemMode,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +69,30 @@ abstract class _$$_ListItemStateCopyWith<$Res>
           _$_ListItemState value, $Res Function(_$_ListItemState) then) =
       __$$_ListItemStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({ListItemMode mode, Key? masterKey});
 }
 
 /// @nodoc
 class __$$_ListItemStateCopyWithImpl<$Res>
-    extends _$ListItemStateCopyWithImpl<$Res>
+    extends _$ListItemStateCopyWithImpl<$Res, _$_ListItemState>
     implements _$$_ListItemStateCopyWith<$Res> {
   __$$_ListItemStateCopyWithImpl(
       _$_ListItemState _value, $Res Function(_$_ListItemState) _then)
-      : super(_value, (v) => _then(v as _$_ListItemState));
+      : super(_value, _then);
 
-  @override
-  _$_ListItemState get _value => super._value as _$_ListItemState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
+    Object? mode = null,
     Object? masterKey = freezed,
   }) {
     return _then(_$_ListItemState(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ListItemMode,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
@@ -118,18 +120,17 @@ class _$_ListItemState implements _ListItemState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ListItemState &&
-            const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, mode, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ListItemStateCopyWith<_$_ListItemState> get copyWith =>
       __$$_ListItemStateCopyWithImpl<_$_ListItemState>(this, _$identity);
 }
@@ -159,8 +160,8 @@ mixin _$ListItemEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ListItemMode? newMode)? modeToggled,
-    TResult Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(ListItemMode? newMode)? modeToggled,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -178,8 +179,8 @@ mixin _$ListItemEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ModeToggledEvent value)? modeToggled,
-    TResult Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
+    TResult? Function(ModeToggledEvent value)? modeToggled,
+    TResult? Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -195,17 +196,18 @@ mixin _$ListItemEvent {
 abstract class $ListItemEventCopyWith<$Res> {
   factory $ListItemEventCopyWith(
           ListItemEvent value, $Res Function(ListItemEvent) then) =
-      _$ListItemEventCopyWithImpl<$Res>;
+      _$ListItemEventCopyWithImpl<$Res, ListItemEvent>;
 }
 
 /// @nodoc
-class _$ListItemEventCopyWithImpl<$Res>
+class _$ListItemEventCopyWithImpl<$Res, $Val extends ListItemEvent>
     implements $ListItemEventCopyWith<$Res> {
   _$ListItemEventCopyWithImpl(this._value, this._then);
 
-  final ListItemEvent _value;
   // ignore: unused_field
-  final $Res Function(ListItemEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -213,26 +215,25 @@ abstract class _$$ModeToggledEventCopyWith<$Res> {
   factory _$$ModeToggledEventCopyWith(
           _$ModeToggledEvent value, $Res Function(_$ModeToggledEvent) then) =
       __$$ModeToggledEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({ListItemMode? newMode});
 }
 
 /// @nodoc
 class __$$ModeToggledEventCopyWithImpl<$Res>
-    extends _$ListItemEventCopyWithImpl<$Res>
+    extends _$ListItemEventCopyWithImpl<$Res, _$ModeToggledEvent>
     implements _$$ModeToggledEventCopyWith<$Res> {
   __$$ModeToggledEventCopyWithImpl(
       _$ModeToggledEvent _value, $Res Function(_$ModeToggledEvent) _then)
-      : super(_value, (v) => _then(v as _$ModeToggledEvent));
+      : super(_value, _then);
 
-  @override
-  _$ModeToggledEvent get _value => super._value as _$ModeToggledEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? newMode = freezed,
   }) {
     return _then(_$ModeToggledEvent(
-      newMode: newMode == freezed
+      newMode: freezed == newMode
           ? _value.newMode
           : newMode // ignore: cast_nullable_to_non_nullable
               as ListItemMode?,
@@ -258,15 +259,15 @@ class _$ModeToggledEvent implements ModeToggledEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ModeToggledEvent &&
-            const DeepCollectionEquality().equals(other.newMode, newMode));
+            (identical(other.newMode, newMode) || other.newMode == newMode));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(newMode));
+  int get hashCode => Object.hash(runtimeType, newMode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ModeToggledEventCopyWith<_$ModeToggledEvent> get copyWith =>
       __$$ModeToggledEventCopyWithImpl<_$ModeToggledEvent>(this, _$identity);
 
@@ -282,8 +283,8 @@ class _$ModeToggledEvent implements ModeToggledEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ListItemMode? newMode)? modeToggled,
-    TResult Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(ListItemMode? newMode)? modeToggled,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
   }) {
     return modeToggled?.call(newMode);
   }
@@ -313,8 +314,8 @@ class _$ModeToggledEvent implements ModeToggledEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ModeToggledEvent value)? modeToggled,
-    TResult Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
+    TResult? Function(ModeToggledEvent value)? modeToggled,
+    TResult? Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
   }) {
     return modeToggled?.call(this);
   }
@@ -348,27 +349,25 @@ abstract class _$$MasterKeyAcquiredEventCopyWith<$Res> {
   factory _$$MasterKeyAcquiredEventCopyWith(_$MasterKeyAcquiredEvent value,
           $Res Function(_$MasterKeyAcquiredEvent) then) =
       __$$MasterKeyAcquiredEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Key? masterKey});
 }
 
 /// @nodoc
 class __$$MasterKeyAcquiredEventCopyWithImpl<$Res>
-    extends _$ListItemEventCopyWithImpl<$Res>
+    extends _$ListItemEventCopyWithImpl<$Res, _$MasterKeyAcquiredEvent>
     implements _$$MasterKeyAcquiredEventCopyWith<$Res> {
   __$$MasterKeyAcquiredEventCopyWithImpl(_$MasterKeyAcquiredEvent _value,
       $Res Function(_$MasterKeyAcquiredEvent) _then)
-      : super(_value, (v) => _then(v as _$MasterKeyAcquiredEvent));
+      : super(_value, _then);
 
-  @override
-  _$MasterKeyAcquiredEvent get _value =>
-      super._value as _$MasterKeyAcquiredEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? masterKey = freezed,
   }) {
     return _then(_$MasterKeyAcquiredEvent(
-      masterKey == freezed
+      freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
@@ -394,15 +393,16 @@ class _$MasterKeyAcquiredEvent implements MasterKeyAcquiredEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MasterKeyAcquiredEvent &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MasterKeyAcquiredEventCopyWith<_$MasterKeyAcquiredEvent> get copyWith =>
       __$$MasterKeyAcquiredEventCopyWithImpl<_$MasterKeyAcquiredEvent>(
           this, _$identity);
@@ -419,8 +419,8 @@ class _$MasterKeyAcquiredEvent implements MasterKeyAcquiredEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ListItemMode? newMode)? modeToggled,
-    TResult Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(ListItemMode? newMode)? modeToggled,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
   }) {
     return masterKeyChanged?.call(masterKey);
   }
@@ -450,8 +450,8 @@ class _$MasterKeyAcquiredEvent implements MasterKeyAcquiredEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ModeToggledEvent value)? modeToggled,
-    TResult Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
+    TResult? Function(ModeToggledEvent value)? modeToggled,
+    TResult? Function(MasterKeyAcquiredEvent value)? masterKeyChanged,
   }) {
     return masterKeyChanged?.call(this);
   }
