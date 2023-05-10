@@ -11,7 +11,8 @@ part 'activity_bloc.freezed.dart';
 
 @freezed
 class ActivityState with _$ActivityState {
-  const factory ActivityState({required int duration}) = _ActivityState;
+  const factory ActivityState(
+      {required int duration, required bool passwordCopied}) = _ActivityState;
 }
 
 @freezed
@@ -19,6 +20,7 @@ class ActivityEvent with _$ActivityEvent {
   const factory ActivityEvent.action() = ActionEvent;
   const factory ActivityEvent.started() = StartedEvent;
   const factory ActivityEvent.ticked(int duration) = TickedEvent;
+  const factory ActivityEvent.copied(bool copied) = CopiedEvent;
 }
 
 class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
@@ -27,12 +29,14 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
             duration: read<VaultBloc>().state.maybeMap(
                 unlocked: (state) =>
                     state.vault.header.settings.vaultAutoLockSeconds,
-                orElse: () => -1))) {
+                orElse: () => -1),
+            passwordCopied: false)) {
     on<ActivityEvent>((event, emit) {
       event.map(
           action: (event) => _onAction(event, emit),
           started: (event) => _onStarted(event, emit),
-          ticked: (event) => _onTicked(event, emit));
+          ticked: (event) => _onTicked(event, emit),
+          copied: (event) => _onCopied(event, emit));
     });
   }
 
@@ -41,7 +45,7 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
   StreamSubscription<int>? _tickerSubscription;
 
   void _onAction(ActionEvent event, Emitter<ActivityState> emit) {
-    emit(ActivityState(
+    emit(state.copyWith(
         duration: read<VaultBloc>().state.maybeMap(
             unlocked: (state) =>
                 state.vault.header.settings.vaultAutoLockSeconds,
@@ -60,13 +64,17 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
   void _onTicked(TickedEvent event, Emitter<ActivityState> emit) {
     if (event.duration <= 0) {
       _tickerSubscription?.cancel();
-      emit(const ActivityState(duration: 0));
+      emit(state.copyWith(duration: 0));
 
       final vaultBloc = read<VaultBloc>();
       vaultBloc.state.mapOrNull(
           unlocked: (state) => vaultBloc.add(const VaultEvent.locked()));
     } else {
-      emit(ActivityState(duration: event.duration));
+      emit(state.copyWith(duration: event.duration));
     }
+  }
+
+  void _onCopied(CopiedEvent event, Emitter<ActivityState> emit) {
+    emit(state.copyWith(passwordCopied: event.copied));
   }
 }

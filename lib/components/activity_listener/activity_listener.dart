@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_window_close/flutter_window_close.dart';
 
 import 'package:polypass/blocs/activity_bloc/activity_bloc.dart';
 
@@ -11,6 +12,15 @@ class ActivityListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterWindowClose.setWindowShouldCloseHandler(() async {
+      final copied = context.read<ActivityBloc>().state.passwordCopied;
+      if (copied) {
+        await Clipboard.setData(const ClipboardData(text: ''));
+      }
+
+      return true;
+    });
+
     HardwareKeyboard.instance.addHandler((event) {
       if (event is KeyDownEvent && !event.synthesized) {
         context.read<ActivityBloc>().add(const ActivityEvent.action());

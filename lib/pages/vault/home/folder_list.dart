@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'dart:io';
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
+import 'package:polypass/blocs/activity_bloc/activity_bloc.dart';
 import 'package:polypass/pages/vault/home/vault_home_bloc/vault_home_bloc.dart';
 import 'package:polypass/pages/vault/home/component_bloc/component_bloc.dart';
 import 'package:polypass/pages/vault/home/list_item_bloc/list_item_bloc.dart';
@@ -310,6 +311,10 @@ class ListItem extends StatelessWidget {
                                         content: Text(
                                             'Copied password to clipboard - it will be cleared in ${unlockedVaultState.vault.header.settings.clipboardClearSeconds} seconds'),
                                       ));
+                                      final activityBloc =
+                                          context.read<ActivityBloc>();
+                                      activityBloc.add(
+                                          const ActivityEvent.copied(true));
                                       Future.delayed(Duration(
                                               seconds: unlockedVaultState
                                                   .vault
@@ -319,6 +324,8 @@ class ListItem extends StatelessWidget {
                                           .then((v) {
                                         Clipboard.setData(
                                             const ClipboardData(text: ''));
+                                        activityBloc.add(
+                                            const ActivityEvent.copied(false));
                                       });
                                     })),
                         ),
