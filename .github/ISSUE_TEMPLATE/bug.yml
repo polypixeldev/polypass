@@ -1,0 +1,46 @@
+name: Bug Report
+description: File a bug report
+title: "[BUG] "
+labels: ["bug"]
+body: 
+  - type: markdown
+    attributes:
+      value: Fill out the fields below, and it will be reviewed as soon as possible. Remember to follow the Code of Conduct
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: What page did the bug occur on?
+      placeholder: ex. Vault settings
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What happened? Please be as clear as possible
+      placeholder: ex. I got an error message...
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: To Reproduce
+      description: What steps can you take to reproduce the bug?
+      placeholder: ex. 1. Go the create new vault page...
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system and device did you see the bug on?
+      placeholder: ex. Android on Google Pixel 3
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Add any other context about the problem here
+      
