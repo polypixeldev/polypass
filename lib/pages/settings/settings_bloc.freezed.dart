@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'settings_bloc.dart';
 
@@ -27,37 +27,41 @@ mixin _$SettingsState {
 abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
-      _$SettingsStateCopyWithImpl<$Res>;
+      _$SettingsStateCopyWithImpl<$Res, SettingsState>;
+  @useResult
   $Res call({AppSettings settings});
 
   $AppSettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res>
+class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     implements $SettingsStateCopyWith<$Res> {
   _$SettingsStateCopyWithImpl(this._value, this._then);
 
-  final SettingsState _value;
   // ignore: unused_field
-  final $Res Function(SettingsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
+    Object? settings = null,
   }) {
     return _then(_value.copyWith(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AppSettingsCopyWith<$Res> get settings {
     return $AppSettingsCopyWith<$Res>(_value.settings, (value) {
-      return _then(_value.copyWith(settings: value));
+      return _then(_value.copyWith(settings: value) as $Val);
     });
   }
 }
@@ -69,6 +73,7 @@ abstract class _$$_SettingsStateCopyWith<$Res>
           _$_SettingsState value, $Res Function(_$_SettingsState) then) =
       __$$_SettingsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AppSettings settings});
 
   @override
@@ -77,21 +82,19 @@ abstract class _$$_SettingsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_SettingsStateCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$_SettingsState>
     implements _$$_SettingsStateCopyWith<$Res> {
   __$$_SettingsStateCopyWithImpl(
       _$_SettingsState _value, $Res Function(_$_SettingsState) _then)
-      : super(_value, (v) => _then(v as _$_SettingsState));
+      : super(_value, _then);
 
-  @override
-  _$_SettingsState get _value => super._value as _$_SettingsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? settings = freezed,
+    Object? settings = null,
   }) {
     return _then(_$_SettingsState(
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as AppSettings,
@@ -117,15 +120,16 @@ class _$_SettingsState implements _SettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SettingsState &&
-            const DeepCollectionEquality().equals(other.settings, settings));
+            (identical(other.settings, settings) ||
+                other.settings == settings));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(settings));
+  int get hashCode => Object.hash(runtimeType, settings);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
       __$$_SettingsStateCopyWithImpl<_$_SettingsState>(this, _$identity);
 }
@@ -157,13 +161,13 @@ mixin _$SettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -193,15 +197,15 @@ mixin _$SettingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -224,17 +228,18 @@ mixin _$SettingsEvent {
 abstract class $SettingsEventCopyWith<$Res> {
   factory $SettingsEventCopyWith(
           SettingsEvent value, $Res Function(SettingsEvent) then) =
-      _$SettingsEventCopyWithImpl<$Res>;
+      _$SettingsEventCopyWithImpl<$Res, SettingsEvent>;
 }
 
 /// @nodoc
-class _$SettingsEventCopyWithImpl<$Res>
+class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
     implements $SettingsEventCopyWith<$Res> {
   _$SettingsEventCopyWithImpl(this._value, this._then);
 
-  final SettingsEvent _value;
   // ignore: unused_field
-  final $Res Function(SettingsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -242,27 +247,25 @@ abstract class _$$SetSaveKeyInMemoryEventCopyWith<$Res> {
   factory _$$SetSaveKeyInMemoryEventCopyWith(_$SetSaveKeyInMemoryEvent value,
           $Res Function(_$SetSaveKeyInMemoryEvent) then) =
       __$$SetSaveKeyInMemoryEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({bool setting});
 }
 
 /// @nodoc
 class __$$SetSaveKeyInMemoryEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetSaveKeyInMemoryEvent>
     implements _$$SetSaveKeyInMemoryEventCopyWith<$Res> {
   __$$SetSaveKeyInMemoryEventCopyWithImpl(_$SetSaveKeyInMemoryEvent _value,
       $Res Function(_$SetSaveKeyInMemoryEvent) _then)
-      : super(_value, (v) => _then(v as _$SetSaveKeyInMemoryEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetSaveKeyInMemoryEvent get _value =>
-      super._value as _$SetSaveKeyInMemoryEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetSaveKeyInMemoryEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -288,15 +291,15 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetSaveKeyInMemoryEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetSaveKeyInMemoryEventCopyWith<_$SetSaveKeyInMemoryEvent> get copyWith =>
       __$$SetSaveKeyInMemoryEventCopyWithImpl<_$SetSaveKeyInMemoryEvent>(
           this, _$identity);
@@ -318,13 +321,13 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(setting);
   }
@@ -366,15 +369,15 @@ class _$SetSaveKeyInMemoryEvent implements SetSaveKeyInMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setSaveKeyInMemory?.call(this);
   }
@@ -415,26 +418,25 @@ abstract class _$$SetKDFIterationsEventCopyWith<$Res> {
   factory _$$SetKDFIterationsEventCopyWith(_$SetKDFIterationsEvent value,
           $Res Function(_$SetKDFIterationsEvent) then) =
       __$$SetKDFIterationsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFIterationsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFIterationsEvent>
     implements _$$SetKDFIterationsEventCopyWith<$Res> {
   __$$SetKDFIterationsEventCopyWithImpl(_$SetKDFIterationsEvent _value,
       $Res Function(_$SetKDFIterationsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFIterationsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFIterationsEvent get _value => super._value as _$SetKDFIterationsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFIterationsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -460,15 +462,15 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFIterationsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFIterationsEventCopyWith<_$SetKDFIterationsEvent> get copyWith =>
       __$$SetKDFIterationsEventCopyWithImpl<_$SetKDFIterationsEvent>(
           this, _$identity);
@@ -490,13 +492,13 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setKDFIterations?.call(setting);
   }
@@ -538,15 +540,15 @@ class _$SetKDFIterationsEvent implements SetKDFIterationsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFIterations?.call(this);
   }
@@ -587,26 +589,25 @@ abstract class _$$SetKDFThreadsEventCopyWith<$Res> {
   factory _$$SetKDFThreadsEventCopyWith(_$SetKDFThreadsEvent value,
           $Res Function(_$SetKDFThreadsEvent) then) =
       __$$SetKDFThreadsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFThreadsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFThreadsEvent>
     implements _$$SetKDFThreadsEventCopyWith<$Res> {
   __$$SetKDFThreadsEventCopyWithImpl(
       _$SetKDFThreadsEvent _value, $Res Function(_$SetKDFThreadsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFThreadsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFThreadsEvent get _value => super._value as _$SetKDFThreadsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFThreadsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -632,15 +633,15 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFThreadsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFThreadsEventCopyWith<_$SetKDFThreadsEvent> get copyWith =>
       __$$SetKDFThreadsEventCopyWithImpl<_$SetKDFThreadsEvent>(
           this, _$identity);
@@ -662,13 +663,13 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setKDFThreads?.call(setting);
   }
@@ -710,15 +711,15 @@ class _$SetKDFThreadsEvent implements SetKDFThreadsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFThreads?.call(this);
   }
@@ -758,26 +759,25 @@ abstract class _$$SetKDFMemoryEventCopyWith<$Res> {
   factory _$$SetKDFMemoryEventCopyWith(
           _$SetKDFMemoryEvent value, $Res Function(_$SetKDFMemoryEvent) then) =
       __$$SetKDFMemoryEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetKDFMemoryEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetKDFMemoryEvent>
     implements _$$SetKDFMemoryEventCopyWith<$Res> {
   __$$SetKDFMemoryEventCopyWithImpl(
       _$SetKDFMemoryEvent _value, $Res Function(_$SetKDFMemoryEvent) _then)
-      : super(_value, (v) => _then(v as _$SetKDFMemoryEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetKDFMemoryEvent get _value => super._value as _$SetKDFMemoryEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetKDFMemoryEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -803,15 +803,15 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetKDFMemoryEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetKDFMemoryEventCopyWith<_$SetKDFMemoryEvent> get copyWith =>
       __$$SetKDFMemoryEventCopyWithImpl<_$SetKDFMemoryEvent>(this, _$identity);
 
@@ -832,13 +832,13 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setKDFMemory?.call(setting);
   }
@@ -880,15 +880,15 @@ class _$SetKDFMemoryEvent implements SetKDFMemoryEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setKDFMemory?.call(this);
   }
@@ -929,28 +929,26 @@ abstract class _$$SetClipboardClearSecondsEventCopyWith<$Res> {
           _$SetClipboardClearSecondsEvent value,
           $Res Function(_$SetClipboardClearSecondsEvent) then) =
       __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetClipboardClearSecondsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetClipboardClearSecondsEvent>
     implements _$$SetClipboardClearSecondsEventCopyWith<$Res> {
   __$$SetClipboardClearSecondsEventCopyWithImpl(
       _$SetClipboardClearSecondsEvent _value,
       $Res Function(_$SetClipboardClearSecondsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetClipboardClearSecondsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetClipboardClearSecondsEvent get _value =>
-      super._value as _$SetClipboardClearSecondsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetClipboardClearSecondsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -976,15 +974,15 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetClipboardClearSecondsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetClipboardClearSecondsEventCopyWith<_$SetClipboardClearSecondsEvent>
       get copyWith => __$$SetClipboardClearSecondsEventCopyWithImpl<
           _$SetClipboardClearSecondsEvent>(this, _$identity);
@@ -1006,13 +1004,13 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(setting);
   }
@@ -1054,15 +1052,15 @@ class _$SetClipboardClearSecondsEvent implements SetClipboardClearSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setClipboardClearSeconds?.call(this);
   }
@@ -1104,28 +1102,26 @@ abstract class _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
           _$SetVaultAutoLockSecondsEvent value,
           $Res Function(_$SetVaultAutoLockSecondsEvent) then) =
       __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int setting});
 }
 
 /// @nodoc
 class __$$SetVaultAutoLockSecondsEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SetVaultAutoLockSecondsEvent>
     implements _$$SetVaultAutoLockSecondsEventCopyWith<$Res> {
   __$$SetVaultAutoLockSecondsEventCopyWithImpl(
       _$SetVaultAutoLockSecondsEvent _value,
       $Res Function(_$SetVaultAutoLockSecondsEvent) _then)
-      : super(_value, (v) => _then(v as _$SetVaultAutoLockSecondsEvent));
+      : super(_value, _then);
 
-  @override
-  _$SetVaultAutoLockSecondsEvent get _value =>
-      super._value as _$SetVaultAutoLockSecondsEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? setting = freezed,
+    Object? setting = null,
   }) {
     return _then(_$SetVaultAutoLockSecondsEvent(
-      setting == freezed
+      null == setting
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1151,15 +1147,15 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SetVaultAutoLockSecondsEvent &&
-            const DeepCollectionEquality().equals(other.setting, setting));
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setting));
+  int get hashCode => Object.hash(runtimeType, setting);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SetVaultAutoLockSecondsEventCopyWith<_$SetVaultAutoLockSecondsEvent>
       get copyWith => __$$SetVaultAutoLockSecondsEventCopyWithImpl<
           _$SetVaultAutoLockSecondsEvent>(this, _$identity);
@@ -1181,13 +1177,13 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return setVaultAutoLockSeconds?.call(setting);
   }
@@ -1229,15 +1225,15 @@ class _$SetVaultAutoLockSecondsEvent implements SetVaultAutoLockSecondsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return setVaultAutoLockSeconds?.call(this);
   }
@@ -1282,14 +1278,11 @@ abstract class _$$SettingsSavedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$SettingsSavedEventCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsSavedEvent>
     implements _$$SettingsSavedEventCopyWith<$Res> {
   __$$SettingsSavedEventCopyWithImpl(
       _$SettingsSavedEvent _value, $Res Function(_$SettingsSavedEvent) _then)
-      : super(_value, (v) => _then(v as _$SettingsSavedEvent));
-
-  @override
-  _$SettingsSavedEvent get _value => super._value as _$SettingsSavedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1328,13 +1321,13 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool setting)? setSaveKeyInMemory,
-    TResult Function(int setting)? setKDFIterations,
-    TResult Function(int setting)? setKDFThreads,
-    TResult Function(int setting)? setKDFMemory,
-    TResult Function(int setting)? setClipboardClearSeconds,
-    TResult Function(int setting)? setVaultAutoLockSeconds,
-    TResult Function()? settingsSaved,
+    TResult? Function(bool setting)? setSaveKeyInMemory,
+    TResult? Function(int setting)? setKDFIterations,
+    TResult? Function(int setting)? setKDFThreads,
+    TResult? Function(int setting)? setKDFMemory,
+    TResult? Function(int setting)? setClipboardClearSeconds,
+    TResult? Function(int setting)? setVaultAutoLockSeconds,
+    TResult? Function()? settingsSaved,
   }) {
     return settingsSaved?.call();
   }
@@ -1376,15 +1369,15 @@ class _$SettingsSavedEvent implements SettingsSavedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
-    TResult Function(SetKDFIterationsEvent value)? setKDFIterations,
-    TResult Function(SetKDFThreadsEvent value)? setKDFThreads,
-    TResult Function(SetKDFMemoryEvent value)? setKDFMemory,
-    TResult Function(SetClipboardClearSecondsEvent value)?
+    TResult? Function(SetSaveKeyInMemoryEvent value)? setSaveKeyInMemory,
+    TResult? Function(SetKDFIterationsEvent value)? setKDFIterations,
+    TResult? Function(SetKDFThreadsEvent value)? setKDFThreads,
+    TResult? Function(SetKDFMemoryEvent value)? setKDFMemory,
+    TResult? Function(SetClipboardClearSecondsEvent value)?
         setClipboardClearSeconds,
-    TResult Function(SetVaultAutoLockSecondsEvent value)?
+    TResult? Function(SetVaultAutoLockSecondsEvent value)?
         setVaultAutoLockSeconds,
-    TResult Function(SettingsSavedEvent value)? settingsSaved,
+    TResult? Function(SettingsSavedEvent value)? settingsSaved,
   }) {
     return settingsSaved?.call(this);
   }

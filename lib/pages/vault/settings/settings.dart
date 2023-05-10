@@ -51,6 +51,16 @@ class VaultSettingsPage extends StatelessWidget {
                                     padding: EdgeInsets.only(bottom: 10),
                                   ),
                                   TextSetting(
+                                      title: 'Name',
+                                      value: state.vaultName,
+                                      onChanged: (setting) {
+                                        if (setting != '') {
+                                          context.read<SettingsBloc>().add(
+                                              SettingsEvent.vaultNameChanged(
+                                                  setting));
+                                        }
+                                      }),
+                                  TextSetting(
                                       title: 'KDF Iterations',
                                       value:
                                           state.settings.iterations.toString(),
@@ -114,7 +124,7 @@ class VaultSettingsPage extends StatelessWidget {
                                   const Text('Change Master Password',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 30, color: Colors.white)),
+                                          fontSize: 25, color: Colors.white)),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'edit_bloc.dart';
 
@@ -33,7 +33,8 @@ mixin _$EditFormState {
 abstract class $EditFormStateCopyWith<$Res> {
   factory $EditFormStateCopyWith(
           EditFormState value, $Res Function(EditFormState) then) =
-      _$EditFormStateCopyWithImpl<$Res>;
+      _$EditFormStateCopyWithImpl<$Res, EditFormState>;
+  @useResult
   $Res call(
       {String name,
       String username,
@@ -47,64 +48,67 @@ abstract class $EditFormStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EditFormStateCopyWithImpl<$Res>
+class _$EditFormStateCopyWithImpl<$Res, $Val extends EditFormState>
     implements $EditFormStateCopyWith<$Res> {
   _$EditFormStateCopyWithImpl(this._value, this._then);
 
-  final EditFormState _value;
   // ignore: unused_field
-  final $Res Function(EditFormState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? username = freezed,
-    Object? password = freezed,
-    Object? notes = freezed,
-    Object? submitted = freezed,
+    Object? name = null,
+    Object? username = null,
+    Object? password = null,
+    Object? notes = null,
+    Object? submitted = null,
     Object? editedItem = freezed,
     Object? masterKey = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      notes: notes == freezed
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      editedItem: editedItem == freezed
+      editedItem: freezed == editedItem
           ? _value.editedItem
           : editedItem // ignore: cast_nullable_to_non_nullable
               as VaultItem?,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultItemCopyWith<$Res>? get editedItem {
     if (_value.editedItem == null) {
       return null;
     }
 
     return $VaultItemCopyWith<$Res>(_value.editedItem!, (value) {
-      return _then(_value.copyWith(editedItem: value));
+      return _then(_value.copyWith(editedItem: value) as $Val);
     });
   }
 }
@@ -116,6 +120,7 @@ abstract class _$$_EditFormStateCopyWith<$Res>
           _$_EditFormState value, $Res Function(_$_EditFormState) then) =
       __$$_EditFormStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       String username,
@@ -131,51 +136,49 @@ abstract class _$$_EditFormStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_EditFormStateCopyWithImpl<$Res>
-    extends _$EditFormStateCopyWithImpl<$Res>
+    extends _$EditFormStateCopyWithImpl<$Res, _$_EditFormState>
     implements _$$_EditFormStateCopyWith<$Res> {
   __$$_EditFormStateCopyWithImpl(
       _$_EditFormState _value, $Res Function(_$_EditFormState) _then)
-      : super(_value, (v) => _then(v as _$_EditFormState));
+      : super(_value, _then);
 
-  @override
-  _$_EditFormState get _value => super._value as _$_EditFormState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? username = freezed,
-    Object? password = freezed,
-    Object? notes = freezed,
-    Object? submitted = freezed,
+    Object? name = null,
+    Object? username = null,
+    Object? password = null,
+    Object? notes = null,
+    Object? submitted = null,
     Object? editedItem = freezed,
     Object? masterKey = freezed,
   }) {
     return _then(_$_EditFormState(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      notes: notes == freezed
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      editedItem: editedItem == freezed
+      editedItem: freezed == editedItem
           ? _value.editedItem
           : editedItem // ignore: cast_nullable_to_non_nullable
               as VaultItem?,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
@@ -221,29 +224,27 @@ class _$_EditFormState extends _EditFormState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EditFormState &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.notes, notes) &&
-            const DeepCollectionEquality().equals(other.submitted, submitted) &&
-            const DeepCollectionEquality()
-                .equals(other.editedItem, editedItem) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.submitted, submitted) ||
+                other.submitted == submitted) &&
+            (identical(other.editedItem, editedItem) ||
+                other.editedItem == editedItem) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(notes),
-      const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(editedItem),
-      const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, name, username, password, notes,
+      submitted, editedItem, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EditFormStateCopyWith<_$_EditFormState> get copyWith =>
       __$$_EditFormStateCopyWithImpl<_$_EditFormState>(this, _$identity);
 }
@@ -293,12 +294,12 @@ mixin _$EditFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -324,12 +325,12 @@ mixin _$EditFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -349,17 +350,18 @@ mixin _$EditFormEvent {
 abstract class $EditFormEventCopyWith<$Res> {
   factory $EditFormEventCopyWith(
           EditFormEvent value, $Res Function(EditFormEvent) then) =
-      _$EditFormEventCopyWithImpl<$Res>;
+      _$EditFormEventCopyWithImpl<$Res, EditFormEvent>;
 }
 
 /// @nodoc
-class _$EditFormEventCopyWithImpl<$Res>
+class _$EditFormEventCopyWithImpl<$Res, $Val extends EditFormEvent>
     implements $EditFormEventCopyWith<$Res> {
   _$EditFormEventCopyWithImpl(this._value, this._then);
 
-  final EditFormEvent _value;
   // ignore: unused_field
-  final $Res Function(EditFormEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -367,26 +369,25 @@ abstract class _$$NameChangedEventCopyWith<$Res> {
   factory _$$NameChangedEventCopyWith(
           _$NameChangedEvent value, $Res Function(_$NameChangedEvent) then) =
       __$$NameChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String name});
 }
 
 /// @nodoc
 class __$$NameChangedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$NameChangedEvent>
     implements _$$NameChangedEventCopyWith<$Res> {
   __$$NameChangedEventCopyWithImpl(
       _$NameChangedEvent _value, $Res Function(_$NameChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$NameChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$NameChangedEvent get _value => super._value as _$NameChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$NameChangedEvent(
-      name == freezed
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -412,15 +413,15 @@ class _$NameChangedEvent implements NameChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NameChangedEvent &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$NameChangedEventCopyWith<_$NameChangedEvent> get copyWith =>
       __$$NameChangedEventCopyWithImpl<_$NameChangedEvent>(this, _$identity);
 
@@ -440,12 +441,12 @@ class _$NameChangedEvent implements NameChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return nameChanged?.call(name);
   }
@@ -483,12 +484,12 @@ class _$NameChangedEvent implements NameChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return nameChanged?.call(this);
   }
@@ -525,26 +526,25 @@ abstract class _$$UsernameChangedEventCopyWith<$Res> {
   factory _$$UsernameChangedEventCopyWith(_$UsernameChangedEvent value,
           $Res Function(_$UsernameChangedEvent) then) =
       __$$UsernameChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String username});
 }
 
 /// @nodoc
 class __$$UsernameChangedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$UsernameChangedEvent>
     implements _$$UsernameChangedEventCopyWith<$Res> {
   __$$UsernameChangedEventCopyWithImpl(_$UsernameChangedEvent _value,
       $Res Function(_$UsernameChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$UsernameChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$UsernameChangedEvent get _value => super._value as _$UsernameChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? username = freezed,
+    Object? username = null,
   }) {
     return _then(_$UsernameChangedEvent(
-      username == freezed
+      null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
@@ -570,15 +570,16 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UsernameChangedEvent &&
-            const DeepCollectionEquality().equals(other.username, username));
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(username));
+  int get hashCode => Object.hash(runtimeType, username);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UsernameChangedEventCopyWith<_$UsernameChangedEvent> get copyWith =>
       __$$UsernameChangedEventCopyWithImpl<_$UsernameChangedEvent>(
           this, _$identity);
@@ -599,12 +600,12 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return usernameChanged?.call(username);
   }
@@ -642,12 +643,12 @@ class _$UsernameChangedEvent implements UsernameChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return usernameChanged?.call(this);
   }
@@ -685,26 +686,25 @@ abstract class _$$PasswordChangedEventCopyWith<$Res> {
   factory _$$PasswordChangedEventCopyWith(_$PasswordChangedEvent value,
           $Res Function(_$PasswordChangedEvent) then) =
       __$$PasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String password});
 }
 
 /// @nodoc
 class __$$PasswordChangedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$PasswordChangedEvent>
     implements _$$PasswordChangedEventCopyWith<$Res> {
   __$$PasswordChangedEventCopyWithImpl(_$PasswordChangedEvent _value,
       $Res Function(_$PasswordChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$PasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$PasswordChangedEvent get _value => super._value as _$PasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? password = freezed,
+    Object? password = null,
   }) {
     return _then(_$PasswordChangedEvent(
-      password == freezed
+      null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
@@ -730,15 +730,16 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PasswordChangedEvent &&
-            const DeepCollectionEquality().equals(other.password, password));
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(password));
+  int get hashCode => Object.hash(runtimeType, password);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PasswordChangedEventCopyWith<_$PasswordChangedEvent> get copyWith =>
       __$$PasswordChangedEventCopyWithImpl<_$PasswordChangedEvent>(
           this, _$identity);
@@ -759,12 +760,12 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return passwordChanged?.call(password);
   }
@@ -802,12 +803,12 @@ class _$PasswordChangedEvent implements PasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return passwordChanged?.call(this);
   }
@@ -845,26 +846,25 @@ abstract class _$$NotesChangedEventCopyWith<$Res> {
   factory _$$NotesChangedEventCopyWith(
           _$NotesChangedEvent value, $Res Function(_$NotesChangedEvent) then) =
       __$$NotesChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String notes});
 }
 
 /// @nodoc
 class __$$NotesChangedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$NotesChangedEvent>
     implements _$$NotesChangedEventCopyWith<$Res> {
   __$$NotesChangedEventCopyWithImpl(
       _$NotesChangedEvent _value, $Res Function(_$NotesChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$NotesChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$NotesChangedEvent get _value => super._value as _$NotesChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notes = freezed,
+    Object? notes = null,
   }) {
     return _then(_$NotesChangedEvent(
-      notes == freezed
+      null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
@@ -890,15 +890,15 @@ class _$NotesChangedEvent implements NotesChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotesChangedEvent &&
-            const DeepCollectionEquality().equals(other.notes, notes));
+            (identical(other.notes, notes) || other.notes == notes));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(notes));
+  int get hashCode => Object.hash(runtimeType, notes);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$NotesChangedEventCopyWith<_$NotesChangedEvent> get copyWith =>
       __$$NotesChangedEventCopyWithImpl<_$NotesChangedEvent>(this, _$identity);
 
@@ -918,12 +918,12 @@ class _$NotesChangedEvent implements NotesChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return notesChanged?.call(notes);
   }
@@ -961,12 +961,12 @@ class _$NotesChangedEvent implements NotesChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return notesChanged?.call(this);
   }
@@ -1003,26 +1003,25 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
   factory _$$FormSubmittedEventCopyWith(_$FormSubmittedEvent value,
           $Res Function(_$FormSubmittedEvent) then) =
       __$$FormSubmittedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Key masterKey});
 }
 
 /// @nodoc
 class __$$FormSubmittedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$FormSubmittedEvent>
     implements _$$FormSubmittedEventCopyWith<$Res> {
   __$$FormSubmittedEventCopyWithImpl(
       _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
-      : super(_value, (v) => _then(v as _$FormSubmittedEvent));
+      : super(_value, _then);
 
-  @override
-  _$FormSubmittedEvent get _value => super._value as _$FormSubmittedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterKey = freezed,
+    Object? masterKey = null,
   }) {
     return _then(_$FormSubmittedEvent(
-      masterKey == freezed
+      null == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key,
@@ -1048,15 +1047,16 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FormSubmittedEvent &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
       __$$FormSubmittedEventCopyWithImpl<_$FormSubmittedEvent>(
           this, _$identity);
@@ -1077,12 +1077,12 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return formSubmitted?.call(masterKey);
   }
@@ -1120,12 +1120,12 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return formSubmitted?.call(this);
   }
@@ -1166,14 +1166,11 @@ abstract class _$$FailedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$FailedEventCopyWithImpl<$Res>
-    extends _$EditFormEventCopyWithImpl<$Res>
+    extends _$EditFormEventCopyWithImpl<$Res, _$FailedEvent>
     implements _$$FailedEventCopyWith<$Res> {
   __$$FailedEventCopyWithImpl(
       _$FailedEvent _value, $Res Function(_$FailedEvent) _then)
-      : super(_value, (v) => _then(v as _$FailedEvent));
-
-  @override
-  _$FailedEvent get _value => super._value as _$FailedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1211,12 +1208,12 @@ class _$FailedEvent implements FailedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? nameChanged,
-    TResult Function(String username)? usernameChanged,
-    TResult Function(String password)? passwordChanged,
-    TResult Function(String notes)? notesChanged,
-    TResult Function(Key masterKey)? formSubmitted,
-    TResult Function()? failed,
+    TResult? Function(String name)? nameChanged,
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(Key masterKey)? formSubmitted,
+    TResult? Function()? failed,
   }) {
     return failed?.call();
   }
@@ -1254,12 +1251,12 @@ class _$FailedEvent implements FailedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NameChangedEvent value)? nameChanged,
-    TResult Function(UsernameChangedEvent value)? usernameChanged,
-    TResult Function(PasswordChangedEvent value)? passwordChanged,
-    TResult Function(NotesChangedEvent value)? notesChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
-    TResult Function(FailedEvent value)? failed,
+    TResult? Function(NameChangedEvent value)? nameChanged,
+    TResult? Function(UsernameChangedEvent value)? usernameChanged,
+    TResult? Function(PasswordChangedEvent value)? passwordChanged,
+    TResult? Function(NotesChangedEvent value)? notesChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(FailedEvent value)? failed,
   }) {
     return failed?.call(this);
   }

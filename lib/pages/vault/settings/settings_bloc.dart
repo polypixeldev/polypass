@@ -17,6 +17,7 @@ class SettingsState with _$SettingsState {
 
   const factory SettingsState(
       {required VaultSettings settings,
+      required String vaultName,
       required String newMasterPassword,
       required String confirmNewMasterPassword}) = _SettingsState;
 
@@ -31,6 +32,8 @@ class SettingsEvent with _$SettingsEvent {
       String newMasterPassword) = NewMasterPasswordChangedEvent;
   const factory SettingsEvent.confirmNewMasterPasswordChanged(
       String confirmNewMasterPassword) = ConfirmNewMasterPasswordChangedEvent;
+  const factory SettingsEvent.vaultNameChanged(String vaultName) =
+      NewVaultNameChangedEvent;
   const factory SettingsEvent.setKDFIterations(int setting) =
       SetKDFIterationsEvent;
   const factory SettingsEvent.setKDFThreads(int setting) = SetKDFThreadsEvent;
@@ -52,6 +55,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
                 .vault
                 .header
                 .settings,
+            vaultName: vaultBloc.state
+                .maybeMap(
+                    unlocked: (state) => state, orElse: () => throw Error())
+                .vault
+                .header
+                .name,
             newMasterPassword: '',
             confirmNewMasterPassword: '')) {
     on<SettingsEvent>((event, emit) async {
@@ -61,6 +70,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               _onNewMasterPasswordChanged(event, emit),
           confirmNewMasterPasswordChanged: (event) =>
               _onConfirmNewMasterPasswordChanged(event, emit),
+          vaultNameChanged: (event) => _onNewVaultNameChanged(event, emit),
           setKDFIterations: (event) => _onSetKDFIterations(event, emit),
           setKDFThreads: (event) => _onSetKDFThreads(event, emit),
           setKDFMemory: (event) => _onSetKDFMemory(event, emit),
@@ -90,6 +100,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       Emitter<SettingsState> emit) async {
     emit(state.copyWith(
         confirmNewMasterPassword: event.confirmNewMasterPassword));
+  }
+
+  Future<void> _onNewVaultNameChanged(
+      NewVaultNameChangedEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(vaultName: event.vaultName));
   }
 
   Future<void> _onSetKDFIterations(
@@ -180,8 +195,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     vaultBloc.add(VaultEvent.updated(
         unlockedState.vault.copyWith(
-            header: unlockedState.vault.header
-                .copyWith(settings: state.settings, magic: magic, key: key)),
+            header: unlockedState.vault.header.copyWith(
+                settings: state.settings,
+                magic: magic,
+                key: key,
+                name: state.vaultName)),
         masterKey));
 
     vaultBloc.add(VaultEvent.masterKeyChanged(

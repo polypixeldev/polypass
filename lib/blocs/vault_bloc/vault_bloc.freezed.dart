@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'vault_bloc.dart';
 
@@ -34,11 +34,11 @@ mixin _$VaultState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -76,11 +76,11 @@ mixin _$VaultState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -99,16 +99,18 @@ mixin _$VaultState {
 abstract class $VaultStateCopyWith<$Res> {
   factory $VaultStateCopyWith(
           VaultState value, $Res Function(VaultState) then) =
-      _$VaultStateCopyWithImpl<$Res>;
+      _$VaultStateCopyWithImpl<$Res, VaultState>;
 }
 
 /// @nodoc
-class _$VaultStateCopyWithImpl<$Res> implements $VaultStateCopyWith<$Res> {
+class _$VaultStateCopyWithImpl<$Res, $Val extends VaultState>
+    implements $VaultStateCopyWith<$Res> {
   _$VaultStateCopyWithImpl(this._value, this._then);
 
-  final VaultState _value;
   // ignore: unused_field
-  final $Res Function(VaultState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -118,13 +120,11 @@ abstract class _$$_NoneCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_NoneCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+class __$$_NoneCopyWithImpl<$Res>
+    extends _$VaultStateCopyWithImpl<$Res, _$_None>
     implements _$$_NoneCopyWith<$Res> {
   __$$_NoneCopyWithImpl(_$_None _value, $Res Function(_$_None) _then)
-      : super(_value, (v) => _then(v as _$_None));
-
-  @override
-  _$_None get _value => super._value as _$_None;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -168,11 +168,11 @@ class _$_None implements _None {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -222,11 +222,11 @@ class _$_None implements _None {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) {
     return none?.call(this);
   }
@@ -257,24 +257,24 @@ abstract class _$$_OpeningCopyWith<$Res> {
   factory _$$_OpeningCopyWith(
           _$_Opening value, $Res Function(_$_Opening) then) =
       __$$_OpeningCopyWithImpl<$Res>;
+  @useResult
   $Res call({int errorCount});
 }
 
 /// @nodoc
-class __$$_OpeningCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+class __$$_OpeningCopyWithImpl<$Res>
+    extends _$VaultStateCopyWithImpl<$Res, _$_Opening>
     implements _$$_OpeningCopyWith<$Res> {
   __$$_OpeningCopyWithImpl(_$_Opening _value, $Res Function(_$_Opening) _then)
-      : super(_value, (v) => _then(v as _$_Opening));
+      : super(_value, _then);
 
-  @override
-  _$_Opening get _value => super._value as _$_Opening;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorCount = freezed,
+    Object? errorCount = null,
   }) {
     return _then(_$_Opening(
-      errorCount: errorCount == freezed
+      errorCount: null == errorCount
           ? _value.errorCount
           : errorCount // ignore: cast_nullable_to_non_nullable
               as int,
@@ -301,16 +301,16 @@ class _$_Opening implements _Opening {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Opening &&
-            const DeepCollectionEquality()
-                .equals(other.errorCount, errorCount));
+            (identical(other.errorCount, errorCount) ||
+                other.errorCount == errorCount));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(errorCount));
+  int get hashCode => Object.hash(runtimeType, errorCount);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OpeningCopyWith<_$_Opening> get copyWith =>
       __$$_OpeningCopyWithImpl<_$_Opening>(this, _$identity);
 
@@ -336,11 +336,11 @@ class _$_Opening implements _Opening {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -390,11 +390,11 @@ class _$_Opening implements _Opening {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) {
     return opening?.call(this);
   }
@@ -429,26 +429,26 @@ abstract class _Opening implements VaultState {
 abstract class _$$_LockedCopyWith<$Res> {
   factory _$$_LockedCopyWith(_$_Locked value, $Res Function(_$_Locked) then) =
       __$$_LockedCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultFile vault});
 
   $VaultFileCopyWith<$Res> get vault;
 }
 
 /// @nodoc
-class __$$_LockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+class __$$_LockedCopyWithImpl<$Res>
+    extends _$VaultStateCopyWithImpl<$Res, _$_Locked>
     implements _$$_LockedCopyWith<$Res> {
   __$$_LockedCopyWithImpl(_$_Locked _value, $Res Function(_$_Locked) _then)
-      : super(_value, (v) => _then(v as _$_Locked));
+      : super(_value, _then);
 
-  @override
-  _$_Locked get _value => super._value as _$_Locked;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vault = freezed,
+    Object? vault = null,
   }) {
     return _then(_$_Locked(
-      vault == freezed
+      null == vault
           ? _value.vault
           : vault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
@@ -456,6 +456,7 @@ class __$$_LockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultFileCopyWith<$Res> get vault {
     return $VaultFileCopyWith<$Res>(_value.vault, (value) {
       return _then(_value.copyWith(vault: value));
@@ -481,15 +482,15 @@ class _$_Locked implements _Locked {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Locked &&
-            const DeepCollectionEquality().equals(other.vault, vault));
+            (identical(other.vault, vault) || other.vault == vault));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(vault));
+  int get hashCode => Object.hash(runtimeType, vault);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LockedCopyWith<_$_Locked> get copyWith =>
       __$$_LockedCopyWithImpl<_$_Locked>(this, _$identity);
 
@@ -515,11 +516,11 @@ class _$_Locked implements _Locked {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -569,11 +570,11 @@ class _$_Locked implements _Locked {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) {
     return locked?.call(this);
   }
@@ -609,27 +610,27 @@ abstract class _$$_UnlockingCopyWith<$Res> {
   factory _$$_UnlockingCopyWith(
           _$_Unlocking value, $Res Function(_$_Unlocking) then) =
       __$$_UnlockingCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultFile vault});
 
   $VaultFileCopyWith<$Res> get vault;
 }
 
 /// @nodoc
-class __$$_UnlockingCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+class __$$_UnlockingCopyWithImpl<$Res>
+    extends _$VaultStateCopyWithImpl<$Res, _$_Unlocking>
     implements _$$_UnlockingCopyWith<$Res> {
   __$$_UnlockingCopyWithImpl(
       _$_Unlocking _value, $Res Function(_$_Unlocking) _then)
-      : super(_value, (v) => _then(v as _$_Unlocking));
+      : super(_value, _then);
 
-  @override
-  _$_Unlocking get _value => super._value as _$_Unlocking;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vault = freezed,
+    Object? vault = null,
   }) {
     return _then(_$_Unlocking(
-      vault == freezed
+      null == vault
           ? _value.vault
           : vault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
@@ -637,6 +638,7 @@ class __$$_UnlockingCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultFileCopyWith<$Res> get vault {
     return $VaultFileCopyWith<$Res>(_value.vault, (value) {
       return _then(_value.copyWith(vault: value));
@@ -662,15 +664,15 @@ class _$_Unlocking implements _Unlocking {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Unlocking &&
-            const DeepCollectionEquality().equals(other.vault, vault));
+            (identical(other.vault, vault) || other.vault == vault));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(vault));
+  int get hashCode => Object.hash(runtimeType, vault);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UnlockingCopyWith<_$_Unlocking> get copyWith =>
       __$$_UnlockingCopyWithImpl<_$_Unlocking>(this, _$identity);
 
@@ -696,11 +698,11 @@ class _$_Unlocking implements _Unlocking {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -750,11 +752,11 @@ class _$_Unlocking implements _Unlocking {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) {
     return unlocking?.call(this);
   }
@@ -790,6 +792,7 @@ abstract class _$$_UnlockedCopyWith<$Res> {
   factory _$$_UnlockedCopyWith(
           _$_Unlocked value, $Res Function(_$_Unlocked) then) =
       __$$_UnlockedCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {VaultFile vault,
       List<String>? selectedGroup,
@@ -802,46 +805,45 @@ abstract class _$$_UnlockedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
+class __$$_UnlockedCopyWithImpl<$Res>
+    extends _$VaultStateCopyWithImpl<$Res, _$_Unlocked>
     implements _$$_UnlockedCopyWith<$Res> {
   __$$_UnlockedCopyWithImpl(
       _$_Unlocked _value, $Res Function(_$_Unlocked) _then)
-      : super(_value, (v) => _then(v as _$_Unlocked));
+      : super(_value, _then);
 
-  @override
-  _$_Unlocked get _value => super._value as _$_Unlocked;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vault = freezed,
+    Object? vault = null,
     Object? selectedGroup = freezed,
     Object? selectedItem = freezed,
-    Object? viewingSelectedItem = freezed,
+    Object? viewingSelectedItem = null,
     Object? masterKey = freezed,
-    Object? errorCounts = freezed,
+    Object? errorCounts = null,
   }) {
     return _then(_$_Unlocked(
-      vault: vault == freezed
+      vault: null == vault
           ? _value.vault
           : vault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
-      selectedGroup: selectedGroup == freezed
+      selectedGroup: freezed == selectedGroup
           ? _value._selectedGroup
           : selectedGroup // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      selectedItem: selectedItem == freezed
+      selectedItem: freezed == selectedItem
           ? _value._selectedItem
           : selectedItem // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      viewingSelectedItem: viewingSelectedItem == freezed
+      viewingSelectedItem: null == viewingSelectedItem
           ? _value.viewingSelectedItem
           : viewingSelectedItem // ignore: cast_nullable_to_non_nullable
               as bool,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      errorCounts: errorCounts == freezed
+      errorCounts: null == errorCounts
           ? _value.errorCounts
           : errorCounts // ignore: cast_nullable_to_non_nullable
               as int,
@@ -849,6 +851,7 @@ class __$$_UnlockedCopyWithImpl<$Res> extends _$VaultStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultFileCopyWith<$Res> get vault {
     return $VaultFileCopyWith<$Res>(_value.vault, (value) {
       return _then(_value.copyWith(vault: value));
@@ -876,6 +879,7 @@ class _$_Unlocked implements _Unlocked {
   List<String>? get selectedGroup {
     final value = _selectedGroup;
     if (value == null) return null;
+    if (_selectedGroup is EqualUnmodifiableListView) return _selectedGroup;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -885,6 +889,7 @@ class _$_Unlocked implements _Unlocked {
   List<String>? get selectedItem {
     final value = _selectedItem;
     if (value == null) return null;
+    if (_selectedItem is EqualUnmodifiableListView) return _selectedItem;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -908,30 +913,32 @@ class _$_Unlocked implements _Unlocked {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Unlocked &&
-            const DeepCollectionEquality().equals(other.vault, vault) &&
+            (identical(other.vault, vault) || other.vault == vault) &&
             const DeepCollectionEquality()
                 .equals(other._selectedGroup, _selectedGroup) &&
             const DeepCollectionEquality()
                 .equals(other._selectedItem, _selectedItem) &&
-            const DeepCollectionEquality()
-                .equals(other.viewingSelectedItem, viewingSelectedItem) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
-            const DeepCollectionEquality()
-                .equals(other.errorCounts, errorCounts));
+            (identical(other.viewingSelectedItem, viewingSelectedItem) ||
+                other.viewingSelectedItem == viewingSelectedItem) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey) &&
+            (identical(other.errorCounts, errorCounts) ||
+                other.errorCounts == errorCounts));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(vault),
+      vault,
       const DeepCollectionEquality().hash(_selectedGroup),
       const DeepCollectionEquality().hash(_selectedItem),
-      const DeepCollectionEquality().hash(viewingSelectedItem),
-      const DeepCollectionEquality().hash(masterKey),
-      const DeepCollectionEquality().hash(errorCounts));
+      viewingSelectedItem,
+      masterKey,
+      errorCounts);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UnlockedCopyWith<_$_Unlocked> get copyWith =>
       __$$_UnlockedCopyWithImpl<_$_Unlocked>(this, _$identity);
 
@@ -958,11 +965,11 @@ class _$_Unlocked implements _Unlocked {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(int errorCount)? opening,
-    TResult Function(VaultFile vault)? locked,
-    TResult Function(VaultFile vault)? unlocking,
-    TResult Function(
+    TResult? Function()? none,
+    TResult? Function(int errorCount)? opening,
+    TResult? Function(VaultFile vault)? locked,
+    TResult? Function(VaultFile vault)? unlocking,
+    TResult? Function(
             VaultFile vault,
             List<String>? selectedGroup,
             List<String>? selectedItem,
@@ -1014,11 +1021,11 @@ class _$_Unlocked implements _Unlocked {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_None value)? none,
-    TResult Function(_Opening value)? opening,
-    TResult Function(_Locked value)? locked,
-    TResult Function(_Unlocking value)? unlocking,
-    TResult Function(_Unlocked value)? unlocked,
+    TResult? Function(_None value)? none,
+    TResult? Function(_Opening value)? opening,
+    TResult? Function(_Locked value)? locked,
+    TResult? Function(_Unlocking value)? unlocking,
+    TResult? Function(_Unlocked value)? unlocked,
   }) {
     return unlocked?.call(this);
   }
@@ -1077,15 +1084,15 @@ mixin _$VaultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1118,16 +1125,16 @@ mixin _$VaultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1151,16 +1158,18 @@ mixin _$VaultEvent {
 abstract class $VaultEventCopyWith<$Res> {
   factory $VaultEventCopyWith(
           VaultEvent value, $Res Function(VaultEvent) then) =
-      _$VaultEventCopyWithImpl<$Res>;
+      _$VaultEventCopyWithImpl<$Res, VaultEvent>;
 }
 
 /// @nodoc
-class _$VaultEventCopyWithImpl<$Res> implements $VaultEventCopyWith<$Res> {
+class _$VaultEventCopyWithImpl<$Res, $Val extends VaultEvent>
+    implements $VaultEventCopyWith<$Res> {
   _$VaultEventCopyWithImpl(this._value, this._then);
 
-  final VaultEvent _value;
   // ignore: unused_field
-  final $Res Function(VaultEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -1168,32 +1177,32 @@ abstract class _$$OpenedEventCopyWith<$Res> {
   factory _$$OpenedEventCopyWith(
           _$OpenedEvent value, $Res Function(_$OpenedEvent) then) =
       __$$OpenedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultUrl url, BuildContext context});
 
   $VaultUrlCopyWith<$Res> get url;
 }
 
 /// @nodoc
-class __$$OpenedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+class __$$OpenedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$OpenedEvent>
     implements _$$OpenedEventCopyWith<$Res> {
   __$$OpenedEventCopyWithImpl(
       _$OpenedEvent _value, $Res Function(_$OpenedEvent) _then)
-      : super(_value, (v) => _then(v as _$OpenedEvent));
+      : super(_value, _then);
 
-  @override
-  _$OpenedEvent get _value => super._value as _$OpenedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
-    Object? context = freezed,
+    Object? url = null,
+    Object? context = null,
   }) {
     return _then(_$OpenedEvent(
-      url == freezed
+      null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as VaultUrl,
-      context == freezed
+      null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
@@ -1201,6 +1210,7 @@ class __$$OpenedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultUrlCopyWith<$Res> get url {
     return $VaultUrlCopyWith<$Res>(_value.url, (value) {
       return _then(_value.copyWith(url: value));
@@ -1228,18 +1238,16 @@ class _$OpenedEvent implements OpenedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OpenedEvent &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.context, context));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(context));
+  int get hashCode => Object.hash(runtimeType, url, context);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$OpenedEventCopyWith<_$OpenedEvent> get copyWith =>
       __$$OpenedEventCopyWithImpl<_$OpenedEvent>(this, _$identity);
 
@@ -1262,15 +1270,15 @@ class _$OpenedEvent implements OpenedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return opened?.call(url, context);
   }
@@ -1315,16 +1323,16 @@ class _$OpenedEvent implements OpenedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return opened?.call(this);
   }
@@ -1367,25 +1375,25 @@ abstract class _$$UnlockedEventCopyWith<$Res> {
   factory _$$UnlockedEventCopyWith(
           _$UnlockedEvent value, $Res Function(_$UnlockedEvent) then) =
       __$$UnlockedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Key masterKey});
 }
 
 /// @nodoc
-class __$$UnlockedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+class __$$UnlockedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$UnlockedEvent>
     implements _$$UnlockedEventCopyWith<$Res> {
   __$$UnlockedEventCopyWithImpl(
       _$UnlockedEvent _value, $Res Function(_$UnlockedEvent) _then)
-      : super(_value, (v) => _then(v as _$UnlockedEvent));
+      : super(_value, _then);
 
-  @override
-  _$UnlockedEvent get _value => super._value as _$UnlockedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterKey = freezed,
+    Object? masterKey = null,
   }) {
     return _then(_$UnlockedEvent(
-      masterKey == freezed
+      null == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key,
@@ -1411,15 +1419,16 @@ class _$UnlockedEvent implements UnlockedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnlockedEvent &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UnlockedEventCopyWith<_$UnlockedEvent> get copyWith =>
       __$$UnlockedEventCopyWithImpl<_$UnlockedEvent>(this, _$identity);
 
@@ -1442,15 +1451,15 @@ class _$UnlockedEvent implements UnlockedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return unlocked?.call(masterKey);
   }
@@ -1495,16 +1504,16 @@ class _$UnlockedEvent implements UnlockedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return unlocked?.call(this);
   }
@@ -1545,26 +1554,25 @@ abstract class _$$MasterKeyChangedEventCopyWith<$Res> {
   factory _$$MasterKeyChangedEventCopyWith(_$MasterKeyChangedEvent value,
           $Res Function(_$MasterKeyChangedEvent) then) =
       __$$MasterKeyChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Key? masterKey});
 }
 
 /// @nodoc
 class __$$MasterKeyChangedEventCopyWithImpl<$Res>
-    extends _$VaultEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$MasterKeyChangedEvent>
     implements _$$MasterKeyChangedEventCopyWith<$Res> {
   __$$MasterKeyChangedEventCopyWithImpl(_$MasterKeyChangedEvent _value,
       $Res Function(_$MasterKeyChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$MasterKeyChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$MasterKeyChangedEvent get _value => super._value as _$MasterKeyChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? masterKey = freezed,
   }) {
     return _then(_$MasterKeyChangedEvent(
-      masterKey == freezed
+      freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
@@ -1590,15 +1598,16 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MasterKeyChangedEvent &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MasterKeyChangedEventCopyWith<_$MasterKeyChangedEvent> get copyWith =>
       __$$MasterKeyChangedEventCopyWithImpl<_$MasterKeyChangedEvent>(
           this, _$identity);
@@ -1622,15 +1631,15 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return masterKeyChanged?.call(masterKey);
   }
@@ -1675,16 +1684,16 @@ class _$MasterKeyChangedEvent implements MasterKeyChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return masterKeyChanged?.call(this);
   }
@@ -1726,31 +1735,30 @@ abstract class _$$GroupSelectedEventCopyWith<$Res> {
   factory _$$GroupSelectedEventCopyWith(_$GroupSelectedEvent value,
           $Res Function(_$GroupSelectedEvent) then) =
       __$$GroupSelectedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({List<String>? path, bool deselect});
 }
 
 /// @nodoc
 class __$$GroupSelectedEventCopyWithImpl<$Res>
-    extends _$VaultEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$GroupSelectedEvent>
     implements _$$GroupSelectedEventCopyWith<$Res> {
   __$$GroupSelectedEventCopyWithImpl(
       _$GroupSelectedEvent _value, $Res Function(_$GroupSelectedEvent) _then)
-      : super(_value, (v) => _then(v as _$GroupSelectedEvent));
+      : super(_value, _then);
 
-  @override
-  _$GroupSelectedEvent get _value => super._value as _$GroupSelectedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? path = freezed,
-    Object? deselect = freezed,
+    Object? deselect = null,
   }) {
     return _then(_$GroupSelectedEvent(
-      path == freezed
+      freezed == path
           ? _value._path
           : path // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deselect == freezed
+      null == deselect
           ? _value.deselect
           : deselect // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -1769,6 +1777,7 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   List<String>? get path {
     final value = _path;
     if (value == null) return null;
+    if (_path is EqualUnmodifiableListView) return _path;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1787,17 +1796,17 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
         (other.runtimeType == runtimeType &&
             other is _$GroupSelectedEvent &&
             const DeepCollectionEquality().equals(other._path, _path) &&
-            const DeepCollectionEquality().equals(other.deselect, deselect));
+            (identical(other.deselect, deselect) ||
+                other.deselect == deselect));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_path),
-      const DeepCollectionEquality().hash(deselect));
+      runtimeType, const DeepCollectionEquality().hash(_path), deselect);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$GroupSelectedEventCopyWith<_$GroupSelectedEvent> get copyWith =>
       __$$GroupSelectedEventCopyWithImpl<_$GroupSelectedEvent>(
           this, _$identity);
@@ -1821,15 +1830,15 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return groupSelected?.call(path, deselect);
   }
@@ -1874,16 +1883,16 @@ class _$GroupSelectedEvent implements GroupSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return groupSelected?.call(this);
   }
@@ -1926,31 +1935,30 @@ abstract class _$$ItemSelectedEventCopyWith<$Res> {
   factory _$$ItemSelectedEventCopyWith(
           _$ItemSelectedEvent value, $Res Function(_$ItemSelectedEvent) then) =
       __$$ItemSelectedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({List<String>? path, bool deselect});
 }
 
 /// @nodoc
 class __$$ItemSelectedEventCopyWithImpl<$Res>
-    extends _$VaultEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$ItemSelectedEvent>
     implements _$$ItemSelectedEventCopyWith<$Res> {
   __$$ItemSelectedEventCopyWithImpl(
       _$ItemSelectedEvent _value, $Res Function(_$ItemSelectedEvent) _then)
-      : super(_value, (v) => _then(v as _$ItemSelectedEvent));
+      : super(_value, _then);
 
-  @override
-  _$ItemSelectedEvent get _value => super._value as _$ItemSelectedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? path = freezed,
-    Object? deselect = freezed,
+    Object? deselect = null,
   }) {
     return _then(_$ItemSelectedEvent(
-      path == freezed
+      freezed == path
           ? _value._path
           : path // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deselect == freezed
+      null == deselect
           ? _value.deselect
           : deselect // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -1969,6 +1977,7 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   List<String>? get path {
     final value = _path;
     if (value == null) return null;
+    if (_path is EqualUnmodifiableListView) return _path;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1987,17 +1996,17 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
         (other.runtimeType == runtimeType &&
             other is _$ItemSelectedEvent &&
             const DeepCollectionEquality().equals(other._path, _path) &&
-            const DeepCollectionEquality().equals(other.deselect, deselect));
+            (identical(other.deselect, deselect) ||
+                other.deselect == deselect));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_path),
-      const DeepCollectionEquality().hash(deselect));
+      runtimeType, const DeepCollectionEquality().hash(_path), deselect);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ItemSelectedEventCopyWith<_$ItemSelectedEvent> get copyWith =>
       __$$ItemSelectedEventCopyWithImpl<_$ItemSelectedEvent>(this, _$identity);
 
@@ -2020,15 +2029,15 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return itemSelected?.call(path, deselect);
   }
@@ -2073,16 +2082,16 @@ class _$ItemSelectedEvent implements ItemSelectedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return itemSelected?.call(this);
   }
@@ -2130,16 +2139,12 @@ abstract class _$$SelectedItemViewToggledEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$SelectedItemViewToggledEventCopyWithImpl<$Res>
-    extends _$VaultEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$SelectedItemViewToggledEvent>
     implements _$$SelectedItemViewToggledEventCopyWith<$Res> {
   __$$SelectedItemViewToggledEventCopyWithImpl(
       _$SelectedItemViewToggledEvent _value,
       $Res Function(_$SelectedItemViewToggledEvent) _then)
-      : super(_value, (v) => _then(v as _$SelectedItemViewToggledEvent));
-
-  @override
-  _$SelectedItemViewToggledEvent get _value =>
-      super._value as _$SelectedItemViewToggledEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -2181,15 +2186,15 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return selectedItemViewToggled?.call();
   }
@@ -2234,16 +2239,16 @@ class _$SelectedItemViewToggledEvent implements SelectedItemViewToggledEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return selectedItemViewToggled?.call(this);
   }
@@ -2279,32 +2284,32 @@ abstract class _$$UpdatedEventCopyWith<$Res> {
   factory _$$UpdatedEventCopyWith(
           _$UpdatedEvent value, $Res Function(_$UpdatedEvent) then) =
       __$$UpdatedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultFile newVault, Key masterKey});
 
   $VaultFileCopyWith<$Res> get newVault;
 }
 
 /// @nodoc
-class __$$UpdatedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+class __$$UpdatedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$UpdatedEvent>
     implements _$$UpdatedEventCopyWith<$Res> {
   __$$UpdatedEventCopyWithImpl(
       _$UpdatedEvent _value, $Res Function(_$UpdatedEvent) _then)
-      : super(_value, (v) => _then(v as _$UpdatedEvent));
+      : super(_value, _then);
 
-  @override
-  _$UpdatedEvent get _value => super._value as _$UpdatedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newVault = freezed,
-    Object? masterKey = freezed,
+    Object? newVault = null,
+    Object? masterKey = null,
   }) {
     return _then(_$UpdatedEvent(
-      newVault == freezed
+      null == newVault
           ? _value.newVault
           : newVault // ignore: cast_nullable_to_non_nullable
               as VaultFile,
-      masterKey == freezed
+      null == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key,
@@ -2312,6 +2317,7 @@ class __$$UpdatedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultFileCopyWith<$Res> get newVault {
     return $VaultFileCopyWith<$Res>(_value.newVault, (value) {
       return _then(_value.copyWith(newVault: value));
@@ -2339,18 +2345,18 @@ class _$UpdatedEvent implements UpdatedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdatedEvent &&
-            const DeepCollectionEquality().equals(other.newVault, newVault) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey));
+            (identical(other.newVault, newVault) ||
+                other.newVault == newVault) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(newVault),
-      const DeepCollectionEquality().hash(masterKey));
+  int get hashCode => Object.hash(runtimeType, newVault, masterKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UpdatedEventCopyWith<_$UpdatedEvent> get copyWith =>
       __$$UpdatedEventCopyWithImpl<_$UpdatedEvent>(this, _$identity);
 
@@ -2373,15 +2379,15 @@ class _$UpdatedEvent implements UpdatedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return updated?.call(newVault, masterKey);
   }
@@ -2426,16 +2432,16 @@ class _$UpdatedEvent implements UpdatedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return updated?.call(this);
   }
@@ -2481,14 +2487,12 @@ abstract class _$$LockedEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LockedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+class __$$LockedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$LockedEvent>
     implements _$$LockedEventCopyWith<$Res> {
   __$$LockedEventCopyWithImpl(
       _$LockedEvent _value, $Res Function(_$LockedEvent) _then)
-      : super(_value, (v) => _then(v as _$LockedEvent));
-
-  @override
-  _$LockedEvent get _value => super._value as _$LockedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -2529,15 +2533,15 @@ class _$LockedEvent implements LockedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return locked?.call();
   }
@@ -2582,16 +2586,16 @@ class _$LockedEvent implements LockedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return locked?.call(this);
   }
@@ -2630,14 +2634,12 @@ abstract class _$$ClosedEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ClosedEventCopyWithImpl<$Res> extends _$VaultEventCopyWithImpl<$Res>
+class __$$ClosedEventCopyWithImpl<$Res>
+    extends _$VaultEventCopyWithImpl<$Res, _$ClosedEvent>
     implements _$$ClosedEventCopyWith<$Res> {
   __$$ClosedEventCopyWithImpl(
       _$ClosedEvent _value, $Res Function(_$ClosedEvent) _then)
-      : super(_value, (v) => _then(v as _$ClosedEvent));
-
-  @override
-  _$ClosedEvent get _value => super._value as _$ClosedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -2678,15 +2680,15 @@ class _$ClosedEvent implements ClosedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultUrl url, BuildContext context)? opened,
-    TResult Function(Key masterKey)? unlocked,
-    TResult Function(Key? masterKey)? masterKeyChanged,
-    TResult Function(List<String>? path, bool deselect)? groupSelected,
-    TResult Function(List<String>? path, bool deselect)? itemSelected,
-    TResult Function()? selectedItemViewToggled,
-    TResult Function(VaultFile newVault, Key masterKey)? updated,
-    TResult Function()? locked,
-    TResult Function()? closed,
+    TResult? Function(VaultUrl url, BuildContext context)? opened,
+    TResult? Function(Key masterKey)? unlocked,
+    TResult? Function(Key? masterKey)? masterKeyChanged,
+    TResult? Function(List<String>? path, bool deselect)? groupSelected,
+    TResult? Function(List<String>? path, bool deselect)? itemSelected,
+    TResult? Function()? selectedItemViewToggled,
+    TResult? Function(VaultFile newVault, Key masterKey)? updated,
+    TResult? Function()? locked,
+    TResult? Function()? closed,
   }) {
     return closed?.call();
   }
@@ -2731,16 +2733,16 @@ class _$ClosedEvent implements ClosedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(OpenedEvent value)? opened,
-    TResult Function(UnlockedEvent value)? unlocked,
-    TResult Function(MasterKeyChangedEvent value)? masterKeyChanged,
-    TResult Function(GroupSelectedEvent value)? groupSelected,
-    TResult Function(ItemSelectedEvent value)? itemSelected,
-    TResult Function(SelectedItemViewToggledEvent value)?
+    TResult? Function(OpenedEvent value)? opened,
+    TResult? Function(UnlockedEvent value)? unlocked,
+    TResult? Function(MasterKeyChangedEvent value)? masterKeyChanged,
+    TResult? Function(GroupSelectedEvent value)? groupSelected,
+    TResult? Function(ItemSelectedEvent value)? itemSelected,
+    TResult? Function(SelectedItemViewToggledEvent value)?
         selectedItemViewToggled,
-    TResult Function(UpdatedEvent value)? updated,
-    TResult Function(LockedEvent value)? locked,
-    TResult Function(ClosedEvent value)? closed,
+    TResult? Function(UpdatedEvent value)? updated,
+    TResult? Function(LockedEvent value)? locked,
+    TResult? Function(ClosedEvent value)? closed,
   }) {
     return closed?.call(this);
   }

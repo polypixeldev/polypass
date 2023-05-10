@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'activity_bloc.dart';
 
@@ -27,29 +27,32 @@ mixin _$ActivityState {
 abstract class $ActivityStateCopyWith<$Res> {
   factory $ActivityStateCopyWith(
           ActivityState value, $Res Function(ActivityState) then) =
-      _$ActivityStateCopyWithImpl<$Res>;
+      _$ActivityStateCopyWithImpl<$Res, ActivityState>;
+  @useResult
   $Res call({int duration});
 }
 
 /// @nodoc
-class _$ActivityStateCopyWithImpl<$Res>
+class _$ActivityStateCopyWithImpl<$Res, $Val extends ActivityState>
     implements $ActivityStateCopyWith<$Res> {
   _$ActivityStateCopyWithImpl(this._value, this._then);
 
-  final ActivityState _value;
   // ignore: unused_field
-  final $Res Function(ActivityState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? duration = freezed,
+    Object? duration = null,
   }) {
     return _then(_value.copyWith(
-      duration: duration == freezed
+      duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -60,26 +63,25 @@ abstract class _$$_ActivityStateCopyWith<$Res>
           _$_ActivityState value, $Res Function(_$_ActivityState) then) =
       __$$_ActivityStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int duration});
 }
 
 /// @nodoc
 class __$$_ActivityStateCopyWithImpl<$Res>
-    extends _$ActivityStateCopyWithImpl<$Res>
+    extends _$ActivityStateCopyWithImpl<$Res, _$_ActivityState>
     implements _$$_ActivityStateCopyWith<$Res> {
   __$$_ActivityStateCopyWithImpl(
       _$_ActivityState _value, $Res Function(_$_ActivityState) _then)
-      : super(_value, (v) => _then(v as _$_ActivityState));
+      : super(_value, _then);
 
-  @override
-  _$_ActivityState get _value => super._value as _$_ActivityState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? duration = freezed,
+    Object? duration = null,
   }) {
     return _then(_$_ActivityState(
-      duration: duration == freezed
+      duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int,
@@ -105,15 +107,16 @@ class _$_ActivityState implements _ActivityState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ActivityState &&
-            const DeepCollectionEquality().equals(other.duration, duration));
+            (identical(other.duration, duration) ||
+                other.duration == duration));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(duration));
+  int get hashCode => Object.hash(runtimeType, duration);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ActivityStateCopyWith<_$_ActivityState> get copyWith =>
       __$$_ActivityStateCopyWithImpl<_$_ActivityState>(this, _$identity);
 }
@@ -141,9 +144,9 @@ mixin _$ActivityEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? action,
-    TResult Function()? started,
-    TResult Function(int duration)? ticked,
+    TResult? Function()? action,
+    TResult? Function()? started,
+    TResult? Function(int duration)? ticked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -163,9 +166,9 @@ mixin _$ActivityEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ActionEvent value)? action,
-    TResult Function(StartedEvent value)? started,
-    TResult Function(TickedEvent value)? ticked,
+    TResult? Function(ActionEvent value)? action,
+    TResult? Function(StartedEvent value)? started,
+    TResult? Function(TickedEvent value)? ticked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -182,17 +185,18 @@ mixin _$ActivityEvent {
 abstract class $ActivityEventCopyWith<$Res> {
   factory $ActivityEventCopyWith(
           ActivityEvent value, $Res Function(ActivityEvent) then) =
-      _$ActivityEventCopyWithImpl<$Res>;
+      _$ActivityEventCopyWithImpl<$Res, ActivityEvent>;
 }
 
 /// @nodoc
-class _$ActivityEventCopyWithImpl<$Res>
+class _$ActivityEventCopyWithImpl<$Res, $Val extends ActivityEvent>
     implements $ActivityEventCopyWith<$Res> {
   _$ActivityEventCopyWithImpl(this._value, this._then);
 
-  final ActivityEvent _value;
   // ignore: unused_field
-  final $Res Function(ActivityEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -204,14 +208,11 @@ abstract class _$$ActionEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$ActionEventCopyWithImpl<$Res>
-    extends _$ActivityEventCopyWithImpl<$Res>
+    extends _$ActivityEventCopyWithImpl<$Res, _$ActionEvent>
     implements _$$ActionEventCopyWith<$Res> {
   __$$ActionEventCopyWithImpl(
       _$ActionEvent _value, $Res Function(_$ActionEvent) _then)
-      : super(_value, (v) => _then(v as _$ActionEvent));
-
-  @override
-  _$ActionEvent get _value => super._value as _$ActionEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -246,9 +247,9 @@ class _$ActionEvent implements ActionEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? action,
-    TResult Function()? started,
-    TResult Function(int duration)? ticked,
+    TResult? Function()? action,
+    TResult? Function()? started,
+    TResult? Function(int duration)? ticked,
   }) {
     return action?.call();
   }
@@ -280,9 +281,9 @@ class _$ActionEvent implements ActionEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ActionEvent value)? action,
-    TResult Function(StartedEvent value)? started,
-    TResult Function(TickedEvent value)? ticked,
+    TResult? Function(ActionEvent value)? action,
+    TResult? Function(StartedEvent value)? started,
+    TResult? Function(TickedEvent value)? ticked,
   }) {
     return action?.call(this);
   }
@@ -315,14 +316,11 @@ abstract class _$$StartedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedEventCopyWithImpl<$Res>
-    extends _$ActivityEventCopyWithImpl<$Res>
+    extends _$ActivityEventCopyWithImpl<$Res, _$StartedEvent>
     implements _$$StartedEventCopyWith<$Res> {
   __$$StartedEventCopyWithImpl(
       _$StartedEvent _value, $Res Function(_$StartedEvent) _then)
-      : super(_value, (v) => _then(v as _$StartedEvent));
-
-  @override
-  _$StartedEvent get _value => super._value as _$StartedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -357,9 +355,9 @@ class _$StartedEvent implements StartedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? action,
-    TResult Function()? started,
-    TResult Function(int duration)? ticked,
+    TResult? Function()? action,
+    TResult? Function()? started,
+    TResult? Function(int duration)? ticked,
   }) {
     return started?.call();
   }
@@ -391,9 +389,9 @@ class _$StartedEvent implements StartedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ActionEvent value)? action,
-    TResult Function(StartedEvent value)? started,
-    TResult Function(TickedEvent value)? ticked,
+    TResult? Function(ActionEvent value)? action,
+    TResult? Function(StartedEvent value)? started,
+    TResult? Function(TickedEvent value)? ticked,
   }) {
     return started?.call(this);
   }
@@ -422,26 +420,25 @@ abstract class _$$TickedEventCopyWith<$Res> {
   factory _$$TickedEventCopyWith(
           _$TickedEvent value, $Res Function(_$TickedEvent) then) =
       __$$TickedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({int duration});
 }
 
 /// @nodoc
 class __$$TickedEventCopyWithImpl<$Res>
-    extends _$ActivityEventCopyWithImpl<$Res>
+    extends _$ActivityEventCopyWithImpl<$Res, _$TickedEvent>
     implements _$$TickedEventCopyWith<$Res> {
   __$$TickedEventCopyWithImpl(
       _$TickedEvent _value, $Res Function(_$TickedEvent) _then)
-      : super(_value, (v) => _then(v as _$TickedEvent));
+      : super(_value, _then);
 
-  @override
-  _$TickedEvent get _value => super._value as _$TickedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? duration = freezed,
+    Object? duration = null,
   }) {
     return _then(_$TickedEvent(
-      duration == freezed
+      null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int,
@@ -467,15 +464,16 @@ class _$TickedEvent implements TickedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TickedEvent &&
-            const DeepCollectionEquality().equals(other.duration, duration));
+            (identical(other.duration, duration) ||
+                other.duration == duration));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(duration));
+  int get hashCode => Object.hash(runtimeType, duration);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TickedEventCopyWith<_$TickedEvent> get copyWith =>
       __$$TickedEventCopyWithImpl<_$TickedEvent>(this, _$identity);
 
@@ -492,9 +490,9 @@ class _$TickedEvent implements TickedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? action,
-    TResult Function()? started,
-    TResult Function(int duration)? ticked,
+    TResult? Function()? action,
+    TResult? Function()? started,
+    TResult? Function(int duration)? ticked,
   }) {
     return ticked?.call(duration);
   }
@@ -526,9 +524,9 @@ class _$TickedEvent implements TickedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ActionEvent value)? action,
-    TResult Function(StartedEvent value)? started,
-    TResult Function(TickedEvent value)? ticked,
+    TResult? Function(ActionEvent value)? action,
+    TResult? Function(StartedEvent value)? started,
+    TResult? Function(TickedEvent value)? ticked,
   }) {
     return ticked?.call(this);
   }

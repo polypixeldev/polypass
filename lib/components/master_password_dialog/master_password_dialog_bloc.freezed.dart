@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'master_password_dialog_bloc.dart';
 
@@ -30,7 +30,8 @@ mixin _$MasterPasswordDialogState {
 abstract class $MasterPasswordDialogStateCopyWith<$Res> {
   factory $MasterPasswordDialogStateCopyWith(MasterPasswordDialogState value,
           $Res Function(MasterPasswordDialogState) then) =
-      _$MasterPasswordDialogStateCopyWithImpl<$Res>;
+      _$MasterPasswordDialogStateCopyWithImpl<$Res, MasterPasswordDialogState>;
+  @useResult
   $Res call(
       {String masterPassword,
       Key? masterKey,
@@ -39,39 +40,42 @@ abstract class $MasterPasswordDialogStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MasterPasswordDialogStateCopyWithImpl<$Res>
+class _$MasterPasswordDialogStateCopyWithImpl<$Res,
+        $Val extends MasterPasswordDialogState>
     implements $MasterPasswordDialogStateCopyWith<$Res> {
   _$MasterPasswordDialogStateCopyWithImpl(this._value, this._then);
 
-  final MasterPasswordDialogState _value;
   // ignore: unused_field
-  final $Res Function(MasterPasswordDialogState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
     Object? masterKey = freezed,
     Object? derivedKey = freezed,
-    Object? status = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
-      masterPassword: masterPassword == freezed
+      masterPassword: null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      derivedKey: derivedKey == freezed
+      derivedKey: freezed == derivedKey
           ? _value.derivedKey
           : derivedKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MasterPasswordDialogStatus,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +87,7 @@ abstract class _$$_MasterPasswordDialogStateCopyWith<$Res>
           $Res Function(_$_MasterPasswordDialogState) then) =
       __$$_MasterPasswordDialogStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String masterPassword,
       Key? masterKey,
@@ -92,38 +97,36 @@ abstract class _$$_MasterPasswordDialogStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_MasterPasswordDialogStateCopyWithImpl<$Res>
-    extends _$MasterPasswordDialogStateCopyWithImpl<$Res>
+    extends _$MasterPasswordDialogStateCopyWithImpl<$Res,
+        _$_MasterPasswordDialogState>
     implements _$$_MasterPasswordDialogStateCopyWith<$Res> {
   __$$_MasterPasswordDialogStateCopyWithImpl(
       _$_MasterPasswordDialogState _value,
       $Res Function(_$_MasterPasswordDialogState) _then)
-      : super(_value, (v) => _then(v as _$_MasterPasswordDialogState));
+      : super(_value, _then);
 
-  @override
-  _$_MasterPasswordDialogState get _value =>
-      super._value as _$_MasterPasswordDialogState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
     Object? masterKey = freezed,
     Object? derivedKey = freezed,
-    Object? status = freezed,
+    Object? status = null,
   }) {
     return _then(_$_MasterPasswordDialogState(
-      masterPassword: masterPassword == freezed
+      masterPassword: null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      derivedKey: derivedKey == freezed
+      derivedKey: freezed == derivedKey
           ? _value.derivedKey
           : derivedKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MasterPasswordDialogStatus,
@@ -160,24 +163,22 @@ class _$_MasterPasswordDialogState extends _MasterPasswordDialogState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MasterPasswordDialogState &&
-            const DeepCollectionEquality()
-                .equals(other.masterPassword, masterPassword) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
-            const DeepCollectionEquality()
-                .equals(other.derivedKey, derivedKey) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            (identical(other.masterPassword, masterPassword) ||
+                other.masterPassword == masterPassword) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey) &&
+            (identical(other.derivedKey, derivedKey) ||
+                other.derivedKey == derivedKey) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(masterPassword),
-      const DeepCollectionEquality().hash(masterKey),
-      const DeepCollectionEquality().hash(derivedKey),
-      const DeepCollectionEquality().hash(status));
+  int get hashCode =>
+      Object.hash(runtimeType, masterPassword, masterKey, derivedKey, status);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MasterPasswordDialogStateCopyWith<_$_MasterPasswordDialogState>
       get copyWith => __$$_MasterPasswordDialogStateCopyWithImpl<
           _$_MasterPasswordDialogState>(this, _$identity);
@@ -217,9 +218,9 @@ mixin _$MasterPasswordDialogEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? masterPasswordSubmitted,
-    TResult Function()? canceled,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? masterPasswordSubmitted,
+    TResult? Function()? canceled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -241,10 +242,10 @@ mixin _$MasterPasswordDialogEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(MasterPasswordSubmittedEvent value)?
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(MasterPasswordSubmittedEvent value)?
         masterPasswordSubmitted,
-    TResult Function(CanceledEvent value)? canceled,
+    TResult? Function(CanceledEvent value)? canceled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -262,17 +263,19 @@ mixin _$MasterPasswordDialogEvent {
 abstract class $MasterPasswordDialogEventCopyWith<$Res> {
   factory $MasterPasswordDialogEventCopyWith(MasterPasswordDialogEvent value,
           $Res Function(MasterPasswordDialogEvent) then) =
-      _$MasterPasswordDialogEventCopyWithImpl<$Res>;
+      _$MasterPasswordDialogEventCopyWithImpl<$Res, MasterPasswordDialogEvent>;
 }
 
 /// @nodoc
-class _$MasterPasswordDialogEventCopyWithImpl<$Res>
+class _$MasterPasswordDialogEventCopyWithImpl<$Res,
+        $Val extends MasterPasswordDialogEvent>
     implements $MasterPasswordDialogEventCopyWith<$Res> {
   _$MasterPasswordDialogEventCopyWithImpl(this._value, this._then);
 
-  final MasterPasswordDialogEvent _value;
   // ignore: unused_field
-  final $Res Function(MasterPasswordDialogEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -281,28 +284,27 @@ abstract class _$$MasterPasswordChangedEventCopyWith<$Res> {
           _$MasterPasswordChangedEvent value,
           $Res Function(_$MasterPasswordChangedEvent) then) =
       __$$MasterPasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String masterPassword});
 }
 
 /// @nodoc
 class __$$MasterPasswordChangedEventCopyWithImpl<$Res>
-    extends _$MasterPasswordDialogEventCopyWithImpl<$Res>
+    extends _$MasterPasswordDialogEventCopyWithImpl<$Res,
+        _$MasterPasswordChangedEvent>
     implements _$$MasterPasswordChangedEventCopyWith<$Res> {
   __$$MasterPasswordChangedEventCopyWithImpl(
       _$MasterPasswordChangedEvent _value,
       $Res Function(_$MasterPasswordChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$MasterPasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$MasterPasswordChangedEvent get _value =>
-      super._value as _$MasterPasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
   }) {
     return _then(_$MasterPasswordChangedEvent(
-      masterPassword == freezed
+      null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
@@ -328,16 +330,16 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MasterPasswordChangedEvent &&
-            const DeepCollectionEquality()
-                .equals(other.masterPassword, masterPassword));
+            (identical(other.masterPassword, masterPassword) ||
+                other.masterPassword == masterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(masterPassword));
+  int get hashCode => Object.hash(runtimeType, masterPassword);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MasterPasswordChangedEventCopyWith<_$MasterPasswordChangedEvent>
       get copyWith => __$$MasterPasswordChangedEventCopyWithImpl<
           _$MasterPasswordChangedEvent>(this, _$identity);
@@ -355,9 +357,9 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? masterPasswordSubmitted,
-    TResult Function()? canceled,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? masterPasswordSubmitted,
+    TResult? Function()? canceled,
   }) {
     return masterPasswordChanged?.call(masterPassword);
   }
@@ -391,10 +393,10 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(MasterPasswordSubmittedEvent value)?
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(MasterPasswordSubmittedEvent value)?
         masterPasswordSubmitted,
-    TResult Function(CanceledEvent value)? canceled,
+    TResult? Function(CanceledEvent value)? canceled,
   }) {
     return masterPasswordChanged?.call(this);
   }
@@ -435,16 +437,13 @@ abstract class _$$MasterPasswordSubmittedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$MasterPasswordSubmittedEventCopyWithImpl<$Res>
-    extends _$MasterPasswordDialogEventCopyWithImpl<$Res>
+    extends _$MasterPasswordDialogEventCopyWithImpl<$Res,
+        _$MasterPasswordSubmittedEvent>
     implements _$$MasterPasswordSubmittedEventCopyWith<$Res> {
   __$$MasterPasswordSubmittedEventCopyWithImpl(
       _$MasterPasswordSubmittedEvent _value,
       $Res Function(_$MasterPasswordSubmittedEvent) _then)
-      : super(_value, (v) => _then(v as _$MasterPasswordSubmittedEvent));
-
-  @override
-  _$MasterPasswordSubmittedEvent get _value =>
-      super._value as _$MasterPasswordSubmittedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -480,9 +479,9 @@ class _$MasterPasswordSubmittedEvent implements MasterPasswordSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? masterPasswordSubmitted,
-    TResult Function()? canceled,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? masterPasswordSubmitted,
+    TResult? Function()? canceled,
   }) {
     return masterPasswordSubmitted?.call();
   }
@@ -516,10 +515,10 @@ class _$MasterPasswordSubmittedEvent implements MasterPasswordSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(MasterPasswordSubmittedEvent value)?
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(MasterPasswordSubmittedEvent value)?
         masterPasswordSubmitted,
-    TResult Function(CanceledEvent value)? canceled,
+    TResult? Function(CanceledEvent value)? canceled,
   }) {
     return masterPasswordSubmitted?.call(this);
   }
@@ -554,14 +553,11 @@ abstract class _$$CanceledEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$CanceledEventCopyWithImpl<$Res>
-    extends _$MasterPasswordDialogEventCopyWithImpl<$Res>
+    extends _$MasterPasswordDialogEventCopyWithImpl<$Res, _$CanceledEvent>
     implements _$$CanceledEventCopyWith<$Res> {
   __$$CanceledEventCopyWithImpl(
       _$CanceledEvent _value, $Res Function(_$CanceledEvent) _then)
-      : super(_value, (v) => _then(v as _$CanceledEvent));
-
-  @override
-  _$CanceledEvent get _value => super._value as _$CanceledEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -596,9 +592,9 @@ class _$CanceledEvent implements CanceledEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? masterPasswordSubmitted,
-    TResult Function()? canceled,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? masterPasswordSubmitted,
+    TResult? Function()? canceled,
   }) {
     return canceled?.call();
   }
@@ -632,10 +628,10 @@ class _$CanceledEvent implements CanceledEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(MasterPasswordSubmittedEvent value)?
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(MasterPasswordSubmittedEvent value)?
         masterPasswordSubmitted,
-    TResult Function(CanceledEvent value)? canceled,
+    TResult? Function(CanceledEvent value)? canceled,
   }) {
     return canceled?.call(this);
   }

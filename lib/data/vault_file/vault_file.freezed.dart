@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'vault_file.dart';
 
@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
+  Object get data => throw _privateConstructorUsedError;
   IV get iv => throw _privateConstructorUsedError;
   set iv(IV value) => throw _privateConstructorUsedError;
   int get version => throw _privateConstructorUsedError;
@@ -28,8 +29,8 @@ mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv, int version)? encrypted,
-    TResult Function(T data, IV iv, int version)? decrypted,
+    TResult? Function(String data, IV iv, int version)? encrypted,
+    TResult? Function(T data, IV iv, int version)? decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,8 +48,8 @@ mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Encrypted<T> value)? encrypted,
-    TResult Function(_Decrypted<T> value)? decrypted,
+    TResult? Function(_Encrypted<T> value)? encrypted,
+    TResult? Function(_Decrypted<T> value)? decrypted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,34 +69,37 @@ mixin _$EncryptedData<T extends ToJsonAble<dynamic>> {
 abstract class $EncryptedDataCopyWith<T extends ToJsonAble<dynamic>, $Res> {
   factory $EncryptedDataCopyWith(
           EncryptedData<T> value, $Res Function(EncryptedData<T>) then) =
-      _$EncryptedDataCopyWithImpl<T, $Res>;
+      _$EncryptedDataCopyWithImpl<T, $Res, EncryptedData<T>>;
+  @useResult
   $Res call({IV iv, int version});
 }
 
 /// @nodoc
-class _$EncryptedDataCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
-    implements $EncryptedDataCopyWith<T, $Res> {
+class _$EncryptedDataCopyWithImpl<T extends ToJsonAble<dynamic>, $Res,
+    $Val extends EncryptedData<T>> implements $EncryptedDataCopyWith<T, $Res> {
   _$EncryptedDataCopyWithImpl(this._value, this._then);
 
-  final EncryptedData<T> _value;
   // ignore: unused_field
-  final $Res Function(EncryptedData<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? iv = freezed,
-    Object? version = freezed,
+    Object? iv = null,
+    Object? version = null,
   }) {
     return _then(_value.copyWith(
-      iv: iv == freezed
+      iv: null == iv
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -106,36 +110,35 @@ abstract class _$$_EncryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
           _$_Encrypted<T> value, $Res Function(_$_Encrypted<T>) then) =
       __$$_EncryptedCopyWithImpl<T, $Res>;
   @override
+  @useResult
   $Res call({String data, IV iv, int version});
 }
 
 /// @nodoc
 class __$$_EncryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
-    extends _$EncryptedDataCopyWithImpl<T, $Res>
+    extends _$EncryptedDataCopyWithImpl<T, $Res, _$_Encrypted<T>>
     implements _$$_EncryptedCopyWith<T, $Res> {
   __$$_EncryptedCopyWithImpl(
       _$_Encrypted<T> _value, $Res Function(_$_Encrypted<T>) _then)
-      : super(_value, (v) => _then(v as _$_Encrypted<T>));
+      : super(_value, _then);
 
-  @override
-  _$_Encrypted<T> get _value => super._value as _$_Encrypted<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
-    Object? iv = freezed,
-    Object? version = freezed,
+    Object? data = null,
+    Object? iv = null,
+    Object? version = null,
   }) {
     return _then(_$_Encrypted<T>(
-      data == freezed
+      null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
-      iv == freezed
+      null == iv
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
-      version == freezed
+      null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
@@ -162,6 +165,7 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EncryptedCopyWith<T, _$_Encrypted<T>> get copyWith =>
       __$$_EncryptedCopyWithImpl<T, _$_Encrypted<T>>(this, _$identity);
 
@@ -177,8 +181,8 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv, int version)? encrypted,
-    TResult Function(T data, IV iv, int version)? decrypted,
+    TResult? Function(String data, IV iv, int version)? encrypted,
+    TResult? Function(T data, IV iv, int version)? decrypted,
   }) {
     return encrypted?.call(data, iv, version);
   }
@@ -208,8 +212,8 @@ class _$_Encrypted<T extends ToJsonAble<dynamic>> extends _Encrypted<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Encrypted<T> value)? encrypted,
-    TResult Function(_Decrypted<T> value)? decrypted,
+    TResult? Function(_Encrypted<T> value)? encrypted,
+    TResult? Function(_Decrypted<T> value)? decrypted,
   }) {
     return encrypted?.call(this);
   }
@@ -233,6 +237,7 @@ abstract class _Encrypted<T extends ToJsonAble<dynamic>>
   factory _Encrypted(String data, IV iv, int version) = _$_Encrypted<T>;
   _Encrypted._() : super._();
 
+  @override
   String get data;
   set data(String value);
   @override
@@ -254,36 +259,35 @@ abstract class _$$_DecryptedCopyWith<T extends ToJsonAble<dynamic>, $Res>
           _$_Decrypted<T> value, $Res Function(_$_Decrypted<T>) then) =
       __$$_DecryptedCopyWithImpl<T, $Res>;
   @override
+  @useResult
   $Res call({T data, IV iv, int version});
 }
 
 /// @nodoc
 class __$$_DecryptedCopyWithImpl<T extends ToJsonAble<dynamic>, $Res>
-    extends _$EncryptedDataCopyWithImpl<T, $Res>
+    extends _$EncryptedDataCopyWithImpl<T, $Res, _$_Decrypted<T>>
     implements _$$_DecryptedCopyWith<T, $Res> {
   __$$_DecryptedCopyWithImpl(
       _$_Decrypted<T> _value, $Res Function(_$_Decrypted<T>) _then)
-      : super(_value, (v) => _then(v as _$_Decrypted<T>));
+      : super(_value, _then);
 
-  @override
-  _$_Decrypted<T> get _value => super._value as _$_Decrypted<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
-    Object? iv = freezed,
-    Object? version = freezed,
+    Object? data = null,
+    Object? iv = null,
+    Object? version = null,
   }) {
     return _then(_$_Decrypted<T>(
-      data == freezed
+      null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T,
-      iv == freezed
+      null == iv
           ? _value.iv
           : iv // ignore: cast_nullable_to_non_nullable
               as IV,
-      version == freezed
+      null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
@@ -310,6 +314,7 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DecryptedCopyWith<T, _$_Decrypted<T>> get copyWith =>
       __$$_DecryptedCopyWithImpl<T, _$_Decrypted<T>>(this, _$identity);
 
@@ -325,8 +330,8 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String data, IV iv, int version)? encrypted,
-    TResult Function(T data, IV iv, int version)? decrypted,
+    TResult? Function(String data, IV iv, int version)? encrypted,
+    TResult? Function(T data, IV iv, int version)? decrypted,
   }) {
     return decrypted?.call(data, iv, version);
   }
@@ -356,8 +361,8 @@ class _$_Decrypted<T extends ToJsonAble<dynamic>> extends _Decrypted<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Encrypted<T> value)? encrypted,
-    TResult Function(_Decrypted<T> value)? decrypted,
+    TResult? Function(_Encrypted<T> value)? encrypted,
+    TResult? Function(_Decrypted<T> value)? decrypted,
   }) {
     return decrypted?.call(this);
   }
@@ -381,6 +386,7 @@ abstract class _Decrypted<T extends ToJsonAble<dynamic>>
   factory _Decrypted(T data, IV iv, int version) = _$_Decrypted<T>;
   _Decrypted._() : super._();
 
+  @override
   T get data;
   set data(T value);
   @override
@@ -421,7 +427,8 @@ mixin _$VaultFile {
 /// @nodoc
 abstract class $VaultFileCopyWith<$Res> {
   factory $VaultFileCopyWith(VaultFile value, $Res Function(VaultFile) then) =
-      _$VaultFileCopyWithImpl<$Res>;
+      _$VaultFileCopyWithImpl<$Res, VaultFile>;
+  @useResult
   $Res call(
       {VaultHeader header,
       EncryptedData<VaultContents> contents,
@@ -433,58 +440,64 @@ abstract class $VaultFileCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VaultFileCopyWithImpl<$Res> implements $VaultFileCopyWith<$Res> {
+class _$VaultFileCopyWithImpl<$Res, $Val extends VaultFile>
+    implements $VaultFileCopyWith<$Res> {
   _$VaultFileCopyWithImpl(this._value, this._then);
 
-  final VaultFile _value;
   // ignore: unused_field
-  final $Res Function(VaultFile) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? header = freezed,
-    Object? contents = freezed,
+    Object? header = null,
+    Object? contents = null,
     Object? url = freezed,
   }) {
     return _then(_value.copyWith(
-      header: header == freezed
+      header: null == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as VaultHeader,
-      contents: contents == freezed
+      contents: null == contents
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultContents>,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultHeaderCopyWith<$Res> get header {
     return $VaultHeaderCopyWith<$Res>(_value.header, (value) {
-      return _then(_value.copyWith(header: value));
+      return _then(_value.copyWith(header: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $EncryptedDataCopyWith<VaultContents, $Res> get contents {
     return $EncryptedDataCopyWith<VaultContents, $Res>(_value.contents,
         (value) {
-      return _then(_value.copyWith(contents: value));
+      return _then(_value.copyWith(contents: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultUrlCopyWith<$Res>? get url {
     if (_value.url == null) {
       return null;
     }
 
     return $VaultUrlCopyWith<$Res>(_value.url!, (value) {
-      return _then(_value.copyWith(url: value));
+      return _then(_value.copyWith(url: value) as $Val);
     });
   }
 }
@@ -495,6 +508,7 @@ abstract class _$$_VaultFileCopyWith<$Res> implements $VaultFileCopyWith<$Res> {
           _$_VaultFile value, $Res Function(_$_VaultFile) then) =
       __$$_VaultFileCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {VaultHeader header,
       EncryptedData<VaultContents> contents,
@@ -509,31 +523,30 @@ abstract class _$$_VaultFileCopyWith<$Res> implements $VaultFileCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_VaultFileCopyWithImpl<$Res> extends _$VaultFileCopyWithImpl<$Res>
+class __$$_VaultFileCopyWithImpl<$Res>
+    extends _$VaultFileCopyWithImpl<$Res, _$_VaultFile>
     implements _$$_VaultFileCopyWith<$Res> {
   __$$_VaultFileCopyWithImpl(
       _$_VaultFile _value, $Res Function(_$_VaultFile) _then)
-      : super(_value, (v) => _then(v as _$_VaultFile));
+      : super(_value, _then);
 
-  @override
-  _$_VaultFile get _value => super._value as _$_VaultFile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? header = freezed,
-    Object? contents = freezed,
+    Object? header = null,
+    Object? contents = null,
     Object? url = freezed,
   }) {
     return _then(_$_VaultFile(
-      header: header == freezed
+      header: null == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as VaultHeader,
-      contents: contents == freezed
+      contents: null == contents
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultContents>,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as VaultUrl?,
@@ -568,6 +581,7 @@ class _$_VaultFile extends _VaultFile {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultFileCopyWith<_$_VaultFile> get copyWith =>
       __$$_VaultFileCopyWithImpl<_$_VaultFile>(this, _$identity);
 
@@ -642,7 +656,8 @@ mixin _$VaultHeader {
 abstract class $VaultHeaderCopyWith<$Res> {
   factory $VaultHeaderCopyWith(
           VaultHeader value, $Res Function(VaultHeader) then) =
-      _$VaultHeaderCopyWithImpl<$Res>;
+      _$VaultHeaderCopyWithImpl<$Res, VaultHeader>;
+  @useResult
   $Res call(
       {String name,
       int majorVersion,
@@ -660,87 +675,93 @@ abstract class $VaultHeaderCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VaultHeaderCopyWithImpl<$Res> implements $VaultHeaderCopyWith<$Res> {
+class _$VaultHeaderCopyWithImpl<$Res, $Val extends VaultHeader>
+    implements $VaultHeaderCopyWith<$Res> {
   _$VaultHeaderCopyWithImpl(this._value, this._then);
 
-  final VaultHeader _value;
   // ignore: unused_field
-  final $Res Function(VaultHeader) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? majorVersion = freezed,
-    Object? uuid = freezed,
+    Object? name = null,
+    Object? majorVersion = null,
+    Object? uuid = null,
     Object? remoteUrl = freezed,
-    Object? settings = freezed,
-    Object? lastUpdate = freezed,
-    Object? magic = freezed,
-    Object? key = freezed,
-    Object? salt = freezed,
+    Object? settings = null,
+    Object? lastUpdate = null,
+    Object? magic = null,
+    Object? key = null,
+    Object? salt = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      majorVersion: majorVersion == freezed
+      majorVersion: null == majorVersion
           ? _value.majorVersion
           : majorVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      uuid: uuid == freezed
+      uuid: null == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String,
-      remoteUrl: remoteUrl == freezed
+      remoteUrl: freezed == remoteUrl
           ? _value.remoteUrl
           : remoteUrl // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultUrl>?,
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      lastUpdate: lastUpdate == freezed
+      lastUpdate: null == lastUpdate
           ? _value.lastUpdate
           : lastUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      magic: magic == freezed
+      magic: null == magic
           ? _value.magic
           : magic // ignore: cast_nullable_to_non_nullable
               as MagicValue,
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String,
-      salt: salt == freezed
+      salt: null == salt
           ? _value.salt
           : salt // ignore: cast_nullable_to_non_nullable
               as List<int>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $EncryptedDataCopyWith<VaultUrl, $Res>? get remoteUrl {
     if (_value.remoteUrl == null) {
       return null;
     }
 
     return $EncryptedDataCopyWith<VaultUrl, $Res>(_value.remoteUrl!, (value) {
-      return _then(_value.copyWith(remoteUrl: value));
+      return _then(_value.copyWith(remoteUrl: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultSettingsCopyWith<$Res> get settings {
     return $VaultSettingsCopyWith<$Res>(_value.settings, (value) {
-      return _then(_value.copyWith(settings: value));
+      return _then(_value.copyWith(settings: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $MagicValueCopyWith<$Res> get magic {
     return $MagicValueCopyWith<$Res>(_value.magic, (value) {
-      return _then(_value.copyWith(magic: value));
+      return _then(_value.copyWith(magic: value) as $Val);
     });
   }
 }
@@ -752,6 +773,7 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
           _$_VaultHeader value, $Res Function(_$_VaultHeader) then) =
       __$$_VaultHeaderCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       int majorVersion,
@@ -772,61 +794,60 @@ abstract class _$$_VaultHeaderCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_VaultHeaderCopyWithImpl<$Res> extends _$VaultHeaderCopyWithImpl<$Res>
+class __$$_VaultHeaderCopyWithImpl<$Res>
+    extends _$VaultHeaderCopyWithImpl<$Res, _$_VaultHeader>
     implements _$$_VaultHeaderCopyWith<$Res> {
   __$$_VaultHeaderCopyWithImpl(
       _$_VaultHeader _value, $Res Function(_$_VaultHeader) _then)
-      : super(_value, (v) => _then(v as _$_VaultHeader));
+      : super(_value, _then);
 
-  @override
-  _$_VaultHeader get _value => super._value as _$_VaultHeader;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? majorVersion = freezed,
-    Object? uuid = freezed,
+    Object? name = null,
+    Object? majorVersion = null,
+    Object? uuid = null,
     Object? remoteUrl = freezed,
-    Object? settings = freezed,
-    Object? lastUpdate = freezed,
-    Object? magic = freezed,
-    Object? key = freezed,
-    Object? salt = freezed,
+    Object? settings = null,
+    Object? lastUpdate = null,
+    Object? magic = null,
+    Object? key = null,
+    Object? salt = null,
   }) {
     return _then(_$_VaultHeader(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      majorVersion: majorVersion == freezed
+      majorVersion: null == majorVersion
           ? _value.majorVersion
           : majorVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      uuid: uuid == freezed
+      uuid: null == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String,
-      remoteUrl: remoteUrl == freezed
+      remoteUrl: freezed == remoteUrl
           ? _value.remoteUrl
           : remoteUrl // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultUrl>?,
-      settings: settings == freezed
+      settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as VaultSettings,
-      lastUpdate: lastUpdate == freezed
+      lastUpdate: null == lastUpdate
           ? _value.lastUpdate
           : lastUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      magic: magic == freezed
+      magic: null == magic
           ? _value.magic
           : magic // ignore: cast_nullable_to_non_nullable
               as MagicValue,
-      key: key == freezed
+      key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String,
-      salt: salt == freezed
+      salt: null == salt
           ? _value.salt
           : salt // ignore: cast_nullable_to_non_nullable
               as List<int>,
@@ -878,6 +899,7 @@ class _$_VaultHeader extends _VaultHeader {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultHeaderCopyWith<_$_VaultHeader> get copyWith =>
       __$$_VaultHeaderCopyWithImpl<_$_VaultHeader>(this, _$identity);
 
@@ -957,28 +979,32 @@ mixin _$MagicValue {
 abstract class $MagicValueCopyWith<$Res> {
   factory $MagicValueCopyWith(
           MagicValue value, $Res Function(MagicValue) then) =
-      _$MagicValueCopyWithImpl<$Res>;
+      _$MagicValueCopyWithImpl<$Res, MagicValue>;
+  @useResult
   $Res call({String value});
 }
 
 /// @nodoc
-class _$MagicValueCopyWithImpl<$Res> implements $MagicValueCopyWith<$Res> {
+class _$MagicValueCopyWithImpl<$Res, $Val extends MagicValue>
+    implements $MagicValueCopyWith<$Res> {
   _$MagicValueCopyWithImpl(this._value, this._then);
 
-  final MagicValue _value;
   // ignore: unused_field
-  final $Res Function(MagicValue) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? value = freezed,
+    Object? value = null,
   }) {
     return _then(_value.copyWith(
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -989,25 +1015,25 @@ abstract class _$$_MagicValueCopyWith<$Res>
           _$_MagicValue value, $Res Function(_$_MagicValue) then) =
       __$$_MagicValueCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String value});
 }
 
 /// @nodoc
-class __$$_MagicValueCopyWithImpl<$Res> extends _$MagicValueCopyWithImpl<$Res>
+class __$$_MagicValueCopyWithImpl<$Res>
+    extends _$MagicValueCopyWithImpl<$Res, _$_MagicValue>
     implements _$$_MagicValueCopyWith<$Res> {
   __$$_MagicValueCopyWithImpl(
       _$_MagicValue _value, $Res Function(_$_MagicValue) _then)
-      : super(_value, (v) => _then(v as _$_MagicValue));
+      : super(_value, _then);
 
-  @override
-  _$_MagicValue get _value => super._value as _$_MagicValue;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? value = freezed,
+    Object? value = null,
   }) {
     return _then(_$_MagicValue(
-      value == freezed
+      null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1033,6 +1059,7 @@ class _$_MagicValue implements _MagicValue {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MagicValueCopyWith<_$_MagicValue> get copyWith =>
       __$$_MagicValueCopyWithImpl<_$_MagicValue>(this, _$identity);
 
@@ -1088,7 +1115,8 @@ mixin _$VaultSettings {
 abstract class $VaultSettingsCopyWith<$Res> {
   factory $VaultSettingsCopyWith(
           VaultSettings value, $Res Function(VaultSettings) then) =
-      _$VaultSettingsCopyWithImpl<$Res>;
+      _$VaultSettingsCopyWithImpl<$Res, VaultSettings>;
+  @useResult
   $Res call(
       {bool saveKeyInMemory,
       int iterations,
@@ -1099,49 +1127,51 @@ abstract class $VaultSettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VaultSettingsCopyWithImpl<$Res>
+class _$VaultSettingsCopyWithImpl<$Res, $Val extends VaultSettings>
     implements $VaultSettingsCopyWith<$Res> {
   _$VaultSettingsCopyWithImpl(this._value, this._then);
 
-  final VaultSettings _value;
   // ignore: unused_field
-  final $Res Function(VaultSettings) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saveKeyInMemory = freezed,
-    Object? iterations = freezed,
-    Object? threads = freezed,
-    Object? memory = freezed,
-    Object? clipboardClearSeconds = freezed,
-    Object? vaultAutoLockSeconds = freezed,
+    Object? saveKeyInMemory = null,
+    Object? iterations = null,
+    Object? threads = null,
+    Object? memory = null,
+    Object? clipboardClearSeconds = null,
+    Object? vaultAutoLockSeconds = null,
   }) {
     return _then(_value.copyWith(
-      saveKeyInMemory: saveKeyInMemory == freezed
+      saveKeyInMemory: null == saveKeyInMemory
           ? _value.saveKeyInMemory
           : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
               as bool,
-      iterations: iterations == freezed
+      iterations: null == iterations
           ? _value.iterations
           : iterations // ignore: cast_nullable_to_non_nullable
               as int,
-      threads: threads == freezed
+      threads: null == threads
           ? _value.threads
           : threads // ignore: cast_nullable_to_non_nullable
               as int,
-      memory: memory == freezed
+      memory: null == memory
           ? _value.memory
           : memory // ignore: cast_nullable_to_non_nullable
               as int,
-      clipboardClearSeconds: clipboardClearSeconds == freezed
+      clipboardClearSeconds: null == clipboardClearSeconds
           ? _value.clipboardClearSeconds
           : clipboardClearSeconds // ignore: cast_nullable_to_non_nullable
               as int,
-      vaultAutoLockSeconds: vaultAutoLockSeconds == freezed
+      vaultAutoLockSeconds: null == vaultAutoLockSeconds
           ? _value.vaultAutoLockSeconds
           : vaultAutoLockSeconds // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1152,6 +1182,7 @@ abstract class _$$_VaultSettingsCopyWith<$Res>
           _$_VaultSettings value, $Res Function(_$_VaultSettings) then) =
       __$$_VaultSettingsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool saveKeyInMemory,
       int iterations,
@@ -1163,46 +1194,44 @@ abstract class _$$_VaultSettingsCopyWith<$Res>
 
 /// @nodoc
 class __$$_VaultSettingsCopyWithImpl<$Res>
-    extends _$VaultSettingsCopyWithImpl<$Res>
+    extends _$VaultSettingsCopyWithImpl<$Res, _$_VaultSettings>
     implements _$$_VaultSettingsCopyWith<$Res> {
   __$$_VaultSettingsCopyWithImpl(
       _$_VaultSettings _value, $Res Function(_$_VaultSettings) _then)
-      : super(_value, (v) => _then(v as _$_VaultSettings));
+      : super(_value, _then);
 
-  @override
-  _$_VaultSettings get _value => super._value as _$_VaultSettings;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saveKeyInMemory = freezed,
-    Object? iterations = freezed,
-    Object? threads = freezed,
-    Object? memory = freezed,
-    Object? clipboardClearSeconds = freezed,
-    Object? vaultAutoLockSeconds = freezed,
+    Object? saveKeyInMemory = null,
+    Object? iterations = null,
+    Object? threads = null,
+    Object? memory = null,
+    Object? clipboardClearSeconds = null,
+    Object? vaultAutoLockSeconds = null,
   }) {
     return _then(_$_VaultSettings(
-      saveKeyInMemory: saveKeyInMemory == freezed
+      saveKeyInMemory: null == saveKeyInMemory
           ? _value.saveKeyInMemory
           : saveKeyInMemory // ignore: cast_nullable_to_non_nullable
               as bool,
-      iterations: iterations == freezed
+      iterations: null == iterations
           ? _value.iterations
           : iterations // ignore: cast_nullable_to_non_nullable
               as int,
-      threads: threads == freezed
+      threads: null == threads
           ? _value.threads
           : threads // ignore: cast_nullable_to_non_nullable
               as int,
-      memory: memory == freezed
+      memory: null == memory
           ? _value.memory
           : memory // ignore: cast_nullable_to_non_nullable
               as int,
-      clipboardClearSeconds: clipboardClearSeconds == freezed
+      clipboardClearSeconds: null == clipboardClearSeconds
           ? _value.clipboardClearSeconds
           : clipboardClearSeconds // ignore: cast_nullable_to_non_nullable
               as int,
-      vaultAutoLockSeconds: vaultAutoLockSeconds == freezed
+      vaultAutoLockSeconds: null == vaultAutoLockSeconds
           ? _value.vaultAutoLockSeconds
           : vaultAutoLockSeconds // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1244,6 +1273,7 @@ class _$_VaultSettings implements _VaultSettings {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultSettingsCopyWith<_$_VaultSettings> get copyWith =>
       __$$_VaultSettingsCopyWithImpl<_$_VaultSettings>(this, _$identity);
 
@@ -1311,29 +1341,32 @@ mixin _$VaultContents {
 abstract class $VaultContentsCopyWith<$Res> {
   factory $VaultContentsCopyWith(
           VaultContents value, $Res Function(VaultContents) then) =
-      _$VaultContentsCopyWithImpl<$Res>;
+      _$VaultContentsCopyWithImpl<$Res, VaultContents>;
+  @useResult
   $Res call({List<VaultComponent> components});
 }
 
 /// @nodoc
-class _$VaultContentsCopyWithImpl<$Res>
+class _$VaultContentsCopyWithImpl<$Res, $Val extends VaultContents>
     implements $VaultContentsCopyWith<$Res> {
   _$VaultContentsCopyWithImpl(this._value, this._then);
 
-  final VaultContents _value;
   // ignore: unused_field
-  final $Res Function(VaultContents) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? components = freezed,
+    Object? components = null,
   }) {
     return _then(_value.copyWith(
-      components: components == freezed
+      components: null == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1344,26 +1377,25 @@ abstract class _$$_VaultContentsCopyWith<$Res>
           _$_VaultContents value, $Res Function(_$_VaultContents) then) =
       __$$_VaultContentsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<VaultComponent> components});
 }
 
 /// @nodoc
 class __$$_VaultContentsCopyWithImpl<$Res>
-    extends _$VaultContentsCopyWithImpl<$Res>
+    extends _$VaultContentsCopyWithImpl<$Res, _$_VaultContents>
     implements _$$_VaultContentsCopyWith<$Res> {
   __$$_VaultContentsCopyWithImpl(
       _$_VaultContents _value, $Res Function(_$_VaultContents) _then)
-      : super(_value, (v) => _then(v as _$_VaultContents));
+      : super(_value, _then);
 
-  @override
-  _$_VaultContents get _value => super._value as _$_VaultContents;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? components = freezed,
+    Object? components = null,
   }) {
     return _then(_$_VaultContents(
-      components: components == freezed
+      components: null == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
@@ -1389,6 +1421,7 @@ class _$_VaultContents implements _VaultContents {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultContentsCopyWith<_$_VaultContents> get copyWith =>
       __$$_VaultContentsCopyWithImpl<_$_VaultContents>(this, _$identity);
 
@@ -1439,8 +1472,8 @@ mixin _$VaultComponent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultGroup group)? group,
-    TResult Function(VaultItem item)? item,
+    TResult? Function(VaultGroup group)? group,
+    TResult? Function(VaultItem item)? item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1458,8 +1491,8 @@ mixin _$VaultComponent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Group value)? group,
-    TResult Function(Item value)? item,
+    TResult? Function(Group value)? group,
+    TResult? Function(Item value)? item,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1476,43 +1509,44 @@ mixin _$VaultComponent {
 abstract class $VaultComponentCopyWith<$Res> {
   factory $VaultComponentCopyWith(
           VaultComponent value, $Res Function(VaultComponent) then) =
-      _$VaultComponentCopyWithImpl<$Res>;
+      _$VaultComponentCopyWithImpl<$Res, VaultComponent>;
 }
 
 /// @nodoc
-class _$VaultComponentCopyWithImpl<$Res>
+class _$VaultComponentCopyWithImpl<$Res, $Val extends VaultComponent>
     implements $VaultComponentCopyWith<$Res> {
   _$VaultComponentCopyWithImpl(this._value, this._then);
 
-  final VaultComponent _value;
   // ignore: unused_field
-  final $Res Function(VaultComponent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$GroupCopyWith<$Res> {
   factory _$$GroupCopyWith(_$Group value, $Res Function(_$Group) then) =
       __$$GroupCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultGroup group});
 
   $VaultGroupCopyWith<$Res> get group;
 }
 
 /// @nodoc
-class __$$GroupCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
+class __$$GroupCopyWithImpl<$Res>
+    extends _$VaultComponentCopyWithImpl<$Res, _$Group>
     implements _$$GroupCopyWith<$Res> {
   __$$GroupCopyWithImpl(_$Group _value, $Res Function(_$Group) _then)
-      : super(_value, (v) => _then(v as _$Group));
+      : super(_value, _then);
 
-  @override
-  _$Group get _value => super._value as _$Group;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? group = freezed,
+    Object? group = null,
   }) {
     return _then(_$Group(
-      group == freezed
+      null == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as VaultGroup,
@@ -1520,6 +1554,7 @@ class __$$GroupCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultGroupCopyWith<$Res> get group {
     return $VaultGroupCopyWith<$Res>(_value.group, (value) {
       return _then(_value.copyWith(group: value));
@@ -1547,6 +1582,7 @@ class _$Group implements Group {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$GroupCopyWith<_$Group> get copyWith =>
       __$$GroupCopyWithImpl<_$Group>(this, _$identity);
 
@@ -1562,8 +1598,8 @@ class _$Group implements Group {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultGroup group)? group,
-    TResult Function(VaultItem item)? item,
+    TResult? Function(VaultGroup group)? group,
+    TResult? Function(VaultItem item)? item,
   }) {
     return group?.call(this.group);
   }
@@ -1593,8 +1629,8 @@ class _$Group implements Group {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Group value)? group,
-    TResult Function(Item value)? item,
+    TResult? Function(Group value)? group,
+    TResult? Function(Item value)? item,
   }) {
     return group?.call(this);
   }
@@ -1635,26 +1671,26 @@ abstract class Group implements VaultComponent {
 abstract class _$$ItemCopyWith<$Res> {
   factory _$$ItemCopyWith(_$Item value, $Res Function(_$Item) then) =
       __$$ItemCopyWithImpl<$Res>;
+  @useResult
   $Res call({VaultItem item});
 
   $VaultItemCopyWith<$Res> get item;
 }
 
 /// @nodoc
-class __$$ItemCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
+class __$$ItemCopyWithImpl<$Res>
+    extends _$VaultComponentCopyWithImpl<$Res, _$Item>
     implements _$$ItemCopyWith<$Res> {
   __$$ItemCopyWithImpl(_$Item _value, $Res Function(_$Item) _then)
-      : super(_value, (v) => _then(v as _$Item));
+      : super(_value, _then);
 
-  @override
-  _$Item get _value => super._value as _$Item;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? item = freezed,
+    Object? item = null,
   }) {
     return _then(_$Item(
-      item == freezed
+      null == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as VaultItem,
@@ -1662,6 +1698,7 @@ class __$$ItemCopyWithImpl<$Res> extends _$VaultComponentCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $VaultItemCopyWith<$Res> get item {
     return $VaultItemCopyWith<$Res>(_value.item, (value) {
       return _then(_value.copyWith(item: value));
@@ -1689,6 +1726,7 @@ class _$Item implements Item {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ItemCopyWith<_$Item> get copyWith =>
       __$$ItemCopyWithImpl<_$Item>(this, _$identity);
 
@@ -1704,8 +1742,8 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(VaultGroup group)? group,
-    TResult Function(VaultItem item)? item,
+    TResult? Function(VaultGroup group)? group,
+    TResult? Function(VaultItem item)? item,
   }) {
     return item?.call(this.item);
   }
@@ -1735,8 +1773,8 @@ class _$Item implements Item {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Group value)? group,
-    TResult Function(Item value)? item,
+    TResult? Function(Group value)? group,
+    TResult? Function(Item value)? item,
   }) {
     return item?.call(this);
   }
@@ -1797,38 +1835,42 @@ mixin _$VaultGroup {
 abstract class $VaultGroupCopyWith<$Res> {
   factory $VaultGroupCopyWith(
           VaultGroup value, $Res Function(VaultGroup) then) =
-      _$VaultGroupCopyWithImpl<$Res>;
+      _$VaultGroupCopyWithImpl<$Res, VaultGroup>;
+  @useResult
   $Res call({String name, dynamic expanded, List<VaultComponent> components});
 }
 
 /// @nodoc
-class _$VaultGroupCopyWithImpl<$Res> implements $VaultGroupCopyWith<$Res> {
+class _$VaultGroupCopyWithImpl<$Res, $Val extends VaultGroup>
+    implements $VaultGroupCopyWith<$Res> {
   _$VaultGroupCopyWithImpl(this._value, this._then);
 
-  final VaultGroup _value;
   // ignore: unused_field
-  final $Res Function(VaultGroup) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? expanded = freezed,
-    Object? components = freezed,
+    Object? components = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      expanded: expanded == freezed
+      expanded: freezed == expanded
           ? _value.expanded
           : expanded // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      components: components == freezed
+      components: null == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1839,32 +1881,32 @@ abstract class _$$_VaultGroupCopyWith<$Res>
           _$_VaultGroup value, $Res Function(_$_VaultGroup) then) =
       __$$_VaultGroupCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, dynamic expanded, List<VaultComponent> components});
 }
 
 /// @nodoc
-class __$$_VaultGroupCopyWithImpl<$Res> extends _$VaultGroupCopyWithImpl<$Res>
+class __$$_VaultGroupCopyWithImpl<$Res>
+    extends _$VaultGroupCopyWithImpl<$Res, _$_VaultGroup>
     implements _$$_VaultGroupCopyWith<$Res> {
   __$$_VaultGroupCopyWithImpl(
       _$_VaultGroup _value, $Res Function(_$_VaultGroup) _then)
-      : super(_value, (v) => _then(v as _$_VaultGroup));
+      : super(_value, _then);
 
-  @override
-  _$_VaultGroup get _value => super._value as _$_VaultGroup;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? expanded = freezed,
-    Object? components = freezed,
+    Object? components = null,
   }) {
     return _then(_$_VaultGroup(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      expanded: expanded == freezed ? _value.expanded : expanded,
-      components: components == freezed
+      expanded: freezed == expanded ? _value.expanded! : expanded,
+      components: null == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as List<VaultComponent>,
@@ -1897,6 +1939,7 @@ class _$_VaultGroup implements _VaultGroup {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultGroupCopyWith<_$_VaultGroup> get copyWith =>
       __$$_VaultGroupCopyWithImpl<_$_VaultGroup>(this, _$identity);
 
@@ -1958,7 +2001,8 @@ mixin _$VaultItem {
 /// @nodoc
 abstract class $VaultItemCopyWith<$Res> {
   factory $VaultItemCopyWith(VaultItem value, $Res Function(VaultItem) then) =
-      _$VaultItemCopyWithImpl<$Res>;
+      _$VaultItemCopyWithImpl<$Res, VaultItem>;
+  @useResult
   $Res call(
       {String name,
       String username,
@@ -1969,45 +2013,49 @@ abstract class $VaultItemCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VaultItemCopyWithImpl<$Res> implements $VaultItemCopyWith<$Res> {
+class _$VaultItemCopyWithImpl<$Res, $Val extends VaultItem>
+    implements $VaultItemCopyWith<$Res> {
   _$VaultItemCopyWithImpl(this._value, this._then);
 
-  final VaultItem _value;
   // ignore: unused_field
-  final $Res Function(VaultItem) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? username = freezed,
-    Object? password = freezed,
-    Object? notes = freezed,
+    Object? name = null,
+    Object? username = null,
+    Object? password = null,
+    Object? notes = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultPassword>,
-      notes: notes == freezed
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $EncryptedDataCopyWith<VaultPassword, $Res> get password {
     return $EncryptedDataCopyWith<VaultPassword, $Res>(_value.password,
         (value) {
-      return _then(_value.copyWith(password: value));
+      return _then(_value.copyWith(password: value) as $Val);
     });
   }
 }
@@ -2018,6 +2066,7 @@ abstract class _$$_VaultItemCopyWith<$Res> implements $VaultItemCopyWith<$Res> {
           _$_VaultItem value, $Res Function(_$_VaultItem) then) =
       __$$_VaultItemCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       String username,
@@ -2029,36 +2078,35 @@ abstract class _$$_VaultItemCopyWith<$Res> implements $VaultItemCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_VaultItemCopyWithImpl<$Res> extends _$VaultItemCopyWithImpl<$Res>
+class __$$_VaultItemCopyWithImpl<$Res>
+    extends _$VaultItemCopyWithImpl<$Res, _$_VaultItem>
     implements _$$_VaultItemCopyWith<$Res> {
   __$$_VaultItemCopyWithImpl(
       _$_VaultItem _value, $Res Function(_$_VaultItem) _then)
-      : super(_value, (v) => _then(v as _$_VaultItem));
+      : super(_value, _then);
 
-  @override
-  _$_VaultItem get _value => super._value as _$_VaultItem;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? username = freezed,
-    Object? password = freezed,
-    Object? notes = freezed,
+    Object? name = null,
+    Object? username = null,
+    Object? password = null,
+    Object? notes = null,
   }) {
     return _then(_$_VaultItem(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as EncryptedData<VaultPassword>,
-      notes: notes == freezed
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2094,6 +2142,7 @@ class _$_VaultItem implements _VaultItem {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultItemCopyWith<_$_VaultItem> get copyWith =>
       __$$_VaultItemCopyWithImpl<_$_VaultItem>(this, _$identity);
 
@@ -2152,29 +2201,32 @@ mixin _$VaultPassword {
 abstract class $VaultPasswordCopyWith<$Res> {
   factory $VaultPasswordCopyWith(
           VaultPassword value, $Res Function(VaultPassword) then) =
-      _$VaultPasswordCopyWithImpl<$Res>;
+      _$VaultPasswordCopyWithImpl<$Res, VaultPassword>;
+  @useResult
   $Res call({String password});
 }
 
 /// @nodoc
-class _$VaultPasswordCopyWithImpl<$Res>
+class _$VaultPasswordCopyWithImpl<$Res, $Val extends VaultPassword>
     implements $VaultPasswordCopyWith<$Res> {
   _$VaultPasswordCopyWithImpl(this._value, this._then);
 
-  final VaultPassword _value;
   // ignore: unused_field
-  final $Res Function(VaultPassword) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? password = freezed,
+    Object? password = null,
   }) {
     return _then(_value.copyWith(
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -2185,26 +2237,25 @@ abstract class _$$_VaultPasswordCopyWith<$Res>
           _$_VaultPassword value, $Res Function(_$_VaultPassword) then) =
       __$$_VaultPasswordCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String password});
 }
 
 /// @nodoc
 class __$$_VaultPasswordCopyWithImpl<$Res>
-    extends _$VaultPasswordCopyWithImpl<$Res>
+    extends _$VaultPasswordCopyWithImpl<$Res, _$_VaultPassword>
     implements _$$_VaultPasswordCopyWith<$Res> {
   __$$_VaultPasswordCopyWithImpl(
       _$_VaultPassword _value, $Res Function(_$_VaultPassword) _then)
-      : super(_value, (v) => _then(v as _$_VaultPassword));
+      : super(_value, _then);
 
-  @override
-  _$_VaultPassword get _value => super._value as _$_VaultPassword;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? password = freezed,
+    Object? password = null,
   }) {
     return _then(_$_VaultPassword(
-      password == freezed
+      null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2230,6 +2281,7 @@ class _$_VaultPassword implements _VaultPassword {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VaultPasswordCopyWith<_$_VaultPassword> get copyWith =>
       __$$_VaultPasswordCopyWithImpl<_$_VaultPassword>(this, _$identity);
 
@@ -2284,10 +2336,10 @@ mixin _$VaultUrl {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? file,
-    TResult Function(String host, String user, String password, String path)?
+    TResult? Function(String path)? file,
+    TResult? Function(String host, String user, String password, String path)?
         ftp,
-    TResult Function(String uuid)? cached,
+    TResult? Function(String uuid)? cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2308,9 +2360,9 @@ mixin _$VaultUrl {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FileVaultUrl value)? file,
-    TResult Function(FtpVaultUrl value)? ftp,
-    TResult Function(CachedVaultUrl value)? cached,
+    TResult? Function(FileVaultUrl value)? file,
+    TResult? Function(FtpVaultUrl value)? ftp,
+    TResult? Function(CachedVaultUrl value)? cached,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2327,16 +2379,18 @@ mixin _$VaultUrl {
 /// @nodoc
 abstract class $VaultUrlCopyWith<$Res> {
   factory $VaultUrlCopyWith(VaultUrl value, $Res Function(VaultUrl) then) =
-      _$VaultUrlCopyWithImpl<$Res>;
+      _$VaultUrlCopyWithImpl<$Res, VaultUrl>;
 }
 
 /// @nodoc
-class _$VaultUrlCopyWithImpl<$Res> implements $VaultUrlCopyWith<$Res> {
+class _$VaultUrlCopyWithImpl<$Res, $Val extends VaultUrl>
+    implements $VaultUrlCopyWith<$Res> {
   _$VaultUrlCopyWithImpl(this._value, this._then);
 
-  final VaultUrl _value;
   // ignore: unused_field
-  final $Res Function(VaultUrl) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -2344,25 +2398,25 @@ abstract class _$$FileVaultUrlCopyWith<$Res> {
   factory _$$FileVaultUrlCopyWith(
           _$FileVaultUrl value, $Res Function(_$FileVaultUrl) then) =
       __$$FileVaultUrlCopyWithImpl<$Res>;
+  @useResult
   $Res call({String path});
 }
 
 /// @nodoc
-class __$$FileVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+class __$$FileVaultUrlCopyWithImpl<$Res>
+    extends _$VaultUrlCopyWithImpl<$Res, _$FileVaultUrl>
     implements _$$FileVaultUrlCopyWith<$Res> {
   __$$FileVaultUrlCopyWithImpl(
       _$FileVaultUrl _value, $Res Function(_$FileVaultUrl) _then)
-      : super(_value, (v) => _then(v as _$FileVaultUrl));
+      : super(_value, _then);
 
-  @override
-  _$FileVaultUrl get _value => super._value as _$FileVaultUrl;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = freezed,
+    Object? path = null,
   }) {
     return _then(_$FileVaultUrl(
-      path == freezed
+      null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2393,6 +2447,7 @@ class _$FileVaultUrl extends FileVaultUrl {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FileVaultUrlCopyWith<_$FileVaultUrl> get copyWith =>
       __$$FileVaultUrlCopyWithImpl<_$FileVaultUrl>(this, _$identity);
 
@@ -2411,10 +2466,10 @@ class _$FileVaultUrl extends FileVaultUrl {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? file,
-    TResult Function(String host, String user, String password, String path)?
+    TResult? Function(String path)? file,
+    TResult? Function(String host, String user, String password, String path)?
         ftp,
-    TResult Function(String uuid)? cached,
+    TResult? Function(String uuid)? cached,
   }) {
     return file?.call(path);
   }
@@ -2447,9 +2502,9 @@ class _$FileVaultUrl extends FileVaultUrl {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FileVaultUrl value)? file,
-    TResult Function(FtpVaultUrl value)? ftp,
-    TResult Function(CachedVaultUrl value)? cached,
+    TResult? Function(FileVaultUrl value)? file,
+    TResult? Function(FtpVaultUrl value)? ftp,
+    TResult? Function(CachedVaultUrl value)? cached,
   }) {
     return file?.call(this);
   }
@@ -2495,40 +2550,40 @@ abstract class _$$FtpVaultUrlCopyWith<$Res> {
   factory _$$FtpVaultUrlCopyWith(
           _$FtpVaultUrl value, $Res Function(_$FtpVaultUrl) then) =
       __$$FtpVaultUrlCopyWithImpl<$Res>;
+  @useResult
   $Res call({String host, String user, String password, String path});
 }
 
 /// @nodoc
-class __$$FtpVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+class __$$FtpVaultUrlCopyWithImpl<$Res>
+    extends _$VaultUrlCopyWithImpl<$Res, _$FtpVaultUrl>
     implements _$$FtpVaultUrlCopyWith<$Res> {
   __$$FtpVaultUrlCopyWithImpl(
       _$FtpVaultUrl _value, $Res Function(_$FtpVaultUrl) _then)
-      : super(_value, (v) => _then(v as _$FtpVaultUrl));
+      : super(_value, _then);
 
-  @override
-  _$FtpVaultUrl get _value => super._value as _$FtpVaultUrl;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? host = freezed,
-    Object? user = freezed,
-    Object? password = freezed,
-    Object? path = freezed,
+    Object? host = null,
+    Object? user = null,
+    Object? password = null,
+    Object? path = null,
   }) {
     return _then(_$FtpVaultUrl(
-      host: host == freezed
+      host: null == host
           ? _value.host
           : host // ignore: cast_nullable_to_non_nullable
               as String,
-      user: user == freezed
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2570,6 +2625,7 @@ class _$FtpVaultUrl extends FtpVaultUrl {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FtpVaultUrlCopyWith<_$FtpVaultUrl> get copyWith =>
       __$$FtpVaultUrlCopyWithImpl<_$FtpVaultUrl>(this, _$identity);
 
@@ -2588,10 +2644,10 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? file,
-    TResult Function(String host, String user, String password, String path)?
+    TResult? Function(String path)? file,
+    TResult? Function(String host, String user, String password, String path)?
         ftp,
-    TResult Function(String uuid)? cached,
+    TResult? Function(String uuid)? cached,
   }) {
     return ftp?.call(host, user, password, path);
   }
@@ -2624,9 +2680,9 @@ class _$FtpVaultUrl extends FtpVaultUrl {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FileVaultUrl value)? file,
-    TResult Function(FtpVaultUrl value)? ftp,
-    TResult Function(CachedVaultUrl value)? cached,
+    TResult? Function(FileVaultUrl value)? file,
+    TResult? Function(FtpVaultUrl value)? ftp,
+    TResult? Function(CachedVaultUrl value)? cached,
   }) {
     return ftp?.call(this);
   }
@@ -2682,25 +2738,25 @@ abstract class _$$CachedVaultUrlCopyWith<$Res> {
   factory _$$CachedVaultUrlCopyWith(
           _$CachedVaultUrl value, $Res Function(_$CachedVaultUrl) then) =
       __$$CachedVaultUrlCopyWithImpl<$Res>;
+  @useResult
   $Res call({String uuid});
 }
 
 /// @nodoc
-class __$$CachedVaultUrlCopyWithImpl<$Res> extends _$VaultUrlCopyWithImpl<$Res>
+class __$$CachedVaultUrlCopyWithImpl<$Res>
+    extends _$VaultUrlCopyWithImpl<$Res, _$CachedVaultUrl>
     implements _$$CachedVaultUrlCopyWith<$Res> {
   __$$CachedVaultUrlCopyWithImpl(
       _$CachedVaultUrl _value, $Res Function(_$CachedVaultUrl) _then)
-      : super(_value, (v) => _then(v as _$CachedVaultUrl));
+      : super(_value, _then);
 
-  @override
-  _$CachedVaultUrl get _value => super._value as _$CachedVaultUrl;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = freezed,
+    Object? uuid = null,
   }) {
     return _then(_$CachedVaultUrl(
-      uuid: uuid == freezed
+      uuid: null == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2731,6 +2787,7 @@ class _$CachedVaultUrl extends CachedVaultUrl {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$CachedVaultUrlCopyWith<_$CachedVaultUrl> get copyWith =>
       __$$CachedVaultUrlCopyWithImpl<_$CachedVaultUrl>(this, _$identity);
 
@@ -2749,10 +2806,10 @@ class _$CachedVaultUrl extends CachedVaultUrl {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? file,
-    TResult Function(String host, String user, String password, String path)?
+    TResult? Function(String path)? file,
+    TResult? Function(String host, String user, String password, String path)?
         ftp,
-    TResult Function(String uuid)? cached,
+    TResult? Function(String uuid)? cached,
   }) {
     return cached?.call(uuid);
   }
@@ -2785,9 +2842,9 @@ class _$CachedVaultUrl extends CachedVaultUrl {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(FileVaultUrl value)? file,
-    TResult Function(FtpVaultUrl value)? ftp,
-    TResult Function(CachedVaultUrl value)? cached,
+    TResult? Function(FileVaultUrl value)? file,
+    TResult? Function(FtpVaultUrl value)? ftp,
+    TResult? Function(CachedVaultUrl value)? cached,
   }) {
     return cached?.call(this);
   }

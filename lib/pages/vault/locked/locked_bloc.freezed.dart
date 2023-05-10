@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'locked_bloc.dart';
 
@@ -33,7 +33,8 @@ mixin _$LockedFormState {
 abstract class $LockedFormStateCopyWith<$Res> {
   factory $LockedFormStateCopyWith(
           LockedFormState value, $Res Function(LockedFormState) then) =
-      _$LockedFormStateCopyWithImpl<$Res>;
+      _$LockedFormStateCopyWithImpl<$Res, LockedFormState>;
+  @useResult
   $Res call(
       {String masterPassword,
       Key? masterKey,
@@ -43,44 +44,46 @@ abstract class $LockedFormStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LockedFormStateCopyWithImpl<$Res>
+class _$LockedFormStateCopyWithImpl<$Res, $Val extends LockedFormState>
     implements $LockedFormStateCopyWith<$Res> {
   _$LockedFormStateCopyWithImpl(this._value, this._then);
 
-  final LockedFormState _value;
   // ignore: unused_field
-  final $Res Function(LockedFormState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
     Object? masterKey = freezed,
-    Object? submitted = freezed,
-    Object? success = freezed,
-    Object? fails = freezed,
+    Object? submitted = null,
+    Object? success = null,
+    Object? fails = null,
   }) {
     return _then(_value.copyWith(
-      masterPassword: masterPassword == freezed
+      masterPassword: null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      success: success == freezed
+      success: null == success
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
-      fails: fails == freezed
+      fails: null == fails
           ? _value.fails
           : fails // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,6 +94,7 @@ abstract class _$$_UnlockFormStateCopyWith<$Res>
           _$_UnlockFormState value, $Res Function(_$_UnlockFormState) then) =
       __$$_UnlockFormStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String masterPassword,
       Key? masterKey,
@@ -101,41 +105,39 @@ abstract class _$$_UnlockFormStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_UnlockFormStateCopyWithImpl<$Res>
-    extends _$LockedFormStateCopyWithImpl<$Res>
+    extends _$LockedFormStateCopyWithImpl<$Res, _$_UnlockFormState>
     implements _$$_UnlockFormStateCopyWith<$Res> {
   __$$_UnlockFormStateCopyWithImpl(
       _$_UnlockFormState _value, $Res Function(_$_UnlockFormState) _then)
-      : super(_value, (v) => _then(v as _$_UnlockFormState));
+      : super(_value, _then);
 
-  @override
-  _$_UnlockFormState get _value => super._value as _$_UnlockFormState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
     Object? masterKey = freezed,
-    Object? submitted = freezed,
-    Object? success = freezed,
-    Object? fails = freezed,
+    Object? submitted = null,
+    Object? success = null,
+    Object? fails = null,
   }) {
     return _then(_$_UnlockFormState(
-      masterPassword: masterPassword == freezed
+      masterPassword: null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      masterKey: masterKey == freezed
+      masterKey: freezed == masterKey
           ? _value.masterKey
           : masterKey // ignore: cast_nullable_to_non_nullable
               as Key?,
-      submitted: submitted == freezed
+      submitted: null == submitted
           ? _value.submitted
           : submitted // ignore: cast_nullable_to_non_nullable
               as bool,
-      success: success == freezed
+      success: null == success
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
-      fails: fails == freezed
+      fails: null == fails
           ? _value.fails
           : fails // ignore: cast_nullable_to_non_nullable
               as int,
@@ -177,25 +179,23 @@ class _$_UnlockFormState extends _UnlockFormState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UnlockFormState &&
-            const DeepCollectionEquality()
-                .equals(other.masterPassword, masterPassword) &&
-            const DeepCollectionEquality().equals(other.masterKey, masterKey) &&
-            const DeepCollectionEquality().equals(other.submitted, submitted) &&
-            const DeepCollectionEquality().equals(other.success, success) &&
-            const DeepCollectionEquality().equals(other.fails, fails));
+            (identical(other.masterPassword, masterPassword) ||
+                other.masterPassword == masterPassword) &&
+            (identical(other.masterKey, masterKey) ||
+                other.masterKey == masterKey) &&
+            (identical(other.submitted, submitted) ||
+                other.submitted == submitted) &&
+            (identical(other.success, success) || other.success == success) &&
+            (identical(other.fails, fails) || other.fails == fails));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(masterPassword),
-      const DeepCollectionEquality().hash(masterKey),
-      const DeepCollectionEquality().hash(submitted),
-      const DeepCollectionEquality().hash(success),
-      const DeepCollectionEquality().hash(fails));
+      runtimeType, masterPassword, masterKey, submitted, success, fails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UnlockFormStateCopyWith<_$_UnlockFormState> get copyWith =>
       __$$_UnlockFormStateCopyWithImpl<_$_UnlockFormState>(this, _$identity);
 }
@@ -235,8 +235,8 @@ mixin _$LockedFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -255,8 +255,8 @@ mixin _$LockedFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -272,17 +272,18 @@ mixin _$LockedFormEvent {
 abstract class $LockedFormEventCopyWith<$Res> {
   factory $LockedFormEventCopyWith(
           LockedFormEvent value, $Res Function(LockedFormEvent) then) =
-      _$LockedFormEventCopyWithImpl<$Res>;
+      _$LockedFormEventCopyWithImpl<$Res, LockedFormEvent>;
 }
 
 /// @nodoc
-class _$LockedFormEventCopyWithImpl<$Res>
+class _$LockedFormEventCopyWithImpl<$Res, $Val extends LockedFormEvent>
     implements $LockedFormEventCopyWith<$Res> {
   _$LockedFormEventCopyWithImpl(this._value, this._then);
 
-  final LockedFormEvent _value;
   // ignore: unused_field
-  final $Res Function(LockedFormEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -291,28 +292,26 @@ abstract class _$$MasterPasswordChangedEventCopyWith<$Res> {
           _$MasterPasswordChangedEvent value,
           $Res Function(_$MasterPasswordChangedEvent) then) =
       __$$MasterPasswordChangedEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({String masterPassword});
 }
 
 /// @nodoc
 class __$$MasterPasswordChangedEventCopyWithImpl<$Res>
-    extends _$LockedFormEventCopyWithImpl<$Res>
+    extends _$LockedFormEventCopyWithImpl<$Res, _$MasterPasswordChangedEvent>
     implements _$$MasterPasswordChangedEventCopyWith<$Res> {
   __$$MasterPasswordChangedEventCopyWithImpl(
       _$MasterPasswordChangedEvent _value,
       $Res Function(_$MasterPasswordChangedEvent) _then)
-      : super(_value, (v) => _then(v as _$MasterPasswordChangedEvent));
+      : super(_value, _then);
 
-  @override
-  _$MasterPasswordChangedEvent get _value =>
-      super._value as _$MasterPasswordChangedEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? masterPassword = freezed,
+    Object? masterPassword = null,
   }) {
     return _then(_$MasterPasswordChangedEvent(
-      masterPassword == freezed
+      null == masterPassword
           ? _value.masterPassword
           : masterPassword // ignore: cast_nullable_to_non_nullable
               as String,
@@ -338,16 +337,16 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MasterPasswordChangedEvent &&
-            const DeepCollectionEquality()
-                .equals(other.masterPassword, masterPassword));
+            (identical(other.masterPassword, masterPassword) ||
+                other.masterPassword == masterPassword));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(masterPassword));
+  int get hashCode => Object.hash(runtimeType, masterPassword);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MasterPasswordChangedEventCopyWith<_$MasterPasswordChangedEvent>
       get copyWith => __$$MasterPasswordChangedEventCopyWithImpl<
           _$MasterPasswordChangedEvent>(this, _$identity);
@@ -364,8 +363,8 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? formSubmitted,
   }) {
     return masterPasswordChanged?.call(masterPassword);
   }
@@ -396,8 +395,8 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return masterPasswordChanged?.call(this);
   }
@@ -435,14 +434,11 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$FormSubmittedEventCopyWithImpl<$Res>
-    extends _$LockedFormEventCopyWithImpl<$Res>
+    extends _$LockedFormEventCopyWithImpl<$Res, _$FormSubmittedEvent>
     implements _$$FormSubmittedEventCopyWith<$Res> {
   __$$FormSubmittedEventCopyWithImpl(
       _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
-      : super(_value, (v) => _then(v as _$FormSubmittedEvent));
-
-  @override
-  _$FormSubmittedEvent get _value => super._value as _$FormSubmittedEvent;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -476,8 +472,8 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult? Function(String masterPassword)? masterPasswordChanged,
+    TResult? Function()? formSubmitted,
   }) {
     return formSubmitted?.call();
   }
@@ -508,8 +504,8 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
-    TResult Function(FormSubmittedEvent value)? formSubmitted,
+    TResult? Function(MasterPasswordChangedEvent value)? masterPasswordChanged,
+    TResult? Function(FormSubmittedEvent value)? formSubmitted,
   }) {
     return formSubmitted?.call(this);
   }
