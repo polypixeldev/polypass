@@ -1,0 +1,30 @@
+name: Feature Request
+description: Suggest a feature for Polypass
+title: "[FEATURE] "
+labels: ["enhancement"]
+body: 
+  - type: markdown
+    attributes:
+      value: Fill out the fields below, and it will be reviewed as soon as possible. Remember to follow the Code of Conduct
+  - type: textarea
+    id: what
+    attributes:
+      label: What you would like
+      description: What feature would you like to be implemented?
+      placeholder: ex. I would like a feature that...
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why do you request this feature?
+      description: For what reason do you request this feature? Is it related to a problem?
+      placeholder: ex. I request this feature because...
+    validations:
+      required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: Other
+      description: Is there anything else you would like to say?
+      
