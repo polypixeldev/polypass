@@ -20,6 +20,7 @@ mixin _$SettingsState {
   String get vaultName => throw _privateConstructorUsedError;
   String get newMasterPassword => throw _privateConstructorUsedError;
   String get confirmNewMasterPassword => throw _privateConstructorUsedError;
+  bool get isSamePass => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       {VaultSettings settings,
       String vaultName,
       String newMasterPassword,
-      String confirmNewMasterPassword});
+      String confirmNewMasterPassword,
+      bool isSamePass});
 
   $VaultSettingsCopyWith<$Res> get settings;
 }
@@ -58,6 +60,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? vaultName = null,
     Object? newMasterPassword = null,
     Object? confirmNewMasterPassword = null,
+    Object? isSamePass = null,
   }) {
     return _then(_value.copyWith(
       settings: null == settings
@@ -76,6 +79,10 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.confirmNewMasterPassword
           : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
+      isSamePass: null == isSamePass
+          ? _value.isSamePass
+          : isSamePass // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -100,7 +107,8 @@ abstract class _$$_SettingsStateCopyWith<$Res>
       {VaultSettings settings,
       String vaultName,
       String newMasterPassword,
-      String confirmNewMasterPassword});
+      String confirmNewMasterPassword,
+      bool isSamePass});
 
   @override
   $VaultSettingsCopyWith<$Res> get settings;
@@ -121,6 +129,7 @@ class __$$_SettingsStateCopyWithImpl<$Res>
     Object? vaultName = null,
     Object? newMasterPassword = null,
     Object? confirmNewMasterPassword = null,
+    Object? isSamePass = null,
   }) {
     return _then(_$_SettingsState(
       settings: null == settings
@@ -139,6 +148,10 @@ class __$$_SettingsStateCopyWithImpl<$Res>
           ? _value.confirmNewMasterPassword
           : confirmNewMasterPassword // ignore: cast_nullable_to_non_nullable
               as String,
+      isSamePass: null == isSamePass
+          ? _value.isSamePass
+          : isSamePass // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -150,7 +163,8 @@ class _$_SettingsState extends _SettingsState {
       {required this.settings,
       required this.vaultName,
       required this.newMasterPassword,
-      required this.confirmNewMasterPassword})
+      required this.confirmNewMasterPassword,
+      required this.isSamePass})
       : super._();
 
   @override
@@ -161,10 +175,12 @@ class _$_SettingsState extends _SettingsState {
   final String newMasterPassword;
   @override
   final String confirmNewMasterPassword;
+  @override
+  final bool isSamePass;
 
   @override
   String toString() {
-    return 'SettingsState(settings: $settings, vaultName: $vaultName, newMasterPassword: $newMasterPassword, confirmNewMasterPassword: $confirmNewMasterPassword)';
+    return 'SettingsState(settings: $settings, vaultName: $vaultName, newMasterPassword: $newMasterPassword, confirmNewMasterPassword: $confirmNewMasterPassword, isSamePass: $isSamePass)';
   }
 
   @override
@@ -180,12 +196,14 @@ class _$_SettingsState extends _SettingsState {
                 other.newMasterPassword == newMasterPassword) &&
             (identical(
                     other.confirmNewMasterPassword, confirmNewMasterPassword) ||
-                other.confirmNewMasterPassword == confirmNewMasterPassword));
+                other.confirmNewMasterPassword == confirmNewMasterPassword) &&
+            (identical(other.isSamePass, isSamePass) ||
+                other.isSamePass == isSamePass));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, settings, vaultName,
-      newMasterPassword, confirmNewMasterPassword);
+      newMasterPassword, confirmNewMasterPassword, isSamePass);
 
   @JsonKey(ignore: true)
   @override
@@ -199,7 +217,8 @@ abstract class _SettingsState extends SettingsState {
       {required final VaultSettings settings,
       required final String vaultName,
       required final String newMasterPassword,
-      required final String confirmNewMasterPassword}) = _$_SettingsState;
+      required final String confirmNewMasterPassword,
+      required final bool isSamePass}) = _$_SettingsState;
   const _SettingsState._() : super._();
 
   @override
@@ -210,6 +229,8 @@ abstract class _SettingsState extends SettingsState {
   String get newMasterPassword;
   @override
   String get confirmNewMasterPassword;
+  @override
+  bool get isSamePass;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>

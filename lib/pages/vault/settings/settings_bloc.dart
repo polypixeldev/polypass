@@ -19,7 +19,8 @@ class SettingsState with _$SettingsState {
       {required VaultSettings settings,
       required String vaultName,
       required String newMasterPassword,
-      required String confirmNewMasterPassword}) = _SettingsState;
+      required String confirmNewMasterPassword,
+      required bool isSamePass}) = _SettingsState;
 
   bool get isFormValid => newMasterPassword == confirmNewMasterPassword;
 }
@@ -62,7 +63,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
                 .header
                 .name,
             newMasterPassword: '',
-            confirmNewMasterPassword: '')) {
+            confirmNewMasterPassword: '',
+            isSamePass: false)) {
     on<SettingsEvent>((event, emit) async {
       await event.map(
           setSaveKeyInMemory: (event) => _onSetSaveKeyInMemory(event, emit),
@@ -163,6 +165,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
       if (masterKey == null || masterPassword == null) {
         return;
+      }
+
+      if (masterPassword == state.newMasterPassword) {
+        emit(state.copyWith(isSamePass: true));
+        return;
+      } else {
+        emit(state.copyWith(isSamePass: false));
       }
 
       final encrypter = Encrypter(AES(EncryptedData.deriveDerivedKey(
