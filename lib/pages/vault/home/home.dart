@@ -94,7 +94,7 @@ class TreeDivider extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 25,
+              height: 35,
               width: 20,
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
@@ -103,7 +103,7 @@ class TreeDivider extends StatelessWidget {
                       builder: (context, state) {
                     return Text(
                       state.treeVisible ? '<' : '>',
-                      style: const TextStyle(fontSize: 25),
+                      style: const TextStyle(fontSize: 35),
                       textAlign: TextAlign.center,
                     );
                   }),
@@ -115,7 +115,7 @@ class TreeDivider extends StatelessWidget {
             ),
             SizedBox(
                 width: 20,
-                height: constraints.maxHeight - 30,
+                height: constraints.maxHeight - 35,
                 child: const VerticalDivider()),
           ],
         ),
