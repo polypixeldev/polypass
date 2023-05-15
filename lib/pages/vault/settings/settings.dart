@@ -23,150 +23,168 @@ class VaultSettingsPage extends StatelessWidget {
                 return BlocProvider(
                   create: (context) =>
                       SettingsBloc(vaultBloc: context.read<VaultBloc>()),
-                  child: Center(
-                      child: Container(
-                          padding: const EdgeInsets.all(15),
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: BlocBuilder<SettingsBloc, SettingsState>(
-                              builder: (context, state) {
-                            return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Text('Vault Settings',
-                                      style: TextStyle(
-                                          fontSize: 30, color: Colors.white)),
-                                  ToggleSetting(
-                                      title:
-                                          'Save key in memory while vault is unlocked',
-                                      value: state.settings.saveKeyInMemory,
-                                      onChanged: (setting) {
-                                        context.read<SettingsBloc>().add(
-                                            SettingsEvent.setSaveKeyInMemory(
-                                                setting));
-                                      }),
-                                  const Padding(
-                                    padding: EdgeInsets.only(bottom: 10),
-                                  ),
-                                  TextSetting(
-                                      title: 'Name',
-                                      value: state.vaultName,
-                                      onChanged: (setting) {
-                                        if (setting != '') {
+                  child: BlocListener<SettingsBloc, SettingsState>(
+                    listener: (context, state) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('You entered in the same master password!'),
+                          duration: Duration(seconds: 3)));
+                    },
+                    listenWhen: (previous, current) =>
+                        previous.isSamePass != current.isSamePass &&
+                        current.isSamePass,
+                    child: Center(
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: BlocBuilder<SettingsBloc, SettingsState>(
+                                builder: (context, state) {
+                              return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text('Vault Settings',
+                                        style: TextStyle(
+                                            fontSize: 30, color: Colors.white)),
+                                    ToggleSetting(
+                                        title:
+                                            'Save key in memory while vault is unlocked',
+                                        value: state.settings.saveKeyInMemory,
+                                        onChanged: (setting) {
                                           context.read<SettingsBloc>().add(
-                                              SettingsEvent.vaultNameChanged(
+                                              SettingsEvent.setSaveKeyInMemory(
                                                   setting));
-                                        }
-                                      }),
-                                  TextSetting(
-                                      title: 'KDF Iterations',
-                                      value:
-                                          state.settings.iterations.toString(),
-                                      onChanged: (setting) {
-                                        final parsed = int.tryParse(setting);
-                                        if (parsed != null) {
-                                          context.read<SettingsBloc>().add(
-                                              SettingsEvent.setKDFIterations(
-                                                  parsed));
-                                        }
-                                      }),
-                                  TextSetting(
-                                      title: 'KDF Threads',
-                                      value: state.settings.threads.toString(),
-                                      onChanged: (setting) {
-                                        final parsed = int.tryParse(setting);
-                                        if (parsed != null) {
-                                          context.read<SettingsBloc>().add(
-                                              SettingsEvent.setKDFThreads(
-                                                  parsed));
-                                        }
-                                      }),
-                                  TextSetting(
-                                      title: 'KDF Memory',
-                                      value: state.settings.memory.toString(),
-                                      onChanged: (setting) {
-                                        final parsed = int.tryParse(setting);
-                                        if (parsed != null) {
-                                          context.read<SettingsBloc>().add(
-                                              SettingsEvent.setKDFMemory(
-                                                  parsed));
-                                        }
-                                      }),
-                                  TextSetting(
-                                      title: 'Clipboard Clear Time (seconds)',
-                                      value: state
-                                          .settings.clipboardClearSeconds
-                                          .toString(),
-                                      onChanged: (setting) {
-                                        final parsed = int.tryParse(setting);
-                                        if (parsed != null) {
-                                          context.read<SettingsBloc>().add(
-                                              SettingsEvent
-                                                  .setClipboardClearSeconds(
-                                                      parsed));
-                                        }
-                                      }),
-                                  TextSetting(
-                                      title: 'Vault Auto Lock Time (seconds)',
-                                      value: state.settings.vaultAutoLockSeconds
-                                          .toString(),
-                                      onChanged: (setting) {
-                                        final parsed = int.tryParse(setting);
-                                        if (parsed != null) {
-                                          context.read<SettingsBloc>().add(
-                                              SettingsEvent
-                                                  .setVaultAutoLockSeconds(
-                                                      parsed));
-                                        }
-                                      }),
-                                  const Text('Change Master Password',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 25, color: Colors.white)),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Column(
-                                      children: [
-                                        TextSetting(
-                                          onChanged: (newMasterPassword) {
-                                            context.read<SettingsBloc>().add(
-                                                SettingsEvent
-                                                    .newMasterPasswordChanged(
-                                                        newMasterPassword));
-                                          },
-                                          obscured: true,
-                                          value: state.newMasterPassword,
-                                          title: 'New Master Password',
-                                        ),
-                                        TextSetting(
-                                          onChanged: (newMasterPassword) {
-                                            context.read<SettingsBloc>().add(
-                                                SettingsEvent
-                                                    .confirmNewMasterPasswordChanged(
-                                                        newMasterPassword));
-                                          },
-                                          obscured: true,
-                                          value: state.confirmNewMasterPassword,
-                                          title: 'Confirm New Master Password',
-                                        )
-                                      ],
+                                        }),
+                                    const Padding(
+                                      padding: EdgeInsets.only(bottom: 10),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const BackToHomeButton(),
-                                      const Padding(
-                                          padding: EdgeInsets.only(left: 10)),
-                                      SaveButton(isFormValid: state.isFormValid)
-                                    ],
-                                  )
-                                ]);
-                          }))),
+                                    TextSetting(
+                                        title: 'Name',
+                                        value: state.vaultName,
+                                        onChanged: (setting) {
+                                          if (setting != '') {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent.vaultNameChanged(
+                                                    setting));
+                                          }
+                                        }),
+                                    TextSetting(
+                                        title: 'KDF Iterations',
+                                        value: state.settings.iterations
+                                            .toString(),
+                                        onChanged: (setting) {
+                                          final parsed = int.tryParse(setting);
+                                          if (parsed != null) {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent.setKDFIterations(
+                                                    parsed));
+                                          }
+                                        }),
+                                    TextSetting(
+                                        title: 'KDF Threads',
+                                        value:
+                                            state.settings.threads.toString(),
+                                        onChanged: (setting) {
+                                          final parsed = int.tryParse(setting);
+                                          if (parsed != null) {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent.setKDFThreads(
+                                                    parsed));
+                                          }
+                                        }),
+                                    TextSetting(
+                                        title: 'KDF Memory',
+                                        value: state.settings.memory.toString(),
+                                        onChanged: (setting) {
+                                          final parsed = int.tryParse(setting);
+                                          if (parsed != null) {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent.setKDFMemory(
+                                                    parsed));
+                                          }
+                                        }),
+                                    TextSetting(
+                                        title: 'Clipboard Clear Time (seconds)',
+                                        value: state
+                                            .settings.clipboardClearSeconds
+                                            .toString(),
+                                        onChanged: (setting) {
+                                          final parsed = int.tryParse(setting);
+                                          if (parsed != null) {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent
+                                                    .setClipboardClearSeconds(
+                                                        parsed));
+                                          }
+                                        }),
+                                    TextSetting(
+                                        title: 'Vault Auto Lock Time (seconds)',
+                                        value: state
+                                            .settings.vaultAutoLockSeconds
+                                            .toString(),
+                                        onChanged: (setting) {
+                                          final parsed = int.tryParse(setting);
+                                          if (parsed != null) {
+                                            context.read<SettingsBloc>().add(
+                                                SettingsEvent
+                                                    .setVaultAutoLockSeconds(
+                                                        parsed));
+                                          }
+                                        }),
+                                    const Text('Change Master Password',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 25, color: Colors.white)),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Column(
+                                        children: [
+                                          TextSetting(
+                                            onChanged: (newMasterPassword) {
+                                              context.read<SettingsBloc>().add(
+                                                  SettingsEvent
+                                                      .newMasterPasswordChanged(
+                                                          newMasterPassword));
+                                            },
+                                            obscured: true,
+                                            value: state.newMasterPassword,
+                                            title: 'New Master Password',
+                                          ),
+                                          TextSetting(
+                                            onChanged: (newMasterPassword) {
+                                              context.read<SettingsBloc>().add(
+                                                  SettingsEvent
+                                                      .confirmNewMasterPasswordChanged(
+                                                          newMasterPassword));
+                                            },
+                                            obscured: true,
+                                            value:
+                                                state.confirmNewMasterPassword,
+                                            title:
+                                                'Confirm New Master Password',
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const BackToHomeButton(),
+                                        const Padding(
+                                            padding: EdgeInsets.only(left: 10)),
+                                        SaveButton(
+                                            isFormValid: state.isFormValid)
+                                      ],
+                                    )
+                                  ]);
+                            }))),
+                  ),
                 );
               }),
             ],
