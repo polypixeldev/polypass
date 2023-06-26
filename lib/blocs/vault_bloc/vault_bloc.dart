@@ -35,7 +35,8 @@ class VaultState with _$VaultState {
 class VaultEvent with _$VaultEvent {
   const factory VaultEvent.opened(VaultUrl url, BuildContext context) =
       OpenedEvent;
-  const factory VaultEvent.unlocked(Key masterKey) = UnlockedEvent;
+  const factory VaultEvent.unlocked(Key masterKey, BuildContext context) =
+      UnlockedEvent;
   const factory VaultEvent.masterKeyChanged(Key? masterKey) =
       MasterKeyChangedEvent;
   const factory VaultEvent.groupSelected(List<String>? path, bool deselect) =
@@ -115,9 +116,6 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
       try {
         file = await vaultRepository.getFile(event.url, appSettingsBloc);
-      } on MergeException catch (e) {
-        file = await resolveConflict(event.context,
-            local: e.local, remote: e.remote);
       } catch (e) {
         emit(VaultState.opening(
             errorCount:
@@ -197,12 +195,13 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
     emit(VaultState.unlocking(lockedVault));
 
     await lockedVault.url!.mapOrNull(cached: (cachedUrl) async {
+      final remoteUrl = lockedVault.header.remoteUrl;
       final decryptedRemoteUrl = lockedVault.header.remoteUrl!
           .decrypt(event.masterKey)
           .mapOrNull(decrypted: (value) => value)!
           .data;
 
-      final VaultFile remoteFile;
+      VaultFile remoteFile;
 
       try {
         remoteFile = await read<VaultRepository>()
@@ -212,12 +211,35 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
         return;
       }
 
-      lockedVault = await read<VaultRepository>().syncFiles(
-          appSettingsBloc: read<AppSettingsBloc>(),
-          cachedUrl: cachedUrl,
-          decryptedRemoteUrl: decryptedRemoteUrl,
-          cachedFile: lockedVault,
-          remoteFile: remoteFile);
+      final appSettingsBloc = read<AppSettingsBloc>();
+
+      try {
+        lockedVault = await read<VaultRepository>().syncFiles(
+            appSettingsBloc: appSettingsBloc,
+            cachedUrl: cachedUrl,
+            decryptedRemoteUrl: decryptedRemoteUrl,
+            cachedFile: lockedVault,
+            remoteFile: remoteFile);
+      } on MergeException catch (e) {
+        // ignore: use_build_context_synchronously
+        lockedVault = await resolveConflict(event.context,
+            local: e.local, remote: e.remote);
+        await read<VaultRepository>().updateEncryptedLocalFile(
+            lockedVault.copyWith(
+                url: cachedUrl,
+                header: lockedVault.header.copyWith(remoteUrl: remoteUrl)));
+        await read<VaultRepository>().updateEncryptedRemoteFile(
+            lockedVault.copyWith(url: decryptedRemoteUrl), decryptedRemoteUrl);
+
+        final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+        lastSyncMap[cachedUrl.uuid] = DateTime.now();
+
+        final newSettings =
+            appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+
+        appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+        newSettings.save();
+      }
     });
 
     final decryptedContents = lockedVault.contents.decrypt(event.masterKey);
@@ -289,6 +311,7 @@ class VaultBloc extends Bloc<VaultEvent, VaultState> {
 
     final encryptedFile =
         await read<VaultRepository>().getLocalFile(unlockedState.vault.url!);
+    await read<VaultRepository>().disconnect(unlockedState.vault.url!);
 
     emit(VaultState.locked(
         unlockedState.vault.copyWith(contents: encryptedFile.contents)));

@@ -26,7 +26,7 @@ class MergeConflictDialog extends StatelessWidget {
                 border: Border.all(
                     color: theme.appBarTheme.backgroundColor!, width: 5),
                 borderRadius: BorderRadius.circular(10)),
-            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 700),
+            constraints: const BoxConstraints(maxHeight: 250, maxWidth: 700),
             padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

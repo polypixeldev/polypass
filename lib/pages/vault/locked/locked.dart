@@ -102,7 +102,7 @@ class MasterPasswordInput extends StatelessWidget {
               onFieldSubmitted: (masterPassword) {
                 context
                     .read<LockedFormBloc>()
-                    .add(const LockedFormEvent.formSubmitted());
+                    .add(LockedFormEvent.formSubmitted(context));
               },
               autofocus: true,
             ));
@@ -130,7 +130,7 @@ class SubmitButton extends StatelessWidget {
             : () {
                 context
                     .read<LockedFormBloc>()
-                    .add(const LockedFormEvent.formSubmitted());
+                    .add(LockedFormEvent.formSubmitted(context));
               },
         child: const Text('Submit',
             style: TextStyle(color: Colors.white, fontSize: 20)),

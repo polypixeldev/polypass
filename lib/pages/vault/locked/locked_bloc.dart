@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart' show BuildContext;
 
 import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 
@@ -36,7 +37,8 @@ class LockedFormState with _$LockedFormState {
 class LockedFormEvent with _$LockedFormEvent {
   const factory LockedFormEvent.masterPasswordChanged(String masterPassword) =
       MasterPasswordChangedEvent;
-  const factory LockedFormEvent.formSubmitted() = FormSubmittedEvent;
+  const factory LockedFormEvent.formSubmitted(BuildContext context) =
+      FormSubmittedEvent;
 }
 
 class LockedFormBloc extends Bloc<LockedFormEvent, LockedFormState> {
@@ -73,8 +75,10 @@ class LockedFormBloc extends Bloc<LockedFormEvent, LockedFormState> {
     if (lockedState.vault.header
         .testMagic(derivedKey, lockedState.vault.contents.iv)) {
       emit(state.copyWith(success: true));
-      vaultBloc.add(VaultEvent.unlocked(lockedState.vault.header
-          .decryptMasterKey(derivedKey, lockedState.vault.contents.iv)));
+      vaultBloc.add(VaultEvent.unlocked(
+          lockedState.vault.header
+              .decryptMasterKey(derivedKey, lockedState.vault.contents.iv),
+          event.context));
     } else {
       emit(state.copyWith(
           masterKey: null, submitted: false, fails: state.fails + 1));

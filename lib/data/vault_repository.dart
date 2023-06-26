@@ -62,18 +62,16 @@ class VaultRepository {
         lastSyncMap: lastSyncMap,
         uuid: cachedUrl.uuid);
 
-    syncFile = syncFile.copyWith(
-        url: decryptedRemoteUrl,
-        header: syncFile.header.copyWith(lastUpdate: DateTime.now()));
+    syncFile = syncFile.copyWith(url: decryptedRemoteUrl);
 
-    updateEncryptedRemoteFile(syncFile, decryptedRemoteUrl);
+    await updateEncryptedRemoteFile(syncFile, decryptedRemoteUrl);
 
     syncFile = syncFile.copyWith(
         url: cachedUrl,
         header:
             syncFile.header.copyWith(remoteUrl: cachedFile.header.remoteUrl));
 
-    updateEncryptedLocalFile(syncFile);
+    await updateEncryptedLocalFile(syncFile);
 
     lastSyncMap[cachedUrl.uuid] = DateTime.now();
 
@@ -124,22 +122,26 @@ class VaultRepository {
       await fileProvider.updateFile(
           cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
 
-      await updateFile(
-          file.copyWith(
-              url: file.header.remoteUrl!
-                  .decrypt(key)
-                  .mapOrNull(decrypted: (value) => value.data),
-              header: file.header.copyWith(remoteUrl: null)),
-          key,
-          appSettingsBloc);
+      try {
+        await updateFile(
+            file.copyWith(
+                url: file.header.remoteUrl!
+                    .decrypt(key)
+                    .mapOrNull(decrypted: (value) => value.data),
+                header: file.header.copyWith(remoteUrl: null)),
+            key,
+            appSettingsBloc);
 
-      final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
-      lastSyncMap[cachedUrl.uuid] = DateTime.now();
-      final newSettings =
-          appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
+        final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
+        lastSyncMap[cachedUrl.uuid] = DateTime.now();
+        final newSettings =
+            appSettingsBloc.state.settings.copyWith(lastSyncMap: lastSyncMap);
 
-      appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
-      newSettings.save();
+        appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
+        newSettings.save();
+      } catch (e) {
+        clearPoison(cachedUrl);
+      }
     });
   }
 
@@ -161,6 +163,9 @@ class VaultRepository {
       await fileProvider.updateFile(fileUrl, jsonEncode(raw));
     }, ftp: (ftpUrl) async {
       await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));
+    }, cached: (cachedUrl) async {
+      await fileProvider.updateFile(
+          cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
     });
   }
 
@@ -190,6 +195,15 @@ class VaultRepository {
       await ftpProvider.clearPoison();
     }, ftp: (url) async {
       await ftpProvider.clearPoison();
+    });
+  }
+
+  Future<void> disconnect(VaultUrl url) async {
+    await url.mapOrNull(cached: (url) async {
+      // Assume ftp provider. Add support for other providers when they are added
+      await ftpProvider.disconnect();
+    }, ftp: (url) async {
+      await ftpProvider.disconnect();
     });
   }
 }

@@ -72,14 +72,16 @@ pub fn connect(provider_lock: RustOpaque<RwLock<FtpProvider>>, url: RustOpaque<F
     connect_internal(&mut provider, &url);
 }
 
+#[allow(unused_must_use)]
 fn disconnect_internal(provider: &mut FtpProvider) {
-    provider
+    let mut_provider = provider
         .connection
-        .as_mut()
-        .as_mut()
-        .expect("Expect connection property to not be None when disconnecting")
-        .quit()
-        .expect("Failed to disconnect from host");
+        .as_mut();
+
+    if let Some(mut_provider) = mut_provider {
+        mut_provider
+        .quit();
+    }
 
     provider.connection = None;
     provider.host = None;
@@ -108,6 +110,12 @@ fn check_connection_internal(provider: &mut FtpProvider, url: &FtpUrl) {
             .expect("Expect host property to not be None when connection property is not None")
             != &url.host
     {
+        disconnect_internal(provider);
+        connect_internal(provider, url);
+    }
+
+    let result = provider.connection.as_mut().unwrap().noop();
+    if result.is_err() {
         disconnect_internal(provider);
         connect_internal(provider, url);
     }

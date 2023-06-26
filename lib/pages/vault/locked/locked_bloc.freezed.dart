@@ -230,19 +230,19 @@ mixin _$LockedFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(BuildContext context) formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String masterPassword)? masterPasswordChanged,
-    TResult? Function()? formSubmitted,
+    TResult? Function(BuildContext context)? formSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(BuildContext context)? formSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -355,7 +355,7 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(BuildContext context) formSubmitted,
   }) {
     return masterPasswordChanged(masterPassword);
   }
@@ -364,7 +364,7 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String masterPassword)? masterPasswordChanged,
-    TResult? Function()? formSubmitted,
+    TResult? Function(BuildContext context)? formSubmitted,
   }) {
     return masterPasswordChanged?.call(masterPassword);
   }
@@ -373,7 +373,7 @@ class _$MasterPasswordChangedEvent implements MasterPasswordChangedEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(BuildContext context)? formSubmitted,
     required TResult orElse(),
   }) {
     if (masterPasswordChanged != null) {
@@ -430,6 +430,8 @@ abstract class _$$FormSubmittedEventCopyWith<$Res> {
   factory _$$FormSubmittedEventCopyWith(_$FormSubmittedEvent value,
           $Res Function(_$FormSubmittedEvent) then) =
       __$$FormSubmittedEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -439,54 +441,79 @@ class __$$FormSubmittedEventCopyWithImpl<$Res>
   __$$FormSubmittedEventCopyWithImpl(
       _$FormSubmittedEvent _value, $Res Function(_$FormSubmittedEvent) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$FormSubmittedEvent(
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$FormSubmittedEvent implements FormSubmittedEvent {
-  const _$FormSubmittedEvent();
+  const _$FormSubmittedEvent(this.context);
+
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'LockedFormEvent.formSubmitted()';
+    return 'LockedFormEvent.formSubmitted(context: $context)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FormSubmittedEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$FormSubmittedEvent &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
+      __$$FormSubmittedEventCopyWithImpl<_$FormSubmittedEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String masterPassword) masterPasswordChanged,
-    required TResult Function() formSubmitted,
+    required TResult Function(BuildContext context) formSubmitted,
   }) {
-    return formSubmitted();
+    return formSubmitted(context);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String masterPassword)? masterPasswordChanged,
-    TResult? Function()? formSubmitted,
+    TResult? Function(BuildContext context)? formSubmitted,
   }) {
-    return formSubmitted?.call();
+    return formSubmitted?.call(context);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String masterPassword)? masterPasswordChanged,
-    TResult Function()? formSubmitted,
+    TResult Function(BuildContext context)? formSubmitted,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
-      return formSubmitted();
+      return formSubmitted(context);
     }
     return orElse();
   }
@@ -525,5 +552,11 @@ class _$FormSubmittedEvent implements FormSubmittedEvent {
 }
 
 abstract class FormSubmittedEvent implements LockedFormEvent {
-  const factory FormSubmittedEvent() = _$FormSubmittedEvent;
+  const factory FormSubmittedEvent(final BuildContext context) =
+      _$FormSubmittedEvent;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$FormSubmittedEventCopyWith<_$FormSubmittedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
