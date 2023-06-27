@@ -21,6 +21,7 @@ import 'package:polypass/pages/vault/locked/locked.dart';
 import 'package:polypass/pages/vault/new/new.dart';
 import 'package:polypass/pages/vault/edit/edit.dart';
 import 'package:polypass/pages/vault/settings/settings.dart';
+import 'package:polypass/pages/generator/generator.dart';
 import 'package:polypass/components/activity_listener/activity_listener.dart';
 
 import 'package:polypass/theme.dart';
@@ -81,6 +82,8 @@ class _AppState extends State<App> with TickerProviderStateMixin {
       GoRoute(path: '/recent', builder: (context, state) => const Recent()),
       GoRoute(path: '/create', builder: (context, state) => const Create()),
       GoRoute(path: '/settings', builder: (context, state) => const Settings()),
+      GoRoute(
+          path: '/generator', builder: (context, state) => const Generator()),
       GoRoute(
           path: '/vault/home', builder: (context, state) => const VaultHome()),
       GoRoute(
