@@ -109,21 +109,24 @@ class VaultRepository {
     });
   }
 
-  Future<void> updateFile(
+  // Result indicates success
+  Future<bool> updateFile(
       VaultFile file, Key key, AppSettingsBloc appSettingsBloc) async {
     var encryptedContents = file.contents.encrypt(key);
     final raw = file.copyWith(contents: encryptedContents).toJson();
 
-    await file.url!.map(file: (fileUrl) async {
+    final success = await file.url!.map(file: (fileUrl) async {
       await fileProvider.updateFile(fileUrl, jsonEncode(raw));
+      return true;
     }, ftp: (ftpUrl) async {
       await ftpProvider.updateFile(ftpUrl, jsonEncode(raw));
+      return true;
     }, cached: (cachedUrl) async {
       await fileProvider.updateFile(
           cachedUrltoFileUrl(cachedUrl), jsonEncode(raw));
 
       try {
-        await updateFile(
+        final success = await updateFile(
             file.copyWith(
                 url: file.header.remoteUrl!
                     .decrypt(key)
@@ -131,6 +134,10 @@ class VaultRepository {
                 header: file.header.copyWith(remoteUrl: null)),
             key,
             appSettingsBloc);
+
+        if (!success) {
+          return false;
+        }
 
         final lastSyncMap = appSettingsBloc.state.settings.lastSyncMap;
         lastSyncMap[cachedUrl.uuid] = DateTime.now();
@@ -140,9 +147,13 @@ class VaultRepository {
         appSettingsBloc.add(AppSettingsEvent.settingsUpdated(newSettings));
         newSettings.save();
       } catch (e) {
-        clearPoison(cachedUrl);
+        await clearPoison(cachedUrl);
+        return false;
       }
+      return true;
     });
+
+    return success;
   }
 
   Future<void> updateEncryptedRemoteFile(
