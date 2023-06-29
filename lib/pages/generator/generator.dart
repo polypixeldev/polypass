@@ -6,6 +6,6 @@ class Generator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppWrapper(child: Container());
+    return AppWrapper(backButton: true, child: Container());
   }
 }

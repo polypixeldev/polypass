@@ -12,13 +12,15 @@ class AppWrapper extends StatelessWidget {
       required this.child,
       this.actions = true,
       this.icon = true,
-      this.appBar = true})
+      this.appBar = true,
+      this.backButton = false})
       : super(key: key);
 
   final Widget child;
   final bool actions;
   final bool icon;
   final bool appBar;
+  final bool backButton;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,8 @@ class AppWrapper extends StatelessWidget {
       ],
       child: Scaffold(
           appBar: appBar
-              ? createAppBar(
-                  context, context.watch<VaultBloc>().state, actions, icon)
+              ? createAppBar(context, context.watch<VaultBloc>().state, actions,
+                  icon, backButton)
               : null,
           body: SizedBox.expand(
             child: Container(
