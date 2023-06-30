@@ -49,6 +49,7 @@ class Generator extends StatelessWidget {
                                           .textTheme
                                           .bodyMedium!
                                           .fontSize,
+                                      fontFamily: 'monospace',
                                       color: Colors.black)))),
                       IconButton(
                         icon: const Icon(Icons.refresh),
@@ -98,6 +99,8 @@ class Generator extends StatelessWidget {
                               max: 50,
                               divisions: 50,
                               value: state.length.toDouble(),
+                              activeColor:
+                                  Theme.of(context).colorScheme.tertiary,
                               onChanged: (val) {
                                 context.read<GeneratorBloc>().add(
                                     GeneratorEvent.lengthChanged(val.toInt()));
@@ -121,7 +124,6 @@ class Generator extends StatelessWidget {
                       children: [
                         GeneratorGroup(
                             name: 'Lowercase',
-                            alphabet: 'abcdefghijklmnopqrstuvwxyz',
                             value: state.lowercase,
                             onChanged: (val) {
                               context.read<GeneratorBloc>().add(
@@ -130,7 +132,6 @@ class Generator extends StatelessWidget {
                             }),
                         GeneratorGroup(
                             name: 'Uppercase',
-                            alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
                             value: state.uppercase,
                             onChanged: (val) {
                               context.read<GeneratorBloc>().add(
@@ -139,7 +140,6 @@ class Generator extends StatelessWidget {
                             }),
                         GeneratorGroup(
                             name: 'Numbers',
-                            alphabet: '123456789',
                             value: state.numbers,
                             onChanged: (val) {
                               context.read<GeneratorBloc>().add(
@@ -147,7 +147,6 @@ class Generator extends StatelessWidget {
                             }),
                         GeneratorGroup(
                             name: 'Symbols',
-                            alphabet: '!@#\$%^&*()_+-=[]{}\\|;\':",./<>?',
                             value: state.symbols,
                             onChanged: (val) {
                               context.read<GeneratorBloc>().add(
@@ -166,13 +165,11 @@ class GeneratorGroup extends StatelessWidget {
   const GeneratorGroup(
       {Key? key,
       required this.name,
-      required this.alphabet,
       required this.value,
       required this.onChanged})
       : super(key: key);
 
   final String name;
-  final String alphabet;
   final bool value;
   final void Function(bool?) onChanged;
 

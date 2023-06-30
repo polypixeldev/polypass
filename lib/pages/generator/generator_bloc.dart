@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -55,29 +57,98 @@ class GeneratorBloc extends Bloc<GeneratorEvent, GeneratorState> {
 
   void _onLengthChanged(
       LengthChangedEvent event, Emitter<GeneratorState> emit) {
-    emit(state.copyWith(length: event.length));
+    emit(state.copyWith(
+        length: event.length,
+        generatedPassword: generatePassword(
+          event.length,
+          state.lowercase,
+          state.uppercase,
+          state.numbers,
+          state.symbols,
+        )));
   }
 
   void _onLowercaseChanged(
       LowercaseChangedEvent event, Emitter<GeneratorState> emit) {
-    emit(state.copyWith(lowercase: event.lowercase));
+    emit(state.copyWith(
+        lowercase: event.lowercase,
+        generatedPassword: generatePassword(
+          state.length,
+          event.lowercase,
+          state.uppercase,
+          state.numbers,
+          state.symbols,
+        )));
   }
 
   void _onUppercaseChanged(
       UppercaseChangedEvent event, Emitter<GeneratorState> emit) {
-    emit(state.copyWith(uppercase: event.uppercase));
+    emit(state.copyWith(
+        uppercase: event.uppercase,
+        generatedPassword: generatePassword(
+          state.length,
+          state.lowercase,
+          event.uppercase,
+          state.numbers,
+          state.symbols,
+        )));
   }
 
   void _onNumbersChanged(
       NumbersChangedEvent event, Emitter<GeneratorState> emit) {
-    emit(state.copyWith(numbers: event.numbers));
+    emit(state.copyWith(
+        numbers: event.numbers,
+        generatedPassword: generatePassword(
+          state.length,
+          state.lowercase,
+          state.uppercase,
+          event.numbers,
+          state.symbols,
+        )));
   }
 
   void _onSymbolsChanged(
       SymbolsChangedEvent event, Emitter<GeneratorState> emit) {
-    emit(state.copyWith(symbols: event.symbols));
+    emit(state.copyWith(
+        symbols: event.symbols,
+        generatedPassword: generatePassword(
+          state.length,
+          state.lowercase,
+          state.uppercase,
+          state.numbers,
+          event.symbols,
+        )));
   }
 
   void _onRegeneratePassword(
-      RegeneratePasswordEvent event, Emitter<GeneratorState> emit) {}
+      RegeneratePasswordEvent event, Emitter<GeneratorState> emit) {
+    emit(state.copyWith(
+        generatedPassword: generatePassword(
+      state.length,
+      state.lowercase,
+      state.uppercase,
+      state.numbers,
+      state.symbols,
+    )));
+  }
+}
+
+String generatePassword(
+    int length, bool lowercase, bool uppercase, bool numbers, bool symbols) {
+  var alphabetBuffer = StringBuffer();
+  if (lowercase) alphabetBuffer.write('abcdefghijklmnopqrstuvwxyz');
+  if (uppercase) alphabetBuffer.write('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  if (numbers) alphabetBuffer.write('123456789');
+  if (symbols) alphabetBuffer.write('!@#\$%^&*()_+-=[]{}\\|;\':",./<>?');
+
+  final alphabet = alphabetBuffer.toString();
+
+  if (alphabet.isEmpty) return '';
+
+  final password = StringBuffer();
+  for (var i = 1; i < length; i++) {
+    password.write(alphabet[Random.secure().nextInt(alphabet.length - 1)]);
+  }
+
+  return password.toString();
 }
