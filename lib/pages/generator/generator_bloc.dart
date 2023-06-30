@@ -17,9 +17,9 @@ class GeneratorState with _$GeneratorState {
     required bool symbols,
   }) = _GeneratorState;
 
-  factory GeneratorState.empty() => const GeneratorState(
-        generatedPassword: '',
-        length: 8,
+  factory GeneratorState.empty() => GeneratorState(
+        generatedPassword: generatePassword(10, true, true, true, true),
+        length: 10,
         lowercase: true,
         uppercase: true,
         numbers: true,
@@ -138,7 +138,7 @@ String generatePassword(
   var alphabetBuffer = StringBuffer();
   if (lowercase) alphabetBuffer.write('abcdefghijklmnopqrstuvwxyz');
   if (uppercase) alphabetBuffer.write('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-  if (numbers) alphabetBuffer.write('123456789');
+  if (numbers) alphabetBuffer.write('0123456789');
   if (symbols) alphabetBuffer.write('!@#\$%^&*()_+-=[]{}\\|;\':",./<>?');
 
   final alphabet = alphabetBuffer.toString();
@@ -146,7 +146,7 @@ String generatePassword(
   if (alphabet.isEmpty) return '';
 
   final password = StringBuffer();
-  for (var i = 1; i < length; i++) {
+  for (var i = 0; i < length; i++) {
     password.write(alphabet[Random.secure().nextInt(alphabet.length - 1)]);
   }
 
