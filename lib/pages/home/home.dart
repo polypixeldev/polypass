@@ -32,64 +32,104 @@ class Home extends StatelessWidget {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Image(image: AssetImage('assets/polypass.png'), width: 175, height: 175),
+                  const Image(
+                      image: AssetImage('assets/polypass.png'),
+                      width: 175,
+                      height: 175),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10)),
-                    child: BlocBuilder<VaultBloc, VaultState>(builder: ((context, state) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text('Polypass',
-                              style: TextStyle(fontSize: 30, color: Colors.white)),
-                          const Padding(padding: EdgeInsets.only(bottom: 10)),
-                          ElevatedButton(
-                            onPressed: state.maybeMap(
-                              opening: (state) => null,
-                              orElse: () => () => router.go('/create'),
+                    child: BlocBuilder<VaultBloc, VaultState>(
+                        builder: ((context, state) {
+                      return SizedBox(
+                        width: 285,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text('Polypass',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white)),
+                            const Padding(padding: EdgeInsets.only(bottom: 10)),
+                            ElevatedButton(
+                              onPressed: state.maybeMap(
+                                opening: (state) => null,
+                                orElse: () => () => router.go('/create'),
+                              ),
+                              child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  width: 285,
+                                  child: const Text('Create a vault',
+                                      style: TextStyle(fontSize: 25),
+                                      textAlign: TextAlign.center)),
                             ),
-                            child: const Padding(
-                                padding: EdgeInsets.all(5),
-                                child: Text('Create a vault', style: TextStyle(fontSize: 25))),
-                          ),
-                          const Padding(padding: EdgeInsets.only(bottom: 10)),
-                          ElevatedButton(
+                            const Padding(padding: EdgeInsets.only(bottom: 10)),
+                            ElevatedButton(
+                                onPressed: state.maybeMap(
+                                    opening: (state) => null,
+                                    orElse: () => () async {
+                                          final vaultBloc =
+                                              context.read<VaultBloc>();
+                                          final scaffoldManager =
+                                              ScaffoldMessenger.of(context);
+                                          final url = await pickFileLocation(
+                                              context, 'open');
+
+                                          if (url != null) {
+                                            vaultBloc.add(
+                                                // ignore: use_build_context_synchronously
+                                                VaultEvent.opened(
+                                                    url, context));
+
+                                            scaffoldManager.showSnackBar(
+                                                const SnackBar(
+                                                    content: Text(
+                                                        'Opening vault...'),
+                                                    duration:
+                                                        Duration(days: 365)));
+                                          }
+                                        }),
+                                child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    width: 285,
+                                    child: const Text('Open a vault',
+                                        style: TextStyle(fontSize: 25),
+                                        textAlign: TextAlign.center))),
+                            const Padding(padding: EdgeInsets.only(bottom: 10)),
+                            ElevatedButton(
                               onPressed: state.maybeMap(
                                   opening: (state) => null,
                                   orElse: () => () async {
-                                        final vaultBloc = context.read<VaultBloc>();
-                                        final scaffoldManager = ScaffoldMessenger.of(context);
-                                        final url = await pickFileLocation(context, 'open');
-
-                                        if (url != null) {
-                                          vaultBloc.add(
-                                              // ignore: use_build_context_synchronously
-                                              VaultEvent.opened(url, context));
-
-                                          scaffoldManager.showSnackBar(const SnackBar(
-                                              content: Text('Opening vault...'),
-                                              duration: Duration(days: 365)));
-                                        }
+                                        router.go('/generator');
                                       }),
-                              child: const Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Text('Open a vault', style: TextStyle(fontSize: 25)))),
-                          const Padding(padding: EdgeInsets.only(bottom: 10)),
-                          ElevatedButton(
-                            onPressed: state.maybeMap(
-                                opening: (state) => null,
-                                orElse: () => () async {
-                                      router.go('/settings');
-                                    }),
-                            child: const Padding(
-                                padding: EdgeInsets.all(5),
-                                child: Text('Global Settings', style: TextStyle(fontSize: 25))),
-                          )
-                        ],
+                              child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  width: 285,
+                                  child: const Text('Password Generator',
+                                      style: TextStyle(fontSize: 25),
+                                      textAlign: TextAlign.center)),
+                            ),
+                            const Padding(padding: EdgeInsets.only(bottom: 10)),
+                            ElevatedButton(
+                              onPressed: state.maybeMap(
+                                  opening: (state) => null,
+                                  orElse: () => () async {
+                                        router.go('/settings');
+                                      }),
+                              child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  width: 285,
+                                  child: const Text(
+                                    'Global Settings',
+                                    style: TextStyle(fontSize: 25),
+                                    textAlign: TextAlign.center,
+                                  )),
+                            )
+                          ],
+                        ),
                       );
                     })),
                   )

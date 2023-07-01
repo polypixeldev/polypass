@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  cupertino_icons:
+    dependency: transitive
+    description:
+      name: cupertino_icons
+      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   dart_style:
     dependency: transitive
     description:
@@ -326,6 +334,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.75.2"
+  flutter_spinbox:
+    dependency: "direct main"
+    description:
+      name: flutter_spinbox
+      sha256: "38d8c1a3a39f0fa72823d4470785f5e165f2deb53531ca7803b54ba45e4dbd46"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -887,4 +903,4 @@ packages:
     version: "2.1.1"
 sdks:
   dart: ">=2.19.0 <3.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.7.0"
