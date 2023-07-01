@@ -186,16 +186,6 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
           splashRadius: 20,
         ),
         IconButton(
-          icon: const Icon(Icons.preview_outlined),
-          tooltip: 'View the selected item',
-          onPressed: () {
-            context
-                .read<VaultBloc>()
-                .add(const VaultEvent.selectedItemViewToggled());
-          },
-          splashRadius: 20,
-        ),
-        IconButton(
           icon: const Icon(Icons.settings_sharp),
           tooltip: 'Vault settings',
           onPressed: () {

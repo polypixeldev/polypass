@@ -218,15 +218,11 @@ class ListItem extends StatelessWidget {
               const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
         }
 
-        if (unlockedVaultState.selectedGroup?[0] == 'Search Results' &&
-            isSelectedItem &&
-            Platform.isAndroid) {
+        if (isSelectedItem && Platform.isAndroid) {
           context
               .read<ListItemBloc>()
               .add(const ListItemEvent.modeToggled(newMode: ListItemMode.view));
-        } else if (unlockedVaultState.selectedGroup?[0] == 'Search Results' &&
-            !isSelectedItem &&
-            Platform.isAndroid) {
+        } else if (!isSelectedItem && Platform.isAndroid) {
           context.read<ListItemBloc>().add(
               const ListItemEvent.modeToggled(newMode: ListItemMode.normal));
         }
