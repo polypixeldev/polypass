@@ -8,7 +8,7 @@ import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
 AppBar createAppBar(BuildContext context, VaultState state, bool actions,
-    bool icon, bool backButton) {
+    bool icon, bool backButton, String backDest) {
   final vaultBloc = context.read<VaultBloc>();
   final router = GoRouter.of(context);
 
@@ -50,6 +50,14 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
           tooltip: 'Vault settings',
           onPressed: () {
             router.go('/vault/settings');
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.password_sharp),
+          tooltip: 'Random password generator',
+          onPressed: () {
+            router.go('/generator?origin=/vault/home');
           },
           splashRadius: 20,
         ),
@@ -221,7 +229,7 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
     icon: const Icon(Icons.arrow_back),
     tooltip: 'Back',
     onPressed: () {
-      router.go('/');
+      router.go(backDest);
     },
   );
 

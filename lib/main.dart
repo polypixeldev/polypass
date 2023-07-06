@@ -83,7 +83,10 @@ class _AppState extends State<App> with TickerProviderStateMixin {
       GoRoute(path: '/create', builder: (context, state) => const Create()),
       GoRoute(path: '/settings', builder: (context, state) => const Settings()),
       GoRoute(
-          path: '/generator', builder: (context, state) => const Generator()),
+          path: '/generator',
+          builder: (context, state) => Generator(
+                routerState: state,
+              )),
       GoRoute(
           path: '/vault/home', builder: (context, state) => const VaultHome()),
       GoRoute(

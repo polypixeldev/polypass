@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinbox/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:polypass/blocs/activity_bloc/activity_bloc.dart';
 import 'package:polypass/blocs/app_settings_bloc/app_settings_bloc.dart';
@@ -9,12 +10,15 @@ import 'package:polypass/components/app_wrapper/app_wrapper.dart';
 import 'package:polypass/pages/generator/generator_bloc.dart';
 
 class Generator extends StatelessWidget {
-  const Generator({Key? key}) : super(key: key);
+  const Generator({Key? key, required this.routerState}) : super(key: key);
+
+  final GoRouterState routerState;
 
   @override
   Widget build(BuildContext context) {
     return AppWrapper(
         backButton: true,
+        backDest: routerState.queryParameters['origin'] ?? '/',
         child: Center(
           child: SingleChildScrollView(
             child: BlocProvider(
