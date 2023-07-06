@@ -9,7 +9,10 @@ import 'package:polypass/data/vault_file/vault_file.dart';
 
 class OpenDialog extends StatelessWidget {
   const OpenDialog(
-      {Key? key, required this.onSuccess, required this.onCancel, required this.redirect})
+      {Key? key,
+      required this.onSuccess,
+      required this.onCancel,
+      required this.redirect})
       : super(key: key);
 
   final void Function(String path, bool cached) onSuccess;
@@ -26,13 +29,13 @@ class OpenDialog extends StatelessWidget {
       cacheDir.createSync();
     }
     entries.addAll(cacheDir.listSync());
-    final vaultFiles = entries
-        .whereType<File>()
-        .where((file) => file.path.endsWith('.ppv.json') && !file.path.contains('.backup'));
+    final vaultFiles = entries.whereType<File>().where((file) =>
+        file.path.endsWith('.ppv.json') && !file.path.contains('.backup'));
 
     final vaults = vaultFiles.map((vaultFile) => {
           'path': vaultFile.absolute.path,
-          'vault': initVaultFile(jsonDecode(vaultFile.readAsStringSync())).vaultFile,
+          'vault':
+              initVaultFile(jsonDecode(vaultFile.readAsStringSync())).vaultFile,
           'cached': vaultFile.absolute.path.contains('.cache')
         });
 
@@ -49,7 +52,8 @@ class OpenDialog extends StatelessWidget {
         child: Container(
             decoration: BoxDecoration(
                 color: theme.colorScheme.background,
-                border: Border.all(color: theme.appBarTheme.backgroundColor!, width: 5),
+                border: Border.all(
+                    color: theme.appBarTheme.backgroundColor!, width: 5),
                 borderRadius: BorderRadius.circular(10)),
             constraints: const BoxConstraints(maxHeight: 700, maxWidth: 700),
             padding: const EdgeInsets.all(10),
@@ -63,7 +67,8 @@ class OpenDialog extends StatelessWidget {
 }
 
 class LocalButton extends StatelessWidget {
-  const LocalButton({Key? key, required this.onCancel, required this.onSuccess}) : super(key: key);
+  const LocalButton({Key? key, required this.onCancel, required this.onSuccess})
+      : super(key: key);
 
   final void Function() onCancel;
   final void Function(String path, bool cached) onSuccess;
@@ -73,8 +78,10 @@ class LocalButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
-        style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        child: Text('Open locally', style: Theme.of(context).textTheme.bodyMedium),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        child:
+            Text('Open locally', style: Theme.of(context).textTheme.bodyMedium),
         onPressed: () async {
           final result = await FilePicker.platform.pickFiles(
               dialogTitle: 'Open Polypass Vault',
@@ -95,7 +102,8 @@ class LocalButton extends StatelessWidget {
 }
 
 class FtpButton extends StatelessWidget {
-  const FtpButton({Key? key, required this.onCancel, required this.redirect}) : super(key: key);
+  const FtpButton({Key? key, required this.onCancel, required this.redirect})
+      : super(key: key);
 
   final void Function() onCancel;
   final String redirect;
@@ -107,8 +115,10 @@ class FtpButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
-        style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
-        child: Text('Open via FTP', style: Theme.of(context).textTheme.bodyMedium),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        child:
+            Text('Open via FTP', style: Theme.of(context).textTheme.bodyMedium),
         onPressed: () => router.go('/ftp?redirect=$redirect'),
       ),
     );
@@ -143,7 +153,10 @@ class VaultListItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(5)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text(vault.header.name, style: Theme.of(context).textTheme.bodyMedium)],
+            children: [
+              Text(vault.header.name,
+                  style: Theme.of(context).textTheme.bodyMedium)
+            ],
           ),
         ),
       ),
@@ -161,7 +174,8 @@ class CancelButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
-        style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
         onPressed: onCancel,
         child: Text('Cancel', style: Theme.of(context).textTheme.bodyMedium),
       ),
@@ -169,7 +183,8 @@ class CancelButton extends StatelessWidget {
   }
 }
 
-Future<VaultUrl?> pickFileLocation(BuildContext context, String redirect) async {
+Future<VaultUrl?> pickFileLocation(
+    BuildContext context, String redirect) async {
   String? path;
   bool cached = false;
 

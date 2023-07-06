@@ -17,8 +17,9 @@ class AppSettings with _$AppSettings {
       required VaultUrl? recentUrl,
       required Map<String, DateTime> lastSyncMap}) = _AppSettings;
 
-  static final documentsDir =
-      Platform.isAndroid ? getExternalStorageDirectory() : getApplicationDocumentsDirectory();
+  static final documentsDir = Platform.isAndroid
+      ? getExternalStorageDirectory()
+      : getApplicationDocumentsDirectory();
 
   static late final String polypassDir;
 
@@ -45,10 +46,14 @@ class AppSettings with _$AppSettings {
   }
 
   Future<void> save() async {
-    await File('$polypassDir/.settings.json').writeAsString(jsonEncode(toJson()));
+    await File('$polypassDir/.settings.json')
+        .writeAsString(jsonEncode(toJson()));
   }
 
-  factory AppSettings.empty() =>
-      AppSettings(defaultVaultSettings: VaultSettings.empty(), recentUrl: null, lastSyncMap: {});
-  factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
+  factory AppSettings.empty() => AppSettings(
+      defaultVaultSettings: VaultSettings.empty(),
+      recentUrl: null,
+      lastSyncMap: {});
+  factory AppSettings.fromJson(Map<String, dynamic> json) =>
+      _$AppSettingsFromJson(json);
 }
