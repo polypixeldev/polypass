@@ -8,7 +8,7 @@ import 'package:polypass/blocs/vault_bloc/vault_bloc.dart';
 import 'package:polypass/data/vault_file/vault_file.dart';
 
 AppBar createAppBar(BuildContext context, VaultState state, bool actions,
-    bool icon, bool backButton) {
+    bool icon, bool backButton, String backDest) {
   final vaultBloc = context.read<VaultBloc>();
   final router = GoRouter.of(context);
 
@@ -45,6 +45,22 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
 
     if (state.selectedGroup?[0] != 'Search Results') {
       appBarActions = [
+        IconButton(
+          icon: const Icon(Icons.settings_sharp),
+          tooltip: 'Vault settings',
+          onPressed: () {
+            router.go('/vault/settings');
+          },
+          splashRadius: 20,
+        ),
+        IconButton(
+          icon: const Icon(Icons.password_sharp),
+          tooltip: 'Random password generator',
+          onPressed: () {
+            router.go('/generator?origin=/vault/home');
+          },
+          splashRadius: 20,
+        ),
         IconButton(
             icon: const Icon(Icons.create_new_folder_sharp),
             tooltip: 'Create a group',
@@ -98,6 +114,17 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
             },
             splashRadius: 20),
         IconButton(
+          icon: const Icon(Icons.add),
+          tooltip: 'Create an item',
+          onPressed: () {
+            router.go('/vault/new');
+          },
+          splashRadius: 20,
+        ),
+      ];
+
+      if (state.selectedGroup != null) {
+        appBarActions?.add(IconButton(
           icon: const Icon(Icons.folder_delete_sharp),
           tooltip: 'Delete the selected group',
           onPressed: () async {
@@ -126,16 +153,11 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
             vaultBloc.add(VaultEvent.updated(newVault, masterKey));
           },
           splashRadius: 20,
-        ),
-        IconButton(
-          icon: const Icon(Icons.add),
-          tooltip: 'Create an item',
-          onPressed: () {
-            router.go('/vault/new');
-          },
-          splashRadius: 20,
-        ),
-        IconButton(
+        ));
+      }
+
+      if (state.selectedItem != null) {
+        appBarActions?.add(IconButton(
           icon: const Icon(Icons.edit),
           tooltip: 'Edit the selected item',
           onPressed: () {
@@ -154,8 +176,9 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
             router.go('/vault/edit/${selectedItem.join('.')}');
           },
           splashRadius: 20,
-        ),
-        IconButton(
+        ));
+
+        appBarActions?.add(IconButton(
           icon: const Icon(Icons.delete),
           tooltip: 'Delete the selected item',
           onPressed: () async {
@@ -184,26 +207,8 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
             vaultBloc.add(VaultEvent.updated(newVault, masterKey));
           },
           splashRadius: 20,
-        ),
-        IconButton(
-          icon: const Icon(Icons.preview_outlined),
-          tooltip: 'View the selected item',
-          onPressed: () {
-            context
-                .read<VaultBloc>()
-                .add(const VaultEvent.selectedItemViewToggled());
-          },
-          splashRadius: 20,
-        ),
-        IconButton(
-          icon: const Icon(Icons.settings_sharp),
-          tooltip: 'Vault settings',
-          onPressed: () {
-            router.go('/vault/settings');
-          },
-          splashRadius: 20,
-        )
-      ];
+        ));
+      }
     } else {
       appBarActions = [
         IconButton(
@@ -216,13 +221,15 @@ AppBar createAppBar(BuildContext context, VaultState state, bool actions,
         )
       ];
     }
+
+    appBarActions = appBarActions?.reversed.toList();
   });
 
   final backButtonIcon = IconButton(
     icon: const Icon(Icons.arrow_back),
     tooltip: 'Back',
     onPressed: () {
-      router.go('/');
+      router.go(backDest);
     },
   );
 
