@@ -165,9 +165,9 @@ class EditItem extends StatelessWidget {
                               ItemUsernameInput(item: item),
                               ItemPasswordInput(item: item),
                               ItemNotesInput(item: item),
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   BackToHomeButton(),
                                   Padding(padding: EdgeInsets.only(left: 20)),
                                   SubmitButton()

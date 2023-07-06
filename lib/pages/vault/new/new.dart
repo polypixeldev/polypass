@@ -113,19 +113,19 @@ class NewItem extends StatelessWidget {
                               current.createdItem != null,
                         )
                       ],
-                      child: Column(
+                      child: const Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text('New Item',
+                          Text('New Item',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 30)),
-                          const ItemNameInput(),
-                          const ItemUsernameInput(),
-                          const ItemPasswordInput(),
-                          const ItemNotesInput(),
+                          ItemNameInput(),
+                          ItemUsernameInput(),
+                          ItemPasswordInput(),
+                          ItemNotesInput(),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 BackToHomeButton(),
                                 Padding(padding: EdgeInsets.only(left: 20)),
                                 SubmitButton()

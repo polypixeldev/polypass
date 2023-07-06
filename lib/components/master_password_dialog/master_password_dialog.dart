@@ -125,10 +125,10 @@ class MasterPasswordDialog extends StatelessWidget {
                           ),
                         ),
                         const Padding(padding: EdgeInsets.only(bottom: 10)),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             CancelButton(),
                             Padding(padding: EdgeInsets.only(left: 10)),
                             SubmitButton()

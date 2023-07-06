@@ -150,7 +150,8 @@ class VaultFile with _$VaultFile {
   factory VaultFile(
       {required VaultHeader header,
       required EncryptedData<VaultContents> contents,
-      @JsonKey(ignore: true) VaultUrl? url}) = _VaultFile;
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      VaultUrl? url}) = _VaultFile;
 
   factory VaultFile.fromJson(Map<String, dynamic> json) =>
       _$VaultFileFromJson(json);

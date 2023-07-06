@@ -16,7 +16,7 @@ class VaultHome extends StatelessWidget {
     return AppWrapper(
         child: BlocProvider(
       create: (context) => VaultHomeBloc(vaultBloc: context.read<VaultBloc>()),
-      child: Column(children: const [SearchBar(), PasswordsView()]),
+      child: const Column(children: [SearchBar(), PasswordsView()]),
     ));
   }
 }

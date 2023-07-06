@@ -113,10 +113,10 @@ class Settings extends StatelessWidget {
                                     }
                                   },
                                 ),
-                                Row(
+                                const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     BackToHomeButton(),
                                     Padding(padding: EdgeInsets.only(left: 10)),
                                     SaveButton()
