@@ -76,6 +76,21 @@ class EditItem extends StatelessWidget {
                             ),
                             BlocListener<EditFormBloc, EditFormState>(
                               listener: (context, state) {
+                                if (state.editedItem!.name.contains('.')) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "You cannot use . in an item's name!")));
+
+                                  context
+                                      .read<EditFormBloc>()
+                                      .add(const EditFormEvent.failed());
+
+                                  return;
+                                }
+
                                 final vaultBloc = context.read<VaultBloc>();
                                 final unlockedState = vaultBloc.state.maybeMap(
                                     unlocked: (state) => state,

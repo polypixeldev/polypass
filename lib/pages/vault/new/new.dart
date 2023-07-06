@@ -44,6 +44,18 @@ class NewItem extends StatelessWidget {
                         ),
                         BlocListener<NewFormBloc, NewFormState>(
                           listener: (context, state) {
+                            if (state.createdItem!.name.contains('.')) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'You cannot use . in an items name!')));
+                              context
+                                  .read<NewFormBloc>()
+                                  .add(const NewFormEvent.failed());
+                              return;
+                            }
+
                             final vaultBloc = context.read<VaultBloc>();
                             final unlockedState = vaultBloc.state.maybeMap(
                                 unlocked: (state) => state,
