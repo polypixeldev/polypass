@@ -1,6 +1,10 @@
 use flutter_rust_bridge::{RustOpaque, SyncReturn};
-use std::{io::Cursor, time::Duration, net::{SocketAddr, IpAddr, Ipv4Addr}};
 pub use std::sync::RwLock;
+use std::{
+    io::Cursor,
+    net::{IpAddr, Ipv4Addr, SocketAddr},
+    time::Duration,
+};
 use suppaftp::FtpStream;
 
 pub struct FtpProvider {
@@ -55,8 +59,19 @@ fn connect_internal(provider: &mut FtpProvider, url: &FtpUrl) {
     let addr_str: Vec<&str> = url.host.split('.').collect();
     let addr_nums: Vec<u8> = addr_str.iter().map(|x| x.parse().unwrap()).collect();
 
-    let mut stream =
-        FtpStream::connect_timeout(SocketAddr::new(IpAddr::V4(Ipv4Addr::new(addr_nums[0], addr_nums[1], addr_nums[2], addr_nums[3])), 21), Duration::from_secs(5)).expect("Failed to connect to host");
+    let mut stream = FtpStream::connect_timeout(
+        SocketAddr::new(
+            IpAddr::V4(Ipv4Addr::new(
+                addr_nums[0],
+                addr_nums[1],
+                addr_nums[2],
+                addr_nums[3],
+            )),
+            21,
+        ),
+        Duration::from_secs(5),
+    )
+    .expect("Failed to connect to host");
     stream.login(&url.user, &url.pass).expect("Failed to login");
 
     provider.connection = Some(Box::new(stream));
@@ -74,13 +89,10 @@ pub fn connect(provider_lock: RustOpaque<RwLock<FtpProvider>>, url: RustOpaque<F
 
 #[allow(unused_must_use)]
 fn disconnect_internal(provider: &mut FtpProvider) {
-    let mut_provider = provider
-        .connection
-        .as_mut();
+    let mut_provider = provider.connection.as_mut();
 
     if let Some(mut_provider) = mut_provider {
-        mut_provider
-        .quit();
+        mut_provider.quit();
     }
 
     provider.connection = None;
