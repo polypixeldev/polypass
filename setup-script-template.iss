@@ -5,7 +5,7 @@
 #define RepoPath "CHANGE_THIS"
 
 #define MyAppName "Polypass"
-#define MyAppVersion "2.2.0"
+#define MyAppVersion "2.1.0"
 #define MyAppExeName "polypass.exe"
 #define MyAppAssocName MyAppName + " Vault"
 #define MyAppAssocExt ".ppv.json"
