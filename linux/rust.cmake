@@ -6,7 +6,7 @@
 
 include(FetchContent)
 
-set(Rust_TOOLCHAIN "nightly")
+set(Rust_TOOLCHAIN "nightly-2023-06-15")
 
 FetchContent_Declare(
     Corrosion
