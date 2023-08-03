@@ -25,7 +25,7 @@ class AppSettings with _$AppSettings {
 
   static Future<void> loadPolypassDir() async {
     final polyPassDir = Directory(
-        '${(await documentsDir)?.absolute.path}/${kDebugMode ? 'polypass_debug' : 'polypass'}');
+        '${(await documentsDir)?.absolute.path}${Platform.pathSeparator}${kDebugMode ? 'polypass_debug' : 'polypass'}');
     if (!await polyPassDir.exists()) {
       await polyPassDir.create();
     }
