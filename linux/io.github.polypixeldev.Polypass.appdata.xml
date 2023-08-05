@@ -42,6 +42,26 @@
   </screenshots>
 
   <releases>
+    <release version="2.1.0" date="2023-08-02">
+      <description> Version 2.1.0 of Polypass brings a lot of improvements and bug fixes to
+        Polypass, including: <ul>
+          <li>Synchronization bugs fixed</li>
+          <li>Random password generator</li>
+          <li>Synchronization bugs fixed</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.0" date="2023-03-12">
+      <description> Version 2.0.0 of Polypass brings many big improvements to PolyPass, including: <ul>
+          <li>Android builds</li>
+          <li>Remote files via FTP</li>
+          <li>Offline access</li>
+          <li>Auto locking</li>
+          <li>Auto clipboard clearing</li>
+          <li>and more!</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.0" date="2022-08-03">
       <description>
         <p>
@@ -50,27 +70,4 @@
       </description>
     </release>
   </releases>
-  <release version="2.0.0" date="2023-03-12">
-    <description> Version 2.0.0 of PolyPass brings many big improvements to PolyPass, including: <ul>
-        <li>Android builds</li>
-        <li>Remote files via FTP</li>
-        <li>Offline access</li>
-        <li>Auto locking</li>
-        <li>Auto clipboard clearing</li>
-        <li>and more!</li>
-      </ul>
-
-    </description>
-  </release>
-  <release version="2.1.0" date="2023-05-07">
-    <description>
-      Unused release
-    </description>
-  </release>
-  <release version="2.2.0" date="2023-05-07">
-    <description>
-      Version 2.2.0 of Polypass adds Flatpak support and fixes capitalization of Polypass.
-      A tar.gz for Linux has been added.
-    </description>
-  </release>
 </component>
