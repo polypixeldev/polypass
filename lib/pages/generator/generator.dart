@@ -132,9 +132,11 @@ class Generator extends StatelessWidget {
                                             .colorScheme
                                             .tertiary,
                                         onChanged: (val) {
-                                          context.read<GeneratorBloc>().add(
-                                              GeneratorEvent.lengthChanged(
-                                                  val.toInt()));
+                                          if (val.toInt() != state.length) {
+                                            context.read<GeneratorBloc>().add(
+                                                GeneratorEvent.lengthChanged(
+                                                    val.toInt()));
+                                          }
                                         })),
                             SizedBox(
                               width: 130,
