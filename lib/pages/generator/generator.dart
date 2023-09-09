@@ -23,15 +23,13 @@ class Generator extends StatelessWidget {
           child: SingleChildScrollView(
             child: BlocProvider(
               create: (context) => GeneratorBloc(),
-              child: BlocBuilder<GeneratorBloc, GeneratorState>(
-                  builder: (context, state) {
+              child: BlocBuilder<GeneratorBloc, GeneratorState>(builder: (context, state) {
                 return Center(
                     child: Container(
                   padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.symmetric(horizontal: 50),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(10)),
+                      color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     Text('Random Password Generator',
                         textAlign: TextAlign.center,
@@ -45,59 +43,47 @@ class Generator extends StatelessWidget {
                           children: [
                             Container(
                                 decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 padding: const EdgeInsets.all(5),
-                                constraints:
-                                    const BoxConstraints(minWidth: 750),
+                                constraints: const BoxConstraints(minWidth: 750),
                                 child: Text(state.generatedPassword,
                                     textAlign: constraints.maxWidth < 500
                                         ? TextAlign.center
                                         : TextAlign.left,
                                     style: TextStyle(
-                                        fontSize: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .fontSize,
+                                        fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                                         fontFamily: 'monospace',
                                         color: Colors.black))),
                             IconButton(
                               icon: const Icon(Icons.refresh),
                               tooltip: 'Regenerate password',
                               onPressed: () {
-                                context.read<GeneratorBloc>().add(
-                                    const GeneratorEvent.regeneratePassword());
+                                context
+                                    .read<GeneratorBloc>()
+                                    .add(const GeneratorEvent.regeneratePassword());
                               },
                             ),
                             IconButton(
                               icon: const Icon(Icons.copy),
                               tooltip: 'Copy password',
                               onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: state.generatedPassword));
+                                Clipboard.setData(ClipboardData(text: state.generatedPassword));
 
-                                final appSettingsBloc =
-                                    context.read<AppSettingsBloc>();
-                                final seconds = appSettingsBloc.state.settings
-                                    .defaultVaultSettings.clipboardClearSeconds;
+                                final appSettingsBloc = context.read<AppSettingsBloc>();
+                                final seconds = appSettingsBloc
+                                    .state.settings.defaultVaultSettings.clipboardClearSeconds;
 
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text(
                                       'Copied password to clipboard - it will be cleared in $seconds seconds'),
                                 ));
-                                final activityBloc =
-                                    context.read<ActivityBloc>();
-                                activityBloc
-                                    .add(const ActivityEvent.copied(true));
-                                Future.delayed(Duration(seconds: seconds))
-                                    .then((v) {
-                                  Clipboard.setData(
-                                      const ClipboardData(text: ''));
-                                  activityBloc
-                                      .add(const ActivityEvent.copied(false));
+                                final activityBloc = context.read<ActivityBloc>();
+                                activityBloc.add(const ActivityEvent.copied(true));
+                                Future.delayed(Duration(seconds: seconds)).then((v) {
+                                  Clipboard.setData(const ClipboardData(text: ''));
+                                  activityBloc.add(const ActivityEvent.copied(false));
                                 });
                               },
                             )
@@ -108,16 +94,13 @@ class Generator extends StatelessWidget {
                     Column(mainAxisSize: MainAxisSize.min, children: [
                       LayoutBuilder(builder: (context, constraints) {
                         return Flex(
-                          direction: constraints.maxWidth < 500
-                              ? Axis.vertical
-                              : Axis.horizontal,
+                          direction: constraints.maxWidth < 500 ? Axis.vertical : Axis.horizontal,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Text('Length: ',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium),
+                              child:
+                                  Text('Length: ', style: Theme.of(context).textTheme.bodyMedium),
                             ),
                             constraints.maxWidth < 500
                                 ? Container()
@@ -128,26 +111,25 @@ class Generator extends StatelessWidget {
                                         max: 50,
                                         divisions: 50,
                                         value: state.length.toDouble(),
-                                        activeColor: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
+                                        activeColor: Theme.of(context).colorScheme.tertiary,
                                         onChanged: (val) {
-                                          context.read<GeneratorBloc>().add(
-                                              GeneratorEvent.lengthChanged(
-                                                  val.toInt()));
+                                          if (val.toInt() != state.length) {
+                                            context
+                                                .read<GeneratorBloc>()
+                                                .add(GeneratorEvent.lengthChanged(val.toInt()));
+                                          }
                                         })),
                             SizedBox(
                               width: 130,
                               child: SpinBox(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyMedium,
+                                  textStyle: Theme.of(context).textTheme.bodyMedium,
                                   min: 1,
                                   max: 50,
                                   value: state.length.toDouble(),
                                   onChanged: (val) {
-                                    context.read<GeneratorBloc>().add(
-                                        GeneratorEvent.lengthChanged(
-                                            val.toInt()));
+                                    context
+                                        .read<GeneratorBloc>()
+                                        .add(GeneratorEvent.lengthChanged(val.toInt()));
                                   }),
                             ),
                           ],
@@ -158,31 +140,33 @@ class Generator extends StatelessWidget {
                             name: 'Lowercase',
                             value: state.lowercase,
                             onChanged: (val) {
-                              context.read<GeneratorBloc>().add(
-                                  GeneratorEvent.lowercaseChanged(
-                                      val ?? false));
+                              context
+                                  .read<GeneratorBloc>()
+                                  .add(GeneratorEvent.lowercaseChanged(val ?? false));
                             }),
                         GeneratorGroup(
                             name: 'Uppercase',
                             value: state.uppercase,
                             onChanged: (val) {
-                              context.read<GeneratorBloc>().add(
-                                  GeneratorEvent.uppercaseChanged(
-                                      val ?? false));
+                              context
+                                  .read<GeneratorBloc>()
+                                  .add(GeneratorEvent.uppercaseChanged(val ?? false));
                             }),
                         GeneratorGroup(
                             name: 'Numbers',
                             value: state.numbers,
                             onChanged: (val) {
-                              context.read<GeneratorBloc>().add(
-                                  GeneratorEvent.numbersChanged(val ?? false));
+                              context
+                                  .read<GeneratorBloc>()
+                                  .add(GeneratorEvent.numbersChanged(val ?? false));
                             }),
                         GeneratorGroup(
                             name: 'Symbols',
                             value: state.symbols,
                             onChanged: (val) {
-                              context.read<GeneratorBloc>().add(
-                                  GeneratorEvent.symbolsChanged(val ?? false));
+                              context
+                                  .read<GeneratorBloc>()
+                                  .add(GeneratorEvent.symbolsChanged(val ?? false));
                             }),
                       ]),
                     ])
@@ -196,11 +180,7 @@ class Generator extends StatelessWidget {
 }
 
 class GeneratorGroup extends StatelessWidget {
-  const GeneratorGroup(
-      {Key? key,
-      required this.name,
-      required this.value,
-      required this.onChanged})
+  const GeneratorGroup({Key? key, required this.name, required this.value, required this.onChanged})
       : super(key: key);
 
   final String name;
