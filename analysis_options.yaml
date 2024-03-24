@@ -11,3 +11,4 @@ analyzer:
     invalid_annotation_target: false
   exclude:
     - "**/*.g.dart"
+    - "**/*.freezed.dart"

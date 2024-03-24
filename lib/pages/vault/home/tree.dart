@@ -47,7 +47,8 @@ class Tree extends StatelessWidget {
                 TreeGroup(group: group.group, path: [group.group.name]))
           ]);
         },
-        onAccept: (pathStr) async {
+        onAcceptWithDetails: (details) async {
+          final pathStr = details.data;
           final componentPath = pathStr.split('.');
           final componentData = unlockedState.vault.getComponent(componentPath);
           var updatedVault = unlockedState.vault.deleteComponent(componentPath);
@@ -70,7 +71,8 @@ class Tree extends StatelessWidget {
 
           vaultBloc.add(VaultEvent.updated(updatedVault, masterKey));
         },
-        onWillAccept: (pathStr) {
+        onWillAcceptWithDetails: (details) {
+          final pathStr = details.data;
           if (unlockedState.selectedGroup?.join('.') == pathStr ||
               unlockedState.selectedItem?.join('.') == pathStr) {
             return false;
@@ -303,7 +305,8 @@ class TreeGroup extends StatelessWidget {
                     ),
                   );
                 },
-                onAccept: (pathStr) async {
+                onAcceptWithDetails: (details) async {
+                  final pathStr = details.data;
                   final componentPath = pathStr.split('.');
                   final componentData =
                       unlockedState.vault.getComponent(componentPath);
@@ -324,7 +327,8 @@ class TreeGroup extends StatelessWidget {
 
                   vaultBloc.add(VaultEvent.updated(updatedVault, masterKey));
                 },
-                onWillAccept: (pathStr) {
+                onWillAcceptWithDetails: (details) {
+                  final pathStr = details.data;
                   if (unlockedState.selectedGroup?.join('.') == pathStr ||
                       unlockedState.selectedItem?.join('.') == pathStr ||
                       path.join('.') == pathStr) {

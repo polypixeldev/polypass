@@ -79,10 +79,10 @@ class Home extends StatelessWidget {
                                               context, 'open');
 
                                           if (url != null) {
-                                            vaultBloc.add(
+                                            vaultBloc.add(VaultEvent.opened(
+                                                url,
                                                 // ignore: use_build_context_synchronously
-                                                VaultEvent.opened(
-                                                    url, context));
+                                                context));
 
                                             scaffoldManager.showSnackBar(
                                                 const SnackBar(
