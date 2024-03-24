@@ -6,6 +6,11 @@
   <summary>A simple, secure, and easy to use password manager</summary>
   <url type="homepage">https://github.com/polypixeldev/polypass</url>
   <url type="bugtracker">https://github.com/polypixeldev/polypass/issues</url>
+  <url type="vcs-browser">https://github.com/polypixeldev/polypass</url>
+  <categories>
+    <category>Utility</category>
+  </categories>
+
 
   <metadata_license>MIT</metadata_license>
   <project_license>GPL-3.0</project_license>
